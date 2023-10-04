@@ -63,9 +63,28 @@ public class Servlet extends HttpServlet {
 		try {
 			
 			switch (action) {
-			case "/login":
+			case "/login-usuario":
 				mostrarFormularioLogin(request, response);
 				break;
+			case "/cadastro-usuario":
+				mostrarFormularioCadastroUsuario(request, response);
+				break;
+			case "/ranque-usuario":
+				mostrarRanque(request, response);
+				break;
+			case "/perfil-usuario":
+				mostrarPerfilUsuario(request, response);
+				break;
+			case "/cadastro-estabelecimento":
+				mostrarFormularioCadastroEstabelecimento(request, response);
+				break;
+			case "/avaliacao-estabelecimento":
+				mostrarFormularioAvaliacaoEstabelecimento(request, response);
+				break;
+			case "/cadastrar-comentario";
+				mostrarFormularioComentario(request, response);
+				break;
+				
 			}} catch (SQLException ex) {
 				throw new ServletException(ex);
 			}
