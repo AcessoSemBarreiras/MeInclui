@@ -9,6 +9,8 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 
+import meinclui.modelo.entidade.avaliacao.Avaliacao;
+import meinclui.modelo.entidade.avaliacao.Avaliacao_;
 import meinclui.modelo.entidade.categoria.Categoria;
 import meinclui.modelo.entidade.categoria.Categoria_;
 import meinclui.modelo.entidade.endereco.Endereco;
@@ -208,7 +210,7 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
 
 			criteria.select(raizEstabelecimento);
-			criteria.orderBy(construtor.desc(raizEstabelecimento.get(Estabelecimento_.PONTO_ACESSIBILIDADE)));
+			criteria.orderBy(construtor.desc(raizEstabelecimento.get(Estabelecimento_.pontoAcessibilidade)));
 
 			estabelecimentos = sessao.createQuery(criteria).getResultList();
 
@@ -250,7 +252,7 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
 
 			criteria.select(raizEstabelecimento);
-			criteria.orderBy(construtor.asc(raizEstabelecimento.get(Estabelecimento_.PONTO_ACESSIBILIDADE)));
+			criteria.orderBy(construtor.asc(raizEstabelecimento.get(Estabelecimento_.pontoAcessibilidade)));
 
 			estabelecimentos = sessao.createQuery(criteria).getResultList();
 
@@ -319,6 +321,48 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 		return estabelecimentos;
 	}
 
+	public List<Estabelecimento> recuperarEstabelecimentoEstado(String localidade) {
+		Session sessao = null;
+		List<Estabelecimento> estabelecimentos = null;
+
+		try {
+
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+
+			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
+			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
+			Join<Estabelecimento, Endereco> endereco = raizEstabelecimento.join(Estabelecimento_.endereco);
+
+			criteria.select(raizEstabelecimento);
+			criteria.where(construtor.like(endereco.get(Endereco_.estado), localidade));
+
+			estabelecimentos = sessao.createQuery(criteria).getResultList();
+
+			sessao.getTransaction().commit();
+
+		} catch (Exception sqlException) {
+
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+
+				sessao.getTransaction().rollback();
+
+			}
+		} finally {
+
+			if (sessao != null) {
+				sessao.close();
+			}
+
+		}
+
+		return estabelecimentos;
+	}
+	
 	public List<Estabelecimento> recuperarEstabelecimentoCidade(String localidade) {
 
 		Session sessao = null;
@@ -333,7 +377,7 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
-			Join<Estabelecimento, Endereco> endereco = raizEstabelecimento.join(Estabelecimento_.ENDERECO);
+			Join<Estabelecimento, Endereco> endereco = raizEstabelecimento.join(Estabelecimento_.endereco);
 
 			criteria.select(raizEstabelecimento);
 			criteria.where(construtor.like(endereco.get(Endereco_.cidade), "%" + localidade + "%"));
@@ -378,7 +422,7 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
-			Join<Estabelecimento, Endereco> endereco = raizEstabelecimento.join(Estabelecimento_.ENDERECO);
+			Join<Estabelecimento, Endereco> endereco = raizEstabelecimento.join(Estabelecimento_.endereco);
 
 			criteria.select(raizEstabelecimento);
 			criteria.where(construtor.like(endereco.get(Endereco_.bairro), localidade));
@@ -421,7 +465,7 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
-			Join<Estabelecimento, Endereco> endereco = raizEstabelecimento.join(Estabelecimento_.ENDERECO);
+			Join<Estabelecimento, Endereco> endereco = raizEstabelecimento.join(Estabelecimento_.endereco);
 
 			criteria.select(raizEstabelecimento);
 			criteria.where(construtor.like(endereco.get(Endereco_.logradouro), localidade));
@@ -464,7 +508,7 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
-			Join<Estabelecimento, Categoria> categoria = raizEstabelecimento.join(Estabelecimento_.CATEGORIA);
+			Join<Estabelecimento, Categoria> categoria = raizEstabelecimento.join(Estabelecimento_.categoria);
 
 			criteria.select(raizEstabelecimento);
 			criteria.where(construtor.like(categoria.get(Categoria_.nomeCategoria), nomeCategoria));
@@ -493,9 +537,45 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 		return estabelecimentos;
 	}
 
-	public List<Estabelecimento> recuperarEstabelecimentoEstado(String localidade) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<Estabelecimento> recuperarEstabelecimentoAvaliado(Long idUsuario){
+		Session sessao = null;
+		List<Estabelecimento> estabelecimentos = null;
 
+		try {
+
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+
+			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
+			Root<Avaliacao> raizAvaliacao = criteria.from(Avaliacao.class);
+			Join<Avaliacao, Estabelecimento> avaliacaoJoin = raizAvaliacao.join(Avaliacao_.estabelecimento);
+			
+			criteria.select(avaliacaoJoin);
+			criteria.where(construtor.equal(raizAvaliacao.get(Avaliacao_.usuario), idUsuario));
+			
+			estabelecimentos = sessao.createQuery(criteria).getResultList();
+			
+			sessao.getTransaction().commit();
+			
+		} catch (Exception sqlException) {
+
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+
+				sessao.getTransaction().rollback();
+
+			}
+		} finally {
+
+			if (sessao != null) {
+				sessao.close();
+			}
+
+		}
+
+		return estabelecimentos;
+	}	
 }

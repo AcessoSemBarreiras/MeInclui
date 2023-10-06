@@ -19,7 +19,7 @@ public interface EstabelecimentoDAO {
 	List<Estabelecimento> recuperarEstabelecimentoOrdenadoMenorNota();
 
 	Estabelecimento recuperarEstabelecimentoId(Long idEstabelecimento);
-	
+
 	List<Estabelecimento> recuperarEstabelecimentoNome(String nomeEstabelecimento);
 
 	List<Estabelecimento> recuperarEstabelecimentoEstado(String localidade);
@@ -31,5 +31,7 @@ public interface EstabelecimentoDAO {
 	List<Estabelecimento> recuperarEstabelecimentoLogradouro(String localidade);
 
 	List<Estabelecimento> recuperarEstabelecimentoCategoria(String nomeCategoria);
+
+	List<Estabelecimento> recuperarEstabelecimentoAvaliado(Long idUsuario);
 
 }

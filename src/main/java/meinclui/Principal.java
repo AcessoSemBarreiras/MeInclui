@@ -1,6 +1,5 @@
 package meinclui;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -519,9 +518,17 @@ public class Principal {
 			System.out.println("Pontuação: " + tuple.get(2, Long.class));
 		}
 		
-	}
-	
-	
 		
+		
+		EstabelecimentoDAO estabDao = new EstabelecimentoDAOImpl();
+		List<Estabelecimento> estab = estabDao.recuperarEstabelecimentoAvaliado((long) 1);
+
+		for(
+		Estabelecimento e:estab)
+		{
+			System.out.println(e.getNome());
+		}
+		
+	}
 	
 }
