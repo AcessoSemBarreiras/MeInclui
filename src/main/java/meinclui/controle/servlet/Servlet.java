@@ -2,7 +2,9 @@ package meinclui.controle.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +27,7 @@ import meinclui.modelo.dao.estabelecimento.EstabelecimentoDAO;
 import meinclui.modelo.dao.estabelecimento.EstabelecimentoDAOImpl;
 import meinclui.modelo.dao.usuario.UsuarioDAO;
 import meinclui.modelo.dao.usuario.UsuarioDAOImpl;
+import meinclui.modelo.entidade.usuario.Usuario;
 
 @WebServlet("/")
 public class Servlet extends HttpServlet {
@@ -106,7 +109,7 @@ public class Servlet extends HttpServlet {
 				break;
 			case "/perfil-estabelecimento":
 				mostrarPerfilEstabelecimento(request, response);
-				break;
+       			break;
 			case "/avaliacao-estabelecimento":
 				mostrarFormularioAvaliacaoEstabelecimento(request, response);
 				break;
@@ -172,5 +175,93 @@ public class Servlet extends HttpServlet {
 			}
 		}
 	
+private void mostrarTelaInicial(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException{
+				
+	RequestDispatcher dispatcher = request.getRequestDispatcher("/tela-inicial");
+	dispatcher.forward(request, response);
+}
+		
+private void mostrarFormularioCadastroUsuario(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException{
+	
+	RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-usuario.jsp");
+	dispatcher.forward(request, response);		
+}
+
+private void mostrarPerfilUsuario(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException{
+	
+	RequestDispatcher dispatcher = request.getRequestDispatcher("/perfil-usuario");
+	dispatcher.forward(request, response);		
+}
+
+private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException{
+	
+	RequestDispatcher dispatcher = request.getRequestDispatcher("/login-usuario");
+	dispatcher.forward(request, response);		
+}
+
+
+
+private void mostrarFormularioCadastroEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException{
+	
+	RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastro-estabelecimento");
+	dispatcher.forward(request, response);		
+}
+
+private void mostrarFormularioCadastroComentario(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException{
+	
+	RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastrar-comentario");
+	dispatcher.forward(request, response);		
+}
+
+private void mostrarRanque(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException{
+	
+	RequestDispatcher dispatcher = request.getRequestDispatcher("/ranque-usuario");
+	dispatcher.forward(request, response);		
+}
+
+private void mostrarFormularioAvaliacaoEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException{
+	
+	RequestDispatcher dispatcher = request.getRequestDispatcher("/avaliacao-estabelecimento");
+	dispatcher.forward(request, response);		
+}
+
+
+	
+private void inserirUsuario(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+	
+	String nome = request.getParameter("nome-usuario");
+	String cpf = request.getParameter("cpf-usuario");
+	String senha = request.getParameter("senha-usuario");
+	String email = request.getParameter("email-usuario");
+		String pronome = request.getParameter("pronome-usuario");
+		String nomeDeUsuario = request.getParameter("nome-de-usuario");
+		LocalDate data = LocalDate.parse(request.getParameter("data-nascimento-usuario"));
+		usuarioDAO.inserirUsuario(new Usuario(nome, pronome, nomeDeUsuario, email, cpf, senha, data ));
+		response.sendRedirect("cadastro-usuario");
+}
+
+
+private void atualizarUsuario(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+	
+	Long id = Long.parseLong(request.getParameter("id-usuario"));
+	String pronome = request.getParameter("pronome-usuario");
+	String email = request.getParameter("email-usuario");
+		String nomeDeUsuario = request.getParameter("nome-de-usuario");
+	String senha = request.getParameter("senha-usuario");
+	String nome = request.getParameter("nome-usuario");
+	String cpf = request.getParameter("cpf-usuario");
+		LocalDate data = LocalDate.parse(request.getParameter("data-nascimento-usuario")); 		
+	usuarioDAO.atualizarUsuario(new Usuario(id, nome, pronome, nomeDeUsuario, email, cpf, senha, data));
+		response.sendRedirect(""); 		  		
+}
+
 }
 
