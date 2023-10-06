@@ -3,8 +3,6 @@ package meinclui.modelo.dao.comentario;
 import java.util.List;
 
 import meinclui.modelo.entidade.comentario.Comentario;
-import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
-import meinclui.modelo.entidade.usuario.Usuario;
 
 public interface ComentarioDAO {
 
@@ -34,4 +32,5 @@ public interface ComentarioDAO {
 
 	List<Comentario> recuperarComentariosUsuarioOrdenadoMaisRecente(Long idUsuario);
 
+	List<Comentario> recuperarComentariosRespostas(int idComentario);
 }

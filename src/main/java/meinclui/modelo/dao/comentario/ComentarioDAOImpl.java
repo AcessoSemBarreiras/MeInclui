@@ -10,8 +10,6 @@ import org.hibernate.Session;
 
 import meinclui.modelo.entidade.comentario.Comentario;
 import meinclui.modelo.entidade.comentario.Comentario_;
-import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
-import meinclui.modelo.entidade.usuario.Usuario;
 import meinclui.modelo.factory.conexao.ConexaoFactory;
 
 public class ComentarioDAOImpl implements ComentarioDAO {
@@ -540,6 +538,48 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 
 		return comentarios;
 
+	}
+
+	public List<Comentario> recuperarComentariosRespostas(int idComentario) {
+		Session sessao = null;
+		List<Comentario> comentarios = null;
+
+		try {
+
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+
+			CriteriaQuery<Comentario> criteria = construtor.createQuery(Comentario.class);
+			Root<Comentario> raizComentario = criteria.from(Comentario.class);
+
+			criteria.select(raizComentario);
+			criteria.where(construtor.equal(raizComentario.get(Comentario_.comentarioRespondido), idComentario));
+			criteria.orderBy(construtor.desc(raizComentario.get(Comentario_.data)));
+
+			comentarios = sessao.createQuery(criteria).getResultList();
+
+			sessao.getTransaction().commit();
+
+		} catch (Exception sqlException) {
+
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+
+				sessao.getTransaction().rollback();
+
+			}
+		} finally {
+
+			if (sessao != null) {
+				sessao.close();
+			}
+
+		}
+
+		return comentarios;
 	}
 
 }
