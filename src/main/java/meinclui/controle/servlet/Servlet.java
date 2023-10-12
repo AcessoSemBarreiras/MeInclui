@@ -31,7 +31,7 @@ import meinclui.modelo.entidade.usuario.Usuario;
 
 @WebServlet("/")
 public class Servlet extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
 	private AvaliacaoDAO avaliacaoDAO;
 	private CategoriaDAO categoriaDAO;
@@ -41,7 +41,7 @@ public class Servlet extends HttpServlet {
 	private EstabelecimentoDAO estabelecimentoDAO;
 	private UsuarioDAO usuarioDAO;
 	private UsuarioTemConquistaDAO usuarioTemConquistaDAO;
-	
+
 	public void init() {
 		avaliacaoDAO = new AvaliacaoDAOImpl();
 		categoriaDAO = new CategoriaDAOImpl();
@@ -52,24 +52,24 @@ public class Servlet extends HttpServlet {
 		usuarioDAO = new UsuarioDAOImpl();
 		usuarioTemConquistaDAO = new UsuarioTemConquistaDAOImpl();
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String action = request.getServletPath();
-		
+
 		try {
-			
+
 			switch (action) {
 			case "/tela-inicial":
 				mostrarTelaInicial(request, response);
 				break;
-				
+
 			case "/login-usuario":
 				mostrarFormularioLogin(request, response);
 				break;
@@ -94,7 +94,7 @@ public class Servlet extends HttpServlet {
 			case "/editar-perfil-usuario":
 				mostrarFormularioEditarUsuario(request, response);
 				break;
-				
+
 			case "/cadastro-estabelecimento":
 				mostrarFormularioCadastroEstabelecimento(request, response);
 				break;
@@ -109,9 +109,6 @@ public class Servlet extends HttpServlet {
 				break;
 			case "/perfil-estabelecimento":
 				mostrarPerfilEstabelecimento(request, response);
-       			break;
-			case "/avaliacao-estabelecimento":
-				mostrarFormularioAvaliacaoEstabelecimento(request, response);
 				break;
 			case "/encontrar-estabelecimentos":
 				mostrarTelaPesquisaEstabelecimento(request, response);
@@ -119,7 +116,7 @@ public class Servlet extends HttpServlet {
 			case "/editar-perfil-estabelecimento":
 				mostrarFormularioEditarEstabelecimento(request, response);
 				break;
-				
+
 			case "/cadastrar-comentario":
 				mostrarFormularioCadastroComentario(request, response);
 				break;
@@ -135,9 +132,9 @@ public class Servlet extends HttpServlet {
 			case "/recuperar-comentario":
 				recuperarComentario(request, response);
 				break;
-				
-			case "/cadastrar-avaliacao":
-				mostrarFormularioCadastroAvaliacao(request, response);
+
+			case "/avaliacao-estabelecimento":
+				mostrarFormularioAvaliacaoEstabelecimento(request, response);
 				break;
 			case "/inserir-avaliacao":
 				inserirAvaliacao(request, response);
@@ -151,7 +148,7 @@ public class Servlet extends HttpServlet {
 			case "/recuperar-avaliacao":
 				recuperarAvaliacao(request, response);
 				break;
-				
+
 			case "/cadastrar-endereco":
 				mostrarFormularioCadastroEndereco(request, response);
 				break;
@@ -167,101 +164,207 @@ public class Servlet extends HttpServlet {
 			case "/recuperar-endereco":
 				recuperarEndereco(request, response);
 				break;
-			
-			
-			
-			}} catch (SQLException ex) {
-				throw new ServletException(ex);
+
 			}
+		} catch (SQLException ex) {
+			throw new ServletException(ex);
 		}
-	
-private void mostrarTelaInicial(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException{
-				
-	RequestDispatcher dispatcher = request.getRequestDispatcher("/tela-inicial");
-	dispatcher.forward(request, response);
-}
-		
-private void mostrarFormularioCadastroUsuario(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException{
-	
-	RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-usuario.jsp");
-	dispatcher.forward(request, response);		
-}
+	}
 
-private void mostrarPerfilUsuario(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException{
-	
-	RequestDispatcher dispatcher = request.getRequestDispatcher("/perfil-usuario");
-	dispatcher.forward(request, response);		
-}
+	/* TELA INICIAL */
+	private void mostrarTelaInicial(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException{
-	
-	RequestDispatcher dispatcher = request.getRequestDispatcher("/login-usuario");
-	dispatcher.forward(request, response);		
-}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		dispatcher.forward(request, response);
+	}
 
+	/* ENDEREÇO */
+	private void mostrarFormularioCadastroEndereco(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
 
+	}
 
-private void mostrarFormularioCadastroEstabelecimento(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException{
-	
-	RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastro-estabelecimento");
-	dispatcher.forward(request, response);		
-}
+	private void recuperarEndereco(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
 
-private void mostrarFormularioCadastroComentario(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException{
-	
-	RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastrar-comentario");
-	dispatcher.forward(request, response);		
-}
+	}
 
-private void mostrarRanque(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException{
-	
-	RequestDispatcher dispatcher = request.getRequestDispatcher("/ranque-usuario");
-	dispatcher.forward(request, response);		
-}
+	private void atualizarEndereco(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
 
-private void mostrarFormularioAvaliacaoEstabelecimento(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException{
-	
-	RequestDispatcher dispatcher = request.getRequestDispatcher("/avaliacao-estabelecimento");
-	dispatcher.forward(request, response);		
-}
+	}
 
+	private void deletarEndereco(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
 
-	
-private void inserirUsuario(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
-	
-	String nome = request.getParameter("nome-usuario");
-	String cpf = request.getParameter("cpf-usuario");
-	String senha = request.getParameter("senha-usuario");
-	String email = request.getParameter("email-usuario");
+	}
+
+	private void inserirEndereco(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/* AVALIAÇÃO */
+	private void mostrarFormularioAvaliacaoEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/avaliacao-estabelecimento");
+		dispatcher.forward(request, response);
+	}
+
+	private void inserirAvaliacao(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void recuperarAvaliacao(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void atualizarAvaliacao(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void deletarAvaliacao(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/* COMENTÁRIO */
+	private void mostrarFormularioCadastroComentario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastrar-comentario");
+		dispatcher.forward(request, response);
+	}
+
+	private void recuperarComentario(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void atualizarComentario(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void deletarComentario(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void inserirComentario(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/* ESTABELECIMENTO */
+	private void mostrarFormularioCadastroEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastro-estabelecimento");
+		dispatcher.forward(request, response);
+	}
+
+	private void mostrarFormularioEditarEstabelecimento(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void mostrarTelaPesquisaEstabelecimento(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void mostrarPerfilEstabelecimento(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void atualizarEstabelecimento(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void deletarEstabelecimento(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void inserirEstabelecimento(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/* USUÁRIO */
+	private void mostrarFormularioCadastroUsuario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-usuario.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void inserirUsuario(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
+
+		String nome = request.getParameter("nome-usuario");
+		String nomeDeUsuario = request.getParameter("nome-de-usuario");
+		String cpf = request.getParameter("cpf-usuario");
+		String email = request.getParameter("email-usuario");
 		String pronome = request.getParameter("pronome-usuario");
-		String nomeDeUsuario = request.getParameter("nome-de-usuario");
 		LocalDate data = LocalDate.parse(request.getParameter("data-nascimento-usuario"));
-		usuarioDAO.inserirUsuario(new Usuario(nome, pronome, nomeDeUsuario, email, cpf, senha, data ));
-		response.sendRedirect("cadastro-usuario");
-}
+		String senha = request.getParameter("senha-usuario");
+		usuarioDAO.inserirUsuario(new Usuario(nome, pronome, nomeDeUsuario, email, cpf, senha, data));
+		response.sendRedirect("tela-inicial");
+	}
+	private void atualizarUsuario(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
 
-
-private void atualizarUsuario(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
-	
-	Long id = Long.parseLong(request.getParameter("id-usuario"));
-	String pronome = request.getParameter("pronome-usuario");
-	String email = request.getParameter("email-usuario");
+		Long id = Long.parseLong(request.getParameter("id-usuario"));
+		String pronome = request.getParameter("pronome-usuario");
+		String email = request.getParameter("email-usuario");
 		String nomeDeUsuario = request.getParameter("nome-de-usuario");
-	String senha = request.getParameter("senha-usuario");
-	String nome = request.getParameter("nome-usuario");
-	String cpf = request.getParameter("cpf-usuario");
-		LocalDate data = LocalDate.parse(request.getParameter("data-nascimento-usuario")); 		
-	usuarioDAO.atualizarUsuario(new Usuario(id, nome, pronome, nomeDeUsuario, email, cpf, senha, data));
-		response.sendRedirect(""); 		  		
-}
+		String senha = request.getParameter("senha-usuario");
+		String nome = request.getParameter("nome-usuario");
+		String cpf = request.getParameter("cpf-usuario");
+		LocalDate data = LocalDate.parse(request.getParameter("data-nascimento-usuario"));
+		usuarioDAO.atualizarUsuario(new Usuario(id, nome, pronome, nomeDeUsuario, email, cpf, senha, data));
+		response.sendRedirect("");
+	}
+	private void mostrarPerfilUsuario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Usuario usuario = usuarioDAO.recuperarUsuarioId(1L);
+		request.setAttribute("usuario", usuario);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-usuario.jsp");
+		dispatcher.forward(request, response);
+		System.out.println("metodo perfil usuario chamado");
+		System.out.println(usuario.getNome());
+	}
 
-}
+	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/login-usuario");
+		dispatcher.forward(request, response);
+	}
+
+	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void deletarUsuario(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void mostrarRanque(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/ranque-usuario");
+		dispatcher.forward(request, response);
+	}
+}

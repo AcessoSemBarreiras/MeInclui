@@ -17,13 +17,15 @@ public interface UsuarioDAO {
 
 	List<Usuario> recuperarUsuarios();	
 	
+	Usuario recuperarUsuarioId(Long id);
+	
 	List<Tuple> recuperarUsuariosMaiorRanque();
 	
 	List<Tuple> recuperarUsuariosMaiorRanqueDia(LocalDate data);
 	
 	List<Tuple> recuperarUsuariosMaiorRanqueSemana(LocalDate sabado, LocalDate domingo);
 	
-	public List<Tuple> recuperarUsuariosMaiorRanqueMes(LocalDate primeiroDia, LocalDate ultimoDia);
+	List<Tuple> recuperarUsuariosMaiorRanqueMes(LocalDate primeiroDia, LocalDate ultimoDia);
 	
 	
 	int recuperarPontuacaoUsuario(Long idUsuario);
