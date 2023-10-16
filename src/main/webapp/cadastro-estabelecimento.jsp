@@ -12,7 +12,7 @@
         <div id="cabecalho">
             <h1>Cadastre o Estabelecimento</h1>
         </div>
-            <form id="regForm">
+            <form id="regForm" action="inserir-estabelecimento">
 
                 <div class="indentificador">
                     <p>1 - 2</p> 

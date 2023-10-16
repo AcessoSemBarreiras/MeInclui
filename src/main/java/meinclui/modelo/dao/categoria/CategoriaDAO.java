@@ -14,7 +14,7 @@ public interface CategoriaDAO {
 
 	List<Categoria> recuperarCategorias();
 
-	List<Categoria> recuperarCategoriaNome(String nomeCategoria);
+	Categoria recuperarCategoriaNome(String nomeCategoria);
 	
 	Categoria recuperarCategoriaId(int idCategoria);
 }
