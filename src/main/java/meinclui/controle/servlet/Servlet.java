@@ -384,8 +384,10 @@ public class Servlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("editar-perfil-usuario.jsp");
+		dispatcher.forward(request, response);
 
 	}
 

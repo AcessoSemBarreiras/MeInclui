@@ -66,7 +66,7 @@
         <a rel="stylesheet" href=""> voltar -> </a>
       </div>
 
-      <div class="es-titulo">
+      <div class="titulo">
         <h1>Esqueceu a Senha?</h1>
       </div>
 
@@ -102,7 +102,7 @@
         <a rel="stylesheet" href=""> voltar -> </a>
       </div>
 
-      <div class="vs-titulo">
+      <div class="titulo">
         <h1>Verificação</h1>
       </div>
 
@@ -138,7 +138,7 @@
         <a rel="stylesheet" href=""> voltar -> </a>
       </div>
 
-      <div class="rs-titulo">
+      <div class="titulo">
         <h1>Redefina sua senha</h1>
       </div>
 
