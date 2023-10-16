@@ -53,7 +53,7 @@ public class Estabelecimento implements Serializable {
 	}
 
 	
-	public Estabelecimento(Long idEstabelecimento, Categoria categoria, String nome, double pontoAcessibilidade,
+	public Estabelecimento(Long idEstabelecimento, Categoria categoria, String nome,
 			Endereco endereco) {
 		setIdEstabelecimento(idEstabelecimento);
 		setCategoria(categoria);
@@ -61,14 +61,6 @@ public class Estabelecimento implements Serializable {
 		setPontoAcessibilidade(pontoAcessibilidade);
 		setEndereco(endereco);
 	}
-/*
-	public Estabelecimento(Categoria categoria, String nome, double pontoAcessibilidade, Endereco endereco) {
-		setCategoria(categoria);
-		setNome(nome);
-		setPontoAcessibilidade(pontoAcessibilidade);
-		setEndereco(endereco);
-	}
-*/
 	
 	public Estabelecimento(Categoria categoria, String nome, Endereco endereco) {
 		setCategoria(categoria);

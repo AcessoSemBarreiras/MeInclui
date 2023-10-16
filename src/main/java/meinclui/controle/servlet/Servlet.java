@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -246,31 +247,52 @@ public class Servlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	private void recuperarComentario(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void recuperarComentario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(1);
+		request.setAttribute("comentario", comentarios);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento.jsp");
+		dispatcher.forward(request, response);
 
 	}
 
-	private void atualizarComentario(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void deletarComentario(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void inserirComentario(HttpServletRequest request, HttpServletResponse response) {
+	private void atualizarComentario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
+		int id = Integer.parseInt(request.getParameter("id"));
 		String comentario = request.getParameter("comentario");
 		Comentario comentarioRespondido = Comentario.class.cast(request.getParameter("comentario-respondido"));
 		Usuario usuario = Usuario.class.cast(request.getParameter("usuario"));
 		Estabelecimento estabelecimento = Estabelecimento.class.cast("estabelecimento");
 		ZonedDateTime data = ZonedDateTime.class.cast("data");
-		comentarioDAO.inserirComentario(comentario, comentarioRespondido, usuario, estabelecimento, data);
+	
+		comentarioDAO.atualizarComentario(new Comentario(id, comentario, comentarioRespondido, usuario, estabelecimento, data));
 		response.sendRedirect("tela-inicial");
-		
+
+	}
+
+	private void deletarComentario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		int id = Integer.parseInt(request.getParameter("id-comentario"));
+		comentarioDAO.deletarComentario(id);
+		response.sendRedirect("tela-inicial");
+
+	}
+
+	private void inserirComentario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String comentario = request.getParameter("comentario");
+		Comentario comentarioRespondido = Comentario.class.cast(request.getParameter("comentario-respondido"));
+		Usuario usuario = Usuario.class.cast(request.getParameter("usuario"));
+		Estabelecimento estabelecimento = Estabelecimento.class.cast("estabelecimento");
+		ZonedDateTime data = ZonedDateTime.class.cast("data");
+		comentarioDAO
+				.inserirComentario(new Comentario(comentario, comentarioRespondido, usuario, estabelecimento, data));
+		response.sendRedirect("tela-inicial");
+
 	}
 
 	/* ESTABELECIMENTO */
@@ -298,14 +320,8 @@ public class Servlet extends HttpServlet {
 	private void mostrarPerfilEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(4L);
-
-			request.setAttribute( "id-estabelecimento", estabelecimento);
-			request.setAttribute( "categoria-estabelecimento", estabelecimento);
-			request.setAttribute( "nome-estabelecimento", estabelecimento);
-			request.setAttribute( "ponto-estabelecimento", estabelecimento);
-			request.setAttribute( "endereco-estabelecimento", estabelecimento);
-		
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(2L);
+		request.setAttribute("estabelecimento", estabelecimento);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento.jsp");
 		dispatcher.forward(request, response);
@@ -313,25 +329,8 @@ public class Servlet extends HttpServlet {
 
 	private void atualizarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
-		Long id = Long.parseLong(request.getParameter("id-estabelecimento"));
-		Categoria categoria = Categoria.class.cast(request.getParameter("categoria-estabelecimento"));
-		String nome = request.getParameter("nome-estabelecimento");
-		double pontoAcessibilidade = double.class.cast(request.getParameter("ponto-acessibilidade"));
-		Endereco endereco = Endereco.class.cast(request.getParameter("endereco-estabelecimento"));
-		estabelecimentoDAO.atualizarEstabelecimento(new Estabelecimento(id, categoria, nome, pontoAcessibilidade, endereco));
-		response.sendRedirect("cadastro-estabelecimento");
-	}
-
-	private void deletarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
-		Long id = Long.parseLong(request.getParameter("id-estabelecimento"));
-		estabelecimentoDAO.deletarEstabelecimento(id);
-		response.sendRedirect("cadastro-estabelecimento");
-	}
-
-	private void inserirEstabelecimento(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException{
-	
+		
+		int idEndereco = Integer.parseInt(request.getParameter("id-endereco"));
 		String logradouro = request.getParameter("logradouro");
 		String tipoLogradouro = request.getParameter("tipo_logradouro");
 		int numero = Integer.parseInt(request.getParameter("numero"));
@@ -339,13 +338,42 @@ public class Servlet extends HttpServlet {
 		String bairro = request.getParameter("bairro");
 		String cidade = request.getParameter("cidade");
 		String estado = request.getParameter("estado");
-		
-		Endereco endereco = new Endereco(logradouro, tipoLogradouro, numero, complemento, bairro, cidade, estado);
+
+		Endereco endereco = new Endereco(idEndereco, logradouro, tipoLogradouro, numero, complemento, bairro, cidade, estado);
 		enderecoDAO.inserirEndereco(endereco);
 		
+		Long idEstabelecimento = Long.parseLong(request.getParameter("id-estabelecimento"));
+		Categoria categoria = Categoria.class.cast(request.getParameter("categoria"));
+		String nome = request.getParameter("nome");
+
+		estabelecimentoDAO
+				.atualizarEstabelecimento(new Estabelecimento(idEstabelecimento, categoria, nome, endereco));
+		response.sendRedirect("tela-inicial");
+	}
+
+	private void deletarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
+		Long id = Long.parseLong(request.getParameter("id-estabelecimento"));
+		estabelecimentoDAO.deletarEstabelecimento(id);
+		response.sendRedirect("tela-inicial");
+	}
+
+	private void inserirEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
+
+		String logradouro = request.getParameter("logradouro");
+		String tipoLogradouro = request.getParameter("tipo_logradouro");
+		int numero = Integer.parseInt(request.getParameter("numero"));
+		String complemento = request.getParameter("complemento");
+		String bairro = request.getParameter("bairro");
+		String cidade = request.getParameter("cidade");
+		String estado = request.getParameter("estado");
+
+		Endereco endereco = new Endereco(logradouro, tipoLogradouro, numero, complemento, bairro, cidade, estado);
+		enderecoDAO.inserirEndereco(endereco);
+
 		Categoria categoria = categoriaDAO.recuperarCategoriaNome(request.getParameter("categoria"));
 		String nome = request.getParameter("nome");
-		//double pontoAcessibilidade = double.class.cast(request.getParameter("ponto-acessibilidade"));
 		estabelecimentoDAO.inserirEstabelecimento(new Estabelecimento(categoria, nome, endereco));
 		response.sendRedirect("tela-inicial");
 	}
@@ -371,6 +399,7 @@ public class Servlet extends HttpServlet {
 		usuarioDAO.inserirUsuario(new Usuario(nome, pronome, nomeDeUsuario, email, cpf, senha, data));
 		response.sendRedirect("tela-inicial");
 	}
+
 	private void atualizarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 
@@ -385,6 +414,7 @@ public class Servlet extends HttpServlet {
 		usuarioDAO.atualizarUsuario(new Usuario(id, nome, pronome, nomeDeUsuario, email, cpf, senha, data));
 		response.sendRedirect("");
 	}
+
 	private void mostrarPerfilUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Usuario usuario = usuarioDAO.recuperarUsuarioId(3L);
