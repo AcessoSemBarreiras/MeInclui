@@ -20,5 +20,4 @@ public interface ConquistaDAO {
 	List<Conquista> recuperarConquistasMenorNivel(Long idUsuario);
 	List<Conquista> recuperarConquistasMaiorReputacao(Long idUsuario);
 	List<Conquista> recuperarConquistasMenorReputacao(Long idUsuario);
-	Conquista recuperarConquistaId(Long idConquista);
 }
