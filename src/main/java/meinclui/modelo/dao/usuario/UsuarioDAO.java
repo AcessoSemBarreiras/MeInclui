@@ -26,8 +26,7 @@ public interface UsuarioDAO {
 	List<Tuple> recuperarUsuariosMaiorRanqueSemana(LocalDate sabado, LocalDate domingo);
 	
 	List<Tuple> recuperarUsuariosMaiorRanqueMes(LocalDate primeiroDia, LocalDate ultimoDia);
-	
-	
+
 	int recuperarPontuacaoUsuario(Long idUsuario);
 	
 }

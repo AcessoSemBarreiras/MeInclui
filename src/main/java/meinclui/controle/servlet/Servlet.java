@@ -335,17 +335,22 @@ public class Servlet extends HttpServlet {
 		response.sendRedirect("");
 	}
 	private void mostrarPerfilUsuario(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(1L);
+		throws ServletException, IOException {
+		
+		Usuario usuario = usuarioDAO.recuperarUsuarioId(2L);
 		request.setAttribute("usuario", usuario);
+		usuarioDAO.recuperarPontuacaoUsuario(2L);
+		conquistaDAO.recuperarConquistasMaisRecentes(2L);
+		comentarioDAO.recuperarComentariosOrdenadoMaisRecente(2);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-usuario.jsp");
+		
 		dispatcher.forward(request, response);
 		System.out.println("metodo perfil usuario chamado");
 		System.out.println(usuario.getNome());
 	}
 
 	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException { 
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/login-usuario");
 		dispatcher.forward(request, response);
@@ -356,9 +361,12 @@ public class Servlet extends HttpServlet {
 
 	}
 
-	private void deletarUsuario(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void deletarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		Long id = Long.parseLong(request.getParameter("id-usuario"));
+		Usuario usuario = usuarioDAO.recuperarUsuarioId(id);
+		usuarioDAO.deletarUsuario(usuario);
+		response.sendRedirect("tela-inicial");
 	}
 
 	private void mostrarRanque(HttpServletRequest request, HttpServletResponse response)
