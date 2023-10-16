@@ -3,6 +3,7 @@ package meinclui.controle.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,6 +28,9 @@ import meinclui.modelo.dao.estabelecimento.EstabelecimentoDAO;
 import meinclui.modelo.dao.estabelecimento.EstabelecimentoDAOImpl;
 import meinclui.modelo.dao.usuario.UsuarioDAO;
 import meinclui.modelo.dao.usuario.UsuarioDAOImpl;
+import meinclui.modelo.entidade.avaliacao.Avaliacao;
+import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
+import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 import meinclui.modelo.entidade.usuario.Usuario;
 
 @WebServlet("/")
@@ -214,23 +218,47 @@ public class Servlet extends HttpServlet {
 	}
 
 	private void inserirAvaliacao(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
 
+		Usuario usuario = Usuario.class.cast(request.getParameter("usuario"));
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("estabelecimento")));
+		byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
+		byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
+		byte resposta3 = Byte.parseByte(request.getParameter("resposta-3"));
+		byte resposta4 = Byte.parseByte(request.getParameter("resposta-4"));
+		byte resposta5 = Byte.parseByte(request.getParameter("resposta-5"));
+		double media = (double)(resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
+		ZonedDateTime data = ZonedDateTime.now();
+		avaliacaoDAO.inserirAvaliacao(new Avaliacao(usuario, estabelecimento, resposta1, resposta2, resposta3, resposta4, resposta5, media, data));
 	}
 
-	private void recuperarAvaliacao(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void recuperarAvaliacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AvaliacaoId id = AvaliacaoId.class.cast(request.getParameter("avaliacao-id"));
+		Avaliacao avaliacao = avaliacaoDAO.recuperarAvaliacaoPorId(id);
+		request.setAttribute("avaliacao", avaliacao);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("editar-avaliacao.jsp");
+		dispatcher.forward(request, response);
 
 	}
 
 	private void atualizarAvaliacao(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+		
+		AvaliacaoId id = AvaliacaoId.class.cast(request.getParameter("avaliacao-id"));
+		byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
+		byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
+		byte resposta3 = Byte.parseByte(request.getParameter("resposta-3"));
+		byte resposta4 = Byte.parseByte(request.getParameter("resposta-4"));
+		byte resposta5 = Byte.parseByte(request.getParameter("resposta-5"));
+		double media = (double)(resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
+		ZonedDateTime dataOriginal = ZonedDateTime.parse(request.getParameter("data-original"));
+		ZonedDateTime dataEdicao = ZonedDateTime.now();
+		avaliacaoDAO.atualizarAvaliacao(new Avaliacao(id, resposta1, resposta2, resposta3, resposta4, resposta5, media, dataOriginal, dataEdicao));
 
 	}
 
-	private void deletarAvaliacao(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-
+	private void deletarAvaliacao(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		AvaliacaoId id = AvaliacaoId.class.cast(request.getParameter("avaliacao-id"));
+		avaliacaoDAO.deletarAvaliacao(id);
+		response.sendRedirect("/tela-inicial");
 	}
 
 	/* COMENTÁRIO */
