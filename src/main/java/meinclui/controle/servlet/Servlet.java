@@ -307,8 +307,10 @@ public class Servlet extends HttpServlet {
 
 	}
 
-	private void mostrarPerfilEstabelecimento(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void mostrarPerfilEstabelecimento(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento.jsp");
+		dispatcher.forward(request, response);
 
 	}
 
