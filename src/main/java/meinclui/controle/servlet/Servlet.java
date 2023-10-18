@@ -293,7 +293,7 @@ public class Servlet extends HttpServlet {
 	private void mostrarFormularioCadastroEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastro-estabelecimento");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-estabelecimento.jsp");
 		dispatcher.forward(request, response);
 	}
 
