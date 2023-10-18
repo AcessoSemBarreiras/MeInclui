@@ -14,7 +14,7 @@
     <img src="" alt="logo">
   </header>
 
-  <form id="form-login">
+  <form action="entrar">
 
 <!--Login-->
     <div id="l">
@@ -23,7 +23,7 @@
       </div>
 
       <div class="voltar">
-        <a rel="stylesheet" href=""> voltar ->
+        <a rel="stylesheet" href=""> voltar -> </a>
       </div>
 
       <div class="l-email">
@@ -31,13 +31,15 @@
       </div>
 
       <div class="l-senha">
-        <a href="">Esqueceu sua senha?<br> <input type="password" id="senha" name="senha" placeholder="Senha" required> </a>
+        <a href="">Esqueceu sua senha?<br> </a>
+        <input type="password" id="senha" name="senha" placeholder="Senha" required> 
       </div>
 
       <div class="l-entrar">
         <input type="submit" value="Entrar">
       </div>
 
+	</form>
       <div class="l-cadastro">
         <p>Não possui uma conta?</p>
         <a href="" id="cadastro">Cadastrar-se</a>

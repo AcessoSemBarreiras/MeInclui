@@ -50,17 +50,13 @@
 
 				<div class="cadastro_estabelecimento">
 					<div class="cc_texto">
-						<input type="text" id="logradouro" name="logradouro"
-							placeholder="Logradouro" required> <input type="text"
-							id="t_logradouro" name="tipo_logradouro"
-							placeholder="Tipo Logradouro" required> <input
-							type="text" id="cidade" name="cidade" placeholder="Cidade"
-							required> <input type="text" id="numero" name="numero"
-							placeholder="Número" required> <input type="text"
-							id="estado" name="estado" placeholder="Estado" required>
-						<input type="text" id="bairro" name="bairro" placeholder="Bairro"
-							required> <input type="text" id="complemento"
-							name="complemento" placeholder="Complemento" required>
+						<input type="text" id="logradouro" name="logradouro" placeholder="Logradouro" required> 
+						<input type="text" id="t_logradouro" name="tipo_logradouro" placeholder="Tipo Logradouro" required> 
+						<input type="text" id="cidade" name="cidade" placeholder="Cidade" required> 
+						<input type="text" id="numero" name="numero" placeholder="Número" required> 
+						<input type="text" id="estado" name="estado" placeholder="Estado" required>
+						<input type="text" id="bairro" name="bairro" placeholder="Bairro" required> 
+						<input type="text" id="complemento" name="complemento" placeholder="Complemento">
 					</div>
 					<div id="finalizar_cadastro">
 						<input type="submit" value="Finalizar">

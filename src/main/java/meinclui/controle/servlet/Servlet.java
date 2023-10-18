@@ -382,12 +382,14 @@ public class Servlet extends HttpServlet {
 	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException { 
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/login-usuario");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		Usuario usuario = usuarioDAO.recuperarUsuarioId(2L);
+		request.setAttribute("usuario", usuario);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("editar-perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 
