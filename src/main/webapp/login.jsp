@@ -23,7 +23,7 @@
       </div>
 
       <div class="voltar">
-        <a rel="stylesheet" href=""> voltar ->
+        <a rel="stylesheet" href=""> voltar -> </a>
       </div>
 
       <div class="l-email">

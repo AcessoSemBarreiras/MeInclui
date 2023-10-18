@@ -192,6 +192,44 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		return usuario;
 	}
 
+	public Usuario recuperarUsuarioEmail(String emailUsuario) {
+		
+		Session sessao = null;
+		Usuario usuario = null;
+
+		try {
+
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+			CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
+			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
+
+			criteria.select(raizUsuario);
+			criteria.where(construtor.equal(raizUsuario.get(Usuario_.email), emailUsuario));
+
+			usuario = sessao.createQuery(criteria).getSingleResult();
+			sessao.getTransaction().commit();
+
+		} catch (Exception sqlException) {
+
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+				sessao.getTransaction().rollback();
+			}
+
+		} finally {
+
+			if (sessao != null) {
+				sessao.close();
+			}
+
+		}
+		return usuario;
+	}
+
 	public List<Tuple> recuperarUsuariosMaiorRanque() {
 
 		Session sessao = null;
@@ -448,4 +486,43 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	}
 
+	public Boolean verificarUsuario(String emailUsuario, String senhaUsuario) {
+
+		Session sessao = null;
+		Usuario usuario = null;
+
+		try {
+
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+			CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
+			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
+
+			criteria.select(raizUsuario);
+			criteria.where(construtor.and(construtor.equal(raizUsuario.get(Usuario_.email), emailUsuario),
+					construtor.equal(raizUsuario.get(Usuario_.senha), senhaUsuario)));
+
+			usuario = sessao.createQuery(criteria).getSingleResult();
+
+			if (usuario != null) {
+				return true;
+			}
+
+			sessao.getTransaction().commit();
+
+		} catch (Exception sqlException) {
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+				sessao.getTransaction().rollback();
+			}
+		} finally {
+			if (sessao != null) {
+				sessao.close();
+			}
+		}
+		return false;
+	}
 }
