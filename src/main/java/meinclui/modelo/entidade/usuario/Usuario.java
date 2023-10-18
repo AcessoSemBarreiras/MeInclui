@@ -50,9 +50,6 @@ public class Usuario implements Serializable{
 	@Column(name = "senha_usuario", length = 50, nullable = false)
 	private String senha;
 	
-	@Column(name = "foto_usuario")
-	private byte[] fotoUsuario;
-	
 	@Column(name = "data_nascimento_usuario", nullable = false)
 	private LocalDate dataNascimento;
 
@@ -142,14 +139,6 @@ public class Usuario implements Serializable{
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	public byte[] getFotoUsuario() {
-		return fotoUsuario;
-	}
-
-	public void setFotoUsuario(byte[] fotoUsuario) {
-		this.fotoUsuario = fotoUsuario;
 	}
 
 	public LocalDate getDataNascimento() {
