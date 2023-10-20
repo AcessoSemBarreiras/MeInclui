@@ -176,6 +176,10 @@ public class Servlet extends HttpServlet {
 			case "/recuperar-endereco":
 				recuperarEndereco(request, response);
 				break;
+			case "encerrar-sessao":
+				encerrarSessao(request, response);
+				break;
+			   
 
 			}
 		} catch (SQLException ex) {
@@ -186,7 +190,7 @@ public class Servlet extends HttpServlet {
 	/* TELA INICIAL */
 	private void mostrarTelaInicial(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -443,7 +447,6 @@ public class Servlet extends HttpServlet {
 
 	private void mostrarPerfilUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
 		request.setAttribute("usuario", usuario);
@@ -454,7 +457,6 @@ public class Servlet extends HttpServlet {
 		dispatcher.forward(request, response);
 		System.out.println("metodo perfil usuario chamado");
 		System.out.println(usuario.getNome());
-
 	}
 
 	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)

@@ -16,7 +16,7 @@ public interface UsuarioDAO {
 	List<Usuario> recuperarUsuarios();
 
 	Usuario recuperarUsuarioId(Long id);
-
+  
 	Usuario recuperarUsuarioEmail(String emailUsuario);
 
 	List<Tuple> recuperarUsuariosMaiorRanque();

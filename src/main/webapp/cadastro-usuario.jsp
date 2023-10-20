@@ -9,7 +9,7 @@
         </head>
         <body>
             <div id="Pagina">
-                <div id="cadastrar-se">
+                <div class="titulo-principal">
                     <h1>Cadastrar-se</h1>
                 </div>
                 <div id="cadastro-usuario">

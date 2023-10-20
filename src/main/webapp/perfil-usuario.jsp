@@ -24,10 +24,10 @@
 			<p>
 				<button name="editar-usuario">.</button>
 			</p>
-			<p id="nome-de-usuario">
+			<h3 id="nome-de-usuario">
 				<c:out value='${usuario.nomeDeUsuario}' />
-			</p>
-			<p class="texto-principal">
+			</h3>
+			<p class="titulo-principal">
 				<c:out value='${usuario.nome}' />
 			</p>
 			<p id="pronome-usuario">
@@ -47,7 +47,7 @@
 
 
 		<div class="conquistas-usuario">
-			<h3 class="texto-principal">Conquistas</h3>
+			<h3 class="titulo-principal">Conquistas</h3>
 			<c:if test="${conquistas == null}">
 				<img alt="" src="Imagem usuario não possui conquista">
 				<p>
@@ -57,7 +57,7 @@
 		</div>
 
 		<div class="avaliacoes-usuario">
-			<h3 class="texto-principal">Avaliações Recentes</h3>
+			<h3 class="titulo-principal">Avaliações Recentes</h3>
 			<c:if test="${avaliacoes == null}">
 				<p class="texto-aviso">
 					Parece que você ainda não possui avaliações ... <br> <a
@@ -84,7 +84,7 @@
 		</div>
 		
 		<div class="comentarios-usuario">
-			<h3 class="texto-principal">Comentários</h3>
+			<h3 class="titulo-principal">Comentários</h3>
 			<c:if test="${comentarios == null}">
 				<p class="texto-aviso">
 					Parece que você ainda não possui comentários ... <br> <a
