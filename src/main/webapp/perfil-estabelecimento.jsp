@@ -34,8 +34,7 @@
 		</p>
 
 		<div id="favoritar-estabelecimento">
-			<button>.</button>
-			<p>Favoritar</p>
+			<button>Favoritar</button>
 		</div>
 
 		<div id="nota=estabelecimento">
@@ -54,7 +53,7 @@
 	<div id="comentario-estabelecimento">
 		<h3 class="titulo-principal">Comentários</h3>
 		<img alt="Imagem mulher comentando" src="">
-		<c:if test="${comentarios == null}">
+		<c:if test="${comentarios.comentarios == null}">
 			<p class="texto-aviso">
 				Esse estabelecimento não possui comentários... <br> <b>comente</b> para ser
 				o primeiro!

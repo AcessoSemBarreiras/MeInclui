@@ -302,7 +302,7 @@ public class Servlet extends HttpServlet {
 	private void mostrarFormularioCadastroEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastro-estabelecimento");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-estabelecimento.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -408,11 +408,10 @@ public class Servlet extends HttpServlet {
 			
 		} else {
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("login-usuario.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 			dispatcher.forward(request, response);
 
 		}
-
 	}
 
 	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response)
