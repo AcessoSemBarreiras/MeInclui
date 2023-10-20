@@ -52,8 +52,7 @@ public class Estabelecimento implements Serializable {
 	public Estabelecimento() {
 	}
 
-	public Estabelecimento(Long idEstabelecimento, Categoria categoria, String nome, double pontoAcessibilidade,
-			Endereco endereco) {
+	public Estabelecimento(Long idEstabelecimento, Categoria categoria, String nome, Endereco endereco) {
 		setIdEstabelecimento(idEstabelecimento);
 		setCategoria(categoria);
 		setNome(nome);
@@ -61,10 +60,9 @@ public class Estabelecimento implements Serializable {
 		setEndereco(endereco);
 	}
 
-	public Estabelecimento(Categoria categoria, String nome, double pontoAcessibilidade, Endereco endereco) {
+	public Estabelecimento(Categoria categoria, String nome, Endereco endereco) {
 		setCategoria(categoria);
 		setNome(nome);
-		setPontoAcessibilidade(pontoAcessibilidade);
 		setEndereco(endereco);
 	}
 
@@ -98,7 +96,6 @@ public class Estabelecimento implements Serializable {
 
 	public void setPontoAcessibilidade(double media) {
 		this.pontoAcessibilidade = media;
-
 	}
 
 	public Endereco getEndereco() {
@@ -108,5 +105,4 @@ public class Estabelecimento implements Serializable {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-
 }
