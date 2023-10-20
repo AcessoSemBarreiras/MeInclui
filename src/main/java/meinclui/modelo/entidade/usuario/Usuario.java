@@ -16,10 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import meinclui.modelo.entidade.avaliacao.Avaliacao;
 import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
+import meinclui.modelo.entidade.foto.Foto;
 
 @Entity
 @Table(name = "usuario")
@@ -61,10 +63,12 @@ public class Usuario implements Serializable{
 	@JoinTable(name = "estabelecimentos_favoritos", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_estabelecimento"))
 	private List<Estabelecimento> estabelecimentos_favoritos = new ArrayList<Estabelecimento>();
 	
+	@OneToOne(fetch = FetchType.LAZY)
+	private Foto fotoUsuario;
 
 	public Usuario() {}
 	
-	public Usuario(Long idUsuario, String nome,String pronome, String nomeDeUsuario, String email, String cpf, String senha, LocalDate dataNascimento) {
+	public Usuario(Long idUsuario, String nome,String pronome, String nomeDeUsuario, String email, String cpf, String senha, LocalDate dataNascimento, Foto fotoUsuario) {
 		setIdUsuario(idUsuario);
 		setNome(nome);
 		setPronome(pronome);
@@ -73,9 +77,10 @@ public class Usuario implements Serializable{
 		setCpf(cpf);
 		setSenha(senha);
 		setDataNascimento(dataNascimento);
+		setFotoUsuario(fotoUsuario);
 	}
 	
-	public Usuario(String nome,String pronome, String nomeDeUsuario, String email, String cpf, String senha, LocalDate dataNascimento) {
+	public Usuario(String nome,String pronome, String nomeDeUsuario, String email, String cpf, String senha, LocalDate dataNascimento, Foto fotoUsuario) {
 		setNome(nome);
 		setPronome(pronome);
 		setNomeDeUsuario(nomeDeUsuario);
@@ -83,6 +88,7 @@ public class Usuario implements Serializable{
 		setCpf(cpf);
 		setSenha(senha);
 		setDataNascimento(dataNascimento);
+		setFotoUsuario(fotoUsuario);
 	}
 	
 	public Long getIdUsuario() {
@@ -165,4 +171,11 @@ public class Usuario implements Serializable{
 		this.avaliacoes.add(avaliacao);
 	}
 
+	public Foto getFotoUsuario() {
+		return fotoUsuario;
+	}
+
+	public void setFotoUsuario(Foto fotoUsuario) {
+		this.fotoUsuario = fotoUsuario;
+	}
 }

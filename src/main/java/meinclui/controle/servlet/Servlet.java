@@ -7,10 +7,12 @@ import java.time.ZonedDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAO;
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAOImpl;
@@ -31,9 +33,12 @@ import meinclui.modelo.dao.usuario.UsuarioDAOImpl;
 import meinclui.modelo.entidade.avaliacao.Avaliacao;
 import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
 import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
+import meinclui.modelo.entidade.foto.Foto;
 import meinclui.modelo.entidade.usuario.Usuario;
+import meinclui.util.ConversorImagem;
 
 @WebServlet("/")
+@MultipartConfig
 public class Servlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -45,6 +50,7 @@ public class Servlet extends HttpServlet {
 	private EstabelecimentoDAO estabelecimentoDAO;
 	private UsuarioDAO usuarioDAO;
 	private UsuarioTemConquistaDAO usuarioTemConquistaDAO;
+	private ConversorImagem converterImagem;
 
 	public void init() {
 		avaliacaoDAO = new AvaliacaoDAOImpl();
@@ -336,7 +342,7 @@ public class Servlet extends HttpServlet {
 	}
 
 	private void inserirUsuario(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+			throws SQLException, IOException, ServletException {
 
 		String nome = request.getParameter("nome-usuario");
 		String nomeDeUsuario = request.getParameter("nome-de-usuario");
@@ -345,11 +351,17 @@ public class Servlet extends HttpServlet {
 		String pronome = request.getParameter("pronome-usuario");
 		LocalDate data = LocalDate.parse(request.getParameter("data-nascimento-usuario"));
 		String senha = request.getParameter("senha-usuario");
-		usuarioDAO.inserirUsuario(new Usuario(nome, pronome, nomeDeUsuario, email, cpf, senha, data));
+		
+		Part perfil = request.getPart("foto-usuario");
+		byte[] binario = ConversorImagem.obterBytesImagem(perfil);
+		String extensao = perfil.getContentType();
+		Foto fotoPerfil = new Foto(binario, extensao);
+		
+		usuarioDAO.inserirUsuario(new Usuario(nome, pronome, nomeDeUsuario, email, cpf, senha, data, fotoPerfil));
 		response.sendRedirect("tela-inicial");
 	}
 	private void atualizarUsuario(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+			throws SQLException, IOException, ServletException {
 
 		Long id = Long.parseLong(request.getParameter("id-usuario"));
 		String pronome = request.getParameter("pronome-usuario");
@@ -359,7 +371,13 @@ public class Servlet extends HttpServlet {
 		String nome = request.getParameter("nome-usuario");
 		String cpf = request.getParameter("cpf-usuario");
 		LocalDate data = LocalDate.parse(request.getParameter("data-nascimento-usuario"));
-		usuarioDAO.atualizarUsuario(new Usuario(id, nome, pronome, nomeDeUsuario, email, cpf, senha, data));
+		
+		Part perfil = request.getPart("foto-usuario");
+		byte[] binario = ConversorImagem.obterBytesImagem(perfil);
+		String extensao = perfil.getContentType();
+		Foto fotoPerfil = new Foto(binario, extensao);
+		
+		usuarioDAO.atualizarUsuario(new Usuario(id, nome, pronome, nomeDeUsuario, email, cpf, senha, data, fotoPerfil));
 		response.sendRedirect("");
 	}
 	private void mostrarPerfilUsuario(HttpServletRequest request, HttpServletResponse response)
