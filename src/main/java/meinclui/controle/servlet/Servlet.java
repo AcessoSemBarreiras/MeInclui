@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAO;
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAOImpl;
@@ -101,6 +102,9 @@ public class Servlet extends HttpServlet {
 				break;
 			case "/editar-perfil-usuario":
 				mostrarFormularioEditarUsuario(request, response);
+				break;
+			case "encerrar-sessao":
+				encerrarSessao(request, response);
 				break;
 
 			case "/cadastro-estabelecimento":
@@ -224,18 +228,21 @@ public class Servlet extends HttpServlet {
 	private void inserirAvaliacao(HttpServletRequest request, HttpServletResponse response) {
 
 		Usuario usuario = Usuario.class.cast(request.getParameter("usuario"));
-		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("estabelecimento")));
+		Estabelecimento estabelecimento = estabelecimentoDAO
+				.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("estabelecimento")));
 		byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
 		byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
 		byte resposta3 = Byte.parseByte(request.getParameter("resposta-3"));
 		byte resposta4 = Byte.parseByte(request.getParameter("resposta-4"));
 		byte resposta5 = Byte.parseByte(request.getParameter("resposta-5"));
-		double media = (double)(resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
+		double media = (double) (resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
 		ZonedDateTime data = ZonedDateTime.now();
-		avaliacaoDAO.inserirAvaliacao(new Avaliacao(usuario, estabelecimento, resposta1, resposta2, resposta3, resposta4, resposta5, media, data));
+		avaliacaoDAO.inserirAvaliacao(new Avaliacao(usuario, estabelecimento, resposta1, resposta2, resposta3,
+				resposta4, resposta5, media, data));
 	}
 
-	private void recuperarAvaliacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void recuperarAvaliacao(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		AvaliacaoId id = AvaliacaoId.class.cast(request.getParameter("avaliacao-id"));
 		Avaliacao avaliacao = avaliacaoDAO.recuperarAvaliacaoPorId(id);
 		request.setAttribute("avaliacao", avaliacao);
@@ -245,17 +252,18 @@ public class Servlet extends HttpServlet {
 	}
 
 	private void atualizarAvaliacao(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		AvaliacaoId id = AvaliacaoId.class.cast(request.getParameter("avaliacao-id"));
 		byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
 		byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
 		byte resposta3 = Byte.parseByte(request.getParameter("resposta-3"));
 		byte resposta4 = Byte.parseByte(request.getParameter("resposta-4"));
 		byte resposta5 = Byte.parseByte(request.getParameter("resposta-5"));
-		double media = (double)(resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
+		double media = (double) (resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
 		ZonedDateTime dataOriginal = ZonedDateTime.parse(request.getParameter("data-original"));
 		ZonedDateTime dataEdicao = ZonedDateTime.now();
-		avaliacaoDAO.atualizarAvaliacao(new Avaliacao(id, resposta1, resposta2, resposta3, resposta4, resposta5, media, dataOriginal, dataEdicao));
+		avaliacaoDAO.atualizarAvaliacao(new Avaliacao(id, resposta1, resposta2, resposta3, resposta4, resposta5, media,
+				dataOriginal, dataEdicao));
 
 	}
 
@@ -267,20 +275,23 @@ public class Servlet extends HttpServlet {
 
 	/* COMENTÁRIO */
 
-	private void mostrarFormularioCadastroComentario(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	private void mostrarFormularioCadastroComentario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastrar-comentario");
 		dispatcher.forward(request, response);
 	}
 
-	private void recuperarComentario(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	private void recuperarComentario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(1);
 		request.setAttribute("comentario", comentarios);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	private void atualizarComentario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		
+	private void atualizarComentario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		int id = Integer.parseInt(request.getParameter("id"));
 		String comentario = request.getParameter("comentario");
 		Comentario comentarioRespondido = Comentario.class.cast(request.getParameter("comentario-respondido"));
@@ -289,54 +300,63 @@ public class Servlet extends HttpServlet {
 		Usuario usuario = Usuario.class.cast(request.getParameter("usuario"));
 		Estabelecimento estabelecimento = Estabelecimento.class.cast("estabelecimento");
 		ZonedDateTime data = ZonedDateTime.class.cast("data");
-		comentarioDAO.atualizarComentario(new Comentario(id, comentario, comentarioRespondido, qtdGostei, qtdNaoGostei, usuario, estabelecimento, data));
+		comentarioDAO.atualizarComentario(new Comentario(id, comentario, comentarioRespondido, qtdGostei, qtdNaoGostei,
+				usuario, estabelecimento, data));
 		response.sendRedirect("tela-inicial");
-		
+
 	}
 
-	private void deletarComentario(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	private void deletarComentario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id-comentario"));
 		comentarioDAO.deletarComentario(id);
 		response.sendRedirect("tela-inicial");
- 
+
 	}
 
-	private void inserirComentario(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	private void inserirComentario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String comentario = request.getParameter("comentario");
 		Comentario comentarioRespondido = Comentario.class.cast(request.getParameter("comentario-respondido"));
 		Usuario usuario = Usuario.class.cast(request.getParameter("usuario"));
 		Estabelecimento estabelecimento = Estabelecimento.class.cast("estabelecimento");
 		ZonedDateTime data = ZonedDateTime.class.cast("data");
-		comentarioDAO.inserirComentario(new Comentario(comentario, comentarioRespondido, usuario, estabelecimento, data));
+		comentarioDAO
+				.inserirComentario(new Comentario(comentario, comentarioRespondido, usuario, estabelecimento, data));
 		response.sendRedirect("tela-inicial");
 
 	}
-	
+
 	/* ESTABELECIMENTO */
-	private void mostrarFormularioCadastroEstabelecimento(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	private void mostrarFormularioCadastroEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-estabelecimento.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	private void mostrarFormularioEditarEstabelecimento(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	private void mostrarFormularioEditarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/editar-perfil-estabelecimento");
 		dispatcher.forward(request, response);
 	}
 
-	private void mostrarTelaPesquisaEstabelecimento(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	private void mostrarTelaPesquisaEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/encontrar-estabelecimentos");
 		dispatcher.forward(request, response);
 	}
 
-	private void mostrarPerfilEstabelecimento(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	private void mostrarPerfilEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(2L);
 		request.setAttribute("estabelecimento", estabelecimento);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento.jsp");
 		dispatcher.forward(request, response);
 	}
- 
-	private void atualizarEstabelecimento(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException {
-		
+
+	private void atualizarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
+
 		int idEndereco = Integer.parseInt(request.getParameter("id-endereco"));
 		String logradouro = request.getParameter("logradouro");
 		String tipoLogradouro = request.getParameter("tipo_logradouro");
@@ -345,9 +365,10 @@ public class Servlet extends HttpServlet {
 		String bairro = request.getParameter("bairro");
 		String cidade = request.getParameter("cidade");
 		String estado = request.getParameter("estado");
-		Endereco endereco = new Endereco(idEndereco, logradouro, tipoLogradouro, numero, complemento, bairro, cidade, estado);
+		Endereco endereco = new Endereco(idEndereco, logradouro, tipoLogradouro, numero, complemento, bairro, cidade,
+				estado);
 		enderecoDAO.inserirEndereco(endereco);
-	
+
 		Long idEstabelecimento = Long.parseLong(request.getParameter("id-estabelecimento"));
 		Categoria categoria = Categoria.class.cast(request.getParameter("categoria"));
 		String nome = request.getParameter("nome");
@@ -355,14 +376,16 @@ public class Servlet extends HttpServlet {
 		estabelecimentoDAO.atualizarEstabelecimento(new Estabelecimento(idEstabelecimento, categoria, nome, endereco));
 		response.sendRedirect("tela-inicial");
 	}
-	
-	private void deletarEstabelecimento(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException {
+
+	private void deletarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
 		Long id = Long.parseLong(request.getParameter("id-estabelecimento"));
 		estabelecimentoDAO.deletarEstabelecimento(id);
 		response.sendRedirect("tela-inicial");
 	}
 
-	private void inserirEstabelecimento(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException {
+	private void inserirEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
 		String logradouro = request.getParameter("logradouro");
 		String tipoLogradouro = request.getParameter("tipo_logradouro");
 		int numero = Integer.parseInt(request.getParameter("numero"));
@@ -381,6 +404,7 @@ public class Servlet extends HttpServlet {
 	}
 
 	/* USUÁRIO */
+
 	private void mostrarFormularioCadastroUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -401,6 +425,7 @@ public class Servlet extends HttpServlet {
 		usuarioDAO.inserirUsuario(new Usuario(nome, pronome, nomeDeUsuario, email, cpf, senha, data));
 		response.sendRedirect("tela-inicial");
 	}
+
 	private void atualizarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 
@@ -415,37 +440,66 @@ public class Servlet extends HttpServlet {
 		usuarioDAO.atualizarUsuario(new Usuario(id, nome, pronome, nomeDeUsuario, email, cpf, senha, data));
 		response.sendRedirect("");
 	}
+
 	private void mostrarPerfilUsuario(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-		
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(2L);
+			throws ServletException, IOException {
+
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
 		request.setAttribute("usuario", usuario);
 		usuarioDAO.recuperarPontuacaoUsuario(2L);
 		conquistaDAO.recuperarConquistasMaisRecentes(2L);
 		comentarioDAO.recuperarComentariosOrdenadoMaisRecente(2);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-usuario.jsp");
-		
 		dispatcher.forward(request, response);
 		System.out.println("metodo perfil usuario chamado");
 		System.out.println(usuario.getNome());
+
 	}
 
 	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException { 
+			throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/login-usuario");
+		String email = request.getParameter("email");
+		String senha = request.getParameter("senha");
+		boolean existe = false;
+		existe = usuarioDAO.verificarUsuario(email, senha);
+
+		if (existe) {
+			HttpSession sessao = request.getSession();
+			Usuario usuario = usuarioDAO.recuperarUsuarioEmail(email);
+			sessao.setAttribute("usuarioLogado", usuario);
+			response.sendRedirect("perfil-usuario");
+		} else {
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login-usuario.jsp");
+			dispatcher.forward(request, response);
+		}
+	}
+
+	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
+		request.setAttribute("usuario", usuario);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("editar-perfil-usuario.jsp");
 		dispatcher.forward(request, response);
-	}
-
-	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
 
 	}
 
-	private void deletarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void encerrarSessao(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		Long id = Long.parseLong(request.getParameter("id-usuario"));
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(id);
+		request.getSession().invalidate();
+		response.sendRedirect("perfil-usuario");
+	}
+
+	private void deletarUsuario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
 		usuarioDAO.deletarUsuario(usuario);
 		response.sendRedirect("tela-inicial");
 	}
