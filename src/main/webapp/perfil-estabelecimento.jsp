@@ -34,8 +34,7 @@
 		</p>
 
 		<div id="favoritar-estabelecimento">
-			<button>.</button>
-			<p>Favoritar</p>
+			<button>Favoritar</button>
 		</div>
 
 		<div id="nota=estabelecimento">
