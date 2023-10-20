@@ -474,7 +474,8 @@ public class Servlet extends HttpServlet {
 			Usuario usuario = usuarioDAO.recuperarUsuarioEmail(email);
 			System.out.println(usuario.getEmail());
 			sessao.setAttribute("usuarioLogado", usuario);
-			response.sendRedirect("perfil-usuario");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-usuario.jsp");
+			dispatcher.forward(request, response);
 		} else {
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
