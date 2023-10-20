@@ -82,6 +82,11 @@ public class Servlet extends HttpServlet {
 			case "/login-usuario":
 				mostrarFormularioLogin(request, response);
 				break;
+			
+			case "/entrar":
+				confirmarFormularioLogin(request, response);
+				break;
+				
 			case "/cadastro-usuario":
 				mostrarFormularioCadastroUsuario(request, response);
 				break;
@@ -175,11 +180,7 @@ public class Servlet extends HttpServlet {
 				break;
 			case "/recuperar-endereco":
 				recuperarEndereco(request, response);
-				break;
-			case "encerrar-sessao":
-				encerrarSessao(request, response);
-				break;
-			   
+				break;  
 
 			}
 		} catch (SQLException ex) {
@@ -447,11 +448,12 @@ public class Servlet extends HttpServlet {
 
 	private void mostrarPerfilUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
 		request.setAttribute("usuario", usuario);
-		usuarioDAO.recuperarPontuacaoUsuario(2L);
-		conquistaDAO.recuperarConquistasMaisRecentes(2L);
+		usuarioDAO.recuperarPontuacaoUsuario(1L);
+		conquistaDAO.recuperarConquistasMaisRecentes(1L);
 		comentarioDAO.recuperarComentariosOrdenadoMaisRecente(2);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-usuario.jsp");
 		dispatcher.forward(request, response);
@@ -459,7 +461,7 @@ public class Servlet extends HttpServlet {
 		System.out.println(usuario.getNome());
 	}
 
-	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
+	private void confirmarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		String email = request.getParameter("email");
@@ -470,14 +472,21 @@ public class Servlet extends HttpServlet {
 		if (existe) {
 			HttpSession sessao = request.getSession();
 			Usuario usuario = usuarioDAO.recuperarUsuarioEmail(email);
+			System.out.println(usuario.getEmail());
 			sessao.setAttribute("usuarioLogado", usuario);
 			response.sendRedirect("perfil-usuario");
 		} else {
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("login-usuario.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
+	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			dispatcher.forward(request, response);
+		}
 
 	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

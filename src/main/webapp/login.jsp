@@ -14,7 +14,7 @@
     <img src="" alt="logo">
   </header>
 
-  <form action="entrar">
+  <form action="entrar" method="post">
 
 <!--Login-->
     <div id="l">
