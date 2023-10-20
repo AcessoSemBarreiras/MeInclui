@@ -57,7 +57,7 @@
 			</div>
 			<div id="editar-data-nascimento">
 				<label>Data de nascimento:</label> <input type="text"
-					name="nome-de-usuario"
+					name="data-nascimento"
 					placeholder="<c:out value='${usuario.data-nascimento}'/>">
 			</div>
 		</div>

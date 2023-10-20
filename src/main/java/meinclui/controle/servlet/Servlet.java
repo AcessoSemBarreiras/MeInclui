@@ -11,8 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.Session;
+import javax.servlet.http.HttpSession;
 
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAO;
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAOImpl;
@@ -170,6 +169,10 @@ public class Servlet extends HttpServlet {
 			case "/recuperar-endereco":
 				recuperarEndereco(request, response);
 				break;
+			case "encerrar-sessao":
+				encerrarSessao(request, response);
+				break;
+			   
 
 			}
 		} catch (SQLException ex) {
@@ -374,8 +377,8 @@ public class Servlet extends HttpServlet {
 
 	private void mostrarPerfilUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(2L);
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
 		request.setAttribute("usuario", usuario);
 		usuarioDAO.recuperarPontuacaoUsuario(2L);
 		conquistaDAO.recuperarConquistasMaisRecentes(2L);
@@ -389,7 +392,7 @@ public class Servlet extends HttpServlet {
 
 	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		String email = request.getParameter("email");
 		String senha = request.getParameter("senha");
 
@@ -397,11 +400,11 @@ public class Servlet extends HttpServlet {
 		existe = usuarioDAO.verificarUsuario(email, senha);
 
 		if (existe) {
-
+			
+			HttpSession sessao = request.getSession();
 			Usuario usuario = usuarioDAO.recuperarUsuarioEmail(email);
-			request.getSession().setAttribute("usuario", usuario);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("login-usuario.jsp");
-			dispatcher.forward(request, response);
+			sessao.setAttribute("usuarioLogado", usuario);
+			response.sendRedirect("perfil-usuario");
 			
 		} else {
 
@@ -415,22 +418,28 @@ public class Servlet extends HttpServlet {
 	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		HttpSession sessao = request.getsession();
-		Usuario usuario = (usuario) sessao.getAttribute("usuario");
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
 		
-		request.setAttribute("nomeDeUsuario");
-		
+		request.setAttribute("usuario", usuario);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("editar-perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 
 	}
 
+	private void encerrarSessao (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		request.getSession().invalidate();
+		response.sendRedirect("perfil-usuario");
+	}
 	private void deletarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		Long id = Long.parseLong(request.getParameter("id-usuario"));
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(id);
+		
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
+		
+		//Long id = Long.parseLong(request.getParameter("id-usuario"));
+		//Usuario usuario = usuarioDAO.recuperarUsuarioId(id);
 		usuarioDAO.deletarUsuario(usuario);
 		response.sendRedirect("tela-inicial");
 	}
