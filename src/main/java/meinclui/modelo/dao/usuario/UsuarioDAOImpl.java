@@ -155,6 +155,81 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		return usuarios;
 	}
 
+	public Usuario recuperarUsuarioId(Long idUsuario) {
+		Session sessao = null;
+		Usuario usuario = null;
+
+		try {
+
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+			CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
+			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
+
+			criteria.select(raizUsuario);
+			criteria.where(construtor.equal(raizUsuario.get(Usuario_.idUsuario), idUsuario));
+
+			usuario = sessao.createQuery(criteria).getSingleResult();
+			sessao.getTransaction().commit();
+
+		} catch (Exception sqlException) {
+
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+				sessao.getTransaction().rollback();
+			}
+
+		} finally {
+
+			if (sessao != null) {
+				sessao.close();
+			}
+
+		}
+		return usuario;
+	}
+
+	public Usuario recuperarUsuarioEmail(String emailUsuario) {
+		
+		Session sessao = null;
+		Usuario usuario = null;
+
+		try {
+
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+			CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
+			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
+
+			criteria.select(raizUsuario);
+			criteria.where(construtor.equal(raizUsuario.get(Usuario_.email), emailUsuario));
+
+			usuario = sessao.createQuery(criteria).getSingleResult();
+			sessao.getTransaction().commit();
+
+		} catch (Exception sqlException) {
+
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+				sessao.getTransaction().rollback();
+			}
+
+		} finally {
+
+			if (sessao != null) {
+				sessao.close();
+			}
+
+		}
+		return usuario;
+	}
+
 	public List<Tuple> recuperarUsuariosMaiorRanque() {
 
 		Session sessao = null;
@@ -180,10 +255,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 					joinUsuario.get(Usuario_.idUsuario)));
 			criteria.multiselect(joinUsuario.get(Usuario_.idUsuario), joinUsuario.get(Usuario_.nome),
 					construtor.sum(joinConquista.get(Conquista_.reputacao)));
-			
+
 			criteria.groupBy(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario));
 			criteria.orderBy(construtor.desc(joinConquista.get(Conquista_.reputacao)));
-			
+
 			usuarios = sessao.createQuery(criteria).getResultList();
 
 			sessao.getTransaction().commit();
@@ -204,7 +279,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 		return usuarios;
 	}
-	
+
 	public List<Tuple> recuperarUsuariosMaiorRanqueDia(LocalDate data) {
 
 		Session sessao = null;
@@ -214,7 +289,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			sessao = fabrica.getConexao().openSession();
 			sessao.beginTransaction();
-			
+
 			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
 			CriteriaQuery<Tuple> criteria = construtor.createTupleQuery();
 			Root<UsuarioTemConquista> raizUsuarioTemConquista = criteria.from(UsuarioTemConquista.class);
@@ -228,15 +303,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
 					joinUsuario.get(Usuario_.idUsuario)));
-			
+
 			criteria.multiselect(joinUsuario.get(Usuario_.idUsuario), joinUsuario.get(Usuario_.nome),
 					construtor.sum(joinConquista.get(Conquista_.reputacao)));
-			
+
 			criteria.where(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.dataConquista), data));
-						
+
 			criteria.groupBy(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario));
 			criteria.orderBy(construtor.desc(joinConquista.get(Conquista_.reputacao)));
-			
+
 			usuarios = sessao.createQuery(criteria).getResultList();
 
 			sessao.getTransaction().commit();
@@ -257,7 +332,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 		return usuarios;
 	}
-	
+
 	public List<Tuple> recuperarUsuariosMaiorRanqueSemana(LocalDate sabado, LocalDate domingo) {
 
 		Session sessao = null;
@@ -267,7 +342,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			sessao = fabrica.getConexao().openSession();
 			sessao.beginTransaction();
-			
+
 			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
 			CriteriaQuery<Tuple> criteria = construtor.createTupleQuery();
 			Root<UsuarioTemConquista> raizUsuarioTemConquista = criteria.from(UsuarioTemConquista.class);
@@ -281,15 +356,16 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
 					joinUsuario.get(Usuario_.idUsuario)));
-			
+
 			criteria.multiselect(joinUsuario.get(Usuario_.idUsuario), joinUsuario.get(Usuario_.nome),
 					construtor.sum(joinConquista.get(Conquista_.reputacao)));
-			
-			criteria.where(construtor.between(raizUsuarioTemConquista.get(UsuarioTemConquista_.dataConquista), domingo, sabado));
-			
+
+			criteria.where(construtor.between(raizUsuarioTemConquista.get(UsuarioTemConquista_.dataConquista), domingo,
+					sabado));
+
 			criteria.groupBy(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario));
 			criteria.orderBy(construtor.desc(joinConquista.get(Conquista_.reputacao)));
-			
+
 			usuarios = sessao.createQuery(criteria).getResultList();
 
 			sessao.getTransaction().commit();
@@ -310,9 +386,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 		return usuarios;
 	}
-	
-	
-	
+
 	public List<Tuple> recuperarUsuariosMaiorRanqueMes(LocalDate primeiroDiaDoMes, LocalDate ultimoDiaDiaDoMes) {
 
 		Session sessao = null;
@@ -322,7 +396,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			sessao = fabrica.getConexao().openSession();
 			sessao.beginTransaction();
-			
+
 			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
 			CriteriaQuery<Tuple> criteria = construtor.createTupleQuery();
 			Root<UsuarioTemConquista> raizUsuarioTemConquista = criteria.from(UsuarioTemConquista.class);
@@ -336,15 +410,16 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
 					joinUsuario.get(Usuario_.idUsuario)));
-			
+
 			criteria.multiselect(joinUsuario.get(Usuario_.idUsuario), joinUsuario.get(Usuario_.nome),
 					construtor.sum(joinConquista.get(Conquista_.reputacao)));
-			
-			criteria.where(construtor.between(raizUsuarioTemConquista.get(UsuarioTemConquista_.dataConquista), primeiroDiaDoMes, ultimoDiaDiaDoMes));
-			
+
+			criteria.where(construtor.between(raizUsuarioTemConquista.get(UsuarioTemConquista_.dataConquista),
+					primeiroDiaDoMes, ultimoDiaDiaDoMes));
+
 			criteria.groupBy(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario));
 			criteria.orderBy(construtor.desc(joinConquista.get(Conquista_.reputacao)));
-			
+
 			usuarios = sessao.createQuery(criteria).getResultList();
 
 			sessao.getTransaction().commit();
@@ -366,51 +441,88 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		return usuarios;
 	}
 
-
-	
-
-
-		public int recuperarPontuacaoUsuario(Long idUsuario) {
+	public int recuperarPontuacaoUsuario(Long idUsuario) {
 
 		Session sessao = null;
 		int pontuacao = 0;
 
-        try {
+		try {
 
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
 
-            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-            CriteriaQuery<Integer> criteria = construtor.createQuery(Integer.class);
-            Root<UsuarioTemConquista> raizUsuarioTemConquista = criteria.from(UsuarioTemConquista.class);
-            Join<UsuarioTemConquista, Conquista> joinUsuarioTemConquistaConquista =  raizUsuarioTemConquista.join(UsuarioTemConquista_.conquista);
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+			CriteriaQuery<Integer> criteria = construtor.createQuery(Integer.class);
+			Root<UsuarioTemConquista> raizUsuarioTemConquista = criteria.from(UsuarioTemConquista.class);
+			Join<UsuarioTemConquista, Conquista> joinUsuarioTemConquistaConquista = raizUsuarioTemConquista
+					.join(UsuarioTemConquista_.conquista);
 
-            joinUsuarioTemConquistaConquista.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),idUsuario));           
+			joinUsuarioTemConquistaConquista
+					.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario), idUsuario));
 
-            criteria.select(construtor.sum(joinUsuarioTemConquistaConquista.get(Conquista_.reputacao)));            
+			criteria.select(construtor.sum(joinUsuarioTemConquistaConquista.get(Conquista_.reputacao)));
 
-            pontuacao = sessao.createQuery(criteria).getSingleResult();
+			pontuacao = sessao.createQuery(criteria).getSingleResult();
 
-            sessao.getTransaction().commit();
+			sessao.getTransaction().commit();
 
-        } catch (Exception sqlException) {
+		} catch (Exception sqlException) {
 
-            sqlException.printStackTrace();
+			sqlException.printStackTrace();
 
-            if (sessao.getTransaction() != null) {
-               sessao.getTransaction().rollback();
-            }
+			if (sessao.getTransaction() != null) {
+				sessao.getTransaction().rollback();
+			}
 
-        } finally {
+		} finally {
 
-            if (sessao != null) {
+			if (sessao != null) {
 
-                sessao.close();
+				sessao.close();
 
-            }
-        }	
+			}
+		}
 		return pontuacao;
 
 	}
 
+	public Boolean verificarUsuario(String emailUsuario, String senhaUsuario) {
+
+		Session sessao = null;
+		Usuario usuario = null;
+
+		try {
+
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+			CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
+			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
+
+			criteria.select(raizUsuario);
+			criteria.where(construtor.and(construtor.equal(raizUsuario.get(Usuario_.email), emailUsuario),
+					construtor.equal(raizUsuario.get(Usuario_.senha), senhaUsuario)));
+
+			usuario = sessao.createQuery(criteria).getSingleResult();
+
+			if (usuario != null) {
+				return true;
+			}
+
+			sessao.getTransaction().commit();
+
+		} catch (Exception sqlException) {
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+				sessao.getTransaction().rollback();
+			}
+		} finally {
+			if (sessao != null) {
+				sessao.close();
+			}
+		}
+		return false;
+	}
 }

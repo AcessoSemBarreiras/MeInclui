@@ -36,3 +36,4 @@ buildNumber.properties
 hs_err_pid*
 replay_pid*
 /.apt_generated_tests/
+/.apt_generated/

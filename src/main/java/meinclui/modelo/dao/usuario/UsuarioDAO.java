@@ -15,17 +15,21 @@ public interface UsuarioDAO {
 
 	void atualizarUsuario(Usuario usuario);
 
-	List<Usuario> recuperarUsuarios();	
+	List<Usuario> recuperarUsuarios();
+
+	Usuario recuperarUsuarioId(Long id);
 	
+	Usuario recuperarUsuarioEmail(String emailUsuario);
+
 	List<Tuple> recuperarUsuariosMaiorRanque();
-	
+
 	List<Tuple> recuperarUsuariosMaiorRanqueDia(LocalDate data);
-	
+
 	List<Tuple> recuperarUsuariosMaiorRanqueSemana(LocalDate sabado, LocalDate domingo);
-	
-	public List<Tuple> recuperarUsuariosMaiorRanqueMes(LocalDate primeiroDia, LocalDate ultimoDia);
-	
-	
+
+	List<Tuple> recuperarUsuariosMaiorRanqueMes(LocalDate primeiroDia, LocalDate ultimoDia);
+
 	int recuperarPontuacaoUsuario(Long idUsuario);
-	
+
+	Boolean verificarUsuario(String emailUsuario, String senhaUsuario);
 }

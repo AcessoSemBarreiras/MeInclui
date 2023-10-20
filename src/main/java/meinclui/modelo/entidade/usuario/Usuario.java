@@ -35,8 +35,8 @@ public class Usuario implements Serializable{
 	@Column(name = "nome_usuario", length = 50, nullable = false)
 	private String nome;
 	
-	@Column(name = "sobrenome_usuario", length = 50, nullable = false)
-	private String sobrenome;
+	@Column(name = "pronome_usuario", length = 12, nullable = false)
+	private String pronome;
 	
 	@Column(name = "nome_de_usuario", length = 60, nullable = false, unique = true)
 	private String nomeDeUsuario;
@@ -67,10 +67,10 @@ public class Usuario implements Serializable{
 
 	public Usuario() {}
 	
-	public Usuario(Long idUsuario, String nome,String sobrenome, String nomeDeUsuario, String email, String cpf, String senha, LocalDate dataNascimento) {
+	public Usuario(Long idUsuario, String nome,String pronome, String nomeDeUsuario, String email, String cpf, String senha, LocalDate dataNascimento) {
 		setIdUsuario(idUsuario);
 		setNome(nome);
-		setSobrenome(sobrenome);
+		setPronome(pronome);
 		setNomeDeUsuario(nomeDeUsuario);
 		setEmail(email);
 		setCpf(cpf);
@@ -78,9 +78,9 @@ public class Usuario implements Serializable{
 		setDataNascimento(dataNascimento);
 	}
 	
-	public Usuario(String nome,String sobrenome, String nomeDeUsuario, String email, String cpf, String senha, LocalDate dataNascimento) {
+	public Usuario(String nome,String pronome, String nomeDeUsuario, String email, String cpf, String senha, LocalDate dataNascimento) {
 		setNome(nome);
-		setSobrenome(sobrenome);
+		setPronome(pronome);
 		setNomeDeUsuario(nomeDeUsuario);
 		setEmail(email);
 		setCpf(cpf);
@@ -104,12 +104,12 @@ public class Usuario implements Serializable{
 		this.nome = nome;
 	}
 	
-	public String getSobrenome() {
-		return sobrenome;
+	public String getPronome() {
+		return pronome;
 	}
 
-	public void setSobrenome(String sobrenome) {
-		this.sobrenome = sobrenome;
+	public void setPronome(String pronome) {
+		this.pronome = pronome;
 	}
 
 	public String getNomeDeUsuario() {
