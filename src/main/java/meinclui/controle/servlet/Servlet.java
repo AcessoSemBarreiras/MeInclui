@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAO;
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAOImpl;
@@ -168,6 +169,10 @@ public class Servlet extends HttpServlet {
 			case "/recuperar-endereco":
 				recuperarEndereco(request, response);
 				break;
+			case "encerrar-sessao":
+				encerrarSessao(request, response);
+				break;
+			   
 
 			}
 		} catch (SQLException ex) {
@@ -178,7 +183,7 @@ public class Servlet extends HttpServlet {
 	/* TELA INICIAL */
 	private void mostrarTelaInicial(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -220,18 +225,21 @@ public class Servlet extends HttpServlet {
 	private void inserirAvaliacao(HttpServletRequest request, HttpServletResponse response) {
 
 		Usuario usuario = Usuario.class.cast(request.getParameter("usuario"));
-		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("estabelecimento")));
+		Estabelecimento estabelecimento = estabelecimentoDAO
+				.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("estabelecimento")));
 		byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
 		byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
 		byte resposta3 = Byte.parseByte(request.getParameter("resposta-3"));
 		byte resposta4 = Byte.parseByte(request.getParameter("resposta-4"));
 		byte resposta5 = Byte.parseByte(request.getParameter("resposta-5"));
-		double media = (double)(resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
+		double media = (double) (resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
 		ZonedDateTime data = ZonedDateTime.now();
-		avaliacaoDAO.inserirAvaliacao(new Avaliacao(usuario, estabelecimento, resposta1, resposta2, resposta3, resposta4, resposta5, media, data));
+		avaliacaoDAO.inserirAvaliacao(new Avaliacao(usuario, estabelecimento, resposta1, resposta2, resposta3,
+				resposta4, resposta5, media, data));
 	}
 
-	private void recuperarAvaliacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void recuperarAvaliacao(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		AvaliacaoId id = AvaliacaoId.class.cast(request.getParameter("avaliacao-id"));
 		Avaliacao avaliacao = avaliacaoDAO.recuperarAvaliacaoPorId(id);
 		request.setAttribute("avaliacao", avaliacao);
@@ -241,17 +249,18 @@ public class Servlet extends HttpServlet {
 	}
 
 	private void atualizarAvaliacao(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		AvaliacaoId id = AvaliacaoId.class.cast(request.getParameter("avaliacao-id"));
 		byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
 		byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
 		byte resposta3 = Byte.parseByte(request.getParameter("resposta-3"));
 		byte resposta4 = Byte.parseByte(request.getParameter("resposta-4"));
 		byte resposta5 = Byte.parseByte(request.getParameter("resposta-5"));
-		double media = (double)(resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
+		double media = (double) (resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
 		ZonedDateTime dataOriginal = ZonedDateTime.parse(request.getParameter("data-original"));
 		ZonedDateTime dataEdicao = ZonedDateTime.now();
-		avaliacaoDAO.atualizarAvaliacao(new Avaliacao(id, resposta1, resposta2, resposta3, resposta4, resposta5, media, dataOriginal, dataEdicao));
+		avaliacaoDAO.atualizarAvaliacao(new Avaliacao(id, resposta1, resposta2, resposta3, resposta4, resposta5, media,
+				dataOriginal, dataEdicao));
 
 	}
 
@@ -307,7 +316,7 @@ public class Servlet extends HttpServlet {
 
 	}
 
-	private void mostrarPerfilEstabelecimento(HttpServletRequest request, HttpServletResponse response) 
+	private void mostrarPerfilEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento.jsp");
 		dispatcher.forward(request, response);
@@ -350,6 +359,7 @@ public class Servlet extends HttpServlet {
 		usuarioDAO.inserirUsuario(new Usuario(nome, pronome, nomeDeUsuario, email, cpf, senha, data));
 		response.sendRedirect("tela-inicial");
 	}
+
 	private void atualizarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 
@@ -364,41 +374,71 @@ public class Servlet extends HttpServlet {
 		usuarioDAO.atualizarUsuario(new Usuario(id, nome, pronome, nomeDeUsuario, email, cpf, senha, data));
 		response.sendRedirect("");
 	}
+
 	private void mostrarPerfilUsuario(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-		
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(2L);
+			throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
 		request.setAttribute("usuario", usuario);
 		usuarioDAO.recuperarPontuacaoUsuario(2L);
 		conquistaDAO.recuperarConquistasMaisRecentes(2L);
 		comentarioDAO.recuperarComentariosOrdenadoMaisRecente(2);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-usuario.jsp");
-		
+
 		dispatcher.forward(request, response);
 		System.out.println("metodo perfil usuario chamado");
 		System.out.println(usuario.getNome());
 	}
 
 	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException { 
+			throws ServletException, IOException {
+		
+		String email = request.getParameter("email");
+		String senha = request.getParameter("senha");
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-		dispatcher.forward(request, response);
+		boolean existe = false;
+		existe = usuarioDAO.verificarUsuario(email, senha);
+
+		if (existe) {
+			
+			HttpSession sessao = request.getSession();
+			Usuario usuario = usuarioDAO.recuperarUsuarioEmail(email);
+			sessao.setAttribute("usuarioLogado", usuario);
+			response.sendRedirect("perfil-usuario");
+			
+		} else {
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			dispatcher.forward(request, response);
+
+		}
 	}
 
-	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response) 
+	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(2L);
+		
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
+		
 		request.setAttribute("usuario", usuario);
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("editar-perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 
 	}
 
-	private void deletarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		Long id = Long.parseLong(request.getParameter("id-usuario"));
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(id);
+	private void encerrarSessao (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		request.getSession().invalidate();
+		response.sendRedirect("perfil-usuario");
+	}
+	private void deletarUsuario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
+		
+		//Long id = Long.parseLong(request.getParameter("id-usuario"));
+		//Usuario usuario = usuarioDAO.recuperarUsuarioId(id);
 		usuarioDAO.deletarUsuario(usuario);
 		response.sendRedirect("tela-inicial");
 	}
