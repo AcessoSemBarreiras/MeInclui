@@ -400,12 +400,12 @@ public class Servlet extends HttpServlet {
 
 			Usuario usuario = usuarioDAO.recuperarUsuarioEmail(email);
 			request.getSession().setAttribute("usuario", usuario);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login-usuario.jsp");
 			dispatcher.forward(request, response);
 			
 		} else {
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login-usuario.jsp");
 			dispatcher.forward(request, response);
 
 		}
@@ -414,6 +414,13 @@ public class Servlet extends HttpServlet {
 
 	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		HttpSession sessao = request.getsession();
+		Usuario usuario = (usuario) sessao.getAttribute("usuario");
+		
+		request.setAttribute("nomeDeUsuario");
+		
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("editar-perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 
