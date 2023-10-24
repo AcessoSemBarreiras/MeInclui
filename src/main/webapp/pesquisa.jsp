@@ -16,7 +16,7 @@
   </header>
 
     <div class="barraPesquisa">
-      <form action="/resultado_da_pesquisa.html" method="get">
+      <form action="/resultado_da_pesquisa.html" method="post">
         <input type="submit" value=".">
         <input type="text" id="pesquisa" name="q" placeholder="Digite sua pesquisa aqui">
     </form>

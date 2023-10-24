@@ -38,8 +38,7 @@
       <div class="l-entrar">
         <input type="submit" value="Entrar">
       </div>
-
-	</form>
+      
       <div class="l-cadastro">
         <p>Não possui uma conta?</p>
         <a href="" id="cadastro">Cadastrar-se</a>

@@ -15,14 +15,14 @@
 			</div>
 			<a href="tela-pesquisa.jsp" name="pesquisar">.</a> <a
 				href="cadastro-estabelecimento.jsp" name="add-estabelecimento">.</a>
-			<a href="" name="ranking">.</a> <a href="" name="perfil-usuario">.</a>
+			<a href="" name="ranking">.</a> <a href="perfil-usuario.jsp" name="perfil-usuario">.</a>
 			<hr>
 		</header>
 
 		<div class="titulo">
 			<h1>Editar perfil</h1>
 		</div>
-		<form action="atualizar-usuario">
+		<form action="atualizar-usuario" method="post" enctype="multipart/form-data">
 			<div id="foto-usuario">
 				<img alt="Insira sua foto" src="">
 				<button name="add-foto">.</button>

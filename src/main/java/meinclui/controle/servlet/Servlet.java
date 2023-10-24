@@ -225,25 +225,24 @@ public class Servlet extends HttpServlet {
 	/* AVALIAÇÃO */
 	private void mostrarFormularioAvaliacaoEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/avaliacao-estabelecimento");
-		dispatcher.forward(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-avaliacao.jsp");
+        dispatcher.forward(request, response);
 	}
 
-	private void inserirAvaliacao(HttpServletRequest request, HttpServletResponse response) {
+	private void inserirAvaliacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		Usuario usuario = Usuario.class.cast(request.getParameter("usuario"));
-		Estabelecimento estabelecimento = estabelecimentoDAO
-				.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("estabelecimento")));
-		byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
-		byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
-		byte resposta3 = Byte.parseByte(request.getParameter("resposta-3"));
-		byte resposta4 = Byte.parseByte(request.getParameter("resposta-4"));
-		byte resposta5 = Byte.parseByte(request.getParameter("resposta-5"));
-		double media = (double) (resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
-		ZonedDateTime data = ZonedDateTime.now();
-		avaliacaoDAO.inserirAvaliacao(new Avaliacao(usuario, estabelecimento, resposta1, resposta2, resposta3,
-				resposta4, resposta5, media, data));
+		Usuario usuario = usuarioDAO.recuperarUsuarioId(1L);
+        Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
+        byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
+        byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
+        byte resposta3 = Byte.parseByte(request.getParameter("resposta-3"));
+        byte resposta4 = Byte.parseByte(request.getParameter("resposta-4"));
+        byte resposta5 = Byte.parseByte(request.getParameter("resposta-5"));
+        double media = (double) (resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
+        ZonedDateTime data = ZonedDateTime.now();
+        avaliacaoDAO.inserirAvaliacao(new Avaliacao(usuario, estabelecimento, resposta1, resposta2, resposta3, resposta4, resposta5, media, data));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/tela-inicial");
+        dispatcher.forward(request, response);
 	}
 
 	private void recuperarAvaliacao(HttpServletRequest request, HttpServletResponse response)
@@ -323,9 +322,9 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		String comentario = request.getParameter("comentario");
 		Comentario comentarioRespondido = Comentario.class.cast(request.getParameter("comentario-respondido"));
-		Usuario usuario = Usuario.class.cast(request.getParameter("usuario"));
-		Estabelecimento estabelecimento = Estabelecimento.class.cast("estabelecimento");
-		ZonedDateTime data = ZonedDateTime.class.cast("data");
+		Usuario usuario = usuarioDAO.recuperarUsuarioId(1L);
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
+		ZonedDateTime data = ZonedDateTime.now();
 		comentarioDAO
 				.inserirComentario(new Comentario(comentario, comentarioRespondido, usuario, estabelecimento, data));
 		response.sendRedirect("tela-inicial");
@@ -391,23 +390,24 @@ public class Servlet extends HttpServlet {
 
 	private void inserirEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
+		
 		String logradouro = request.getParameter("logradouro");
-		String tipoLogradouro = request.getParameter("tipo_logradouro");
-		int numero = Integer.parseInt(request.getParameter("numero"));
-		String complemento = request.getParameter("complemento");
-		String bairro = request.getParameter("bairro");
-		String cidade = request.getParameter("cidade");
-		String estado = request.getParameter("estado");
+        String tipoLogradouro = request.getParameter("tipo-logradouro");
+        int numero = Integer.parseInt(request.getParameter("numero"));
+        String complemento = request.getParameter("complemento");
+        String bairro = request.getParameter("bairro");
+        String cidade = request.getParameter("cidade");
+        String estado = request.getParameter("estado");
 
-		Endereco endereco = new Endereco(logradouro, tipoLogradouro, numero, complemento, bairro, cidade, estado);
-		enderecoDAO.inserirEndereco(endereco);
+        Endereco endereco = new Endereco(logradouro, tipoLogradouro, numero, complemento, bairro, cidade, estado);
+        enderecoDAO.inserirEndereco(endereco);
 
-		Categoria categoria = categoriaDAO.recuperarCategoriaNome(request.getParameter("categoria"));
-		String nome = request.getParameter("nome");
-		estabelecimentoDAO.inserirEstabelecimento(new Estabelecimento(categoria, nome, endereco));
-		response.sendRedirect("tela-inicial");
+        Categoria categoria = categoriaDAO.recuperarCategoriaNome(request.getParameter("categoria"));
+        String nome = request.getParameter("nome-estabelecimento");
+        estabelecimentoDAO.inserirEstabelecimento(new Estabelecimento(categoria, nome, endereco));
+        response.sendRedirect("tela-inicial");
 	}
-
+        
 	/* USUÁRIO */
 
 	private void mostrarFormularioCadastroUsuario(HttpServletRequest request, HttpServletResponse response)

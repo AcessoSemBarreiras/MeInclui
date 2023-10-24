@@ -13,7 +13,7 @@
                     <h1>Cadastrar-se</h1>
                 </div>
                 <div id="cadastro-usuario">
-                    <form action="inserir-usuario">
+                    <form action="inserir-usuario" method="post">
                         <div id="conteudo-cadastro">
                             <div id="voltar">
                                 <a href="">Voltar</a>
