@@ -1,6 +1,7 @@
 package meinclui.modelo.dao.comentario;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -148,7 +149,7 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 		return comentarios;
 	}
 
-	public List<Comentario> recuperarComentariosPeloEstabelecimento(int idEstabelecimento) {
+	public List<Comentario> recuperarComentariosPeloEstabelecimento(Long idEstabelecimento) {
 
 		Session sessao = null;
 		List<Comentario> comentarios = null;
@@ -164,7 +165,8 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 			Root<Comentario> raizComentario = criteria.from(Comentario.class);
 
 			criteria.select(raizComentario);
-			criteria.where(construtor.equal(raizComentario.get(Comentario_.estabelecimento), idEstabelecimento));
+			criteria.where(construtor.and(construtor.equal(raizComentario.get(Comentario_.estabelecimento), idEstabelecimento),
+					construtor.isNull(raizComentario.get(Comentario_.comentarioRespondido)))) ;
 
 			comentarios = sessao.createQuery(criteria).getResultList();
 
@@ -540,7 +542,7 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 
 	}
 
-	public List<Comentario> recuperarComentariosRespostas(int idComentario) {
+	public List<Comentario> recuperarComentariosRespostas() {
 		Session sessao = null;
 		List<Comentario> comentarios = null;
 
@@ -555,7 +557,7 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 			Root<Comentario> raizComentario = criteria.from(Comentario.class);
 
 			criteria.select(raizComentario);
-			criteria.where(construtor.equal(raizComentario.get(Comentario_.comentarioRespondido), idComentario));
+			criteria.where(construtor.isNotNull(raizComentario.get(Comentario_.comentarioRespondido)));
 			criteria.orderBy(construtor.desc(raizComentario.get(Comentario_.data)));
 
 			comentarios = sessao.createQuery(criteria).getResultList();
@@ -580,6 +582,47 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 		}
 
 		return comentarios;
+	}
+
+	public Comentario recuperarComentarioId(int id) {
+		Session sessao = null;
+		Comentario comentario = null;
+
+		try {
+
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+
+			CriteriaQuery<Comentario> criteria = construtor.createQuery(Comentario.class);
+			Root<Comentario> raizComentario = criteria.from(Comentario.class);
+
+			criteria.select(raizComentario);
+			criteria.where(construtor.equal(raizComentario.get(Comentario_.idComentario), id));
+
+			comentario = sessao.createQuery(criteria).getSingleResult();
+
+			sessao.getTransaction().commit();
+
+		} catch (Exception sqlException) {
+
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+
+				sessao.getTransaction().rollback();
+
+			}
+		} finally {
+
+			if (sessao != null) {
+				sessao.close();
+			}
+
+		}
+
+		return comentario;
 	}
 
 }

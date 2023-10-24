@@ -140,6 +140,9 @@ public class Servlet extends HttpServlet {
 			case "/inserir-comentario":
 				inserirComentario(request, response);
 				break;
+			case "/responder-comentario":
+				responderComentario(request, response);
+				break;
 			case "/deletar-comentario":
 				deletarComentario(request, response);
 				break;
@@ -287,7 +290,7 @@ public class Servlet extends HttpServlet {
 
 	private void recuperarComentario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(1);
+		List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(1L);
 		request.setAttribute("comentario", comentarios);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento.jsp");
 		dispatcher.forward(request, response);
@@ -327,10 +330,21 @@ public class Servlet extends HttpServlet {
 		ZonedDateTime data = ZonedDateTime.now();
 		comentarioDAO
 				.inserirComentario(new Comentario(comentario, comentarioRespondido, usuario, estabelecimento, data));
-		response.sendRedirect("tela-inicial");
+		response.sendRedirect("perfil-estabelecimento");
 
 	}
-
+	
+	private void responderComentario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Comentario comentarioRespondido = comentarioDAO.recuperarComentarioId(Integer.parseInt(request.getParameter("id")));
+		String comentario = request.getParameter("resposta-comentario");
+		Usuario usuario = usuarioDAO.recuperarUsuarioId(2L);
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
+		ZonedDateTime data = ZonedDateTime.now();
+		comentarioDAO.inserirComentario(new Comentario(comentario, comentarioRespondido, usuario, estabelecimento, data));
+		response.sendRedirect("perfil-estabelecimento");
+	}
+	
 	/* ESTABELECIMENTO */
 	private void mostrarFormularioCadastroEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -351,12 +365,16 @@ public class Servlet extends HttpServlet {
 	}
 
 	private void mostrarPerfilEstabelecimento(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(2L);
-		request.setAttribute("estabelecimento", estabelecimento);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento.jsp");
-		dispatcher.forward(request, response);
-	}
+            throws ServletException, IOException {
+        Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
+        List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
+        List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas();
+        request.setAttribute("estabelecimento", estabelecimento);
+        request.setAttribute("comentarios", comentarios);
+        request.setAttribute("respostas", respostas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento.jsp");
+        dispatcher.forward(request, response);
+    }
 
 	private void atualizarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {

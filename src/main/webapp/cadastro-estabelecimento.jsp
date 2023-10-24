@@ -20,7 +20,7 @@
 		<div id="voltar">
 			<a href="">Voltar</a>
 		</div>
-		<form action="inserir-estabelecimento" method="post" enctype="multipart/form-data">
+		<form action="inserir-estabelecimento" method="get" enctype="multipart/form-data">
 		
 			<div class="conteudo-cadastro">
 				<input type="text" id="nome-est" name="nome-estabelecimento" placeholder="Nome do estabelecimento" required>
@@ -46,8 +46,6 @@
 			<div class="imgPessoa">
 				<img src="" alt="Imagem pessoa" id="imgPessoa">
 			</div>
-			
-			
 			
 			<div class="cadastro-estabelecimento">
 				<div class="inputs">
