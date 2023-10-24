@@ -26,13 +26,7 @@
 		<h1 id="nome-estabelecimento">
 			<c:out value='${estabelecimento.nome}' />
 		</h1>
-		<p id="categoria-estabelecimento">
-			<c:out value='${estabelecimento.categoria}' />
-		</p>
-		<p id="endereco-estabelecimento">
-			<c:out value='${estabelecimento.endereco}' />
-		</p>
-
+		
 		<form action="favoritar" method="post">
 			<div id="favoritar-estabelecimento">
 				<button>Favoritar</button>
