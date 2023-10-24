@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import meinclui.modelo.dao.Foto.FotoDAO;
+import meinclui.modelo.dao.Foto.FotoDAOImpl;
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAO;
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAOImpl;
 import meinclui.modelo.dao.avaliacao.AvaliacaoDAO;
@@ -50,6 +52,7 @@ public class Servlet extends HttpServlet {
 	private EstabelecimentoDAO estabelecimentoDAO;
 	private UsuarioDAO usuarioDAO;
 	private UsuarioTemConquistaDAO usuarioTemConquistaDAO;
+	private FotoDAO fotoDAO;
 	private ConversorImagem converterImagem;
 
 	public void init() {
@@ -61,6 +64,7 @@ public class Servlet extends HttpServlet {
 		estabelecimentoDAO = new EstabelecimentoDAOImpl();
 		usuarioDAO = new UsuarioDAOImpl();
 		usuarioTemConquistaDAO = new UsuarioTemConquistaDAOImpl();
+		fotoDAO = new FotoDAOImpl();	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -352,11 +356,11 @@ public class Servlet extends HttpServlet {
 		LocalDate data = LocalDate.parse(request.getParameter("data-nascimento-usuario"));
 		String senha = request.getParameter("senha-usuario");
 		
-		Part perfil = request.getPart("foto-usuario");
-		byte[] binario = ConversorImagem.obterBytesImagem(perfil);
-		String extensao = perfil.getContentType();
-		Foto fotoPerfil = new Foto(binario, extensao);
-		
+		Part partPerfil = request.getPart("foto-usuario");
+		String extensao = partPerfil.getContentType();
+		byte[] binarioFoto = ConversorImagem.obterBytesImagem(partPerfil);
+		Foto fotoPerfil = new Foto(binarioFoto, extensao);
+		fotoDAO.inserirFoto(fotoPerfil);
 		usuarioDAO.inserirUsuario(new Usuario(nome, pronome, nomeDeUsuario, email, cpf, senha, data, fotoPerfil));
 		response.sendRedirect("tela-inicial");
 	}
@@ -372,10 +376,11 @@ public class Servlet extends HttpServlet {
 		String cpf = request.getParameter("cpf-usuario");
 		LocalDate data = LocalDate.parse(request.getParameter("data-nascimento-usuario"));
 		
-		Part perfil = request.getPart("foto-usuario");
-		byte[] binario = ConversorImagem.obterBytesImagem(perfil);
-		String extensao = perfil.getContentType();
-		Foto fotoPerfil = new Foto(binario, extensao);
+		Part partPerfil = request.getPart("foto-usuario");
+		String extensao = partPerfil.getContentType();
+		byte[] binarioFoto = ConversorImagem.obterBytesImagem(partPerfil);
+		Foto fotoPerfil = new Foto(binarioFoto, extensao);
+		fotoDAO.inserirFoto(fotoPerfil);
 		
 		usuarioDAO.atualizarUsuario(new Usuario(id, nome, pronome, nomeDeUsuario, email, cpf, senha, data, fotoPerfil));
 		response.sendRedirect("");

@@ -63,7 +63,7 @@ public class Usuario implements Serializable{
 	@JoinTable(name = "estabelecimentos_favoritos", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_estabelecimento"))
 	private List<Estabelecimento> estabelecimentos_favoritos = new ArrayList<Estabelecimento>();
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Foto fotoUsuario;
 
 	public Usuario() {}
