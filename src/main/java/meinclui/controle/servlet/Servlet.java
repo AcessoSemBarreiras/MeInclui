@@ -34,6 +34,7 @@ import meinclui.modelo.dao.usuario.UsuarioDAO;
 import meinclui.modelo.dao.usuario.UsuarioDAOImpl;
 import meinclui.modelo.entidade.avaliacao.Avaliacao;
 import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
+import meinclui.modelo.entidade.conquista.Conquista;
 import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 import meinclui.modelo.entidade.foto.Foto;
 import meinclui.modelo.entidade.usuario.Usuario;
@@ -179,6 +180,19 @@ public class Servlet extends HttpServlet {
 				recuperarEndereco(request, response);
 				break;
 
+			case "/cadastro-conquista":
+				mostrarFormularioCadastroConquista(request, response);
+				break;
+			case "/inserir-conquista":
+				inserirConquista(request, response);
+				break;
+			/*case "/deletar-endereco":
+				deletarEndereco(request, response);
+				break;
+			case "/atualizar-endereco":
+				atualizarEndereco(request, response);
+				break;*/
+				
 			}
 		} catch (SQLException ex) {
 			throw new ServletException(ex);
@@ -425,5 +439,30 @@ public class Servlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/ranque-usuario");
 		dispatcher.forward(request, response);
+	}
+	
+	/* CONQUISTA */
+	private void mostrarFormularioCadastroConquista(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-conquista.jsp");
+		dispatcher.forward(request, response);
+	}
+	
+	private void inserirConquista(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+
+		String nome = request.getParameter("nome");
+		byte nivel = Byte.parseByte(request.getParameter("nivel"));
+		int reputacao = Integer.parseInt(request.getParameter("reputacao"));
+		
+		Part partReputacao = request.getPart("foto-conquista");
+		String extensao = partReputacao.getContentType();
+		byte[] binarioFoto = ConversorImagem.obterBytesImagem(partReputacao);
+		Foto fotoReputacao = new Foto(binarioFoto, extensao);
+		fotoDAO.inserirFoto(fotoReputacao);
+		
+		conquistaDAO.inserirConquista(new Conquista (nome, nivel, reputacao, fotoReputacao));
+		response.sendRedirect("");
 	}
 }
