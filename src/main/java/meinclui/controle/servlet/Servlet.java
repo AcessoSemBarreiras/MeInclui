@@ -31,6 +31,7 @@ import meinclui.modelo.dao.usuario.UsuarioDAO;
 import meinclui.modelo.dao.usuario.UsuarioDAOImpl;
 import meinclui.modelo.entidade.avaliacao.Avaliacao;
 import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
+import meinclui.modelo.entidade.categoria.Categoria;
 import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 import meinclui.modelo.entidade.usuario.Usuario;
 
@@ -171,6 +172,18 @@ public class Servlet extends HttpServlet {
 				break;
 			case "encerrar-sessao":
 				encerrarSessao(request, response);
+				break;
+			case "/cadastrar-categoria":
+				cadastrarCategoria(request, response);
+				break;
+			case "/inserir-categoria":
+				inserirCategoria(request, response);
+				break;
+			case "editar-categoria":
+				editarCategoria(request, response);
+				break;
+			case "deletar-usuario":
+				deletarCategoria(request, response);
 				break;
 			   
 
@@ -449,4 +462,30 @@ public class Servlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/ranque-usuario");
 		dispatcher.forward(request, response);
 	}
+	
+	//CATEGORIA
+	
+	private void cadastrarCategoria(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-usuario.jsp");
+		dispatcher.forward(request, response);
+	}
+	
+	private void inserirCategoria(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		
+		String nome = request.getParameter("nome_categoria");
+		categoriaDAO.inserirCategoria(new Categoria(nome));
+		response.sendRedirect("tela-inicial");
+	}
+	private void editarCategoria(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		
+	}
+	private void deletarCategoria(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		
+	}
+	
 }
