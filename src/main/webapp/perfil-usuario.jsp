@@ -9,16 +9,16 @@
 </head>
 <body>
 	<main>
-
-		<header class="cabecalho-pu">
-			<div class="logo-me-inclui">
-				<img src="" alt="logo">
-			</div>
-			<a href="tela-pesquisa.jsp" name="pesquisar">.</a> <a
-				href="cadastro-estabelecimento.jsp" name="add-estabelecimento">.</a>
-			<a href="" name="ranking">.</a> <a href="" name="perfil-usuario">.</a>
-		</header>
-
+	
+	<c:if test="${usuario != null}">
+		<%@ include file="menuLogado.jsp" %>
+	</c:if>
+	
+	<c:if test="${usuario == null}">
+		<%@ include file="menuNaoLogado.jsp" %>
+	</c:if>
+	
+	
 		<div class="informacoes-usuario">
 			<img alt="foto do usuario" src="">
 			<p>
@@ -35,11 +35,13 @@
 			</p>
 
 			<table>
-				<td class="texto-secundario">Pontos</td>
+			<tr>
+			<td class="texto-secundario">Pontos</td>
 				<td id="pontos-usuario"></td>
 				<td class="texto-secundario">Nasceu em</td>
-				<td id="data-nascimento-usuario"><c:out
-						value='${usuario.dataNascimento}' /></td>
+				<td id="data-nascimento-usuario">
+				<c:out value='${usuario.dataNascimento}'/></td>
+			</tr>
 			</table>
 		</div>
 

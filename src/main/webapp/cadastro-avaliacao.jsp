@@ -78,7 +78,7 @@
 			</div>
 		</div>
 		<div class="cancelar">
-				<a href="http://localhost:8080/MeInclui/perfil-estabelecimento">CANCELAR</a>
+				<button onclick="location.href='http://localhost:8080/MeInclui/perfil-estabelecimento'">Cancelar</button>
 			</div>
 			<div class="enviar">
 					<input type="submit" value="FINALIZAR"> 

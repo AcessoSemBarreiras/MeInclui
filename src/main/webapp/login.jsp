@@ -34,11 +34,12 @@
         <a href="">Esqueceu sua senha?<br> </a>
         <input type="password" id="senha" name="senha" placeholder="Senha" required> 
       </div>
-
+	
       <div class="l-entrar">
         <input type="submit" value="Entrar">
       </div>
-      
+      </div>>
+	</form>
       <div class="l-cadastro">
         <p>Não possui uma conta?</p>
         <a href="" id="cadastro">Cadastrar-se</a>

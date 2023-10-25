@@ -42,7 +42,7 @@
 		</div>
 
 		<div class="botao-padrao">
-			<button>AVALIAR</button>
+			<button onclick="location.href='http://localhost:8080/MeInclui/avaliacao-estabelecimento'">AVALIAR</button>
 		</div>
 	</div>
 
