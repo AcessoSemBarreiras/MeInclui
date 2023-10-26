@@ -346,7 +346,7 @@ public class Servlet extends HttpServlet {
 
 	private void mostrarTelaPesquisaEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/encontrar-estabelecimentos");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("pesquisa.jsp");
 		dispatcher.forward(request, response);
 	}
 

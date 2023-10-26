@@ -8,21 +8,22 @@
 <title>Perfil Estabelecimento</title>
 </head>
 <body>
-	<header class="cabecalho">
-		<div class="logo-me-inclui">
-			<img src="" alt="logo">
-		</div>
-		<a href="tela-pesquisa.jsp" name="pesquisar">.</a> <a
-			href="cadastro-estabelecimento.jsp" name="add-estabelecimento">.</a>
-		<a href="" name="ranking">.</a> <a href="" name="perfil-usuario">.</a>
-		<hr>
-	</header>
+	
+	<c:if test="${usuario != null}">
+		<%@ include file="menuLogado.jsp" %>
+	</c:if>
+	
+	<c:if test="${usuario == null}">
+		<%@ include file="menuNaoLogado.jsp" %>
+	</c:if>
 
 	<div id="dados-estabelecimento">
 		<img alt="foto do estabelecimento" src="">
-		<p>
-			<button name="editar-estabelecimento">.</button>
-		</p>
+		
+		<c:if test="${usuario != null}">
+			<a href="editar-perfil-estabelecimento.jsp">editar</a>
+		</c:if>
+		
 		<h1 id="nome-estabelecimento">
 			<c:out value='${estabelecimento.nome}' />
 		</h1>

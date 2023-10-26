@@ -9,6 +9,10 @@
 <title>Cadastre o Estabelecimento!</title>
 </head>
 <body>
+	<header>
+		<a href="index.jsp" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
+	</header>
+
 	<div class="titulo-principal">
 		<h1>Cadastre o Estabelecimento</h1>
 	</div>
@@ -38,7 +42,7 @@
 					</select>
 				</div>
 
-				<div id="foto-estabelecimento">
+				<div class="insira-foto">
 					<input type="file" id="imagem" name="foto-estabelecimento">
 					<p>Selecione Uma Foto De Perfil</p>
 				</div>

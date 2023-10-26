@@ -9,7 +9,6 @@
 </head>
 <body>
 	<main>
-	
 	<c:if test="${usuario != null}">
 		<%@ include file="menuLogado.jsp" %>
 	</c:if>
@@ -18,12 +17,10 @@
 		<%@ include file="menuNaoLogado.jsp" %>
 	</c:if>
 	
-	
 		<div class="informacoes-usuario">
 			<img alt="foto do usuario" src="">
-			<p>
-				<button name="editar-usuario">.</button>
-			</p>
+			<a href="editar-perfil-usuario.jsp">editar</a>
+			
 			<h3 id="nome-de-usuario">
 				<c:out value='${usuario.nomeDeUsuario}' />
 			</h3>
@@ -130,7 +127,6 @@
 				</c:forEach>
 			</c:if>
 		</div>
-
 	</main>
 </body>
 </html>

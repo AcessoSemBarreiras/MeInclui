@@ -9,7 +9,7 @@
        </head>
 <body>
 	<header>
-		<img alt="Logo Meinclui" src="">
+		<a href="index.jsp" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
 	</header>
 
 	<div>

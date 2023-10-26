@@ -8,6 +8,9 @@
             <title>Cadastre-se!</title>
         </head>
         <body>
+        	<header>
+				<a href="index.jsp" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
+			</header>
             <div id="Pagina">
                 <div class="titulo-principal">
                     <h1>Cadastrar-se</h1>
