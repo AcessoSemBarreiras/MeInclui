@@ -11,12 +11,26 @@
 
 <body>
   <header>
-    <div id="home-cabecalho">
-      <a href="#corpo" id="home-link">Home</a>
-      <a href="#ranking" id="ranking-link">Ranking</a>
-      <a href="#fale_conosco" id="fale-conosco-link">Fale Conosco</a>
-      <a href="#login.jsp" id="login-link">Acesse Sua Conta</a>
-    </div>
+	<c:if test="${usuario == null}">  
+      <div id="home-cabecalho">
+      	<a href="index.jsp">..<img></a>
+      	<a href="ranking" id="ranking-link">Ranking</a>
+      	<a href="fale_conosco" id="fale-conosco-link">Fale Conosco</a>
+      	<a href="login.jsp" id="login-link">Acesse Sua Conta</a>
+      </div>
+    </c:if>
+    
+    <c:if test="${usuario != null}">  
+      <div id="home-cabecalho">
+      	<a href="index.jsp">..<img></a>
+      	<a href="ranking" id="ranking-link">Ranking</a>
+      	<a href="fale_conosco" id="fale-conosco-link">Fale Conosco</a>
+      	<a href="pesquisa.jsp" id="continue">Continue Navegando</a>
+      </div>
+    </c:if>
+    
+    
+    
   </header>
 
   <div id="home-corpo">
