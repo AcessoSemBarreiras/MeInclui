@@ -1,5 +1,7 @@
 package meinclui.controle.servlet;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -135,6 +137,9 @@ public class Servlet extends HttpServlet {
 				break;
 			case "/favoritar-estabelecimento":
 				favoritarEstabelecimento(request, response);
+				break;
+			case "/desfavoritar-estabelecimento":
+				desfavoritarEstabelecimento(request, response);
 				break;
 
 			case "/cadastrar-comentario":
@@ -416,10 +421,21 @@ public class Servlet extends HttpServlet {
 			throws SQLException, IOException{
 		Long id = Long.parseLong(request.getParameter("id"));
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(1L);
-		usuario.setEstabelecimentoFavorito(estabelecimento);
+		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(1L);
+		usuarioFav.setEstabelecimentoFavorito(estabelecimento);
+		usuarioDAO.atualizarUsuario(usuarioFav);
 	}
-        
+	
+	private void desfavoritarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException{
+		Long id = Long.parseLong(request.getParameter("id"));
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
+		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(1L);
+		usuarioFav.getEstabelecimentoFavorito().remove(estabelecimento).equals(estabelecimento);
+		usuarioFav.getEstabelecimentoFavorito().size();
+		usuarioDAO.atualizarUsuario(usuarioFav);
+	}
+
 	/* USUÁRIO */
 
 	private void mostrarFormularioCadastroUsuario(HttpServletRequest request, HttpServletResponse response)

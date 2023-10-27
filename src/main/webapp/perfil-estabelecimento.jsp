@@ -31,11 +31,11 @@
 		</p>
 
 
-		<form action="favoritar" method="post">
 			<div id="favoritar-estabelecimento">
 				<a href="favoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Favoritar</a>
+				<a href="desfavoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Desfavoritar</a>
 			</div>
-		</form>
+	
 
 		<div id="nota=estabelecimento">
 			<h3>Nota</h3>
