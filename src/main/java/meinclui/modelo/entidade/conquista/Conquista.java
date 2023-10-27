@@ -35,7 +35,6 @@ public class Conquista implements Serializable {
 	private int reputacao;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	@Column(name = "imagem_conquista")
 	private Foto fotoConquista;
 
 	

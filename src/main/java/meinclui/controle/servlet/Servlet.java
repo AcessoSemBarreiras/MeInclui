@@ -186,12 +186,6 @@ public class Servlet extends HttpServlet {
 			case "/inserir-conquista":
 				inserirConquista(request, response);
 				break;
-			/*case "/deletar-endereco":
-				deletarEndereco(request, response);
-				break;
-			case "/atualizar-endereco":
-				atualizarEndereco(request, response);
-				break;*/
 				
 			}
 		} catch (SQLException ex) {
@@ -463,6 +457,6 @@ public class Servlet extends HttpServlet {
 		fotoDAO.inserirFoto(fotoReputacao);
 		
 		conquistaDAO.inserirConquista(new Conquista (nome, nivel, reputacao, fotoReputacao));
-		response.sendRedirect("");
+		response.sendRedirect("tela-inicial");
 	}
 }

@@ -12,7 +12,7 @@
 
 <h1>Cadastre a conquista</h1>
 
-	<form action="inserir-conquista" enctype="multipart/form-data">
+	<form action="inserir-conquista" method="post" enctype="multipart/form-data">
 
 	<input type="text" id="" name="nome" placeholder="Nome da conquista" required>
 	<input type="text" id="" name="nivel" placeholder="Nivel da conquista" required>
