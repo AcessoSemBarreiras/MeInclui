@@ -9,12 +9,11 @@
 </head>
 
 <body>
+	<header>
+		<a href="index.jsp" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
+	</header>
 
-  <header class="logo-me-inclui">
-    <img src="" alt="logo">
-  </header>
-
-  <form action="entrar">
+  <form action="entrar" method="post">
 
 <!--Login-->
     <div id="l">
@@ -34,11 +33,11 @@
         <a href="">Esqueceu sua senha?<br> </a>
         <input type="password" id="senha" name="senha" placeholder="Senha" required> 
       </div>
-
+	
       <div class="l-entrar">
         <input type="submit" value="Entrar">
       </div>
-
+      </div>>
 	</form>
       <div class="l-cadastro">
         <p>Não possui uma conta?</p>
