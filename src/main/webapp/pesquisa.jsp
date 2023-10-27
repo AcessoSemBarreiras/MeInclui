@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,12 +8,13 @@
     <title>Pesquisa</title>
 </head>
 <body>
-  <header>
-    <a href="home.jsp" id="home">.</a>
-    <a href="cadastroEstabelecimentoInicial.jsp" id="addEstabelecimento">.</a>
-    <a href="ranking.jsp" id="ranking">.</a>
-    <a href="login.jsp" id="login">Entrar</a>
-  </header>
+  	<c:if test="${usuario != null}">
+		<%@ include file="menuLogado.jsp" %>
+	</c:if>
+	
+	<c:if test="${usuario == null}">
+		<%@ include file="menuNaoLogado.jsp" %>
+	</c:if>
 
     <div class="barraPesquisa">
       <form action="/resultado_da_pesquisa.html" method="post">
@@ -22,13 +23,12 @@
     </form>
     </div>
     <div id="conteudo">
-      <!-- usa os b para mudar a cor e o i tbm -->
       <h1>O Que Deseja Ver Hoje?</h1>
-      <p> <b>Navegue</b> pelos <b>estabelecimentos</b> presentes no <i>MeInclui!</i> e ajude a tornar os locais mais <b>acessíveis</b> com suas <b>avaliações.</b> </p>
-      <h3>Filtre sua Busca para um resultado mais agradável!</h3>
+      <p> <b>Navegue</b> pelos <b>estabelecimentos</b> presentes no <i>MeInclui!</i> e ajude a tornar os locais mais <b>acessÃ­veis</b> com suas <b>avaliaÃ§Ãµes.</b> </p>
+      <h3>Filtre sua Busca para um resultado mais agradÃ¡vel!</h3>
     </div>
     <div id="predio">
-      <img src="" alt="imagem De um prédio">
+      <img src="" alt="imagem De um prÃ©dio">
     </div>
 </body>
 </html>
