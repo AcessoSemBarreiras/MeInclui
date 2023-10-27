@@ -27,7 +27,7 @@ public class Comentario implements Serializable{
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_comentario", nullable = false)
-	private int idComentario;
+	private Long idComentario;
 	
 	@Column(name = "descricao_comentario", nullable = false)
 	private String comentario;
@@ -55,7 +55,7 @@ public class Comentario implements Serializable{
 
 	public Comentario() {}
 	
-	public Comentario(int idComentario, String comentario, Comentario comentarioRespondido,
+	public Comentario(Long idComentario, String comentario, Comentario comentarioRespondido,
 			int quantidadeGostei, int quantidadeNaoGostei, Usuario usuario, Estabelecimento estabelecimento, ZonedDateTime data) {
 		setIdComentario(idComentario);
 		setComentario(comentario);
@@ -77,11 +77,11 @@ public class Comentario implements Serializable{
 		setData(data);
 	}
 	
-	public int getIdComentario() {
+	public Long getIdComentario() {
 		return idComentario;
 	}
 
-	public void setIdComentario(int idComentario) {
+	public void setIdComentario(Long idComentario) {
 		this.idComentario = idComentario;
 	}
 

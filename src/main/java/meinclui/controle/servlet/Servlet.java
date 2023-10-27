@@ -299,7 +299,7 @@ public class Servlet extends HttpServlet {
 	private void atualizarComentario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int id = Integer.parseInt(request.getParameter("id"));
+		Long id = Long.parseLong(request.getParameter("id"));
 		String comentario = request.getParameter("comentario");
 		Comentario comentarioRespondido = Comentario.class.cast(request.getParameter("comentario-respondido"));
 		int qtdGostei = Integer.parseInt(request.getParameter("quantidade-gostei"));
@@ -472,7 +472,7 @@ public class Servlet extends HttpServlet {
 		request.setAttribute("usuario", usuario);
 		usuarioDAO.recuperarPontuacaoUsuario(1L);
 		conquistaDAO.recuperarConquistasMaisRecentes(1L);
-		comentarioDAO.recuperarComentariosOrdenadoMaisRecente(2);
+		comentarioDAO.recuperarComentariosOrdenadoMaisRecente(2L);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 		System.out.println("metodo perfil usuario chamado");

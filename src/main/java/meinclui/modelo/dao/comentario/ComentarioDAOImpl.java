@@ -1,7 +1,6 @@
 package meinclui.modelo.dao.comentario;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -192,7 +191,7 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 		return comentarios;
 	}
 
-	public List<Comentario> recuperarComentariosOrdenadoMaiorQuantidadeGostei(int idEstabelecimento) {
+	public List<Comentario> recuperarComentariosOrdenadoMaiorQuantidadeGostei(Long idEstabelecimento) {
 
 		Session sessao = null;
 		List<Comentario> comentarios = null;
@@ -236,7 +235,7 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 		return comentarios;
 	}
 
-	public List<Comentario> recuperarComentariosOrdenadoMaiorQuantidadeNaoGostei(int idEstabelecimento) {
+	public List<Comentario> recuperarComentariosOrdenadoMaiorQuantidadeNaoGostei(Long idEstabelecimento) {
 
 		Session sessao = null;
 		List<Comentario> comentarios = null;
@@ -280,7 +279,7 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 		return comentarios;
 	}
 
-	public List<Comentario> recuperarComentariosOrdenadoMaisAntigo(int idEstabelecimento) {
+	public List<Comentario> recuperarComentariosOrdenadoMaisAntigo(Long idEstabelecimento) {
 
 		Session sessao = null;
 		List<Comentario> comentarios = null;
@@ -324,7 +323,7 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 		return comentarios;
 	}
 
-	public List<Comentario> recuperarComentariosOrdenadoMaisRecente(int idEstabelecimento) {
+	public List<Comentario> recuperarComentariosOrdenadoMaisRecente(Long idEstabelecimento) {
 
 		Session sessao = null;
 		List<Comentario> comentarios = null;

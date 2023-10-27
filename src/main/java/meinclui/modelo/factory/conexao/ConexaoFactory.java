@@ -21,6 +21,8 @@ public class ConexaoFactory {
 		configuracao.addAnnotatedClass(meinclui.modelo.entidade.endereco.Endereco.class);
 		configuracao.addAnnotatedClass(meinclui.modelo.entidade.estabelecimento.Estabelecimento.class);
 		configuracao.addAnnotatedClass(meinclui.modelo.entidade.usuario.Usuario.class);
+		configuracao.addAnnotatedClass(meinclui.modelo.entidade.avaliacaoComentario.AvaliacaoComentario.class);
+		configuracao.addAnnotatedClass(meinclui.modelo.entidade.avaliacaoComentario.AvaliacaoComentarioId.class);
 		
 		configuracao.configure("hibernate.cfg.xml");
 		
