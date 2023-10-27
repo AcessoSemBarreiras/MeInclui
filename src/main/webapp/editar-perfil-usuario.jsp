@@ -9,25 +9,17 @@
 </head>
 <body>
 	<main>
-
-		<header class="cabecalho">
-			<div class="logo-me-inclui">
-				<img src="" alt="logo">
-			</div>
-			<a href="tela-pesquisa.jsp" name="pesquisar">.</a> <a
-				href="cadastro-estabelecimento.jsp" name="add-estabelecimento">.</a>
-			<a href="" name="ranking">.</a> <a href="" name="perfil-usuario">.</a>
-			<hr>
-		</header>
+		<c:if test="${usuario != null}">
+		<%@ include file="menuLogado.jsp" %>
+	</c:if>
 
 		<div class="titulo">
 			<h1>Editar perfil</h1>
 		</div>
-		<form action="atualizar-usuario">
-			<div id="foto-usuario">
-				<img alt="Insira sua foto" src="">
-				<button name="add-foto">.</button>
-			</div>
+		<form action="atualizar-usuario" method="get" enctype="multipart/form-data">
+			<div class="insira-foto">
+					<input type="file" name="foto-usuario">
+				</div>
 
 			<div class="dados-usuario">
 				<div id="email-nome-completo">
