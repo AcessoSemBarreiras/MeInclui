@@ -8,7 +8,11 @@
 	<a href="cadastro-estabelecimento.jsp" class="menu-estabelecimento">+</a>
 	<a href="ranking.jsp" class="menu-ranking">|||</a>
 	<p class="menu-usuario">
-		<c:out value="${usuario.nome}"/>
+		<c:out value="${usuario.nomeDeUsuario}"/>
 	</p>
 	<hr>
+	
+	<button type="button"></button>
+	
+	
 </header>
