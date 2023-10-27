@@ -27,13 +27,15 @@
 		<h1 id="nome-estabelecimento">
 			<c:out value='${estabelecimento.nome}' />
 		</h1>
+		<p id="categoria-estabelecimento">
+			<c:out value='${categoria.nomeCategoria}' />
+		</p>
 		
-		<form action="favoritar" method="post">
 			<div id="favoritar-estabelecimento">
-				<button>Favoritar</button>
+				<a href="favoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Favoritar</a>
+				<a href="desfavoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Desfavoritar</a>
 			</div>
-		</form>
-
+	
 		<div id="nota=estabelecimento">
 			<h3>Nota</h3>
 			<hr>

@@ -1,5 +1,7 @@
 package meinclui.controle.servlet;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -129,7 +131,13 @@ public class Servlet extends HttpServlet {
 			case "/editar-perfil-estabelecimento":
 				mostrarFormularioEditarEstabelecimento(request, response);
 				break;
-				
+			case "/favoritar-estabelecimento":
+				favoritarEstabelecimento(request, response);
+				break;
+			case "/desfavoritar-estabelecimento":
+				desfavoritarEstabelecimento(request, response);
+				break;
+
 			case "/cadastrar-comentario":
 				mostrarFormularioCadastroComentario(request, response);
 				break;
@@ -161,7 +169,6 @@ public class Servlet extends HttpServlet {
 			case "/recuperar-avaliacao":
 				recuperarAvaliacao(request, response);
 				break;
-
 			case "/cadastrar-endereco":
 				mostrarFormularioCadastroEndereco(request, response);
 				break;
@@ -176,7 +183,7 @@ public class Servlet extends HttpServlet {
 				break;
 			case "/recuperar-endereco":
 				recuperarEndereco(request, response);
-				break;
+				break; 
 				
 			case "/encerrar-sessao":
 				encerrarSessao(request, response);
@@ -193,8 +200,6 @@ public class Servlet extends HttpServlet {
 			case "/deletar-categoria":
 				deletarCategoria(request, response);
 				break;
-			   
-
 
 			}
 		} catch (SQLException ex) {
@@ -366,8 +371,10 @@ public class Servlet extends HttpServlet {
 
 	private void mostrarPerfilEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(2L);
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
 		request.setAttribute("estabelecimento", estabelecimento);
+		Categoria categoria = categoriaDAO.recuperarCategoriaId(1);
+		request.setAttribute("categoria", categoria);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -421,7 +428,26 @@ public class Servlet extends HttpServlet {
         estabelecimentoDAO.inserirEstabelecimento(new Estabelecimento(categoria, nome, endereco));
         response.sendRedirect("tela-inicial");
 	}
-        
+	
+	private void favoritarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException{
+		Long id = Long.parseLong(request.getParameter("id"));
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
+		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(1L);
+		usuarioFav.setEstabelecimentoFavorito(estabelecimento);
+		usuarioDAO.atualizarUsuario(usuarioFav);
+	}
+	
+	private void desfavoritarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException{
+		Long id = Long.parseLong(request.getParameter("id"));
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
+		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(1L);
+		usuarioFav.getEstabelecimentoFavorito().remove(estabelecimento).equals(estabelecimento);
+		usuarioFav.getEstabelecimentoFavorito().size();
+		usuarioDAO.atualizarUsuario(usuarioFav);
+	}
+
 	/* USUÁRIO */
 
 	private void mostrarFormularioCadastroUsuario(HttpServletRequest request, HttpServletResponse response)

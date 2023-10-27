@@ -26,7 +26,6 @@
 			<a href="">Voltar</a>
 		</div>
 		<form action="inserir-estabelecimento" method="get" enctype="multipart/form-data">
-
 			<div class="conteudo-cadastro">
 				<input type="text" id="nome-est" name="nome-estabelecimento"
 					placeholder="Nome do estabelecimento" required>
