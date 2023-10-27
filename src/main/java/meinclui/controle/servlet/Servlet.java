@@ -108,7 +108,6 @@ public class Servlet extends HttpServlet {
 			case "/editar-perfil-usuario":
 				mostrarFormularioEditarUsuario(request, response);
 				break;
-          
 			case "/cadastro-estabelecimento":
 				mostrarFormularioCadastroEstabelecimento(request, response);
 				break;
