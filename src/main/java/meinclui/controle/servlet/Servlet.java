@@ -438,8 +438,6 @@ public class Servlet extends HttpServlet {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
 		
-		//Long id = Long.parseLong(request.getParameter("id-usuario"));
-		//Usuario usuario = usuarioDAO.recuperarUsuarioId(id);
 		usuarioDAO.deletarUsuario(usuario);
 		response.sendRedirect("tela-inicial");
 	}
