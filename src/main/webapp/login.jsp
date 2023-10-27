@@ -37,7 +37,7 @@
       <div class="l-entrar">
         <input type="submit" value="Entrar">
       </div>
-      </div>>
+      </div>
 	</form>
       <div class="l-cadastro">
         <p>Não possui uma conta?</p>
