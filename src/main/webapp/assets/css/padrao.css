@@ -1,0 +1,43 @@
+:root{
+    --laranja: #FF781C;
+    --branco: #FFFFFF;
+    --azul: #03326C;
+    --cinza: #D1D3D2;
+    --preto: #251212;
+    --cinza-escuro: #6A6A6A;
+}
+
+/*Textos*/
+
+.text-menor {
+    font-size: 1em;
+}
+
+.text-maior{
+    font-size: 1.25em;
+}
+.text-adicional{
+    font-size: 1.56em;
+}
+
+/*imagens*/
+
+/*Grid - Posicionamento*/
+
+.template-grid{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    width: 100vw;
+}
+
+.grid-esquerda{
+    grid-column: 2 / 7;
+}
+
+.grid-direita{
+    grid-column: 7 / 12;
+}
+
+
+
+

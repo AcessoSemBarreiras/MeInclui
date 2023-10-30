@@ -1,7 +1,5 @@
 package meinclui.controle.servlet;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -15,8 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import meinclui.modelo.dao.Foto.FotoDAO;
 import meinclui.modelo.dao.Foto.FotoDAOImpl;
@@ -38,9 +36,9 @@ import meinclui.modelo.dao.usuario.UsuarioDAO;
 import meinclui.modelo.dao.usuario.UsuarioDAOImpl;
 import meinclui.modelo.entidade.avaliacao.Avaliacao;
 import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
-import meinclui.modelo.entidade.conquista.Conquista;
 import meinclui.modelo.entidade.categoria.Categoria;
 import meinclui.modelo.entidade.comentario.Comentario;
+import meinclui.modelo.entidade.conquista.Conquista;
 import meinclui.modelo.entidade.endereco.Endereco;
 import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 import meinclui.modelo.entidade.foto.Foto;
@@ -265,7 +263,7 @@ public class Servlet extends HttpServlet {
 	/* AVALIAÇÃO */
 	private void mostrarFormularioAvaliacaoEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-avaliacao.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/avaliacao/cadastro-avaliacao.jsp");
         dispatcher.forward(request, response);
 	}
 
@@ -281,7 +279,7 @@ public class Servlet extends HttpServlet {
         double media = (double) (resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
         ZonedDateTime data = ZonedDateTime.now();
         avaliacaoDAO.inserirAvaliacao(new Avaliacao(usuario, estabelecimento, resposta1, resposta2, resposta3, resposta4, resposta5, media, data));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/tela-inicial");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("tela-inicial");
         dispatcher.forward(request, response);
 	}
 
@@ -290,12 +288,12 @@ public class Servlet extends HttpServlet {
 		AvaliacaoId id = AvaliacaoId.class.cast(request.getParameter("avaliacao-id"));
 		Avaliacao avaliacao = avaliacaoDAO.recuperarAvaliacaoPorId(id);
 		request.setAttribute("avaliacao", avaliacao);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("editar-avaliacao.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/avaliacao/editar-avaliacao.jsp");
 		dispatcher.forward(request, response);
 
 	}
 
-	private void atualizarAvaliacao(HttpServletRequest request, HttpServletResponse response) {
+	private void atualizarAvaliacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		AvaliacaoId id = AvaliacaoId.class.cast(request.getParameter("avaliacao-id"));
 		byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
@@ -308,20 +306,21 @@ public class Servlet extends HttpServlet {
 		ZonedDateTime dataEdicao = ZonedDateTime.now();
 		avaliacaoDAO.atualizarAvaliacao(new Avaliacao(id, resposta1, resposta2, resposta3, resposta4, resposta5, media,
 				dataOriginal, dataEdicao));
-
+		RequestDispatcher dispatcher = request.getRequestDispatcher("tela-inicial");
+		dispatcher.forward(request, response);
 	}
 
 	private void deletarAvaliacao(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		AvaliacaoId id = AvaliacaoId.class.cast(request.getParameter("avaliacao-id"));
 		avaliacaoDAO.deletarAvaliacao(id);
-		response.sendRedirect("/tela-inicial");
+		response.sendRedirect("tela-inicial");
 	}
 
 	/* COMENTÁRIO */
 
 	private void mostrarFormularioCadastroComentario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastrar-comentario");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastrar-comentario");
 		dispatcher.forward(request, response);
 	}
 
@@ -329,7 +328,7 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(1L);
 		request.setAttribute("comentario", comentarios);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/perfil-estabelecimento.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -344,8 +343,7 @@ public class Servlet extends HttpServlet {
 		Usuario usuario = Usuario.class.cast(request.getParameter("usuario"));
 		Estabelecimento estabelecimento = Estabelecimento.class.cast("estabelecimento");
 		ZonedDateTime data = ZonedDateTime.class.cast("data");
-		comentarioDAO.atualizarComentario(new Comentario(id, comentario, comentarioRespondido, qtdGostei, qtdNaoGostei,
-				usuario, estabelecimento, data));
+		comentarioDAO.atualizarComentario(new Comentario(id, comentario, comentarioRespondido, qtdGostei, qtdNaoGostei, usuario, estabelecimento, data));
 		response.sendRedirect("tela-inicial");
 
 	}
@@ -385,19 +383,19 @@ public class Servlet extends HttpServlet {
 	/* ESTABELECIMENTO */
 	private void mostrarFormularioCadastroEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-estabelecimento.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/cadastro-estabelecimento.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void mostrarFormularioEditarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/editar-perfil-estabelecimento");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/editar-perfil-estabelecimento.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void mostrarTelaPesquisaEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("pesquisa.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/pesquisa.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -409,7 +407,7 @@ public class Servlet extends HttpServlet {
         request.setAttribute("estabelecimento", estabelecimento);
         request.setAttribute("comentarios", comentarios);
         request.setAttribute("respostas", respostas);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/perfil-estabelecimento.jsp");
         dispatcher.forward(request, response);
     }
 	private void atualizarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
@@ -468,6 +466,7 @@ public class Servlet extends HttpServlet {
 		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(1L);
 		usuarioFav.setEstabelecimentoFavorito(estabelecimento);
 		usuarioDAO.atualizarUsuario(usuarioFav);
+		response.sendRedirect("perfil-estabelecimento");
 	}
 	
 	private void desfavoritarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
@@ -475,9 +474,10 @@ public class Servlet extends HttpServlet {
 		Long id = Long.parseLong(request.getParameter("id"));
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
 		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(1L);
-		usuarioFav.getEstabelecimentoFavorito().remove(estabelecimento).equals(estabelecimento);
+		usuarioFav.getEstabelecimentoFavorito().remove(estabelecimento);
 		usuarioFav.getEstabelecimentoFavorito().size();
 		usuarioDAO.atualizarUsuario(usuarioFav);
+		response.sendRedirect("perfil-estabelecimento");
 	}
 
 	/* USUÁRIO */
@@ -528,7 +528,7 @@ public class Servlet extends HttpServlet {
 		fotoDAO.inserirFoto(fotoPerfil);
 		
 		usuarioDAO.atualizarUsuario(new Usuario(id, nome, pronome, nomeDeUsuario, email, cpf, senha, data, fotoPerfil));
-		response.sendRedirect("");
+		response.sendRedirect("perfil-usuario");
 	}
 
 	private void mostrarPerfilUsuario(HttpServletRequest request, HttpServletResponse response)
@@ -540,7 +540,7 @@ public class Servlet extends HttpServlet {
 		usuarioDAO.recuperarPontuacaoUsuario(1L);
 		conquistaDAO.recuperarConquistasMaisRecentes(1L);
 		comentarioDAO.recuperarComentariosOrdenadoMaisRecente(2);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-usuario.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 		System.out.println("metodo perfil usuario chamado");
 		System.out.println(usuario.getNome());
@@ -559,18 +559,18 @@ public class Servlet extends HttpServlet {
 			Usuario usuario = usuarioDAO.recuperarUsuarioEmail(email);
 			System.out.println(usuario.getEmail());
 			sessao.setAttribute("usuarioLogado", usuario);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-usuario.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-usuario");
 			dispatcher.forward(request, response);
 		} else {
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login-usuario");
 			dispatcher.forward(request, response);
 		}
 	}
 	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/login.jsp");
 			dispatcher.forward(request, response);
 		}
 
@@ -580,7 +580,7 @@ public class Servlet extends HttpServlet {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
 		request.setAttribute("usuario", usuario);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("editar-perfil-usuario.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuarios/editar-perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 
 	}
@@ -589,7 +589,7 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.getSession().invalidate();
-		response.sendRedirect("perfil-usuario");
+		response.sendRedirect("tela-inicial");
 	}
 
 	private void deletarUsuario(HttpServletRequest request, HttpServletResponse response)
@@ -604,7 +604,7 @@ public class Servlet extends HttpServlet {
 	private void mostrarRanque(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/ranque-usuario");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
 		dispatcher.forward(request, response);
 	}
 	
@@ -612,7 +612,7 @@ public class Servlet extends HttpServlet {
 	private void mostrarFormularioCadastroConquista(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-conquista.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/conquista/cadastro-conquista.jsp");
 		dispatcher.forward(request, response);
 	}
 	
@@ -638,7 +638,7 @@ public class Servlet extends HttpServlet {
 	private void mostrarCadastroCategoria(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
 			
-		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-categoria.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/categoria/cadastro-categoria.jsp");
 		dispatcher.forward(request, response);
 	}
 	
