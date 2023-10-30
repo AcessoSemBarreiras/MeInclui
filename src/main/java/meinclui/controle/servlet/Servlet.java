@@ -1,5 +1,7 @@
 package meinclui.controle.servlet;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -108,10 +110,6 @@ public class Servlet extends HttpServlet {
 			case "/editar-perfil-usuario":
 				mostrarFormularioEditarUsuario(request, response);
 				break;
-			case "encerrar-sessao":
-				encerrarSessao(request, response);
-				break;
-
 			case "/cadastro-estabelecimento":
 				mostrarFormularioCadastroEstabelecimento(request, response);
 				break;
@@ -133,6 +131,12 @@ public class Servlet extends HttpServlet {
 			case "/editar-perfil-estabelecimento":
 				mostrarFormularioEditarEstabelecimento(request, response);
 				break;
+			case "/favoritar-estabelecimento":
+				favoritarEstabelecimento(request, response);
+				break;
+			case "/desfavoritar-estabelecimento":
+				desfavoritarEstabelecimento(request, response);
+				break;
 
 			case "/cadastrar-comentario":
 				mostrarFormularioCadastroComentario(request, response);
@@ -152,7 +156,7 @@ public class Servlet extends HttpServlet {
 			case "/recuperar-comentario":
 				recuperarComentario(request, response);
 				break;
-
+				
 			case "/avaliacao-estabelecimento":
 				mostrarFormularioAvaliacaoEstabelecimento(request, response);
 				break;
@@ -168,7 +172,6 @@ public class Servlet extends HttpServlet {
 			case "/recuperar-avaliacao":
 				recuperarAvaliacao(request, response);
 				break;
-
 			case "/cadastrar-endereco":
 				mostrarFormularioCadastroEndereco(request, response);
 				break;
@@ -183,7 +186,23 @@ public class Servlet extends HttpServlet {
 				break;
 			case "/recuperar-endereco":
 				recuperarEndereco(request, response);
-				break;  
+				break; 
+				
+			case "/encerrar-sessao":
+				encerrarSessao(request, response);
+				break;		
+			case "/cadastro-categoria":
+				mostrarCadastroCategoria(request, response);
+				break;
+			case "/inserir-categoria":
+				inserirCategoria(request, response);
+				break;
+			case "/atualizar-categoria":
+				atualizarCategoria(request, response);
+				break;
+			case "/deletar-categoria":
+				deletarCategoria(request, response);
+				break;
 
 			}
 		} catch (SQLException ex) {
@@ -360,7 +379,7 @@ public class Servlet extends HttpServlet {
 
 	private void mostrarTelaPesquisaEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/encontrar-estabelecimentos");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("pesquisa.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -375,10 +394,8 @@ public class Servlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento.jsp");
         dispatcher.forward(request, response);
     }
-
 	private void atualizarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
-
 		int idEndereco = Integer.parseInt(request.getParameter("id-endereco"));
 		String logradouro = request.getParameter("logradouro");
 		String tipoLogradouro = request.getParameter("tipo_logradouro");
@@ -425,7 +442,26 @@ public class Servlet extends HttpServlet {
         estabelecimentoDAO.inserirEstabelecimento(new Estabelecimento(categoria, nome, endereco));
         response.sendRedirect("tela-inicial");
 	}
-        
+	
+	private void favoritarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException{
+		Long id = Long.parseLong(request.getParameter("id"));
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
+		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(1L);
+		usuarioFav.setEstabelecimentoFavorito(estabelecimento);
+		usuarioDAO.atualizarUsuario(usuarioFav);
+	}
+	
+	private void desfavoritarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException{
+		Long id = Long.parseLong(request.getParameter("id"));
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
+		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(1L);
+		usuarioFav.getEstabelecimentoFavorito().remove(estabelecimento).equals(estabelecimento);
+		usuarioFav.getEstabelecimentoFavorito().size();
+		usuarioDAO.atualizarUsuario(usuarioFav);
+	}
+
 	/* USUÁRIO */
 
 	private void mostrarFormularioCadastroUsuario(HttpServletRequest request, HttpServletResponse response)
@@ -540,4 +576,40 @@ public class Servlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/ranque-usuario");
 		dispatcher.forward(request, response);
 	}
+	
+	//CATEGORIA
+	
+	private void mostrarCadastroCategoria(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+			
+		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-categoria.jsp");
+		dispatcher.forward(request, response);
+	}
+	
+	private void inserirCategoria(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		
+		String nome = request.getParameter("nome-categoria");
+		categoriaDAO.inserirCategoria(new Categoria(nome));
+		response.sendRedirect("tela-inicial");
+	}	
+	private void atualizarCategoria(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		
+		String nomeCategoria = request.getParameter("nome-categoria");
+		int idCategoria = Integer.parseInt(request.getParameter("id_categoria"));
+		
+		categoriaDAO.atualizarCategoria(new Categoria(idCategoria, nomeCategoria));
+		response.sendRedirect("tela-inicial");
+		
+	}
+	private void deletarCategoria(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+
+		int idCategoria = Integer.parseInt(request.getParameter("id_categoria"));
+		categoriaDAO.deletarCategoria(idCategoria);
+		response.sendRedirect("tela-inicial");
+		
+	}
+	
 }

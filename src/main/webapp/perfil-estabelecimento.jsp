@@ -8,31 +8,38 @@
 <title>Perfil Estabelecimento</title>
 </head>
 <body>
-	<header class="cabecalho">
-		<div class="logo-me-inclui">
-			<img src="" alt="logo">
-		</div>
-		<a href="tela-pesquisa.jsp" name="pesquisar">.</a> <a
-			href="cadastro-estabelecimento.jsp" name="add-estabelecimento">.</a>
-		<a href="" name="ranking">.</a> <a href="" name="perfil-usuario">.</a>
-		<hr>
-	</header>
+	
+	<c:if test="${usuario != null}">
+		<%@ include file="menuLogado.jsp" %>
+	</c:if>
+	
+	<c:if test="${usuario == null}">
+		<%@ include file="menuNaoLogado.jsp" %>
+	</c:if>
 
 	<div id="dados-estabelecimento">
 		<img alt="foto do estabelecimento" src="">
-		<p>
-			<button name="editar-estabelecimento">.</button>
-		</p>
+		
+		<c:if test="${usuario != null}">
+			<a href="editar-perfil-estabelecimento.jsp">editar</a>
+		</c:if>
+		
 		<h1 id="nome-estabelecimento">
 			<c:out value='${estabelecimento.nome}' />
 		</h1>
 
-		<form action="favoritar" method="post">
-			<div id="favoritar-estabelecimento">
-				<button>Favoritar</button>
-			</div>
-		</form>
 
+		<form action="favoritar" method="post">
+		  <p id="categoria-estabelecimento">
+			  <c:out value='${categoria.nomeCategoria}' />
+		  </p>
+		
+
+			<div id="favoritar-estabelecimento">
+				<a href="favoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Favoritar</a>
+				<a href="desfavoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Desfavoritar</a>
+			</div>
+	
 		<div id="nota=estabelecimento">
 			<h3>Nota</h3>
 			<hr>
@@ -42,7 +49,7 @@
 		</div>
 
 		<div class="botao-padrao">
-			<button>AVALIAR</button>
+			<button onclick="location.href='http://localhost:8080/MeInclui/avaliacao-estabelecimento'">AVALIAR</button>
 		</div>
 	</div>
 

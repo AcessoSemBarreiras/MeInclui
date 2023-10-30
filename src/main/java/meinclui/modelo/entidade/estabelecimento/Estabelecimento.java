@@ -3,6 +3,7 @@ package meinclui.modelo.entidade.estabelecimento;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import meinclui.modelo.entidade.avaliacao.Avaliacao;
+import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
 import meinclui.modelo.entidade.categoria.Categoria;
 import meinclui.modelo.entidade.comentario.Comentario;
 import meinclui.modelo.entidade.endereco.Endereco;
@@ -29,7 +31,7 @@ import meinclui.modelo.entidade.endereco.Endereco;
 public class Estabelecimento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_estabelecimento", nullable = false)
@@ -51,7 +53,6 @@ public class Estabelecimento implements Serializable {
 
 	public Estabelecimento() {
 	}
-
 	public Estabelecimento(Long idEstabelecimento, Categoria categoria, String nome, Endereco endereco) {
 		setIdEstabelecimento(idEstabelecimento);
 		setCategoria(categoria);
@@ -65,7 +66,7 @@ public class Estabelecimento implements Serializable {
 		setNome(nome);
 		setEndereco(endereco);
 	}
-
+	
 	public Long getIdEstabelecimento() {
 		return idEstabelecimento;
 	}
@@ -105,4 +106,15 @@ public class Estabelecimento implements Serializable {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+	
+	public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        return false;
+}
+	
 }
