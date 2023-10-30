@@ -16,13 +16,13 @@ public interface ComentarioDAO {
 
 	List<Comentario> recuperarComentariosPeloEstabelecimento(Long idEstabelecimento);
 
-	List<Comentario> recuperarComentariosOrdenadoMaiorQuantidadeGostei(int idEstabelecimento);
+	List<Comentario> recuperarComentariosOrdenadoMaiorQuantidadeGostei(Long idEstabelecimento);
 
-	List<Comentario> recuperarComentariosOrdenadoMaiorQuantidadeNaoGostei(int idEstabelecimento);
+	List<Comentario> recuperarComentariosOrdenadoMaiorQuantidadeNaoGostei(Long idEstabelecimento);
 
-	List<Comentario> recuperarComentariosOrdenadoMaisAntigo(int idEstabelecimento);
+	List<Comentario> recuperarComentariosOrdenadoMaisAntigo(Long idEstabelecimento);
 
-	List<Comentario> recuperarComentariosOrdenadoMaisRecente(int idEstabelecimento);
+	List<Comentario> recuperarComentariosOrdenadoMaisRecente(Long idEstabelecimento);
 
 	List<Comentario> recuperarComentariosUsuarioOrdenadoMaiorQuantidadeGostei(Long idUsuario);
 

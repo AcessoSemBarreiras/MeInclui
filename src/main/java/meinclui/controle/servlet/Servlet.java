@@ -485,7 +485,7 @@ public class Servlet extends HttpServlet {
 	private void mostrarFormularioCadastroUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-usuario.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/cadastro-usuario.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -580,7 +580,7 @@ public class Servlet extends HttpServlet {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
 		request.setAttribute("usuario", usuario);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuarios/editar-perfil-usuario.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/editar-perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 
 	}

@@ -23,6 +23,7 @@
 		<mapping class="projeto.modelo.entidade.endereco.Endereco" />
 		<mapping class="projeto.modelo.entidade.estabelecimento.Estabelecimento" />
 		<mapping class="projeto.modelo.entidade.usuario.Usuario" />
-		<mapping class="projeto.modelo.entidade.foto.Foto" />
+		<mapping class="projeto.modelo.entidade.usuario.AvaliacaoComentario" />
+		<mapping class="projeto.modelo.entidade.usuario.AvaliacaoComentarioId" />
 	</session-factory>
 </hibernate-configuration>

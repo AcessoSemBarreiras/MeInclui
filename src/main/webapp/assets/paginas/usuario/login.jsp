@@ -41,7 +41,7 @@
 	</form>
       <div class="l-cadastro">
         <p>Não possui uma conta?</p>
-        <a href="" id="cadastro">Cadastrar-se</a>
+        <a href="cadastro-usuario" id="cadastro">Cadastrar-se</a>
         </div>
 
       <div id="logoAcesso">

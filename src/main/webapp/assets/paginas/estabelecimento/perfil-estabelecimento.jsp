@@ -8,38 +8,31 @@
 <title>Perfil Estabelecimento</title>
 </head>
 <body>
-	
-	<c:if test="${usuario != null}">
-		<%@ include file="../menuLogado.jsp" %>
-	</c:if>
-	
-	<c:if test="${usuario == null}">
-		<%@ include file="../menuNaoLogado.jsp" %>
-	</c:if>
+	<header class="cabecalho">
+		<div class="logo-me-inclui">
+			<img src="" alt="logo">
+		</div>
+		<a href="tela-pesquisa.jsp" name="pesquisar">.</a> <a
+			href="cadastro-estabelecimento.jsp" name="add-estabelecimento">.</a>
+		<a href="" name="ranking">.</a> <a href="" name="perfil-usuario">.</a>
+		<hr>
+	</header>
 
 	<div id="dados-estabelecimento">
 		<img alt="foto do estabelecimento" src="">
-		
-		<c:if test="${usuario != null}">
-			<a href="editar-perfil-estabelecimento.jsp">editar</a>
-		</c:if>
-		
+		<p>
+			<button name="editar-estabelecimento">.</button>
+		</p>
 		<h1 id="nome-estabelecimento">
 			<c:out value='${estabelecimento.nome}' />
 		</h1>
 
-
 		<form action="favoritar" method="post">
-		  <p id="categoria-estabelecimento">
-			  <c:out value='${categoria.nomeCategoria}' />
-		  </p>
-		
-
 			<div id="favoritar-estabelecimento">
-				<a href="favoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Favoritar</a>
-				<a href="desfavoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Desfavoritar</a>
+				<button>Favoritar</button>
 			</div>
-	
+		</form>
+
 		<div id="nota=estabelecimento">
 			<h3>Nota</h3>
 			<hr>
@@ -49,7 +42,7 @@
 		</div>
 
 		<div class="botao-padrao">
-			<button onclick="location.href='http://localhost:8080/MeInclui/avaliacao-estabelecimento'">AVALIAR</button>
+			<button>AVALIAR</button>
 		</div>
 	</div>
 
@@ -69,12 +62,14 @@
 					<td><c:out value="${cm.data}" /></td>
 					<td><c:out value="${cm.quantidadeGostei}" /></td>
 					<td><c:out value="${cm.quantidadeNaoGostei}" /></td>
+					<td><a href="adicionar-quantidade-gostei?id=<c:out value='${cm.idComentario}'/>">Gostei</a></td>
+					<td><a href="adicionar-quantidade-nao-gostei?id=<c:out value='${cm.idComentario}'/>">Não Gostei</a></td>
 					<td>
 						<form action="responder-comentario">
 							<input type="hidden" name="id"
-								value="<c:out value='${cm.idComentario}'/>"> <input
-								type="text" name="resposta-comentario"> <input
-								type="submit" value="Responder">
+								value="<c:out value='${cm.idComentario}'/>"> 
+								<input type="text" name="resposta-comentario"> 
+								<input type="submit" value="Responder">
 						</form>
 					</td>
 					<td>
