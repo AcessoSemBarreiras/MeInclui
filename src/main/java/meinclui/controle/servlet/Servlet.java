@@ -22,6 +22,8 @@ import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAO;
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAOImpl;
 import meinclui.modelo.dao.avaliacao.AvaliacaoDAO;
 import meinclui.modelo.dao.avaliacao.AvaliacaoDAOImpl;
+import meinclui.modelo.dao.avaliacaoComentario.AvaliacaoComentarioDAO;
+import meinclui.modelo.dao.avaliacaoComentario.AvaliacaoComentarioDAOImpl;
 import meinclui.modelo.dao.categoria.CategoriaDAO;
 import meinclui.modelo.dao.categoria.CategoriaDAOImpl;
 import meinclui.modelo.dao.comentario.ComentarioDAO;
@@ -36,6 +38,7 @@ import meinclui.modelo.dao.usuario.UsuarioDAO;
 import meinclui.modelo.dao.usuario.UsuarioDAOImpl;
 import meinclui.modelo.entidade.avaliacao.Avaliacao;
 import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
+import meinclui.modelo.entidade.avaliacaoComentario.AvaliacaoComentario;
 import meinclui.modelo.entidade.categoria.Categoria;
 import meinclui.modelo.entidade.comentario.Comentario;
 import meinclui.modelo.entidade.conquista.Conquista;
@@ -43,6 +46,7 @@ import meinclui.modelo.entidade.endereco.Endereco;
 import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 import meinclui.modelo.entidade.foto.Foto;
 import meinclui.modelo.entidade.usuario.Usuario;
+import meinclui.modelo.enumeracao.TipoReacao;
 import meinclui.util.ConversorImagem;
 
 @WebServlet("/")
@@ -60,6 +64,7 @@ public class Servlet extends HttpServlet {
 	private UsuarioTemConquistaDAO usuarioTemConquistaDAO;
 	private FotoDAO fotoDAO;
 	private ConversorImagem converterImagem;
+	private AvaliacaoComentarioDAO avaliacaoComentarioDAO;
 
 	public void init() {
 		avaliacaoDAO = new AvaliacaoDAOImpl();
@@ -70,6 +75,7 @@ public class Servlet extends HttpServlet {
 		estabelecimentoDAO = new EstabelecimentoDAOImpl();
 		usuarioDAO = new UsuarioDAOImpl();
 		usuarioTemConquistaDAO = new UsuarioTemConquistaDAOImpl();
+		avaliacaoComentarioDAO = new AvaliacaoComentarioDAOImpl();
 		fotoDAO = new FotoDAOImpl();	
 	}
 
@@ -219,7 +225,12 @@ public class Servlet extends HttpServlet {
 			case "/inserir-conquista":
 				inserirConquista(request, response);
 				break;
-				
+			case "/adicionar-quantidade-gostei":
+				adicionarGostei(request, response);
+				break;
+			case "/adicionar-quantidade-nao-gostei":
+				adicionarNaoGostei(request, response);
+				break;
 			}
 		} catch (SQLException ex) {
 			throw new ServletException(ex);
@@ -335,7 +346,7 @@ public class Servlet extends HttpServlet {
 	private void atualizarComentario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int id = Integer.parseInt(request.getParameter("id"));
+		Long id = Long.parseLong(request.getParameter("id"));
 		String comentario = request.getParameter("comentario");
 		Comentario comentarioRespondido = Comentario.class.cast(request.getParameter("comentario-respondido"));
 		int qtdGostei = Integer.parseInt(request.getParameter("quantidade-gostei"));
@@ -539,7 +550,7 @@ public class Servlet extends HttpServlet {
 		request.setAttribute("usuario", usuario);
 		usuarioDAO.recuperarPontuacaoUsuario(1L);
 		conquistaDAO.recuperarConquistasMaisRecentes(1L);
-		comentarioDAO.recuperarComentariosOrdenadoMaisRecente(2);
+		comentarioDAO.recuperarComentariosOrdenadoMaisRecente(2L);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 		System.out.println("metodo perfil usuario chamado");
@@ -666,5 +677,33 @@ public class Servlet extends HttpServlet {
 		categoriaDAO.deletarCategoria(idCategoria);
 		response.sendRedirect("tela-inicial");
 		
+	}
+	
+	/* GOSTEI E NÃO GOSTEI */
+
+	private void adicionarGostei(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = usuarioDAO.recuperarUsuarioId(1L);
+		Comentario comentario = comentarioDAO.recuperarComentarioId(Integer.parseInt(request.getParameter("id")));
+		LocalDate dataAtual = LocalDate.now();
+		AvaliacaoComentario avaliacaoComentario = new AvaliacaoComentario(usuario, comentario, dataAtual, TipoReacao.GOSTEI);
+		avaliacaoComentarioDAO.inserirAvaliacaoComentario(avaliacaoComentario);
+		comentario.setQuantidadeGostei(comentario.getQuantidadeGostei() + 1);
+		comentarioDAO.atualizarComentario(comentario);
+		response.sendRedirect("perfil-estabelecimento");
+
+	}
+
+	private void adicionarNaoGostei(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = usuarioDAO.recuperarUsuarioId(1L);
+		Comentario comentario = comentarioDAO.recuperarComentarioId(Integer.parseInt(request.getParameter("id")));
+		LocalDate dataAtual = LocalDate.now();
+		AvaliacaoComentario avaliacaoComentario = new AvaliacaoComentario(usuario, comentario, dataAtual, TipoReacao.NAO_GOSTEI);
+		avaliacaoComentarioDAO.inserirAvaliacaoComentario(avaliacaoComentario);
+		comentario.setQuantidadeNaoGostei(comentario.getQuantidadeNaoGostei() + 1);
+		comentarioDAO.atualizarComentario(comentario);
+		response.sendRedirect("perfil-estabelecimento");
+
 	}
 }
