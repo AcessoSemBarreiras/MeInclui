@@ -10,12 +10,16 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import javax.servlet.http.HttpSession;
 
+import meinclui.modelo.dao.Foto.FotoDAO;
+import meinclui.modelo.dao.Foto.FotoDAOImpl;
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAO;
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAOImpl;
 import meinclui.modelo.dao.avaliacao.AvaliacaoDAO;
@@ -34,13 +38,17 @@ import meinclui.modelo.dao.usuario.UsuarioDAO;
 import meinclui.modelo.dao.usuario.UsuarioDAOImpl;
 import meinclui.modelo.entidade.avaliacao.Avaliacao;
 import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
+import meinclui.modelo.entidade.conquista.Conquista;
 import meinclui.modelo.entidade.categoria.Categoria;
 import meinclui.modelo.entidade.comentario.Comentario;
 import meinclui.modelo.entidade.endereco.Endereco;
 import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
+import meinclui.modelo.entidade.foto.Foto;
 import meinclui.modelo.entidade.usuario.Usuario;
+import meinclui.util.ConversorImagem;
 
 @WebServlet("/")
+@MultipartConfig
 public class Servlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -52,6 +60,8 @@ public class Servlet extends HttpServlet {
 	private EstabelecimentoDAO estabelecimentoDAO;
 	private UsuarioDAO usuarioDAO;
 	private UsuarioTemConquistaDAO usuarioTemConquistaDAO;
+	private FotoDAO fotoDAO;
+	private ConversorImagem converterImagem;
 
 	public void init() {
 		avaliacaoDAO = new AvaliacaoDAOImpl();
@@ -62,6 +72,7 @@ public class Servlet extends HttpServlet {
 		estabelecimentoDAO = new EstabelecimentoDAOImpl();
 		usuarioDAO = new UsuarioDAOImpl();
 		usuarioTemConquistaDAO = new UsuarioTemConquistaDAOImpl();
+		fotoDAO = new FotoDAOImpl();	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -204,6 +215,13 @@ public class Servlet extends HttpServlet {
 				deletarCategoria(request, response);
 				break;
 
+			case "/cadastro-conquista":
+				mostrarFormularioCadastroConquista(request, response);
+				break;
+			case "/inserir-conquista":
+				inserirConquista(request, response);
+				break;
+				
 			}
 		} catch (SQLException ex) {
 			throw new ServletException(ex);
@@ -472,7 +490,7 @@ public class Servlet extends HttpServlet {
 	}
 
 	private void inserirUsuario(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+			throws SQLException, IOException, ServletException {
 
 		String nome = request.getParameter("nome-usuario");
 		String nomeDeUsuario = request.getParameter("nome-de-usuario");
@@ -481,12 +499,18 @@ public class Servlet extends HttpServlet {
 		String pronome = request.getParameter("pronome-usuario");
 		LocalDate data = LocalDate.parse(request.getParameter("data-nascimento-usuario"));
 		String senha = request.getParameter("senha-usuario");
-		usuarioDAO.inserirUsuario(new Usuario(nome, pronome, nomeDeUsuario, email, cpf, senha, data));
+		
+		Part partPerfil = request.getPart("foto-usuario");
+		String extensao = partPerfil.getContentType();
+		byte[] binarioFoto = ConversorImagem.obterBytesImagem(partPerfil);
+		Foto fotoPerfil = new Foto(binarioFoto, extensao);
+		fotoDAO.inserirFoto(fotoPerfil);
+		usuarioDAO.inserirUsuario(new Usuario(nome, pronome, nomeDeUsuario, email, cpf, senha, data, fotoPerfil));
 		response.sendRedirect("tela-inicial");
 	}
 
 	private void atualizarUsuario(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+			throws SQLException, IOException, ServletException {
 
 		Long id = Long.parseLong(request.getParameter("id-usuario"));
 		String pronome = request.getParameter("pronome-usuario");
@@ -496,7 +520,14 @@ public class Servlet extends HttpServlet {
 		String nome = request.getParameter("nome-usuario");
 		String cpf = request.getParameter("cpf-usuario");
 		LocalDate data = LocalDate.parse(request.getParameter("data-nascimento-usuario"));
-		usuarioDAO.atualizarUsuario(new Usuario(id, nome, pronome, nomeDeUsuario, email, cpf, senha, data));
+		
+		Part partPerfil = request.getPart("foto-usuario");
+		String extensao = partPerfil.getContentType();
+		byte[] binarioFoto = ConversorImagem.obterBytesImagem(partPerfil);
+		Foto fotoPerfil = new Foto(binarioFoto, extensao);
+		fotoDAO.inserirFoto(fotoPerfil);
+		
+		usuarioDAO.atualizarUsuario(new Usuario(id, nome, pronome, nomeDeUsuario, email, cpf, senha, data, fotoPerfil));
 		response.sendRedirect("");
 	}
 
@@ -577,6 +608,31 @@ public class Servlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	
+	/* CONQUISTA */
+	private void mostrarFormularioCadastroConquista(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro-conquista.jsp");
+		dispatcher.forward(request, response);
+	}
+	
+	private void inserirConquista(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+
+		String nome = request.getParameter("nome");
+		byte nivel = Byte.parseByte(request.getParameter("nivel"));
+		int reputacao = Integer.parseInt(request.getParameter("reputacao"));
+		
+		Part partReputacao = request.getPart("foto-conquista");
+		String extensao = partReputacao.getContentType();
+		byte[] binarioFoto = ConversorImagem.obterBytesImagem(partReputacao);
+		Foto fotoReputacao = new Foto(binarioFoto, extensao);
+		fotoDAO.inserirFoto(fotoReputacao);
+		
+		conquistaDAO.inserirConquista(new Conquista (nome, nivel, reputacao, fotoReputacao));
+		response.sendRedirect("tela-inicial");
+	}
+  
 	//CATEGORIA
 	
 	private void mostrarCadastroCategoria(HttpServletRequest request, HttpServletResponse response) 
@@ -611,5 +667,4 @@ public class Servlet extends HttpServlet {
 		response.sendRedirect("tela-inicial");
 		
 	}
-	
 }
