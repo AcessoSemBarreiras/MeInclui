@@ -9,25 +9,24 @@
 </head>
 <body>
 	<main>
-
-		<header class="cabecalho-pu">
-			<div class="logo-me-inclui">
-				<img src="" alt="logo">
-			</div>
-			<a href="tela-pesquisa.jsp" name="pesquisar">.</a> <a
-				href="cadastro-estabelecimento.jsp" name="add-estabelecimento">.</a>
-			<a href="" name="ranking">.</a> <a href="" name="perfil-usuario">.</a>
-		</header>
-
+	<c:if test="${usuario != null}">
+		<%@ include file="menuLogado.jsp" %>
+	</c:if>
+	
+	<c:if test="${usuario == null}">
+		<%@ include file="menuNaoLogado.jsp" %>
+	</c:if>
+	
 		<div class="informacoes-usuario">
 			<img alt="foto do usuario" src="">
-			<p>
-				<button name="editar-usuario">.</button>
-			</p>
-			<p id="nome-de-usuario">
+			<c:if test="${usuario != null}">
+				<a href="editar-perfil-usuario.jsp">editar</a>
+			</c:if>
+			
+			<h3 id="nome-de-usuario">
 				<c:out value='${usuario.nomeDeUsuario}' />
-			</p>
-			<p class="texto-principal">
+			</h3>
+			<p class="titulo-principal">
 				<c:out value='${usuario.nome}' />
 			</p>
 			<p id="pronome-usuario">
@@ -35,11 +34,13 @@
 			</p>
 
 			<table>
-				<td class="texto-secundario">Pontos</td>
+			<tr>
+			<td class="texto-secundario">Pontos</td>
 				<td id="pontos-usuario"></td>
 				<td class="texto-secundario">Nasceu em</td>
-				<td id="data-nascimento-usuario"><c:out
-						value='${usuario.dataNascimento}' /></td>
+				<td id="data-nascimento-usuario">
+				<c:out value='${usuario.dataNascimento}'/></td>
+			</tr>
 			</table>
 		</div>
 
@@ -47,7 +48,7 @@
 
 
 		<div class="conquistas-usuario">
-			<h3 class="texto-principal">Conquistas</h3>
+			<h3 class="titulo-principal">Conquistas</h3>
 			<c:if test="${conquistas == null}">
 				<img alt="" src="Imagem usuario não possui conquista">
 				<p>
@@ -57,7 +58,7 @@
 		</div>
 
 		<div class="avaliacoes-usuario">
-			<h3 class="texto-principal">Avaliações Recentes</h3>
+			<h3 class="titulo-principal">Avaliações Recentes</h3>
 			<c:if test="${avaliacoes == null}">
 				<p class="texto-aviso">
 					Parece que você ainda não possui avaliações ... <br> <a
@@ -84,7 +85,7 @@
 		</div>
 		
 		<div class="comentarios-usuario">
-			<h3 class="texto-principal">Comentários</h3>
+			<h3 class="titulo-principal">Comentários</h3>
 			<c:if test="${comentarios == null}">
 				<p class="texto-aviso">
 					Parece que você ainda não possui comentários ... <br> <a
@@ -128,7 +129,6 @@
 				</c:forEach>
 			</c:if>
 		</div>
-
 	</main>
 </body>
 </html>

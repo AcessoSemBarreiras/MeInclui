@@ -56,7 +56,7 @@ public class Comentario implements Serializable{
 	public Comentario() {}
 	
 	public Comentario(int idComentario, String comentario, Comentario comentarioRespondido,
-			int quantidadeGostei, int quantidadeNaoGostei, Usuario usuario, Estabelecimento estabelecimento, ZonedDateTime data) {
+			Usuario usuario, Estabelecimento estabelecimento, ZonedDateTime data) {
 		setIdComentario(idComentario);
 		setComentario(comentario);
 		setComentarioRespondido(comentarioRespondido);
@@ -67,12 +67,11 @@ public class Comentario implements Serializable{
 		setData(data);
 	}
 	
-	public Comentario(String comentario, Comentario comentarioRespondido, int quantidadeGostei,
-			int quantidadeNaoGostei, Usuario usuario, Estabelecimento estabelecimento, ZonedDateTime data) {
+	public Comentario(String comentario, Comentario comentarioRespondido, Usuario usuario, Estabelecimento estabelecimento, ZonedDateTime data) {
 		setComentario(comentario);
 		setComentarioRespondido(comentarioRespondido);
-		setQuantidadeGostei(quantidadeGostei);
-		setQuantidadeNaoGostei(quantidadeNaoGostei);
+		setQuantidadeGostei(0);
+		setQuantidadeNaoGostei(0);
 		setUsuario(usuario);
 		setEstabelecimento(estabelecimento);
 		setData(data);

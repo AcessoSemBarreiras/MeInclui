@@ -148,11 +148,11 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		return categorias;
 	}
 
-	public List<Categoria> recuperarCategoriaNome(String nomeCategoria) {
+	public Categoria recuperarCategoriaNome(String nomeCategoria) {
 
 		Session sessao = null;
 
-		List<Categoria> categorias = null;
+		Categoria categoria = null;
 
 		try {
 
@@ -168,9 +168,9 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
 			criteria.select(raizCategoria);
 
-			criteria.where(construtor.like(raizCategoria.get(Categoria_.nomeCategoria), "%" + nomeCategoria + "%"));
+			criteria.where(construtor.like(raizCategoria.get(Categoria_.nomeCategoria), nomeCategoria));
 
-			categorias = sessao.createQuery(criteria).getResultList();
+			categoria = sessao.createQuery(criteria).getSingleResult();
 
 			sessao.getTransaction().commit();
 
@@ -194,7 +194,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
 		}
 
-		return categorias;
+		return categoria;
 
 	}
 	

@@ -59,7 +59,7 @@ public class Usuario implements Serializable{
 	@Column(name="avaliacao")
 	private List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "estabelecimentos_favoritos", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_estabelecimento"))
 	private List<Estabelecimento> estabelecimentos_favoritos = new ArrayList<Estabelecimento>();
 	

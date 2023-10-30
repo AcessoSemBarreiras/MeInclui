@@ -44,17 +44,17 @@
 							placeholder="E-mail" required>
 					</div>
 
-					<div class="pronome-usuario">
-						<select name="pronome-usuario" id="pronome-usuario"
-							placeholder="E-mail">
-							<option value="" selected>Pronomes</option>
-							<option value="ele">Ele</option>
-							<option value="ela">Ela</option>
-							<option value="elu">Elu</option>
-							<option value="qualquer">Qualquer pronome</option>
-							<option value="nao-informar">Não Informar</option>
-						</select>
-					</div>
+
+                            <div class="pronome-usuario">
+                                <select name="pronome-usuario" id="pronome-usuario" placeholder="E-mail">
+                                    <option value="" selected>Pronomes</option>
+                                    <option value="Ele/Dele">Ele/Dele</option>
+                                    <option value="Ela/Dela">Ela/Dela</option>
+                                    <option value="Elu/Delu">Elu/Delu</option>
+                                    <option value="qualquer">Qualquer pronome</option>
+                                    <option value="nao-informar">Não Informar</option>
+                                </select>
+                            </div>
 
 					<div class="ddn-usuario">
 						<input type="date" id="data_de_nascimento_usuario"

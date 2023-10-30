@@ -6,13 +6,16 @@ import java.util.List;
 import javax.persistence.Tuple;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Fetch;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 
 import meinclui.modelo.entidade.conquista.Conquista;
 import meinclui.modelo.entidade.conquista.Conquista_;
+import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 import meinclui.modelo.entidade.usuario.Usuario;
 import meinclui.modelo.entidade.usuario.Usuario_;
 import meinclui.modelo.entidade.usuariotemconquista.UsuarioTemConquista;
@@ -34,11 +37,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			sessao = fabrica.getConexao().openSession();
 			sessao.beginTransaction();
-
 			sessao.save(usuario);
-
 			sessao.getTransaction().commit();
-
 		} catch (Exception sqlException) {
 
 			sqlException.printStackTrace();
@@ -46,14 +46,12 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			if (sessao.getTransaction() != null) {
 				sessao.getTransaction().rollback();
 			}
-
 		} finally {
 
 			if (sessao != null) {
 				sessao.close();
 			}
 		}
-
 	}
 
 	public void deletarUsuario(Usuario usuario) {
@@ -64,9 +62,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			sessao = fabrica.getConexao().openSession();
 			sessao.beginTransaction();
-
 			sessao.delete(usuario);
-
 			sessao.getTransaction().commit();
 
 		} catch (Exception sqlException) {
@@ -82,9 +78,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			if (sessao != null) {
 				sessao.close();
 			}
-
 		}
-
 	}
 
 	public void atualizarUsuario(Usuario usuario) {
@@ -95,11 +89,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			sessao = fabrica.getConexao().openSession();
 			sessao.beginTransaction();
-
 			sessao.update(usuario);
-
 			sessao.getTransaction().commit();
-
 		} catch (Exception sqlException) {
 
 			sqlException.printStackTrace();
@@ -107,7 +98,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			if (sessao.getTransaction() != null) {
 				sessao.getTransaction().rollback();
 			}
-
 		} finally {
 
 			if (sessao != null) {
@@ -170,6 +160,44 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			criteria.select(raizUsuario);
 			criteria.where(construtor.equal(raizUsuario.get(Usuario_.idUsuario), idUsuario));
+
+			usuario = sessao.createQuery(criteria).getSingleResult();
+			sessao.getTransaction().commit();
+
+		} catch (Exception sqlException) {
+
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+				sessao.getTransaction().rollback();
+			}
+
+		} finally {
+
+			if (sessao != null) {
+				sessao.close();
+			}
+
+		}
+		return usuario;
+	}
+
+	public Usuario recuperarUsuarioEmail(String emailUsuario) {
+
+		Session sessao = null;
+		Usuario usuario = null;
+
+		try {
+
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+			CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
+			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
+
+			criteria.select(raizUsuario);
+			criteria.where(construtor.equal(raizUsuario.get(Usuario_.email), emailUsuario));
 
 			usuario = sessao.createQuery(criteria).getSingleResult();
 			sessao.getTransaction().commit();
@@ -448,4 +476,80 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	}
 
+	public Boolean verificarUsuario(String emailUsuario, String senhaUsuario) {
+
+		Session sessao = null;
+		Usuario usuario = null;
+
+		try {
+
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+			CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
+			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
+
+			criteria.select(raizUsuario);
+			criteria.where(construtor.and(construtor.equal(raizUsuario.get(Usuario_.email), emailUsuario),
+					construtor.equal(raizUsuario.get(Usuario_.senha), senhaUsuario)));
+
+			usuario = sessao.createQuery(criteria).getSingleResult();
+
+			if (usuario != null) {
+				return true;
+			}
+
+			sessao.getTransaction().commit();
+
+		} catch (Exception sqlException) {
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+				sessao.getTransaction().rollback();
+			}
+		} finally {
+			if (sessao != null) {
+				sessao.close();
+			}
+		}
+		return false;
+	}
+
+	public Usuario recuperarUsuarioComFavorito(Long id) {
+		
+		Session sessao = null;
+		Usuario usuario = null;
+
+		try {
+
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+			CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
+			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
+			Fetch<Usuario, Estabelecimento> estabelecimentoFetch = raizUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.INNER);
+			Join<Usuario, Estabelecimento> usuarioJoin = (Join<Usuario, Estabelecimento>) estabelecimentoFetch;
+			
+			criteria.multiselect(usuarioJoin);
+			criteria.where(construtor.equal(raizUsuario.get(Usuario_.idUsuario), id));
+			
+			usuario = sessao.createQuery(criteria).getSingleResult();
+
+			sessao.getTransaction().commit();
+
+		} catch (Exception sqlException) {
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+				sessao.getTransaction().rollback();
+			}
+		} finally {
+			if (sessao != null) {
+				sessao.close();
+			}
+		}
+		return usuario;
+	}
 }
