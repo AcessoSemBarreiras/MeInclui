@@ -57,8 +57,6 @@
 				<img src="" alt="Imagem pessoa" id="imgPessoa">
 			</div>
 
-
-
 			<div class="cadastro-estabelecimento">
 				<div class="inputs">
 					<input type="text" id="tipo-logradouro" name="tipo-logradouro"

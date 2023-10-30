@@ -14,7 +14,7 @@ public interface ComentarioDAO {
 
 	List<Comentario> recuperarComentarios();
 
-	List<Comentario> recuperarComentariosPeloEstabelecimento(int idEstabelecimento);
+	List<Comentario> recuperarComentariosPeloEstabelecimento(Long idEstabelecimento);
 
 	List<Comentario> recuperarComentariosOrdenadoMaiorQuantidadeGostei(int idEstabelecimento);
 
@@ -32,5 +32,7 @@ public interface ComentarioDAO {
 
 	List<Comentario> recuperarComentariosUsuarioOrdenadoMaisRecente(Long idUsuario);
 
-	List<Comentario> recuperarComentariosRespostas(int idComentario);
+	List<Comentario> recuperarComentariosRespostas();
+
+	Comentario recuperarComentarioId(int id);
 }
