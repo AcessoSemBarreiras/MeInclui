@@ -9,12 +9,11 @@
 </head>
 
 <body>
+	<header>
+		<a href="index.jsp" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
+	</header>
 
-  <header class="logo-me-inclui">
-    <img src="" alt="logo">
-  </header>
-
-  <form id="form-login">
+  <form action="entrar" method="post">
 
 <!--Login-->
     <div id="l">
@@ -23,7 +22,7 @@
       </div>
 
       <div class="voltar">
-        <a rel="stylesheet" href=""> voltar ->
+        <a rel="stylesheet" href=""> voltar -> </a>
       </div>
 
       <div class="l-email">
@@ -31,13 +30,15 @@
       </div>
 
       <div class="l-senha">
-        <a href="">Esqueceu sua senha?<br> <input type="password" id="senha" name="senha" placeholder="Senha" required> </a>
+        <a href="">Esqueceu sua senha?<br> </a>
+        <input type="password" id="senha" name="senha" placeholder="Senha" required> 
       </div>
-
+	
       <div class="l-entrar">
         <input type="submit" value="Entrar">
       </div>
-
+      </div>
+	</form>
       <div class="l-cadastro">
         <p>Não possui uma conta?</p>
         <a href="" id="cadastro">Cadastrar-se</a>
@@ -66,7 +67,7 @@
         <a rel="stylesheet" href=""> voltar -> </a>
       </div>
 
-      <div class="es-titulo">
+      <div class="titulo">
         <h1>Esqueceu a Senha?</h1>
       </div>
 
@@ -102,7 +103,7 @@
         <a rel="stylesheet" href=""> voltar -> </a>
       </div>
 
-      <div class="vs-titulo">
+      <div class="titulo">
         <h1>Verificação</h1>
       </div>
 
@@ -138,7 +139,7 @@
         <a rel="stylesheet" href=""> voltar -> </a>
       </div>
 
-      <div class="rs-titulo">
+      <div class="titulo">
         <h1>Redefina sua senha</h1>
       </div>
 

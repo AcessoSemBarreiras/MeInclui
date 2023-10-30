@@ -48,14 +48,19 @@ public class Avaliacao implements Serializable {
 	@Column(name = "nota_avaliacao_estabelecimento", nullable = false)
 	private double mediaFinal;
 
-	@Column(name = "data", nullable = false)
+	@Column(name = "data_original", nullable = false)
 	private ZonedDateTime dataAvaliacao;
+
+	@Column(name = "data_edicao")
+	private ZonedDateTime dataEdicaoAvaliacao;
+	
+	
 
 	public Avaliacao() {
 	}
 
 	public Avaliacao(AvaliacaoId avaliacaoId, byte resposta1, byte resposta2, byte resposta3, byte resposta4,
-			byte resposta5, float mediaFinal, ZonedDateTime dataAvaliacao) {
+			byte resposta5, double mediaFinal, ZonedDateTime dataOriginal, ZonedDateTime dataEdicao) {
 		setAvaliacaoId(avaliacaoId);
 		setResposta1(resposta1);
 		setResposta2(resposta2);
@@ -63,11 +68,14 @@ public class Avaliacao implements Serializable {
 		setResposta4(resposta4);
 		setResposta5(resposta5);
 		setMediaFinal(mediaFinal);
-		setDataAvaliacao(dataAvaliacao);
+		setDataAvaliacao(dataOriginal);
+		setDataEdicaoAvaliacao(dataEdicao);
 	}
 
-	public Avaliacao(byte resposta1, byte resposta2, byte resposta3, byte resposta4, byte resposta5, float mediaFinal, ZonedDateTime dataAvaliacao) {
+	public Avaliacao(Usuario usuario, Estabelecimento estabelecimento, byte resposta1, byte resposta2, byte resposta3, byte resposta4, byte resposta5, double mediaFinal, ZonedDateTime dataAvaliacao) {
 
+		setUsuario(usuario);
+		setEstabelecimento(estabelecimento);
 		setResposta1(resposta1);
 		setResposta2(resposta2);
 		setResposta3(resposta3);
@@ -155,5 +163,13 @@ public class Avaliacao implements Serializable {
 
 	public void setDataAvaliacao(ZonedDateTime dataAvaliacao) {
 		this.dataAvaliacao = dataAvaliacao;
+	}
+	
+	public ZonedDateTime getDataEdicaoAvaliacao() {
+		return dataEdicaoAvaliacao;
+	}
+
+	public void setDataEdicaoAvaliacao(ZonedDateTime dataEdicaoAvaliacao) {
+		this.dataEdicaoAvaliacao = dataEdicaoAvaliacao;
 	}
 }

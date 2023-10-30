@@ -8,12 +8,15 @@
             <title>Cadastre-se!</title>
         </head>
         <body>
+        	<header>
+				<a href="index.jsp" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
+			</header>
             <div id="Pagina">
-                <div id="cadastrar-se">
+                <div class="titulo-principal">
                     <h1>Cadastrar-se</h1>
                 </div>
                 <div id="cadastro-usuario">
-                    <form action="inserir-usuario">
+                    <form action="inserir-usuario" method="post">
                         <div id="conteudo-cadastro">
                             <div id="voltar">
                                 <a href="">Voltar</a>
@@ -38,9 +41,9 @@
                             <div class="pronome-usuario">
                                 <select name="pronome-usuario" id="pronome-usuario" placeholder="E-mail">
                                     <option value="" selected>Pronomes</option>
-                                    <option value="ele">Ele</option>
-                                    <option value="ela">Ela</option>
-                                    <option value="elu">Elu</option>
+                                    <option value="Ele/Dele">Ele/Dele</option>
+                                    <option value="Ela/Dela">Ela/Dela</option>
+                                    <option value="Elu/Delu">Elu/Delu</option>
                                     <option value="qualquer">Qualquer pronome</option>
                                     <option value="nao-informar">Não Informar</option>
                                 </select>
