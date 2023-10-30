@@ -18,6 +18,8 @@ import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAO;
 import meinclui.modelo.dao.UsuarioTemConquista.UsuarioTemConquistaDAOImpl;
 import meinclui.modelo.dao.avaliacao.AvaliacaoDAO;
 import meinclui.modelo.dao.avaliacao.AvaliacaoDAOImpl;
+import meinclui.modelo.dao.avaliacaoComentario.AvaliacaoComentarioDAO;
+import meinclui.modelo.dao.avaliacaoComentario.AvaliacaoComentarioDAOImpl;
 import meinclui.modelo.dao.categoria.CategoriaDAO;
 import meinclui.modelo.dao.categoria.CategoriaDAOImpl;
 import meinclui.modelo.dao.comentario.ComentarioDAO;
@@ -32,11 +34,13 @@ import meinclui.modelo.dao.usuario.UsuarioDAO;
 import meinclui.modelo.dao.usuario.UsuarioDAOImpl;
 import meinclui.modelo.entidade.avaliacao.Avaliacao;
 import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
+import meinclui.modelo.entidade.avaliacaoComentario.AvaliacaoComentario;
 import meinclui.modelo.entidade.categoria.Categoria;
 import meinclui.modelo.entidade.comentario.Comentario;
 import meinclui.modelo.entidade.endereco.Endereco;
 import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 import meinclui.modelo.entidade.usuario.Usuario;
+import meinclui.modelo.enumeracao.TipoReacao;
 
 @WebServlet("/")
 public class Servlet extends HttpServlet {
@@ -50,6 +54,7 @@ public class Servlet extends HttpServlet {
 	private EstabelecimentoDAO estabelecimentoDAO;
 	private UsuarioDAO usuarioDAO;
 	private UsuarioTemConquistaDAO usuarioTemConquistaDAO;
+	private AvaliacaoComentarioDAO avaliacaoComentarioDAO;
 
 	public void init() {
 		avaliacaoDAO = new AvaliacaoDAOImpl();
@@ -60,6 +65,7 @@ public class Servlet extends HttpServlet {
 		estabelecimentoDAO = new EstabelecimentoDAOImpl();
 		usuarioDAO = new UsuarioDAOImpl();
 		usuarioTemConquistaDAO = new UsuarioTemConquistaDAOImpl();
+		avaliacaoComentarioDAO = new AvaliacaoComentarioDAOImpl();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -185,6 +191,13 @@ public class Servlet extends HttpServlet {
 				recuperarEndereco(request, response);
 				break;  
 
+			case "/adicionar-quantidade-gostei":
+				adicionarGostei(request, response);
+				break;
+			case "/adicionar-quantidade-nao-gostei":
+				adicionarNaoGostei(request, response);
+				break;
+				
 			}
 		} catch (SQLException ex) {
 			throw new ServletException(ex);
@@ -539,5 +552,33 @@ public class Servlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/ranque-usuario");
 		dispatcher.forward(request, response);
+	}
+	
+	/* GOSTEI E NÃO GOSTEI */
+	
+	private void adicionarGostei(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = usuarioDAO.recuperarUsuarioId(1L);
+		Comentario comentario = comentarioDAO.recuperarComentarioId(Integer.parseInt(request.getParameter("id")));
+		LocalDate dataAtual = LocalDate.now();
+		AvaliacaoComentario avaliacaoComentario = new AvaliacaoComentario(usuario, comentario, dataAtual, TipoReacao.GOSTEI);
+		avaliacaoComentarioDAO.inserirAvaliacaoComentario(avaliacaoComentario);
+		comentario.setQuantidadeGostei(comentario.getQuantidadeGostei() + 1);
+		comentarioDAO.atualizarComentario(comentario);
+		response.sendRedirect("perfil-estabelecimento");
+  
+	}
+	
+	private void adicionarNaoGostei(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = usuarioDAO.recuperarUsuarioId(1L);
+		Comentario comentario = comentarioDAO.recuperarComentarioId(Integer.parseInt(request.getParameter("id")));
+		LocalDate dataAtual = LocalDate.now();
+		AvaliacaoComentario avaliacaoComentario = new AvaliacaoComentario(usuario, comentario, dataAtual, TipoReacao.NAO_GOSTEI);
+		avaliacaoComentarioDAO.inserirAvaliacaoComentario(avaliacaoComentario);
+		comentario.setQuantidadeNaoGostei(comentario.getQuantidadeNaoGostei() + 1);
+		comentarioDAO.atualizarComentario(comentario);
+		response.sendRedirect("perfil-estabelecimento");
+  
 	}
 }

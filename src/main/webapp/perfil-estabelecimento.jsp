@@ -62,12 +62,14 @@
 					<td><c:out value="${cm.data}" /></td>
 					<td><c:out value="${cm.quantidadeGostei}" /></td>
 					<td><c:out value="${cm.quantidadeNaoGostei}" /></td>
+					<td><a href="adicionar-quantidade-gostei?id=<c:out value='${cm.idComentario}'/>">Gostei</a></td>
+					<td><a href="adicionar-quantidade-nao-gostei?id=<c:out value='${cm.idComentario}'/>">Não Gostei</a></td>
 					<td>
 						<form action="responder-comentario">
 							<input type="hidden" name="id"
-								value="<c:out value='${cm.idComentario}'/>"> <input
-								type="text" name="resposta-comentario"> <input
-								type="submit" value="Responder">
+								value="<c:out value='${cm.idComentario}'/>"> 
+								<input type="text" name="resposta-comentario"> 
+								<input type="submit" value="Responder">
 						</form>
 					</td>
 					<td>

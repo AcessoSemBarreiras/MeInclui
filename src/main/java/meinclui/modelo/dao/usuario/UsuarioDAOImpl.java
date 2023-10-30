@@ -2,12 +2,17 @@ package meinclui.modelo.dao.usuario;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import javax.persistence.Tuple;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
+
+import meinclui.modelo.entidade.avaliacaoComentario.AvaliacaoComentario;
+import meinclui.modelo.entidade.comentario.Comentario;
 import meinclui.modelo.entidade.conquista.Conquista;
 import meinclui.modelo.entidade.conquista.Conquista_;
 import meinclui.modelo.entidade.usuario.Usuario;
@@ -509,4 +514,5 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 		return false;
 	}
+	
 }

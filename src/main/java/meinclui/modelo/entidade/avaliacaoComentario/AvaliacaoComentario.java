@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import meinclui.modelo.entidade.comentario.Comentario;
 import meinclui.modelo.entidade.usuario.Usuario;
+import meinclui.modelo.enumeracao.TipoReacao;
 
 @Entity
 @Table(name="avaliacao_comentario")
@@ -29,20 +30,25 @@ public class AvaliacaoComentario {
 	@Column(name = "data_avaliacao_usuario", nullable = false)
 	private LocalDate dataAvaliacao;
 
+	@Column(name = "tipo_reacao", nullable = false)
+	private TipoReacao tipoReacao;
+	
 	public AvaliacaoComentario() {
 	}
 
-	public AvaliacaoComentario(AvaliacaoComentarioId id, Usuario usuario, Comentario comentario, LocalDate dataAvaliacao) {
+	public AvaliacaoComentario(AvaliacaoComentarioId id, Usuario usuario, Comentario comentario, LocalDate dataAvaliacao, TipoReacao tipoReacao) {
 		setIdUsuarioTemConquista(id);
 		setUsuario(usuario);
 		setComentario(comentario);
 		setDataAvaliacao(dataAvaliacao);
+		setTipoReacao(tipoReacao);
 	}
 	
-	public AvaliacaoComentario(Usuario usuario, Comentario comentario, LocalDate dataAvaliacao) {
+	public AvaliacaoComentario(Usuario usuario, Comentario comentario, LocalDate dataAvaliacao, TipoReacao tipoReacao) {
 		setUsuario(usuario);
 		setComentario(comentario);
 		setDataAvaliacao(dataAvaliacao);
+		setTipoReacao(tipoReacao);
 	}
 
 	public AvaliacaoComentarioId getIdAvaliacaoComentarioId() {
@@ -76,5 +82,13 @@ public class AvaliacaoComentario {
 
 	public void setDataAvaliacao(LocalDate dataAvaliacao) {
 		this.dataAvaliacao = dataAvaliacao;
+	}
+	
+	public TipoReacao getTipoReacao() {
+		return tipoReacao;
+	}
+
+	public void setTipoReacao(TipoReacao tipoReacao) {
+		this.tipoReacao = tipoReacao;
 	}
 }
