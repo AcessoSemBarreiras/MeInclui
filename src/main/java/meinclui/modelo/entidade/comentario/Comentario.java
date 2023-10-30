@@ -56,7 +56,7 @@ public class Comentario implements Serializable{
 	public Comentario() {}
 	
 	public Comentario(int idComentario, String comentario, Comentario comentarioRespondido,
-			int quantidadeGostei, int quantidadeNaoGostei, Usuario usuario, Estabelecimento estabelecimento, ZonedDateTime data) {
+			Usuario usuario, Estabelecimento estabelecimento, ZonedDateTime data) {
 		setIdComentario(idComentario);
 		setComentario(comentario);
 		setComentarioRespondido(comentarioRespondido);

@@ -9,6 +9,11 @@
 <title>Cadastre o Estabelecimento!</title>
 </head>
 <body>
+    <div id="pagina">
+        <div id="cabecalho">
+            <h1>Cadastre o Estabelecimento</h1>
+        </div>
+            <form id="regForm" action="inserir-estabelecimento">
 	<header>
 		<a href="index.jsp" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
 	</header>

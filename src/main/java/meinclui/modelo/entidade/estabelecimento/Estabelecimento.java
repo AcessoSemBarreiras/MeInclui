@@ -53,7 +53,6 @@ public class Estabelecimento implements Serializable {
 
 	public Estabelecimento() {
 	}
-
 	public Estabelecimento(Long idEstabelecimento, Categoria categoria, String nome, Endereco endereco) {
 		setIdEstabelecimento(idEstabelecimento);
 		setCategoria(categoria);
@@ -67,7 +66,7 @@ public class Estabelecimento implements Serializable {
 		setNome(nome);
 		setEndereco(endereco);
 	}
-
+	
 	public Long getIdEstabelecimento() {
 		return idEstabelecimento;
 	}

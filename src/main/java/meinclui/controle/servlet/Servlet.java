@@ -381,7 +381,6 @@ public class Servlet extends HttpServlet {
 
 	private void atualizarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
-
 		int idEndereco = Integer.parseInt(request.getParameter("id-endereco"));
 		String logradouro = request.getParameter("logradouro");
 		String tipoLogradouro = request.getParameter("tipo_logradouro");
