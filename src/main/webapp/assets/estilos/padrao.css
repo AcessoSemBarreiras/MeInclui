@@ -1,0 +1,153 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+:root{
+    --laranja: #FF781C;
+    --branco: #FFFFFF;
+    --azul: #03326C;
+    --cinza: #D1D3D2;
+    --preto: #251212;
+    --cinza-escuro: #6A6A6A;
+
+    /*Fontes*/
+
+    --fontes-geral:'Inter', sans-serif;
+}
+
+/*Textos*/
+[class*="texto-"]{
+    font-family: var(--fontes-geral);
+}
+
+.texto-pequeno {
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.texto-medio{
+    font-size: 1.56em;
+    font-weight: 500;
+}
+
+.texto-grande{
+    font-size: 1.25em;
+    font-weight: 700;
+}
+/*imagens*/
+
+
+/*Grid - Posicionamento*/
+
+.template-grid{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    width: 100vw;
+}
+
+.grid-esquerda{
+    grid-column: 2 / 7;
+}
+
+.grid-direita{
+    grid-column: 7 / 12;
+}
+
+/* Botões */
+
+[class*="botao-"]{
+    transition: height 500ms, width 500ms ease;
+    background-color: #FF781C;
+}
+
+[class*="botao-"]:hover{
+    height: 38px;
+    width: 102px;
+    background-color: #E76D1B;
+    
+}
+
+[class*="botao-"]:active{
+    height: 42px;
+    width: 105px;   
+    background-color: #03326C;
+}
+
+.botao-pequeno{
+    width: 97.59px;
+    height: 34.38px;
+    border-radius: 10px;
+    border: #E76D1B;
+}
+
+.botao-medio{
+    width: 127px; 
+    height: 40px;
+    border-radius: 10px;
+    border: #E76D1B;
+}
+
+.botao-grande{
+    width: 162px;
+    height: 50px;
+    border-radius: 10px;
+    border: #E76D1B;
+}
+
+
+
+/*Cabeçalho*/
+
+
+.cabecalho-geral{
+    grid-column: 3 / 11;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+}
+
+.cabecalho-geral img {
+    width: 50px;
+}
+
+.cabecalho-geral .dive{
+    display: flex;
+    gap: 12px;
+}
+
+/* Rodapé */
+/*arrrumar todo o rodapé*/
+footer{
+    width: 1920px;
+    height: 206px;
+    padding-top: 55px;
+    background-color: #03326C;
+}
+
+[class*="rodape-"]{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.rodape-contato{
+    column: 2 / 4;
+}
+
+.rodape-social{
+    column: 6 / 9;
+}
+
+/*Cards*/
+
+[class*="cards-"]{
+    width: 50;
+    height: 40;
+    background-color: #FFFFFF;
+    border: 2px solid var(--laranja);
+}
+
+

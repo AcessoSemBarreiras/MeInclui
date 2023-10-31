@@ -27,13 +27,19 @@
 		<h1 id="nome-estabelecimento">
 			<c:out value='${estabelecimento.nome}' />
 		</h1>
-		
-		<form action="favoritar" method="post">
-			<div id="favoritar-estabelecimento">
-				<button>Favoritar</button>
-			</div>
-		</form>
 
+
+		<form action="favoritar" method="post">
+		  <p id="categoria-estabelecimento">
+			  <c:out value='${categoria.nomeCategoria}' />
+		  </p>
+		
+
+			<div id="favoritar-estabelecimento">
+				<a href="favoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Favoritar</a>
+				<a href="desfavoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Desfavoritar</a>
+			</div>
+	
 		<div id="nota=estabelecimento">
 			<h3>Nota</h3>
 			<hr>
@@ -49,12 +55,45 @@
 
 	<div id="comentario-estabelecimento">
 		<h3 class="titulo-principal">Comentários</h3>
-		<img alt="Imagem mulher comentando" src="">
-		<c:if test="${comentarios.comentarios == null}">
+		<img alt="Imagem mulher comentando" src=""> <br>
+		<c:if test="${comentarios == null}">
 			<p class="texto-aviso">
 				Esse estabelecimento não possui comentários... <br> <b>comente</b>
 				para ser o primeiro!
 			</p>
+		</c:if>
+		<c:if test="${comentarios != null}">
+			<c:forEach var="cm" items="${comentarios}">
+				<tr>
+					<td><c:out value="${cm.comentario}" /></td>
+					<td><c:out value="${cm.data}" /></td>
+					<td><c:out value="${cm.quantidadeGostei}" /></td>
+					<td><c:out value="${cm.quantidadeNaoGostei}" /></td>
+					<td>
+						<form action="responder-comentario">
+							<input type="hidden" name="id"
+								value="<c:out value='${cm.idComentario}'/>"> <input
+								type="text" name="resposta-comentario"> <input
+								type="submit" value="Responder">
+						</form>
+					</td>
+					<td>
+					<c:if test="${respostas == null}">
+					
+					</c:if>
+					<c:if test="${respostas != null}">
+					<c:forEach var="res" items="${respostas}">
+						<c:if test="${res.comentarioRespondido.idComentario == cm.idComentario}">
+							<td><c:out value="${res.comentario}" /></td>
+							<td><c:out value="${res.data}" /></td>
+							<td><c:out value="${res.quantidadeGostei}" /></td>
+							<td><c:out value="${res.quantidadeNaoGostei}" /></td>
+							<td><br></td>
+							</c:if>
+						</c:forEach>
+						</c:if></td>
+				</tr>
+			</c:forEach>
 		</c:if>
 
 		<button class="botao-padrao">Comentar</button>

@@ -16,7 +16,7 @@
       	<a href="index.jsp">..<img></a>
       	<a href="ranking" id="ranking-link">Ranking</a>
       	<a href="fale_conosco" id="fale-conosco-link">Fale Conosco</a>
-      	<a href="login.jsp" id="login-link">Acesse Sua Conta</a>
+      	<a href="login-usuario" id="login-link">Acesse Sua Conta</a>
       </div>
     </c:if>
     
@@ -25,7 +25,7 @@
       	<a href="index.jsp">..<img></a>
       	<a href="ranking" id="ranking-link">Ranking</a>
       	<a href="fale_conosco" id="fale-conosco-link">Fale Conosco</a>
-      	<a href="pesquisa.jsp" id="continue">Continue Navegando</a>
+      	<a href="encontrar-estabelecimentos" id="continue">Continue Navegando</a>
       </div>
     </c:if>
     
