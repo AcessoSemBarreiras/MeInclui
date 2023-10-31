@@ -689,7 +689,7 @@ public class Servlet extends HttpServlet {
 
 	private void adicionarGostei(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sessao = request.getSession();
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(1L);
+		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
 		Comentario comentario = comentarioDAO.recuperarComentarioId(Integer.parseInt(request.getParameter("id")));
 		LocalDate dataAtual = LocalDate.now();
 		AvaliacaoComentario avaliacaoComentario = new AvaliacaoComentario(usuario, comentario, dataAtual, TipoReacao.GOSTEI);
@@ -702,7 +702,7 @@ public class Servlet extends HttpServlet {
 
 	private void adicionarNaoGostei(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sessao = request.getSession();
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(1L);
+		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
 		Comentario comentario = comentarioDAO.recuperarComentarioId(Integer.parseInt(request.getParameter("id")));
 		LocalDate dataAtual = LocalDate.now();
 		AvaliacaoComentario avaliacaoComentario = new AvaliacaoComentario(usuario, comentario, dataAtual, TipoReacao.NAO_GOSTEI);
