@@ -23,6 +23,7 @@ public class ConexaoFactory {
 		configuracao.addAnnotatedClass(meinclui.modelo.entidade.usuario.Usuario.class);
 		configuracao.addAnnotatedClass(meinclui.modelo.entidade.avaliacaoComentario.AvaliacaoComentario.class);
 		configuracao.addAnnotatedClass(meinclui.modelo.entidade.avaliacaoComentario.AvaliacaoComentarioId.class);
+		configuracao.addAnnotatedClass(meinclui.modelo.entidade.foto.Foto.class);
 		
 		configuracao.configure("hibernate.cfg.xml");
 		
