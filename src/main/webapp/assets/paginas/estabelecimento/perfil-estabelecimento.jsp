@@ -27,6 +27,7 @@
 			<c:out value='${estabelecimento.nome}' />
 		</h1>
 
+		
 		<form action="favoritar" method="post">
 			<div id="favoritar-estabelecimento">
 				<button>Favoritar</button>

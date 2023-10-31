@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 
 import meinclui.modelo.entidade.comentario.Comentario;
 import meinclui.modelo.entidade.comentario.Comentario_;
+import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 import meinclui.modelo.factory.conexao.ConexaoFactory;
 
 public class ComentarioDAOImpl implements ComentarioDAO {
@@ -541,7 +543,7 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 
 	}
 
-	public List<Comentario> recuperarComentariosRespostas() {
+	public List<Comentario> recuperarComentariosRespostas(Estabelecimento estabelecimento) {
 		Session sessao = null;
 		List<Comentario> comentarios = null;
 
@@ -556,7 +558,9 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 			Root<Comentario> raizComentario = criteria.from(Comentario.class);
 
 			criteria.select(raizComentario);
-			criteria.where(construtor.isNotNull(raizComentario.get(Comentario_.comentarioRespondido)));
+			Predicate nulo = construtor.isNotNull(raizComentario.get(Comentario_.comentarioRespondido));
+			Predicate estabelecimentoRes = construtor.equal(raizComentario.get(Comentario_.estabelecimento), estabelecimento);
+			criteria.where(construtor.and(nulo, estabelecimentoRes));
 			criteria.orderBy(construtor.desc(raizComentario.get(Comentario_.data)));
 
 			comentarios = sessao.createQuery(criteria).getResultList();

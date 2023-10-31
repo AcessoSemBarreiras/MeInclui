@@ -3,6 +3,7 @@ package meinclui.modelo.dao.categoria;
 import java.util.List;
 
 import meinclui.modelo.entidade.categoria.Categoria;
+import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 
 public interface CategoriaDAO {
 
@@ -17,4 +18,6 @@ public interface CategoriaDAO {
 	Categoria recuperarCategoriaNome(String nomeCategoria);
 	
 	Categoria recuperarCategoriaId(int idCategoria);
+	
+	Categoria recuperarCategoriaEstabelecimento(Estabelecimento estabelecimento);
 }

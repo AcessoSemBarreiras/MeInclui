@@ -233,8 +233,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
 			CriteriaQuery<Tuple> criteria = construtor.createTupleQuery();
 			Root<UsuarioTemConquista> raizUsuarioTemConquista = criteria.from(UsuarioTemConquista.class);
-			Join<UsuarioTemConquista, Conquista> joinConquista = raizUsuarioTemConquista
-					.join(UsuarioTemConquista_.conquista);
+			Join<UsuarioTemConquista, Conquista> joinConquista = raizUsuarioTemConquista.join(UsuarioTemConquista_.conquista);
 
 			joinConquista.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.conquista),
 					joinConquista.get(Conquista_.idConquista)));

@@ -413,9 +413,15 @@ public class Servlet extends HttpServlet {
 	private void mostrarPerfilEstabelecimento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
+        Endereco endereco = enderecoDAO.recuperarEnderecos(estabelecimento);
+        Categoria categoria = categoriaDAO.recuperarCategoriaEstabelecimento(estabelecimento);
+        
         List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
-        List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas();
+        List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
+        
         request.setAttribute("estabelecimento", estabelecimento);
+        request.setAttribute("endereco", endereco);
+        request.setAttribute("categoria", categoria);
         request.setAttribute("comentarios", comentarios);
         request.setAttribute("respostas", respostas);
         RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/perfil-estabelecimento.jsp");
