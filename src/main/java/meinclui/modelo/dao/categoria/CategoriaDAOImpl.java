@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 
 import meinclui.modelo.entidade.categoria.Categoria;
 import meinclui.modelo.entidade.categoria.Categoria_;
+import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
+import meinclui.modelo.entidade.estabelecimento.Estabelecimento_;
 import meinclui.modelo.factory.conexao.ConexaoFactory;
 
 public class CategoriaDAOImpl implements CategoriaDAO {
@@ -245,6 +248,51 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
 		return categoria;
 
+	}
+	public Categoria recuperarCategoriaEstabelecimento(Estabelecimento estabelecimento) {
+		 
+		Session sessao = null;
+		Categoria categoria = null;
+ 
+		try {
+ 
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+ 
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+ 
+			CriteriaQuery<Categoria> criteria = construtor.createQuery(Categoria.class);
+			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
+			Join<Estabelecimento, Categoria> categoriaJoin = raizEstabelecimento.join(Estabelecimento_.categoria);
+			categoriaJoin.on(construtor.equal(raizEstabelecimento.get(Estabelecimento_.categoria), categoriaJoin.get(Categoria_.idCategoria)));
+			criteria.where((construtor.equal(raizEstabelecimento.get(Estabelecimento_.idEstabelecimento), estabelecimento.getIdEstabelecimento())));
+			criteria.select(categoriaJoin);
+			categoria = sessao.createQuery(criteria).getSingleResult();
+ 
+			sessao.getTransaction().commit();
+			
+			
+		} catch (Exception sqlException) {
+ 
+			sqlException.printStackTrace();
+ 
+			if (sessao.getTransaction() != null) {
+ 
+				sessao.getTransaction().rollback();
+ 
+			}
+ 
+		} finally {
+ 
+			if (sessao != null) {
+ 
+				sessao.close();
+ 
+			}
+ 
+		}
+ 
+		return categoria;
 	}
 
 }
