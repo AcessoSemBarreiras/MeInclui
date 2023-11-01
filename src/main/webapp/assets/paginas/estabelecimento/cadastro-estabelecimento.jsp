@@ -9,13 +9,8 @@
 <title>Cadastre o Estabelecimento!</title>
 </head>
 <body>
-    <div id="pagina">
-        <div id="cabecalho">
-            <h1>Cadastre o Estabelecimento</h1>
-        </div>
-            <form id="regForm" action="inserir-estabelecimento">
 	<header>
-		<a href="index.jsp" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
+		<a href="tela-inicial" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
 	</header>
 
 	<div class="titulo-principal">
@@ -38,11 +33,11 @@
 				<div id="categorias">
 					<select name="categoria-estabelecimento" id="categoria" required>
 						<option value="" selected disabled>Categoria</option>
-						<option value="bar">Bar</option>
-						<option value="comercial">Estabelecimento Comercial</option>
-						<option value="doceria">Doceria</option>
-						<option value="saude">Saúde</option>
-						<option value="restaurante">Restaurante</option>
+						<option value="Bar">Bar</option>
+						<option value="Comercial">Estabelecimento Comercial</option>
+						<option value="Doceria">Doceria</option>
+						<option value="Saude">Saúde</option>
+						<option value="Restaurante">Restaurante</option>
 					</select>
 				</div>
 
