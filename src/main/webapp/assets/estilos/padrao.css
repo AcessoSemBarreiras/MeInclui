@@ -111,7 +111,7 @@
     width: 50px;
 }
 
-.cabecalho-geral .dive{
+.cabecalho-geral .dive{ /*Mudar esse nome "dive"*/
     display: flex;
     gap: 12px;
 }
