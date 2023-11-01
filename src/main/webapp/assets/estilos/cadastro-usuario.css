@@ -5,3 +5,34 @@
     border-style: none;
     box-sizing: border-box;
 }
+
+.titulo-principal {
+    color: var(--laranja);
+    font-family: var(--fontes-geral);
+}
+ 
+form input[type="text"], input[type="email"], input[type="date"], input[type="password"], select{
+    text-indent: 10px;
+    font-size: 20px;
+    color: var(--azul);
+    border-radius: 10px;
+    border: 1px solid var(--azul);
+    background: var(--branco);
+    width: 460px;
+    height: 47px;
+}
+ 
+form input:focus-visible{
+    outline: 2px solid var(--azul);
+    outline-offset: -1px;
+}
+ 
+form input::placeholder{
+    color: var(--cinza-escuro);
+    font-family: var(--fontes-geral);
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1px;
+}

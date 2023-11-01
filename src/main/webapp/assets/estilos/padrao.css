@@ -8,6 +8,7 @@
     --cinza: #D1D3D2;
     --preto: #251212;
     --cinza-escuro: #6A6A6A;
+    --laranja-escuro: #E76D1B; 
 
     /*Fontes*/
 
@@ -56,20 +57,23 @@
 
 [class*="botao-"]{
     transition: height 500ms, width 500ms ease;
-    background-color: #FF781C;
+    background-color: var(--laranja);
+    color: var(--branco);
 }
 
 [class*="botao-"]:hover{
-    height: 38px;
-    width: 102px;
-    background-color: #E76D1B;
-    
+    transform: scale(1.1);
+    background-color: var(--laranja-escuro);     
 }
 
 [class*="botao-"]:active{
-    height: 42px;
-    width: 105px;   
-    background-color: #03326C;
+    transform: scale(1.1);
+    background-color: var(--azul);
+}
+
+[class*="botao-"]::before{
+    transform: scale(1.1);
+    background-color: var(--azul);
 }
 
 .botao-pequeno{
@@ -93,6 +97,38 @@
     border: #E76D1B;
 }
 
+/*Título Cadastro*/
+.aaa{
+    display: flex;
+    grid-column: 3 / 12;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+
+/* Formulários */
+ 
+.formulario-esquerda, .formulario-direita {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 50px;
+
+}
+#formulario{
+    margin-top: 80px;
+}
+.formulario-esquerda {
+    grid-column: 3 / 5;
+    align-items: flex-start;
+}
+ 
+.formulario-direita {
+    grid-column: 7 / 8; 
+    align-items: flex-end;
+}
+
 
 
 /*Cabeçalho*/
@@ -103,8 +139,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-
+    height: 100px;
 }
 
 .cabecalho-geral img {
@@ -148,6 +183,34 @@ footer{
     height: 40;
     background-color: #FFFFFF;
     border: 2px solid var(--laranja);
+}
+
+/*Checkbox*/
+
+input[type=checkbox]{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font: inherit;
+    color: inherit;
+    width: 40px;
+    height: 40px;
+    border: 0.15em solid var(--azul);
+    border-radius: 0.65em;
+    display: grid;
+    place-content: center;
+}
+
+input[type=checkbox]::before{
+    content: "";
+    width: 1.5em;
+    height: 1.5em;
+    -webkit-clip-path: polygon(24% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    clip-path: polygon(24% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    background-color: CanvasText;
+    background-color: var(--azul);
 }
 
 
