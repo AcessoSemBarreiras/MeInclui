@@ -470,7 +470,7 @@ public class Servlet extends HttpServlet {
         Endereco endereco = new Endereco(logradouro, tipoLogradouro, numero, complemento, bairro, cidade, estado);
         enderecoDAO.inserirEndereco(endereco);
 
-        Categoria categoria = categoriaDAO.recuperarCategoriaNome(request.getParameter("categoria"));
+        Categoria categoria = categoriaDAO.recuperarCategoriaNome(request.getParameter("categoria-estabelecimento"));
         String nome = request.getParameter("nome-estabelecimento");
         estabelecimentoDAO.inserirEstabelecimento(new Estabelecimento(categoria, nome, endereco));
         response.sendRedirect("tela-inicial");

@@ -20,7 +20,7 @@
 		<div class="informacoes-usuario">
 			<img alt="foto do usuario" src="">
 			<c:if test="${usuario != null}">
-				<a href="editar-perfil-usuario.jsp">editar</a>
+				<a href="editar-perfil-usuario">editar</a>
 			</c:if>
 			
 			<h3 id="nome-de-usuario">
