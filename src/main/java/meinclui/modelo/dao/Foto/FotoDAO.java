@@ -8,4 +8,8 @@ public interface FotoDAO {
 	void deletarFoto(int idFoto);
 
 	void atualizarFoto(Foto foto);
+	
+	Foto recuperarFotoUsuario(Long id);
+	
+	Foto recuperarFotoEstabelecimento(Long id);
 }
