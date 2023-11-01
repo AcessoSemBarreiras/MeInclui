@@ -9,14 +9,6 @@
 <title>Cadastre o Estabelecimento!</title>
 </head>
 <body>
-    <div id="pagina">
-        <div id="cabecalho">
-            <h1>Cadastre o Estabelecimento</h1>
-        </div>
-            <form id="regForm" action="inserir-estabelecimento">
-	<header>
-		<a href="index.jsp" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
-	</header>
 
 	<div class="titulo-principal">
 		<h1>Cadastre o Estabelecimento</h1>
@@ -30,7 +22,7 @@
 		<div id="voltar">
 			<a href="">Voltar</a>
 		</div>
-		<form action="inserir-estabelecimento" method="get" enctype="multipart/form-data">
+		<form action="inserir-estabelecimento" method="post" enctype="multipart/form-data">
 			<div class="conteudo-cadastro">
 				<input type="text" id="nome-est" name="nome-estabelecimento"
 					placeholder="Nome do estabelecimento" required>
@@ -111,5 +103,6 @@
 			</div>
 		</form>
 	</div>
+
 </body>
 </html>

@@ -1,10 +1,13 @@
 package meinclui.modelo.dao.estabelecimento;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -578,4 +581,51 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 		return estabelecimentos;
 	}	
+	
+	public List<Estabelecimento> filtrarEstabelecimentos(Optional<Categoria> categoriaEstabelecimento){
+		
+		Session sessao = null;
+		List<Estabelecimento> estabelecimentos = null;
+		
+		try {
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+			
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+
+			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
+			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
+			Join<Estabelecimento, Categoria> joinCategoria = raizEstabelecimento.join(Estabelecimento_.categoria);
+			
+			criteria.select(raizEstabelecimento);
+			
+			List<Predicate> predicados = new ArrayList<>();
+			
+			categoriaEstabelecimento.ifPresent(categoria -> predicados.add(construtor.equal(joinCategoria.get(Categoria_.idCategoria), categoriaEstabelecimento.get())));
+			if(!predicados.isEmpty()) {
+				criteria.where(construtor.and(predicados.toArray(new Predicate[0])));
+			}
+			
+			estabelecimentos = sessao.createQuery(criteria).getResultList();
+			
+		}catch (Exception sqlException) {
+
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+
+				sessao.getTransaction().rollback();
+
+			}
+		} finally {
+
+			if (sessao != null) {
+				sessao.close();
+			}
+
+		}
+		
+		return estabelecimentos;
+	}
+	
 }
