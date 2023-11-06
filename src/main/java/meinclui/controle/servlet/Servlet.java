@@ -128,6 +128,7 @@ public class Servlet extends HttpServlet {
 			case "/editar-perfil-usuario":
 				mostrarFormularioEditarUsuario(request, response);
 				break;
+				
 			case "/cadastro-estabelecimento":
 				mostrarFormularioCadastroEstabelecimento(request, response);
 				break;
@@ -242,7 +243,8 @@ public class Servlet extends HttpServlet {
 
 	private void inserirAvaliacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(1L);
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
         Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
         byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
         byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
@@ -333,7 +335,8 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		String comentario = request.getParameter("comentario");
 		Comentario comentarioRespondido = Comentario.class.cast(request.getParameter("comentario-respondido"));
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(1L);
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
 		ZonedDateTime data = ZonedDateTime.now();
 		comentarioDAO
@@ -346,7 +349,8 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		Comentario comentarioRespondido = comentarioDAO.recuperarComentarioId(Integer.parseInt(request.getParameter("id")));
 		String comentario = request.getParameter("resposta-comentario");
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(2L);
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
 		ZonedDateTime data = ZonedDateTime.now();
 		comentarioDAO.inserirComentario(new Comentario(comentario, comentarioRespondido, usuario, estabelecimento, data));
@@ -442,7 +446,9 @@ public class Servlet extends HttpServlet {
 			throws SQLException, IOException{
 		Long id = Long.parseLong(request.getParameter("id"));
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
-		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(1L);
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(usuario.getIdUsuario());
 		usuarioFav.setEstabelecimentoFavorito(estabelecimento);
 		usuarioDAO.atualizarUsuario(usuarioFav);
 		response.sendRedirect("perfil-estabelecimento");
@@ -452,7 +458,9 @@ public class Servlet extends HttpServlet {
 			throws SQLException, IOException{
 		Long id = Long.parseLong(request.getParameter("id"));
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
-		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(1L);
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(usuario.getIdUsuario());
 		usuarioFav.getEstabelecimentoFavorito().remove(estabelecimento);
 		usuarioFav.getEstabelecimentoFavorito().size();
 		usuarioDAO.atualizarUsuario(usuarioFav);
@@ -503,8 +511,10 @@ public class Servlet extends HttpServlet {
 		Part partPerfil = request.getPart("foto-usuario");
 		String extensao = partPerfil.getContentType();
 		byte[] binarioFoto = ConversorImagem.obterBytesImagem(partPerfil);
-		Foto fotoPerfil = new Foto(binarioFoto, extensao);
-		fotoDAO.inserirFoto(fotoPerfil);
+		Foto fotoPerfil = fotoDAO.recuperarFotoUsuario(id);
+		fotoPerfil.setBinario(binarioFoto);
+		fotoPerfil.setExtensao(extensao);
+		fotoDAO.atualizarFoto(fotoPerfil);
 		
 		usuarioDAO.atualizarUsuario(new Usuario(id, nome, pronome, nomeDeUsuario, email, cpf, senha, data, fotoPerfil));
 		response.sendRedirect("perfil-usuario");
@@ -512,7 +522,8 @@ public class Servlet extends HttpServlet {
 	
 	private void mostrarPerfilUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
-		Usuario usuario = usuarioDAO.recuperarUsuarioId(Long.parseLong(request.getParameter("usuario")));
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		int pontuacao = usuarioDAO.recuperarPontuacaoUsuario(usuario.getIdUsuario());
 		List<Conquista> conquistas = conquistaDAO.recuperarConquistasMaisRecentes(usuario.getIdUsuario());
 		List<Comentario> comentarios = comentarioDAO.recuperarComentariosOrdenadoMaisRecente(usuario.getIdUsuario());
@@ -540,7 +551,6 @@ public class Servlet extends HttpServlet {
 		List<Comentario> comentarios = comentarioDAO.recuperarComentariosOrdenadoMaisRecente(usuario.getIdUsuario());
 		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.recuperarEstabelecimentoAvaliado(usuario.getIdUsuario());
 		Foto foto = fotoDAO.recuperarFotoUsuario(usuario.getIdUsuario());
-		System.out.println(foto.getExtensao());
 		String url = ConversorImagem.urlFoto(foto.getBinario(), foto.getExtensao());
 		
 		request.setAttribute("usuario", usuario);
