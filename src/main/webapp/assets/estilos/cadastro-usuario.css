@@ -16,7 +16,7 @@ form input[type="text"], input[type="email"], input[type="date"], input[type="pa
     font-size: 20px;
     color: var(--azul);
     border-radius: 10px;
-    border: 1px solid var(--azul);
+    border: 2px solid var(--azul);
     background: var(--branco);
     width: 460px;
     height: 47px;
