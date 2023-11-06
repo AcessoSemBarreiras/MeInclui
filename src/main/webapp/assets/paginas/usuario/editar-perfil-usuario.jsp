@@ -10,7 +10,7 @@
 <body>
 	<main>
 		<c:if test="${usuario != null}">
-		<%@ include file="../menuLogado.jsp" %>
+		<%@ include file="menuLogado.jsp" %>
 	</c:if>
 
 		<div class="titulo">
@@ -46,11 +46,11 @@
 				<div id="editar-pronome">
 					<label>Pronomes:</label> <select name="pronome-usuario">
 						<option value="ele"
-							<c:if test="${usuario.pronome == 'Ele/Dele'}"><c:out value="selected" /></c:if>>Ele</option>
+							<c:if test="${usuario.pronome == 'ele'}"><c:out value="selected" /></c:if>>Ele</option>
 						<option value="ela"
-							<c:if test="${usuario.pronome == 'Ela/Dela'}"><c:out value="selected" /></c:if>>Ela</option>
+							<c:if test="${usuario.pronome == 'ela'}"><c:out value="selected" /></c:if>>Ela</option>
 						<option value="elu"
-							<c:if test="${usuario.pronome == 'Elu/Delu'}"><c:out value="selected" /></c:if>>Elu</option>
+							<c:if test="${usuario.pronome == 'elu'}"><c:out value="selected" /></c:if>>Elu</option>
 						<option value="qualquer"
 							<c:if test="${usuario.pronome == 'qualquer'}"><c:out value="selected" /></c:if>>Qualquer
 							pronome</option>
@@ -66,7 +66,7 @@
 				</div>
 			</div>
 			<div id="button-cancelar">
-				<a href="perfil-usuario">Cancelar</a>
+				<button>Cancelar</button>
 			</div>
 			<div id="button-atualizar">
 				<button type="submit">Atualizar</button>
