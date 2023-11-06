@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    border-style: none;
+    box-sizing: border-box;
+}
+
+.template-grid-avaliacao{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    width: 100vw;
+    
+}
+
+.titulo-principal {
+    color: var(--laranja);
+    font-family: var(--fontes-geral);
+    
+}
+
+.grid-centro{
+    grid-column: 3 / 10;
+    gap: 100px;
+}
+
+
+.texto-titulo{
+    font-size: 1.25em;
+    font-weight: 700;
+    color: var(--laranja);
+}
+
+.texto-pergunta{
+    font-size: 1.56em;
+    font-weight: 400;
+    color: var(--azul);
+}

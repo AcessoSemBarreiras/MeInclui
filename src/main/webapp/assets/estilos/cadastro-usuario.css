@@ -9,6 +9,7 @@
 .titulo-principal {
     color: var(--laranja);
     font-family: var(--fontes-geral);
+    
 }
  
 form input[type="text"], input[type="email"], input[type="date"], input[type="password"], select{
@@ -18,7 +19,7 @@ form input[type="text"], input[type="email"], input[type="date"], input[type="pa
     border-radius: 10px;
     border: 2px solid var(--azul);
     background: var(--branco);
-    width: 460px;
+    width: 320px;
     height: 47px;
 }
  
