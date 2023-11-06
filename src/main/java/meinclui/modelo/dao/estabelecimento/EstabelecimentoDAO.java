@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import meinclui.modelo.entidade.categoria.Categoria;
+import meinclui.modelo.entidade.endereco.Endereco;
 import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 
 public interface EstabelecimentoDAO {
@@ -36,6 +37,6 @@ public interface EstabelecimentoDAO {
 
 	List<Estabelecimento> recuperarEstabelecimentoAvaliado(Long idUsuario);
 	
-	List<Estabelecimento> filtrarEstabelecimentos(Optional<Categoria> categoriaEstabelecimento);
+	List<Estabelecimento> filtrarEstabelecimentos(Optional<Categoria> categoriaEstabelecimento, Optional<Double> mediaAcessibilidade, Optional<String> nomeEstado);
 
 }

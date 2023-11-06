@@ -582,7 +582,7 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 		return estabelecimentos;
 	}	
 	
-	public List<Estabelecimento> filtrarEstabelecimentos(Optional<Categoria> categoriaEstabelecimento){
+	public List<Estabelecimento> filtrarEstabelecimentos(Optional<Categoria> categoriaEstabelecimento, Optional<Double> mediaAcessibilidade, Optional<String> nomeEstado){
 		
 		Session sessao = null;
 		List<Estabelecimento> estabelecimentos = null;
@@ -601,7 +601,10 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 			
 			List<Predicate> predicados = new ArrayList<>();
 			
-			categoriaEstabelecimento.ifPresent(categoria -> predicados.add(construtor.equal(joinCategoria.get(Categoria_.idCategoria), categoriaEstabelecimento.get())));
+			categoriaEstabelecimento.ifPresent(categoria -> predicados.add(construtor.equal(raizEstabelecimento.get(Estabelecimento_.categoria), categoriaEstabelecimento.get())));
+			nomeEstado.ifPresent(estado -> predicados.add(construtor.equal(raizEstabelecimento.get(Estabelecimento_.endereco), nomeEstado.get())));
+			mediaAcessibilidade.ifPresent(media -> predicados.add(construtor.equal(raizEstabelecimento.get(Estabelecimento_.pontoAcessibilidade), mediaAcessibilidade.get().toString())));
+			
 			if(!predicados.isEmpty()) {
 				criteria.where(construtor.and(predicados.toArray(new Predicate[0])));
 			}

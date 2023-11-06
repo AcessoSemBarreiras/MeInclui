@@ -147,7 +147,7 @@ public class Servlet extends HttpServlet {
 			case "/mostrar-estabelecimentos-pesquisados":
 				mostrarEstabelecimentosPesquisados(request, response);
 				break;
-			case "filtrar-estabelecimentos":
+			case "/filtrar-estabelecimentos":
 				filtrarEstabelecimentos(request, response);
 				break;
 			case "/editar-perfil-estabelecimento":
@@ -438,12 +438,16 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		Categoria categoria = categoriaDAO.recuperarCategoriaNome(request.getParameter("categoria"));
-		Optional<Categoria> categoriaOp = (String.valueOf(categoria == "") ? Optional.empty() : Optional.of(categoria);
+		Optional<Categoria> categoriaOp = (categoria == null) ? Optional.empty() : Optional.of(categoria);
 		
-		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.filtrarEstabelecimentos(categoriaOp);
-		for(Estabelecimento e : estabelecimentos) {
-			System.out.println(e.getNome());
-		}
+		String nomeEstado = request.getParameter("nomeEstado");
+		Optional<String> estadoOp = (nomeEstado == "") ? Optional.empty() : Optional.of(nomeEstado);
+		
+		Double mediaAcessibilidade = Double.parseDouble(request.getParameter("media"));
+		Optional<Double> mediaOp = (mediaAcessibilidade == null) ? Optional.empty() : Optional.of(mediaAcessibilidade);
+		
+		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.filtrarEstabelecimentos(categoriaOp, mediaOp, estadoOp);
+
 		request.setAttribute("estabelecimentos", estabelecimentos);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/pesquisa.jsp");
 		dispatcher.forward(request, response);

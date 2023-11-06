@@ -23,23 +23,26 @@
 				id="pesquisa" name="q" placeholder="Digite sua pesquisa aqui">
 		</form>
 	</div>
-	
-	 <div class="filtrar">
-     <form action="filtrar-estabelecimentos" method="post">
-     <div class="filtro">
-     <select name="categoria" id="categoria">
-     <option value="" selected>Categoria</option>
-     <option value="Doceria">Doceria</option>
-     <option value="Saúde">Saúde</option>
-     <option value="Restaurante">Restaurante</option>
-     <option value="bar">Bar</option>
-     <option value="Estabelecimento Comercial">Estabelecimento Comercial</option>
-     </select>
-     <input type="submit" value=".">
-     </div>
-     </form>
+
+	<div class="filtrar">
+		<form action="filtrar-estabelecimentos" method="post">
+			<div class="filtro">
+				<select name="categoria" id="categoria">
+					<option value="" selected>Categoria</option>
+					<option value="Doceria">Doceria</option>
+					<option value="Saúde">Saúde</option>
+					<option value="Restaurante">Restaurante</option>
+					<option value="bar">Bar</option>
+					<option value="Estabelecimento Comercial">Estabelecimento
+						Comercial</option>
+				</select> <input type="text" id="nomeEstado" name="nomeEstado"
+					placeholder="Digite sua pesquisa aqui"> <input type="text"
+					id="mediaI" name="media" placeholder="Digite sua pesquisa aqui">
+				<input type="submit" value=".">
+			</div>
+		</form>
 	</div>
-    
+
 	<div id="conteudo">
 		<h1>O Que Deseja Ver Hoje?</h1>
 		<p>
