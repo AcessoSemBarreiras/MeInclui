@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,38 +9,55 @@
 <title>Perfil Estabelecimento</title>
 </head>
 <body>
-	
 	<c:if test="${usuario != null}">
-		<%@ include file="menuLogado.jsp" %>
+		<%@ include file="../menuLogado.jsp" %>
 	</c:if>
 	
 	<c:if test="${usuario == null}">
-		<%@ include file="menuNaoLogado.jsp" %>
+		<%@ include file="../menuNaoLogado.jsp" %>
 	</c:if>
 
 	<div id="dados-estabelecimento">
-		<img alt="foto do estabelecimento" src="">
+		
+		<div id="foto-estabelecimento">
+			<img alt="foto do estabelecimento" src="">
+		</div>
+		
 		
 		<c:if test="${usuario != null}">
-			<a href="editar-perfil-estabelecimento.jsp">editar</a>
+			<div id="link-editar-estabelecimento">
+				<a href="editar-perfil-usuario">.</a>
+			</div>
 		</c:if>
 		
-		<h1 id="nome-estabelecimento">
-			<c:out value='${estabelecimento.nome}' />
-		</h1>
-
-
-		<form action="favoritar" method="post">
-		  <p id="categoria-estabelecimento">
-			  <c:out value='${categoria.nomeCategoria}' />
-		  </p>
-		
-
-			<div id="favoritar-estabelecimento">
-				<a href="favoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Favoritar</a>
-				<a href="desfavoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Desfavoritar</a>
+		<div id="inf-estabelecimento">
+			<h1 id="nome-estabelecimento">
+				<c:out value='${estabelecimento.nome}' />
+			</h1>
+			<p id="categoria-perfil">
+				<c:out value="${categoria.nomeCategoria}"></c:out>
+			</p>
+			<div id="endereco-perfil">
+				<p>	
+				<c:out value="${endereco.tipoLogradouro}."></c:out>
+				<c:out value="${endereco.logradouro}"></c:out>
+				<c:out value="n°${endereco.numero}"></c:out> <br>
+				<c:out value="${endereco.bairro}"></c:out>
+				<c:out value="${endereco.cidade}"></c:out>
+				<c:out value="/${endereco.estado}"></c:out>
+				</p>
 			</div>
-	
+		</div>
+		
+			
+
+		
+		<form action="favoritar" method="post">
+			<div id="favoritar-estabelecimento">
+				<button>Favoritar</button>
+			</div>
+		</form>
+
 		<div id="nota=estabelecimento">
 			<h3>Nota</h3>
 			<hr>
@@ -49,7 +67,7 @@
 		</div>
 
 		<div class="botao-padrao">
-			<button onclick="location.href='http://localhost:8080/MeInclui/avaliacao-estabelecimento'">AVALIAR</button>
+			<button>AVALIAR</button>
 		</div>
 	</div>
 
@@ -66,15 +84,21 @@
 			<c:forEach var="cm" items="${comentarios}">
 				<tr>
 					<td><c:out value="${cm.comentario}" /></td>
-					<td><c:out value="${cm.data}" /></td>
+					<td>
+						<fmt:parseDate  value="${cm.data}" type="date" pattern="yyyy-MM-dd" var="parsedDate" />
+						<fmt:formatDate value="${parsedDate}" type="date" pattern="dd/MM/yyyy" var="data" />
+						<c:out value="${data}"></c:out>
+					</td>
 					<td><c:out value="${cm.quantidadeGostei}" /></td>
 					<td><c:out value="${cm.quantidadeNaoGostei}" /></td>
+					<td><a href="adicionar-quantidade-gostei?id=<c:out value='${cm.idComentario}'/>">Gostei</a></td>
+					<td><a href="adicionar-quantidade-nao-gostei?id=<c:out value='${cm.idComentario}'/>">Não Gostei</a></td>
 					<td>
 						<form action="responder-comentario">
 							<input type="hidden" name="id"
-								value="<c:out value='${cm.idComentario}'/>"> <input
-								type="text" name="resposta-comentario"> <input
-								type="submit" value="Responder">
+								value="<c:out value='${cm.idComentario}'/>"> 
+								<input type="text" name="resposta-comentario"> 
+								<input type="submit" value="Responder">
 						</form>
 					</td>
 					<td>
@@ -85,7 +109,7 @@
 					<c:forEach var="res" items="${respostas}">
 						<c:if test="${res.comentarioRespondido.idComentario == cm.idComentario}">
 							<td><c:out value="${res.comentario}" /></td>
-							<td><c:out value="${res.data}" /></td>
+							<td><c:out value="${res.data}"></c:out></td>
 							<td><c:out value="${res.quantidadeGostei}" /></td>
 							<td><c:out value="${res.quantidadeNaoGostei}" /></td>
 							<td><br></td>
@@ -104,46 +128,46 @@
 
 		<div class="topico-avaliacao">
 			<h2>Obstáculos</h2>
-			<input type="radio" name="obstaculos" value="1"> <input
-				type="radio" name="obstaculos" value="2"> <input
-				type="radio" name="obstaculos" value="3"> <input
-				type="radio" name="obstaculos" value="4"> <input
-				type="radio" name="obstaculos" value="5">
+			<input type="radio" name="obstaculos" value="1" disabled> <input
+				type="radio" name="obstaculos" value="2" disabled> <input
+				type="radio" name="obstaculos" value="3" disabled> <input
+				type="radio" name="obstaculos" value="4" disabled> <input
+				type="radio" name="obstaculos" value="5" disabled>
 		</div>
 
 		<div class="topico-avaliacao">
 			<h2>Portas</h2>
-			<input type="radio" name="portas" value="1"> <input
-				type="radio" name="portas" value="2"> <input type="radio"
-				name="portas" value="3"> <input type="radio" name="portas"
-				value="4"> <input type="radio" name="portas" value="5">
+			<input type="radio" name="portas" value="1" disabled> <input
+				type="radio" name="portas" value="2" disabled> <input type="radio"
+				name="portas" value="3" disabled> <input type="radio" name="portas"
+				value="4" disabled> <input type="radio" name="portas" value="5" disabled>
 		</div>
 
 
 		<div class="topico-avaliacao">
 			<h2>Banheiros</h2>
-			<input type="radio" name="banheiros" value="1"> <input
-				type="radio" name="banheiros" value="2"> <input type="radio"
-				name="banheiros" value="3"> <input type="radio"
-				name="banheiros" value="4"> <input type="radio"
-				name="banheiros" value="5">
+			<input type="radio" name="banheiros" value="1" disabled> <input
+				type="radio" name="banheiros" value="2" disabled> <input type="radio"
+				name="banheiros" value="3" disabled> <input type="radio"
+				name="banheiros" value="4" disabled> <input type="radio"
+				name="banheiros" value="5" disabled>
 		</div>
 
 		<div class="topico-avaliacao">
 			<h2>Rampas</h2>
-			<input type="radio" name="rampas" value="1"> <input
-				type="radio" name="rampas" value="2"> <input type="radio"
-				name="rampas" value="3"> <input type="radio" name="rampas"
-				value="4"> <input type="radio" name="rampas" value="5">
+			<input type="radio" name="rampas" value="1" disabled> <input
+				type="radio" name="rampas" value="2" disabled> <input type="radio"
+				name="rampas" value="3" disabled> <input type="radio" name="rampas"
+				value="4" disabled> <input type="radio" name="rampas" value="5" disabled>
 		</div>
 
 		<div class="topico-avaliacao">
 			<h2>Proteção</h2>
-			<input type="radio" name="protecao" value="1"> <input
-				type="radio" name="protecao" value="2"> <input type="radio"
-				name="protecao" value="3"> <input type="radio"
-				name="protecao" value="4"> <input type="radio"
-				name="protecao" value="5">
+			<input type="radio" name="protecao" value="1" disabled> <input
+				type="radio" name="protecao" value="2" disabled> <input type="radio"
+				name="protecao" value="3" disabled> <input type="radio"
+				name="protecao" value="4" disabled> <input type="radio"
+				name="protecao" value="5" disabled>
 		</div>
 	</div>
 
