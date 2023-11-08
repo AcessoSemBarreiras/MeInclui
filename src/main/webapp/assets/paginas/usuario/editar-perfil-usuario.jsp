@@ -16,7 +16,7 @@
 		<div class="titulo">
 			<h1>Editar perfil</h1>
 		</div>
-		<form action="atualizar-usuario" method="get" enctype="multipart/form-data">
+		<form action="atualizar-usuario" method="post" enctype="multipart/form-data">
 			<div class="insira-foto">
 					<input type="file" name="foto-usuario">
 				</div>

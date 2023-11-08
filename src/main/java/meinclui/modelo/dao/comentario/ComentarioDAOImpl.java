@@ -386,7 +386,7 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 			Root<Comentario> raizComentario = criteria.from(Comentario.class);
 
 			criteria.select(raizComentario);
-			criteria.where(construtor.equal(raizComentario.get(Comentario_.usuario), idUsuario));
+			criteria.where(construtor.and(construtor.equal(raizComentario.get(Comentario_.usuario), idUsuario)), construtor.isNull(raizComentario.get(Comentario_.comentarioRespondido)));
 			criteria.orderBy(construtor.desc(raizComentario.get(Comentario_.quantidadeGostei)));
 
 			comentarios = sessao.createQuery(criteria).getResultList();
@@ -429,7 +429,7 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 			Root<Comentario> raizComentario = criteria.from(Comentario.class);
 
 			criteria.select(raizComentario);
-			criteria.where(construtor.equal(raizComentario.get(Comentario_.usuario), idUsuario));
+			criteria.where(construtor.and(construtor.equal(raizComentario.get(Comentario_.usuario), idUsuario)), construtor.isNull(raizComentario.get(Comentario_.comentarioRespondido)));
 			criteria.orderBy(construtor.desc(raizComentario.get(Comentario_.quantidadeNaoGostei)));
 
 			comentarios = sessao.createQuery(criteria).getResultList();
@@ -472,7 +472,7 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 			Root<Comentario> raizComentario = criteria.from(Comentario.class);
 
 			criteria.select(raizComentario);
-			criteria.where(construtor.equal(raizComentario.get(Comentario_.usuario), idUsuario));
+			criteria.where(construtor.and(construtor.equal(raizComentario.get(Comentario_.usuario), idUsuario)), construtor.isNull(raizComentario.get(Comentario_.comentarioRespondido)));
 			criteria.orderBy(construtor.asc(raizComentario.get(Comentario_.data)));
 
 			comentarios = sessao.createQuery(criteria).getResultList();
@@ -515,7 +515,7 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 			Root<Comentario> raizComentario = criteria.from(Comentario.class);
 
 			criteria.select(raizComentario);
-			criteria.where(construtor.equal(raizComentario.get(Comentario_.usuario), idUsuario));
+			criteria.where(construtor.and(construtor.equal(raizComentario.get(Comentario_.usuario), idUsuario)), construtor.isNull(raizComentario.get(Comentario_.comentarioRespondido)));
 			criteria.orderBy(construtor.desc(raizComentario.get(Comentario_.data)));
 
 			comentarios = sessao.createQuery(criteria).getResultList();

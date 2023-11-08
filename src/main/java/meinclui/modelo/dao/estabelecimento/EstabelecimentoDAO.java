@@ -36,7 +36,7 @@ public interface EstabelecimentoDAO {
 	List<Estabelecimento> recuperarEstabelecimentoCategoria(String nomeCategoria);
 
 	List<Estabelecimento> recuperarEstabelecimentoAvaliado(Long idUsuario);
-	
+
 	List<Estabelecimento> filtrarEstabelecimentos(Optional<String> nomeEstabelecimento, Optional<Categoria> categoriaEstabelecimento, Optional<Double> mediaAcessibilidade, Optional<String> nomeEstado, Optional<String> nomeCidade, Optional<String> nomeBairro);
 
 }

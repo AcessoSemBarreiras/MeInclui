@@ -1,0 +1,179 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    border-style: none;
+    box-sizing: border-box;
+}
+
+:root{
+    --laranja: #FF781C;
+    --branco: #FFFFFF;
+    --azul: #03326C;
+    --cinza: #D1D3D2;
+    --preto: #251212;
+    --cinza-escuro: #6A6A6A;
+}
+
+body {
+    background: var(--branco);
+}
+
+@font-face {
+    font-family: 'Inter', sans-serif;
+    src: url("'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+  }
+
+.titulo, .es-titulo, .rs-titulo, .vs-titulo{
+    color: var(--laranja);
+    font-size: 27px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700px;
+    line-height: normal;
+}
+
+
+input#email, input#senha, input#n_senha, input#cn_senha{
+    text-indent: 10px;
+    font-size: 20px;
+    color: var(--azul);
+    border-radius: 10px;
+    border: 1px solid var(--azul);
+    background: var(--branco);
+    width: 460px;
+    height: 47px;
+}
+
+.titulo {
+    display: inline-block;
+    position: relative;
+    left: 1268px;
+    top: 260px;
+}
+
+.l-email{
+    display: inline-block;
+    position: relative;
+    left: 1124px;
+    top: 235px;
+}
+
+.l-senha{
+    display: inline-block;
+    position: relative;
+    left: 654px;
+    top: 340px;
+}
+
+.l-senha a{
+    position: relative;
+    left: 305px;
+    bottom: 0.5px;
+}
+
+
+input#email:focus-visible, input#senha:focus-visible, input#n_senha:focus-visible, input#cn_senha:focus-visible{
+    outline: 2px solid var(--azul);
+    outline-offset: -1px;
+}
+
+input::placeholder{
+    color: var(--azul);
+    font-family: 'Inter', sans-serif;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1px;
+}
+
+input[type=submit], button{
+    background-color: var(--laranja);
+    color: var(--branco);
+    display: inline-flex;
+    padding: 13px 42px 13px 41px;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400px;
+    line-height: normal;
+    border-color: var(--laranja);
+    border-style: none;
+    border-radius: 10px;
+    letter-spacing: 1px;
+}
+
+input[type=submit]:hover, button:hover{
+    background-color: #e76d1b;
+}    
+
+input[type=submit]:active, button:active{
+    background-color: var(--azul);
+}
+
+.l-entrar input{
+    position: relative;
+    left: 1275px;
+    top: 394px;
+}
+
+a:link{
+    text-decoration: none;
+    color: var(--azul);
+    font-family: 'Inter', sans-serif;
+}
+
+a:visited{
+    text-decoration: none;
+    color: var(--azul);
+}
+
+.l-cadastro{
+    color: var(--preto);
+}
+
+#texto-acesso{
+    color: var(--azul);
+}
+
+b {
+    color: var(--azul);
+    font-family: 'Inter', sans-serif;
+}
+
+P {
+    color: var(--preto);
+    font-family: 'Inter', sans-serif;
+}
+
+.es-paragrafo, .vs-paragrafo{
+    color: var(--preto);
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+input[type="number"]{
+    width: 84px;
+    height: 76px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1px solid var(--azul);
+    background: var(--branco);
+    font-size: 40px;
+    text-align: center;
+    color: var(--azul);
+}
+
+input[type="number"]:focus{
+    border-color: var(--azul);
+}
+
+#es, #vs, #rs{
+    display: none;
+}

@@ -10,18 +10,20 @@
 </head>
 <body>
 
-<h1>Cadastre a conquista</h1>
+	<h1>Cadastre a conquista</h1>
 
-	<form action="inserir-conquista" method="post" enctype="multipart/form-data">
+	<form action="inserir-conquista" method="post"
+		enctype="multipart/form-data">
 
-	<input type="text" id="" name="nome" placeholder="Nome da conquista" required>
-	<input type="text" id="" name="nivel" placeholder="Nivel da conquista" required>
-	<input type="text" id="" name="reputacao" placeholder="Reputação da conquista" required>
-	<div id="foto-usuario">
-						<input type="file" id="imagem" name="foto-conquista" accept="image/*">
-						<p>Selecione Uma Foto De Perfil</p>
-					</div>
-	<input type="submit" value="Finalizar">
+		<input type="text" id="" name="nome" placeholder="Nome da conquista"
+			required> <input type="text" id="" name="nivel"
+			placeholder="Nivel da conquista" required> <input type="text"
+			id="" name="reputacao" placeholder="Reputação da conquista" required>
+		<div id="foto-usuario">
+			<input type="file" id="imagem" name="foto-conquista" accept="image/*">
+			<p>Selecione Uma Foto De Perfil</p>
+		</div>
+		<input type="submit" value="Finalizar">
 	</form>
 </body>
 </html>

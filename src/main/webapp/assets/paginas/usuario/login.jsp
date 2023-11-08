@@ -13,7 +13,7 @@
 		<a href="index.jsp" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
 	</header>
 
-  <form action="entrar" method="post">
+  <form action="entrar" method="get">
 
 <!--Login-->
     <div id="l">
@@ -52,7 +52,6 @@
       <div class="imagem-login">
         <img src="" alt="Imagem pessoas">
       </div>
-    </div>
 
 
 

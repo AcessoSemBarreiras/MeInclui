@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
@@ -9,20 +10,20 @@
 </head>
 <body>
 	<main>
-	<c:if test="${usuario != null}">
-		<%@ include file="../menuLogado.jsp" %>
-	</c:if>
-	
-	<c:if test="${usuario == null}">
-		<%@ include file="../menuNaoLogado.jsp" %>
-	</c:if>
-	
+		<c:if test="${usuario != null}">
+			<%@ include file="../menuLogado.jsp"%>
+		</c:if>
+
+		<c:if test="${usuario == null}">
+			<%@ include file="../menuNaoLogado.jsp"%>
+		</c:if>
+
 		<div class="informacoes-usuario">
-			<img alt="foto do usuario" src="">
+			<img alt="foto do usuario" src="<c:out value='${url}' />">
 			<c:if test="${usuario != null}">
-				<a href="editar-perfil-usuario.jsp">editar</a>
+				<a href="editar-perfil-usuario">editar</a>
 			</c:if>
-			
+
 			<h3 id="nome-de-usuario">
 				<c:out value='${usuario.nomeDeUsuario}' />
 			</h3>
@@ -34,13 +35,15 @@
 			</p>
 
 			<table>
-			<tr>
-			<td class="texto-secundario">Pontos</td>
-				<td id="pontos-usuario"></td>
-				<td class="texto-secundario">Nasceu em</td>
-				<td id="data-nascimento-usuario">
-				<c:out value='${usuario.dataNascimento}'/></td>
-			</tr>
+				<tr>
+					<td class="texto-secundario">Pontos</td>
+					<td id="pontos-usuario"></td>
+					<td class="texto-secundario">Nasceu em</td>
+					<td><fmt:parseDate value="${usuario.dataNascimento}"
+							type="date" pattern="yyyy-MM-dd" var="nascimento" /> <fmt:formatDate
+							value="${nascimento}" type="date" pattern="dd/MM/yyyy" var="data" />
+						<c:out value="${data}"></c:out></td>
+				</tr>
 			</table>
 		</div>
 
@@ -57,13 +60,16 @@
 			</c:if>
 		</div>
 
+
+
+
 		<div class="avaliacoes-usuario">
 			<h3 class="titulo-principal">Avaliações Recentes</h3>
 			<c:if test="${avaliacoes == null}">
 				<p class="texto-aviso">
 					Parece que você ainda não possui avaliações ... <br> <a
-						href="pesquisa.jsp" name="tela-pesquisa">Encontre
-						estabelecimentos</a> e avalie
+						href="encontrar-estabelecimentos">Encontre estabelecimentos</a> e
+					avalie
 				</p>
 			</c:if>
 			<c:if test="${avaliacoes != null}">
@@ -83,48 +89,54 @@
 				</tbody>
 			</c:if>
 		</div>
-		
+
+
+
+
 		<div class="comentarios-usuario">
 			<h3 class="titulo-principal">Comentários</h3>
 			<c:if test="${comentarios == null}">
 				<p class="texto-aviso">
 					Parece que você ainda não possui comentários ... <br> <a
-						href="pesquisa.jsp" name="tela-pesquisa">Encontre
+						href="encontrar-estabelecimentos" name="tela-pesquisa">Encontre
 						estabelecimentos</a> e comente
 				</p>
 			</c:if>
+
 			<c:if test="${comentarios != null}">
 				<c:forEach var="comentario" items="${comentarios}">
-					<div class="comentario">
-						<img <c:out value="${usuario.foto}"/>>
-						<h5>
-							<c:out value="${usuario.nome-de-usuario}" />
-						</h5>
-						<p>comentou em</p>
-						<a><c:out value="${estabelecimento.nome}" /></a>
-						<p>
-							<c:out value="${comentario.comentario}" />
-						</p>
-
-						<p id="data-comentario-usuario">
-							<c:out value="${comentario.data}" />
-						</p>
-						<button>Resposta</button>
-						<c:forEach var="resposta" items="${comentarios}">
-							<img <c:out value="${usuario.foto}" />>
-							<h5>
-								<c:out value="${usuario.nome-de-usuario}" />
-							</h5>
-							<p>
-								<c:out value="${comentario.comentario}" />
-							</p>
-						<div class="gostei-comentario">
-							<p><c:out value="${comentario.quantidade-gostei}" />
-							</p>
-							<p><c:out value="${comentario.quantidade-nao-gostei}" />
-							</p>
+					<div class="cmts-usuario">
+						<div class="usuario-cm">
+							<c:out value="${usuario.nomeDeUsuario}" />
 						</div>
-						</c:forEach>
+						<p>comentou em</p>
+
+						<div class="data-cm">
+							<fmt:parseDate value="${comentario.data}" type="date"
+								pattern="yyyy-MM-dd" var="parsedDate" />
+							<fmt:formatDate value="${parsedDate}" type="date"
+								pattern="dd/MM/yyyy" var="data" />
+							<c:out value="${data}"></c:out>
+						</div>
+
+						<div class="avaliacao-cm">
+							<c:out value="${comentario.quantidadeGostei}" />
+							<c:out value="${comentario.quantidadeNaoGostei}" />
+							<a
+								href="adicionar-quantidade-gostei?id=<c:out value='${comentario.idComentario}'/>">Gostei</a>
+							<a
+								href="adicionar-quantidade-nao-gostei?id=<c:out value='${comentario.idComentario}'/>">Não
+								Gostei</a>
+						</div>
+
+						<div class="comentario-cm">
+							<c:out value="${comentario.comentario}" />
+						</div>
+
+						<button>Resposta</button>
+
+						<hr>
+
 					</div>
 				</c:forEach>
 			</c:if>

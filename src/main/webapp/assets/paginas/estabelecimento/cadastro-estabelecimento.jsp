@@ -10,6 +10,10 @@
 </head>
 <body>
 
+	<header>
+		<a href="tela-inicial" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
+	</header>
+
 	<div class="titulo-principal">
 		<h1>Cadastre o Estabelecimento</h1>
 	</div>
@@ -30,11 +34,11 @@
 				<div id="categorias">
 					<select name="categoria-estabelecimento" id="categoria" required>
 						<option value="" selected disabled>Categoria</option>
-						<option value="bar">Bar</option>
-						<option value="estabelecimento comercial">Estabelecimento Comercial</option>
-						<option value="doceria">Doceria</option>
-						<option value="saude">Saúde</option>
-						<option value="restaurante">Restaurante</option>
+						<option value="Bar">Bar</option>
+						<option value="Comercial">Estabelecimento Comercial</option>
+						<option value="Doceria">Doceria</option>
+						<option value="Saude">Saúde</option>
+						<option value="Restaurante">Restaurante</option>
 					</select>
 				</div>
 
