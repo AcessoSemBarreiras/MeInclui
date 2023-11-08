@@ -249,7 +249,7 @@ public class Servlet extends HttpServlet {
 
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-        Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
+        Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(2L);
         byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
         byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
         byte resposta3 = Byte.parseByte(request.getParameter("resposta-3"));
@@ -258,6 +258,16 @@ public class Servlet extends HttpServlet {
         double media = (double) (resposta1 + resposta2 + resposta3 + resposta4 + resposta5) / 5;
         ZonedDateTime data = ZonedDateTime.now();
         avaliacaoDAO.inserirAvaliacao(new Avaliacao(usuario, estabelecimento, resposta1, resposta2, resposta3, resposta4, resposta5, media, data));
+        
+        List<Avaliacao> avaliacoes = avaliacaoDAO.recuperarAvaliacaoDoEstabelecimento(estabelecimento.getIdEstabelecimento());
+        double soma = 0;
+        for (Avaliacao a : avaliacoes) {
+        	soma += a.getMediaFinal();
+        }
+        double mediaEstabelecimento = soma / avaliacoes.size();
+        estabelecimento.setPontoAcessibilidade(mediaEstabelecimento);
+        estabelecimentoDAO.atualizarEstabelecimento(estabelecimento);
+       
         RequestDispatcher dispatcher = request.getRequestDispatcher("tela-inicial");
         dispatcher.forward(request, response);
 	}
@@ -592,17 +602,12 @@ public class Servlet extends HttpServlet {
 		List<Conquista> conquistas = conquistaDAO.recuperarConquistasMaisRecentes(usuario.getIdUsuario());
 		List<Comentario> comentarios = comentarioDAO.recuperarComentariosOrdenadoMaisRecente(usuario.getIdUsuario());
 		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.recuperarEstabelecimentoAvaliado(usuario.getIdUsuario());
-		
-		Foto foto = fotoDAO.recuperarFotoUsuario(usuario.getIdUsuario());
-		System.out.println(foto.getExtensao());
-		String url = ConversorImagem.urlFoto(foto.getBinario(), foto.getExtensao());
-		
+	
 		request.setAttribute("usuario", usuario);
 		request.setAttribute("pontuacao", pontuacao);
 		request.setAttribute("conquistas", conquistas);
 		request.setAttribute("comentarios", comentarios);
 		request.setAttribute("estabelecimentos", estabelecimentos);
-		request.setAttribute("url", url);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/perfil-usuario.jsp");
 		dispatcher.forward(request, response);
