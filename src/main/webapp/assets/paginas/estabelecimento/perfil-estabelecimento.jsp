@@ -24,11 +24,10 @@
 		</div>
 		
 		
-		<c:if test="${usuario != null}">
-			<div id="link-editar-estabelecimento">
-				<a href="editar-perfil-usuario">.</a>
-			</div>
-		</c:if>
+			<c:if test="${usuario == null}">
+				<a href="editar-perfil-estabelecimento">editar</a>
+			</c:if>
+	
 		
 		<div id="inf-estabelecimento">
 			<h1 id="nome-estabelecimento">
