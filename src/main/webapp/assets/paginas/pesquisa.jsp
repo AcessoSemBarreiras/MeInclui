@@ -18,15 +18,14 @@
 	</c:if>
 
 	<div class="barraPesquisa">
-		<form action="mostrar-estabelecimentos-pesquisados" method="post">
-			<input type="submit" value="."> <input type="text"
-				id="pesquisa" name="q" placeholder="Digite sua pesquisa aqui">
-		</form>
+		
 	</div>
 
 	<div class="filtrar">
 		<form action="filtrar-estabelecimentos" method="post">
 			<div class="filtro">
+			 <input type="text"
+				id="nome" name="nome" placeholder="Digite o nome do estabelecimento">
 				<select name="categoria" id="categoria">
 					<option value="" selected>Categoria</option>
 					<option value="Doceria">Doceria</option>
@@ -35,10 +34,43 @@
 					<option value="bar">Bar</option>
 					<option value="Estabelecimento Comercial">Estabelecimento
 						Comercial</option>
-				</select> <input type="text" id="nomeEstado" name="nomeEstado"
-					placeholder="Digite sua pesquisa aqui"> <input type="text"
-					id="mediaI" name="media" placeholder="Digite sua pesquisa aqui">
-				<input type="submit" value=".">
+				</select> 
+				<select id="estado" name="nome-estado">
+						<option value="" selected>Estado</option>
+						<option value="AC">Acre</option>
+						<option value="AL">Alagoas</option>
+						<option value="AP">Amapá</option>
+						<option value="AM">Amazonas</option>
+						<option value="BA">Bahia</option>
+						<option value="CE">Ceará</option>
+						<option value="DF">Distrito Federal</option>
+						<option value="ES">Espírito Santo</option>
+						<option value="GO">Goiás</option>
+						<option value="MA">Maranhão</option>
+						<option value="MT">Mato Grosso</option>
+						<option value="MS">Mato Grosso do Sul</option>
+						<option value="MG">Minas Gerais</option>
+						<option value="PA">Pará</option>
+						<option value="PB">Paraíba</option>
+						<option value="PR">Paraná</option>
+						<option value="PE">Pernambuco</option>
+						<option value="PI">Piauí</option>
+						<option value="RJ">Rio de Janeiro</option>
+						<option value="RN">Rio Grande do Norte</option>
+						<option value="RS">Rio Grande do Sul</option>
+						<option value="RO">Rondônia</option>
+						<option value="RR">Roraima</option>
+						<option value="SC">Santa Catarina</option>
+						<option value="SP">São Paulo</option>
+						<option value="SE">Sergipe</option>
+						<option value="TO">Tocantins</option>
+					</select> 
+					<input type="text" id="nome-cidade" name="nome-cidade"
+					placeholder="Digite o nome da cidade"> 
+					<input type="text" id="nome-bairro" name="nome-bairro"
+					placeholder="Digite o nome do bairro"> <input type="text"
+					id="media=" name="media" placeholder="Digite a nota">
+				<input type="submit" value="Filtrar">
 			</div>
 		</form>
 	</div>
@@ -60,9 +92,16 @@
 	<c:forEach var="es" items="${estabelecimentos}">
 		<table>
 			<tr>
-
-				<td><c:out value="${es.nome}" /></td>
-				<td><c:out value="${es.pontoAcessibilidade}" /></td>
+				
+				<td><c:out value="${es.nome}"/></td>
+				<td><c:out value="${es.pontoAcessibilidade}"/></td>
+				<td><c:out value="${es.endereco.logradouro}"/></td>
+				<td><c:out value="${es.endereco.numero}"/></td>
+				<td><c:out value="${es.endereco.bairro}"/></td>
+				<td><c:out value="${es.endereco.cidade}"/></td>
+				<td><c:out value="${es.endereco.estado}"/></td>
+				<td><c:out value="${es.categoria.nomeCategoria}"/></td>
+				
 			</tr>
 		</table>
 	</c:forEach>

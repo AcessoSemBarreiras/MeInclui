@@ -437,16 +437,25 @@ public class Servlet extends HttpServlet {
 	private void filtrarEstabelecimentos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		String nomeEstabelecimento = request.getParameter("nome");
+		Optional<String> nomeOp = (nomeEstabelecimento == "") ? Optional.empty() : Optional.of(nomeEstabelecimento);
+		
 		Categoria categoria = categoriaDAO.recuperarCategoriaNome(request.getParameter("categoria"));
 		Optional<Categoria> categoriaOp = (categoria == null) ? Optional.empty() : Optional.of(categoria);
 		
-		String nomeEstado = request.getParameter("nomeEstado");
+		String nomeEstado = request.getParameter("nome-estado");
 		Optional<String> estadoOp = (nomeEstado == "") ? Optional.empty() : Optional.of(nomeEstado);
 		
-		Double mediaAcessibilidade = Double.parseDouble(request.getParameter("media"));
-		Optional<Double> mediaOp = (mediaAcessibilidade == null) ? Optional.empty() : Optional.of(mediaAcessibilidade);
+		String nomeCidade = request.getParameter("nome-cidade");
+		Optional<String> cidadeOp = (nomeCidade == "") ? Optional.empty() : Optional.of(nomeCidade);
 		
-		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.filtrarEstabelecimentos(categoriaOp, mediaOp, estadoOp);
+		String nomeBairro = request.getParameter("nome-bairro");
+		Optional<String> bairroOp = (nomeBairro == "") ? Optional.empty() : Optional.of(nomeBairro);
+		
+		String mediaAcessibilidade = request.getParameter("media");
+		Optional<Double> mediaOp = (mediaAcessibilidade == "") ? Optional.empty() : Optional.of(Double.parseDouble(mediaAcessibilidade));
+		
+		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.filtrarEstabelecimentos(nomeOp, categoriaOp, mediaOp, estadoOp, cidadeOp, bairroOp);
 
 		request.setAttribute("estabelecimentos", estabelecimentos);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/pesquisa.jsp");

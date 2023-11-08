@@ -31,7 +31,7 @@
 					<select name="categoria-estabelecimento" id="categoria" required>
 						<option value="" selected disabled>Categoria</option>
 						<option value="bar">Bar</option>
-						<option value="comercial">Estabelecimento Comercial</option>
+						<option value="estabelecimento comercial">Estabelecimento Comercial</option>
 						<option value="doceria">Doceria</option>
 						<option value="saude">Saúde</option>
 						<option value="restaurante">Restaurante</option>
