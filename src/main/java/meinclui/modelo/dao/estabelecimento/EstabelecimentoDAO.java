@@ -33,5 +33,6 @@ public interface EstabelecimentoDAO {
 	List<Estabelecimento> recuperarEstabelecimentoCategoria(String nomeCategoria);
 
 	List<Estabelecimento> recuperarEstabelecimentoAvaliado(Long idUsuario);
+	
 
 }

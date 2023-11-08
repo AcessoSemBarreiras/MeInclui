@@ -116,9 +116,6 @@ public class Servlet extends HttpServlet {
 			case "/atualizar-usuario":
 				atualizarUsuario(request, response);
 				break;
-			case "/meu-perfil":
-				mostrarMeuPerfil(request, response);
-				break;
 			case "/perfil-usuario":
 				mostrarPerfilUsuario(request, response);
 				break;
@@ -527,30 +524,10 @@ public class Servlet extends HttpServlet {
 		int pontuacao = usuarioDAO.recuperarPontuacaoUsuario(usuario.getIdUsuario());
 		List<Conquista> conquistas = conquistaDAO.recuperarConquistasMaisRecentes(usuario.getIdUsuario());
 		List<Comentario> comentarios = comentarioDAO.recuperarComentariosOrdenadoMaisRecente(usuario.getIdUsuario());
+		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.recuperarEstabelecimentoAvaliado(usuario.getIdUsuario());
 		
 		Foto foto = fotoDAO.recuperarFotoUsuario(usuario.getIdUsuario());
 		System.out.println(foto.getExtensao());
-		String url = ConversorImagem.urlFoto(foto.getBinario(), foto.getExtensao());
-		
-		request.setAttribute("usuario", usuario);
-		request.setAttribute("url", url);
-		request.setAttribute("pontuacao", pontuacao);
-		request.setAttribute("conquistas", conquistas);
-		request.setAttribute("comentarios", comentarios);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/perfil-usuario.jsp");
-		dispatcher.forward(request, response);
-	}
-	private void mostrarMeuPerfil(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		HttpSession sessao = request.getSession();
-		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-		int pontuacao = usuarioDAO.recuperarPontuacaoUsuario(usuario.getIdUsuario());
-		List<Conquista> conquistas = conquistaDAO.recuperarConquistasMaisRecentes(usuario.getIdUsuario());
-		List<Comentario> comentarios = comentarioDAO.recuperarComentariosOrdenadoMaisRecente(usuario.getIdUsuario());
-		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.recuperarEstabelecimentoAvaliado(usuario.getIdUsuario());
-		Foto foto = fotoDAO.recuperarFotoUsuario(usuario.getIdUsuario());
 		String url = ConversorImagem.urlFoto(foto.getBinario(), foto.getExtensao());
 		
 		request.setAttribute("usuario", usuario);
