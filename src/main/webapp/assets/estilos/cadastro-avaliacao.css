@@ -22,6 +22,9 @@
 .grid-centro{
     grid-column: 3 / 10;
     gap: 100px;
+    justify-content: center;
+    display: flex;
+    gap: 100px;
 }
 
 
@@ -29,6 +32,8 @@
     font-size: 1.25em;
     font-weight: 700;
     color: var(--laranja);
+    justify-content: center;
+    display: flex;
 }
 
 .texto-pergunta{
@@ -36,3 +41,52 @@
     font-weight: 400;
     color: var(--azul);
 }
+
+#respostas-avaliacao{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+[id*="pergunta-"]{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/*.nota {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.nota:not(:checked) > input {
+    justify-content: center;
+    position: relative;
+    top:-9999px;
+}
+.nota:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.nota:not(:checked) > label:before {
+    content: '★ ';
+}
+.nota > input:checked ~ label {
+    color: var();    
+}
+.nota:not(:checked) > label:hover,
+.nota:not(:checked) > label:hover ~ label {
+    color: var(--laranja);  
+}
+.nota > input:checked + label:hover,
+.nota > input:checked + label:hover ~ label,
+.nota > input:checked ~ label:hover,
+.nota > input:checked ~ label:hover ~ label,
+.nota > label:hover ~ input:checked ~ label {
+    color: var(--laranja);
+}*/
