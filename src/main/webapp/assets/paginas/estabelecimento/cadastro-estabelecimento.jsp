@@ -9,6 +9,7 @@
 <title>Cadastre o Estabelecimento!</title>
 </head>
 <body>
+
 	<header>
 		<a href="tela-inicial" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
 	</header>
@@ -25,7 +26,7 @@
 		<div id="voltar">
 			<a href="">Voltar</a>
 		</div>
-		<form action="inserir-estabelecimento" method="get" enctype="multipart/form-data">
+		<form action="inserir-estabelecimento" method="post" enctype="multipart/form-data">
 			<div class="conteudo-cadastro">
 				<input type="text" id="nome-est" name="nome-estabelecimento"
 					placeholder="Nome do estabelecimento" required>
@@ -106,5 +107,6 @@
 			</div>
 		</form>
 	</div>
+
 </body>
 </html>

@@ -24,6 +24,7 @@ import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
 import meinclui.modelo.entidade.categoria.Categoria;
 import meinclui.modelo.entidade.comentario.Comentario;
 import meinclui.modelo.entidade.endereco.Endereco;
+import meinclui.modelo.entidade.foto.Foto;
 
 @Entity
 @Table(name = "estabelecimento", uniqueConstraints = {
@@ -51,20 +52,25 @@ public class Estabelecimento implements Serializable {
 	@Column(name = "media_acessibilidade_estabelecimento")
 	private double pontoAcessibilidade;
 
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	private Foto fotoEstabelecimento;
+	
 	public Estabelecimento() {
 	}
-	public Estabelecimento(Long idEstabelecimento, Categoria categoria, String nome, Endereco endereco) {
+	public Estabelecimento(Long idEstabelecimento, Categoria categoria, String nome, Endereco endereco, Foto fotoEstabelecimento) {
 		setIdEstabelecimento(idEstabelecimento);
 		setCategoria(categoria);
 		setNome(nome);
 		setPontoAcessibilidade(pontoAcessibilidade);
 		setEndereco(endereco);
+		setFotoEstabelecimento(fotoEstabelecimento);
 	}
 
-	public Estabelecimento(Categoria categoria, String nome, Endereco endereco) {
+	public Estabelecimento(Categoria categoria, String nome, Endereco endereco, Foto fotoEstabelecimento) {
 		setCategoria(categoria);
 		setNome(nome);
 		setEndereco(endereco);
+		setFotoEstabelecimento(fotoEstabelecimento);
 	}
 	
 	public Long getIdEstabelecimento() {
@@ -121,6 +127,14 @@ public class Estabelecimento implements Serializable {
 	        return false;
 	    }
 	    return true;
+	}
+	
+	public Foto getFotoEstabelecimento() {
+		return fotoEstabelecimento;
+	}
+
+	public void setFotoEstabelecimento(Foto fotoEstabelecimento) {
+		this.fotoEstabelecimento = fotoEstabelecimento;
 	}
 	
 }
