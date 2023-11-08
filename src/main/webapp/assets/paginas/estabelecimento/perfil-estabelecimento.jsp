@@ -67,7 +67,7 @@
 		</div>
 
 		<div class="botao-padrao">
-			<button>AVALIAR</button>
+			<a href="avaliacao-estabelecimento">Avaliar</a>
 		</div>
 	</div>
 
