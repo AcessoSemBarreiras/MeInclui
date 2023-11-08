@@ -19,7 +19,7 @@
 		</c:if>
 
 		<div class="informacoes-usuario">
-			<img alt="foto do usuario" src="<c:out value='${url}' />">
+			<img alt="foto do usuario" src="<c:out value='${usuario.fotoUsuario.urlFoto()}' />">
 			<c:if test="${usuario != null}">
 				<a href="editar-perfil-usuario">editar</a>
 			</c:if>

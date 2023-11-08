@@ -229,7 +229,10 @@ public class Servlet extends HttpServlet {
 	/* TELA INICIAL */
 	private void mostrarTelaInicial(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		
+		request.setAttribute("usuario", usuario);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -237,15 +240,19 @@ public class Servlet extends HttpServlet {
 	/* AVALIAÇÃO */
 	private void mostrarFormularioAvaliacaoEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		
+		request.setAttribute("usuario", usuario);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/avaliacao/cadastro-avaliacao.jsp");
         dispatcher.forward(request, response);
 	}
 
 	private void inserirAvaliacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-        Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
+		
+        Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
         byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
         byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
         byte resposta3 = Byte.parseByte(request.getParameter("resposta-3"));
@@ -260,6 +267,7 @@ public class Servlet extends HttpServlet {
 
 	private void recuperarAvaliacao(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		AvaliacaoId id = AvaliacaoId.class.cast(request.getParameter("avaliacao-id"));
 		Avaliacao avaliacao = avaliacaoDAO.recuperarAvaliacaoPorId(id);
 		request.setAttribute("avaliacao", avaliacao);
@@ -269,7 +277,7 @@ public class Servlet extends HttpServlet {
 	}
 
 	private void atualizarAvaliacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		AvaliacaoId id = AvaliacaoId.class.cast(request.getParameter("avaliacao-id"));
 		byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
 		byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
@@ -286,6 +294,7 @@ public class Servlet extends HttpServlet {
 	}
 
 	private void deletarAvaliacao(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
 		AvaliacaoId id = AvaliacaoId.class.cast(request.getParameter("avaliacao-id"));
 		avaliacaoDAO.deletarAvaliacao(id);
 		response.sendRedirect("tela-inicial");
@@ -295,12 +304,17 @@ public class Servlet extends HttpServlet {
 
 	private void mostrarFormularioCadastroComentario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		
+		request.setAttribute("usuario", usuario);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastrar-comentario");
 		dispatcher.forward(request, response);
 	}
 
 	private void recuperarComentario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(1L);
 		request.setAttribute("comentario", comentarios);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/perfil-estabelecimento.jsp");
@@ -315,7 +329,8 @@ public class Servlet extends HttpServlet {
 		Comentario comentarioRespondido = Comentario.class.cast(request.getParameter("comentario-respondido"));
 		int qtdGostei = Integer.parseInt(request.getParameter("quantidade-gostei"));
 		int qtdNaoGostei = Integer.parseInt(request.getParameter("quantidade-nao-gostei"));
-		Usuario usuario = Usuario.class.cast(request.getParameter("usuario"));
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		Estabelecimento estabelecimento = Estabelecimento.class.cast("estabelecimento");
 		ZonedDateTime data = ZonedDateTime.class.cast("data");
 		comentarioDAO.atualizarComentario(new Comentario(id, comentario, comentarioRespondido, qtdGostei, qtdNaoGostei, usuario, estabelecimento, data));
@@ -325,6 +340,7 @@ public class Servlet extends HttpServlet {
 
 	private void deletarComentario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		int id = Integer.parseInt(request.getParameter("id-comentario"));
 		comentarioDAO.deletarComentario(id);
 		response.sendRedirect("tela-inicial");
@@ -360,25 +376,40 @@ public class Servlet extends HttpServlet {
 	/* ESTABELECIMENTO */
 	private void mostrarFormularioCadastroEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		
+		request.setAttribute("usuario", usuario);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/cadastro-estabelecimento.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void mostrarFormularioEditarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		
+		request.setAttribute("usuario", usuario);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/editar-perfil-estabelecimento.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void mostrarTelaPesquisaEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		
+		request.setAttribute("usuario", usuario);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/pesquisa.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void mostrarPerfilEstabelecimento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
         Endereco endereco = enderecoDAO.recuperarEnderecos(estabelecimento);
         Categoria categoria = categoriaDAO.recuperarCategoriaEstabelecimento(estabelecimento);
         
@@ -386,6 +417,7 @@ public class Servlet extends HttpServlet {
         List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
         
         request.setAttribute("estabelecimento", estabelecimento);
+        request.setAttribute("usuario", usuario);
         request.setAttribute("endereco", endereco);
         request.setAttribute("categoria", categoria);
         request.setAttribute("comentarios", comentarios);
@@ -448,9 +480,8 @@ public class Servlet extends HttpServlet {
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(usuario.getIdUsuario());
-		usuarioFav.setEstabelecimentoFavorito(estabelecimento);
-		usuarioDAO.atualizarUsuario(usuarioFav);
+		usuario.setEstabelecimentoFavorito(estabelecimento);
+		usuarioDAO.atualizarUsuario(usuario);
 		response.sendRedirect("perfil-estabelecimento");
 	}
 	
@@ -460,10 +491,8 @@ public class Servlet extends HttpServlet {
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-		Usuario usuarioFav = usuarioDAO.recuperarUsuarioId(usuario.getIdUsuario());
-		usuarioFav.getEstabelecimentoFavorito().remove(estabelecimento);
-		usuarioFav.getEstabelecimentoFavorito().size();
-		usuarioDAO.atualizarUsuario(usuarioFav);
+		usuario.getEstabelecimentoFavorito().remove(estabelecimento);
+		usuarioDAO.atualizarUsuario(usuario);
 		response.sendRedirect("perfil-estabelecimento");
 	}
 
@@ -471,7 +500,7 @@ public class Servlet extends HttpServlet {
 
 	private void mostrarFormularioCadastroUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/cadastro-usuario.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -524,20 +553,17 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException{
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		
 		int pontuacao = usuarioDAO.recuperarPontuacaoUsuario(usuario.getIdUsuario());
 		List<Conquista> conquistas = conquistaDAO.recuperarConquistasMaisRecentes(usuario.getIdUsuario());
 		List<Comentario> comentarios = comentarioDAO.recuperarComentariosOrdenadoMaisRecente(usuario.getIdUsuario());
-		
-		Foto foto = fotoDAO.recuperarFotoUsuario(usuario.getIdUsuario());
-		System.out.println(foto.getExtensao());
-		String url = ConversorImagem.urlFoto(foto.getBinario(), foto.getExtensao());
+		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.recuperarEstabelecimentoAvaliado(usuario.getIdUsuario());
 		
 		request.setAttribute("usuario", usuario);
-		request.setAttribute("url", url);
 		request.setAttribute("pontuacao", pontuacao);
 		request.setAttribute("conquistas", conquistas);
 		request.setAttribute("comentarios", comentarios);
-		
+		request.setAttribute("estabelecimentos", estabelecimentos);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -547,9 +573,11 @@ public class Servlet extends HttpServlet {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		int pontuacao = usuarioDAO.recuperarPontuacaoUsuario(usuario.getIdUsuario());
+		
 		List<Conquista> conquistas = conquistaDAO.recuperarConquistasMaisRecentes(usuario.getIdUsuario());
 		List<Comentario> comentarios = comentarioDAO.recuperarComentariosOrdenadoMaisRecente(usuario.getIdUsuario());
 		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.recuperarEstabelecimentoAvaliado(usuario.getIdUsuario());
+		
 		Foto foto = fotoDAO.recuperarFotoUsuario(usuario.getIdUsuario());
 		String url = ConversorImagem.urlFoto(foto.getBinario(), foto.getExtensao());
 		
@@ -621,7 +649,9 @@ public class Servlet extends HttpServlet {
 
 	private void mostrarRanque(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -636,7 +666,7 @@ public class Servlet extends HttpServlet {
 	
 	private void inserirConquista(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-
+		
 		String nome = request.getParameter("nome");
 		byte nivel = Byte.parseByte(request.getParameter("nivel"));
 		int reputacao = Integer.parseInt(request.getParameter("reputacao"));
@@ -679,7 +709,7 @@ public class Servlet extends HttpServlet {
 	}
 	private void deletarCategoria(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
-
+		
 		int idCategoria = Integer.parseInt(request.getParameter("id_categoria"));
 		categoriaDAO.deletarCategoria(idCategoria);
 		response.sendRedirect("tela-inicial");

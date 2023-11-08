@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -169,6 +170,9 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
 
+			raizEstabelecimento.fetch(Estabelecimento_.endereco, JoinType.LEFT);
+			raizEstabelecimento.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			
 			criteria.select(raizEstabelecimento);
 			criteria.where(
 					construtor.equal(raizEstabelecimento.get(Estabelecimento_.idEstabelecimento), idEstabelecimento));
@@ -550,9 +554,12 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
 			Root<Avaliacao> raizAvaliacao = criteria.from(Avaliacao.class);
-			Join<Avaliacao, Estabelecimento> avaliacaoJoin = raizAvaliacao.join(Avaliacao_.estabelecimento);
+			Join<Avaliacao, Estabelecimento> estabelecimentoJoin = raizAvaliacao.join(Avaliacao_.estabelecimento);
 			
-			criteria.select(avaliacaoJoin);
+			estabelecimentoJoin.fetch(Estabelecimento_.endereco, JoinType.LEFT);
+			estabelecimentoJoin.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			
+			criteria.select(estabelecimentoJoin);
 			criteria.where(construtor.equal(raizAvaliacao.get(Avaliacao_.usuario), idUsuario));
 			
 			estabelecimentos = sessao.createQuery(criteria).getResultList();

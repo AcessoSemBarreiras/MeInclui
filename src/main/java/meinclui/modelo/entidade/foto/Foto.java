@@ -1,6 +1,7 @@
 package meinclui.modelo.entidade.foto;
 
 import java.io.Serializable;
+import java.util.Base64;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,4 +53,8 @@ public class Foto implements Serializable{
 		this.extensao = extensao;
 	}
 	
+	public String urlFoto() {
+		String urlFoto =("data:" + this.extensao + ";base64," + Base64.getEncoder().encodeToString(this.binario));
+		return urlFoto;
+	}
 }

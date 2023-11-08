@@ -158,6 +158,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
 			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
 
+			raizUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
+			raizUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			raizUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
+			
 			criteria.select(raizUsuario);
 			criteria.where(construtor.equal(raizUsuario.get(Usuario_.idUsuario), idUsuario));
 
@@ -195,7 +199,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
 			CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
 			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
-
+			
+			raizUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			raizUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
+			
 			criteria.select(raizUsuario);
 			criteria.where(construtor.equal(raizUsuario.get(Usuario_.email), emailUsuario));
 
@@ -234,12 +241,17 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			CriteriaQuery<Tuple> criteria = construtor.createTupleQuery();
 			Root<UsuarioTemConquista> raizUsuarioTemConquista = criteria.from(UsuarioTemConquista.class);
 			Join<UsuarioTemConquista, Conquista> joinConquista = raizUsuarioTemConquista.join(UsuarioTemConquista_.conquista);
-
+			
+			
 			joinConquista.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.conquista),
 					joinConquista.get(Conquista_.idConquista)));
 
 			Join<UsuarioTemConquista, Usuario> joinUsuario = raizUsuarioTemConquista.join(UsuarioTemConquista_.usuario);
 
+			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
+			
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
 					joinUsuario.get(Usuario_.idUsuario)));
 			criteria.multiselect(joinUsuario.get(Usuario_.idUsuario), joinUsuario.get(Usuario_.nome),
@@ -290,6 +302,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			Join<UsuarioTemConquista, Usuario> joinUsuario = raizUsuarioTemConquista.join(UsuarioTemConquista_.usuario);
 
+			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
+			
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
 					joinUsuario.get(Usuario_.idUsuario)));
 
@@ -343,6 +359,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			Join<UsuarioTemConquista, Usuario> joinUsuario = raizUsuarioTemConquista.join(UsuarioTemConquista_.usuario);
 
+			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
+			
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
 					joinUsuario.get(Usuario_.idUsuario)));
 
@@ -397,6 +417,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			Join<UsuarioTemConquista, Usuario> joinUsuario = raizUsuarioTemConquista.join(UsuarioTemConquista_.usuario);
 
+			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
+			
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
 					joinUsuario.get(Usuario_.idUsuario)));
 
@@ -513,42 +537,5 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			}
 		}
 		return false;
-	}
-
-	public Usuario recuperarUsuarioComFavorito(Long id) {
-		
-		Session sessao = null;
-		Usuario usuario = null;
-
-		try {
-
-			sessao = fabrica.getConexao().openSession();
-			sessao.beginTransaction();
-
-			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-			CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
-			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
-			Fetch<Usuario, Estabelecimento> estabelecimentoFetch = raizUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.INNER);
-			Join<Usuario, Estabelecimento> usuarioJoin = (Join<Usuario, Estabelecimento>) estabelecimentoFetch;
-			
-			criteria.multiselect(usuarioJoin);
-			criteria.where(construtor.equal(raizUsuario.get(Usuario_.idUsuario), id));
-			
-			usuario = sessao.createQuery(criteria).getSingleResult();
-
-			sessao.getTransaction().commit();
-
-		} catch (Exception sqlException) {
-			sqlException.printStackTrace();
-
-			if (sessao.getTransaction() != null) {
-				sessao.getTransaction().rollback();
-			}
-		} finally {
-			if (sessao != null) {
-				sessao.close();
-			}
-		}
-		return usuario;
 	}
 }
