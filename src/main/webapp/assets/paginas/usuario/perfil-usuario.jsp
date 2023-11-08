@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
@@ -65,23 +66,19 @@
 
 		<div class="avaliacoes-usuario">
 			<h3 class="titulo-principal">Avaliações Recentes</h3>
-			<c:if test="${avaliacoes == null}">
+			<c:if test="${fn:length(estabelecimentos) == 0}">
 				<p class="texto-aviso">
-					Parece que você ainda não possui avaliações ... <br> <a
+					Parece que você ainda não possui avaliações... <br> <a
 						href="encontrar-estabelecimentos">Encontre estabelecimentos</a> e
 					avalie
 				</p>
 			</c:if>
-			<c:if test="${avaliacoes != null}">
+			<c:if test="${fn:length(estabelecimentos) != 0}">
 				<tbody>
-					<c:forEach var="avaliacao" items="${estabelecimentos}">
+					<c:forEach var="estabelecimento" items="${estabelecimentos}">
 						<div class="card-avaliacao">
 							<tr>
-								<td><c:out value="${estabelecimento.foto}" /></td>
 								<td><c:out value="${estabelecimento.nome}" /></td>
-								<td><c:out value="${estabelecimento.categoria}" /></td>
-								<img src="" alt="estrela-nota"></img>
-								<td><c:out value="${estabelecimento.nota}" /></td>
 								<button id="favoritar">.</button>
 							</tr>
 						</div>
@@ -95,7 +92,8 @@
 
 		<div class="comentarios-usuario">
 			<h3 class="titulo-principal">Comentários</h3>
-			<c:if test="${comentarios == null}">
+						
+			<c:if test="${fn:length(comentarios) == 0}">
 				<p class="texto-aviso">
 					Parece que você ainda não possui comentários ... <br> <a
 						href="encontrar-estabelecimentos" name="tela-pesquisa">Encontre
@@ -103,7 +101,7 @@
 				</p>
 			</c:if>
 
-			<c:if test="${comentarios != null}">
+			<c:if test="${fn:length(comentarios) != 0}">
 				<c:forEach var="comentario" items="${comentarios}">
 					<div class="cmts-usuario">
 						<div class="usuario-cm">
