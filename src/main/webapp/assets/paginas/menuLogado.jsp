@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <header>
 	<a href="tela-inicial" class="menu-logo"><img src="" alt="logo Meinclui"></a>
-	<a href="encontrar-estabelecimentos" class="manu-pesquisa">0-</a>
+	<a href="encontrar-estabelecimentos" class="menu-pesquisa">0-</a>
 	<a href="conquista.jsp" class="menu-conquista">()</a>
 	<a href="cadastro-estabelecimento" class="menu-estabelecimento">+</a>
 	<a href="ranking.jsp" class="menu-ranking">|||</a>
