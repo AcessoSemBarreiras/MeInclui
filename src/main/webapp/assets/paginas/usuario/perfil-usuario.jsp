@@ -11,13 +11,8 @@
 </head>
 <body>
 	<main>
-		<c:if test="${usuario != null}">
-			<%@ include file="../menuLogado.jsp"%>
-		</c:if>
-
-		<c:if test="${usuario == null}">
-			<%@ include file="../menuNaoLogado.jsp"%>
-		</c:if>
+		<%@ include file="../menu.jsp"%>
+	
 
 		<div class="informacoes-usuario">
 			<img alt="foto do usuario" src="<c:out value='${url}' />">

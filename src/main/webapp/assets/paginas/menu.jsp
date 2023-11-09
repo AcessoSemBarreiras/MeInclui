@@ -7,7 +7,13 @@
 	<a href="conquista.jsp" class="menu-conquista">()</a>
 	<a href="cadastro-estabelecimento" class="menu-estabelecimento">+</a>
 	<a href="ranking.jsp" class="menu-ranking">|||</a>
-	<c:out value="${usuario.nomeDeUsuario}" />
-	<a href="<%=request.getContextPath()%>/encerrar-sessao" id="menu-sair"><button>Sair</button></a>
+	<c:if test="${usuario != null}">
+		<a href="perfil-usuario"><c:out value="${usuario.nomeDeUsuario}"/></a>
+		<a href="<%=request.getContextPath()%>/encerrar-sessao" id="menu-sair"><button>Sair</button></a>
+	</c:if>
+	<c:if test="${usuario == null}">
+		<a href="login-usuario" class="menu-login">Entrar</a> 
+	</c:if>
+	
 	<hr>
 </header>

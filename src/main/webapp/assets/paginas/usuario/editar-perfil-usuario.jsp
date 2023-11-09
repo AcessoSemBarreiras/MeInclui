@@ -10,7 +10,7 @@
 <body>
 	<main>
 		<c:if test="${usuario != null}">
-		<%@ include file="../menuLogado.jsp" %>
+		<%@ include file="../menu.jsp" %>
 	</c:if>
 
 		<div class="titulo">
