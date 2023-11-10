@@ -9,27 +9,21 @@
 <title>Perfil Estabelecimento</title>
 </head>
 <body>
-	<c:if test="${usuario != null}">
-		<%@ include file="../menuLogado.jsp"%>
-	</c:if>
 
-	<c:if test="${usuario == null}">
-		<%@ include file="../menuNaoLogado.jsp"%>
-	</c:if>
+		<%@ include file="../menu.jsp" %>
+
 
 	<div id="dados-estabelecimento">
 
 		<div id="foto-estabelecimento">
 			<img alt="foto do estabelecimento" src="">
 		</div>
-
-
-		<c:if test="${usuario != null}">
-			<div id="link-editar-estabelecimento">
-				<a href="editar-perfil-usuario">.</a>
-			</div>
-		</c:if>
-
+		
+			<c:if test="${usuario == null}">
+				<a href="editar-perfil-estabelecimento">editar</a>
+			</c:if>
+	
+	
 		<div id="inf-estabelecimento">
 			<h1 id="nome-estabelecimento">
 				<c:out value='${estabelecimento.nome}' />
@@ -67,7 +61,7 @@
 		</div>
 
 		<div class="botao-padrao">
-			<button>AVALIAR</button>
+			<a href="avaliacao-estabelecimento">Avaliar</a>
 		</div>
 	</div>
 

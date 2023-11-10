@@ -1,11 +1,15 @@
 package meinclui.modelo.dao.estabelecimento;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
+
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -197,7 +201,7 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 		return estabelecimento;
 	}
-	
+
 	public List<Estabelecimento> recuperarEstabelecimentoOrdenadoMaiorNota() {
 
 		Session sessao = null;
@@ -375,7 +379,7 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 		return estabelecimentos;
 	}
-	
+
 	public List<Estabelecimento> recuperarEstabelecimentoCidade(String localidade) {
 
 		Session sessao = null;
@@ -421,8 +425,6 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 		return estabelecimentos;
 	}
-
-	
 
 	public List<Estabelecimento> recuperarEstabelecimentoBairro(String localidade) {
 
@@ -562,7 +564,7 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 		return estabelecimentos;
 	}
 
-	public List<Estabelecimento> recuperarEstabelecimentoAvaliado(Long idUsuario){
+	public List<Estabelecimento> recuperarEstabelecimentoAvaliado(Long idUsuario) {
 		Session sessao = null;
 		List<Estabelecimento> estabelecimentos = null;
 
@@ -575,18 +577,20 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
 			Root<Avaliacao> raizAvaliacao = criteria.from(Avaliacao.class);
+
 			Join<Avaliacao, Estabelecimento> estabelecimentoJoin = raizAvaliacao.join(Avaliacao_.estabelecimento);
 			
 			estabelecimentoJoin.fetch(Estabelecimento_.endereco, JoinType.LEFT);
 			estabelecimentoJoin.fetch(Estabelecimento_.categoria, JoinType.LEFT);
 			
 			criteria.select(estabelecimentoJoin);
+
 			criteria.where(construtor.equal(raizAvaliacao.get(Avaliacao_.usuario), idUsuario));
-			
+
 			estabelecimentos = sessao.createQuery(criteria).getResultList();
-			
+
 			sessao.getTransaction().commit();
-			
+
 		} catch (Exception sqlException) {
 
 			sqlException.printStackTrace();
@@ -605,5 +609,70 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 		}
 
 		return estabelecimentos;
-	}	
+	}
+
+	public List<Estabelecimento> filtrarEstabelecimentos(Optional<String> nomeEstabelecimento,
+			Optional<Categoria> categoriaEstabelecimento, Optional<Double> mediaAcessibilidade,
+			Optional<String> nomeEstado, Optional<String> nomeCidade, Optional<String> nomeBairro) {
+
+		Session sessao = null;
+		List<Estabelecimento> estabelecimentos = null;
+
+		try {
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+
+			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
+			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
+			Join<Estabelecimento, Endereco> joinEndereco = raizEstabelecimento.join(Estabelecimento_.endereco);
+			raizEstabelecimento.fetch(Estabelecimento_.endereco, JoinType.LEFT);
+			raizEstabelecimento.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			raizEstabelecimento.fetch(Estabelecimento_.fotoEstabelecimento, JoinType.LEFT);
+			
+			criteria.select(raizEstabelecimento);
+
+			List<Predicate> predicados = new ArrayList<>();
+
+			nomeEstabelecimento.ifPresent(nome -> predicados
+					.add(construtor.equal(raizEstabelecimento.get(Estabelecimento_.nome), nomeEstabelecimento.get())));
+			categoriaEstabelecimento.ifPresent(categoria -> predicados.add(construtor
+					.equal(raizEstabelecimento.get(Estabelecimento_.categoria), categoriaEstabelecimento.get())));
+			mediaAcessibilidade.ifPresent(media -> predicados
+					.add(construtor.equal(raizEstabelecimento.get(Estabelecimento_.pontoAcessibilidade),
+							mediaAcessibilidade.get().toString())));
+			nomeEstado.ifPresent(
+					estado -> predicados.add(construtor.equal(joinEndereco.get(Endereco_.estado), nomeEstado.get())));
+			nomeCidade.ifPresent(
+					cidade -> predicados.add(construtor.equal(joinEndereco.get(Endereco_.cidade), nomeCidade.get())));
+			nomeBairro.ifPresent(
+					bairro -> predicados.add(construtor.equal(joinEndereco.get(Endereco_.bairro), nomeBairro.get())));
+			
+			if (!predicados.isEmpty()) {
+				criteria.where(construtor.and(predicados.toArray(new Predicate[0])));
+			}
+
+			estabelecimentos = sessao.createQuery(criteria).getResultList();
+
+		} catch (Exception sqlException) {
+
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+
+				sessao.getTransaction().rollback();
+
+			}
+		} finally {
+
+			if (sessao != null) {
+				sessao.close();
+			}
+
+		}
+
+		return estabelecimentos;
+	}
+
 }
