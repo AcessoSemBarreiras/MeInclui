@@ -135,11 +135,14 @@
 
 
 .cabecalho-geral{
-    grid-column: 3 / 11;
+    grid-column: 3 / 10;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 100px;
+    position: sticky;
+    top: 0;
+    background-color: var(--branco);
 }
 
 .cabecalho-geral img {
