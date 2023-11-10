@@ -369,7 +369,7 @@ public class Servlet extends HttpServlet {
 		Comentario comentarioRespondido = Comentario.class.cast(request.getParameter("comentario-respondido"));
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id-estabelecimento")));
 		ZonedDateTime data = ZonedDateTime.now();
 		comentarioDAO
 				.inserirComentario(new Comentario(comentario, comentarioRespondido, usuario, estabelecimento, data));
@@ -467,18 +467,13 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-		
-		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("estabelecimento")));
-        Endereco endereco = enderecoDAO.recuperarEnderecos(estabelecimento);
-        Categoria categoria = categoriaDAO.recuperarCategoriaEstabelecimento(estabelecimento);
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
         
         List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
         List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
         
         request.setAttribute("estabelecimento", estabelecimento);
         request.setAttribute("usuario", usuario);
-        request.setAttribute("endereco", endereco);
-        request.setAttribute("categoria", categoria);
         request.setAttribute("comentarios", comentarios);
         request.setAttribute("respostas", respostas);
         RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/perfil-estabelecimento.jsp");
@@ -535,7 +530,7 @@ public class Servlet extends HttpServlet {
 		Endereco endereco = new Endereco(logradouro, tipoLogradouro, numero, complemento, bairro, cidade, estado);
 		enderecoDAO.inserirEndereco(endereco);
 
-		Categoria categoria = categoriaDAO.recuperarCategoriaNome(request.getParameter("categoria"));
+		Categoria categoria = categoriaDAO.recuperarCategoriaNome(request.getParameter("categoria-estabelecimento"));
 
 		Part partEstabelecimento = request.getPart("foto-estabelecimento");
 		String extensao = partEstabelecimento.getContentType();
@@ -556,7 +551,9 @@ public class Servlet extends HttpServlet {
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		usuario.setEstabelecimentoFavorito(estabelecimento);
 		usuarioDAO.atualizarUsuario(usuario);
+		request.setAttribute("id", id);
 		response.sendRedirect("perfil-estabelecimento");
+		
 	}
 
 	private void desfavoritarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
@@ -641,29 +638,10 @@ public class Servlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	
-	private void mostrarMeuPerfil(HttpServletRequest request, HttpServletResponse response)
+	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		HttpSession sessao = request.getSession();
-		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-		int pontuacao = usuarioDAO.recuperarPontuacaoUsuario(usuario.getIdUsuario());
 		
-		List<Conquista> conquistas = conquistaDAO.recuperarConquistasMaisRecentes(usuario.getIdUsuario());
-		List<Comentario> comentarios = comentarioDAO.recuperarComentariosOrdenadoMaisRecente(usuario.getIdUsuario());
-		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.recuperarEstabelecimentoAvaliado(usuario.getIdUsuario());
-
-		
-		Foto foto = fotoDAO.recuperarFotoUsuario(usuario.getIdUsuario());
-		String url = ConversorImagem.urlFoto(foto.getBinario(), foto.getExtensao());
-		
-
-		request.setAttribute("usuario", usuario);
-		request.setAttribute("pontuacao", pontuacao);
-		request.setAttribute("conquistas", conquistas);
-		request.setAttribute("comentarios", comentarios);
-		request.setAttribute("estabelecimentos", estabelecimentos);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/perfil-usuario.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/login.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -689,12 +667,6 @@ public class Servlet extends HttpServlet {
 		}
 	}
 
-	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/login.jsp");
-		dispatcher.forward(request, response);
-	}
 
 	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

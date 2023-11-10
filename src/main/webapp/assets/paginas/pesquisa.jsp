@@ -87,8 +87,7 @@
 	<c:forEach var="es" items="${estabelecimentos}">
 		<table>
 			<tr>
-				
-				<td><c:out value="${es.nome}"/></td>
+				<td><a href="perfil-estabelecimento?id=<c:out value="${es.idEstabelecimento}" />"><c:out value="${es.nome}"/></a>
 				<td><c:out value="${es.pontoAcessibilidade}"/></td>
 				<td><c:out value="${es.endereco.logradouro}"/></td>
 				<td><c:out value="${es.endereco.numero}"/></td>
@@ -96,7 +95,6 @@
 				<td><c:out value="${es.endereco.cidade}"/></td>
 				<td><c:out value="${es.endereco.estado}"/></td>
 				<td><c:out value="${es.categoria.nomeCategoria}"/></td>
-				
 			</tr>
 		</table>
 	</c:forEach>
