@@ -315,7 +315,7 @@ public class Servlet extends HttpServlet {
 	private void recuperarComentario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(1L);
+		List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(Long.parseLong(request.getParameter("estabelecimento")));
 		request.setAttribute("comentario", comentarios);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/perfil-estabelecimento.jsp");
 		dispatcher.forward(request, response);
@@ -409,7 +409,7 @@ public class Servlet extends HttpServlet {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		
-		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("estabelecimento")));
         Endereco endereco = enderecoDAO.recuperarEnderecos(estabelecimento);
         Categoria categoria = categoriaDAO.recuperarCategoriaEstabelecimento(estabelecimento);
         
@@ -567,6 +567,7 @@ public class Servlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 	}
+	
 	private void mostrarMeuPerfil(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -652,6 +653,7 @@ public class Servlet extends HttpServlet {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		
+		request.setAttribute("usuario", usuario);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
 		dispatcher.forward(request, response);
 	}
