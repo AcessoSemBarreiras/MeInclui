@@ -74,6 +74,7 @@
 						<div class="card-avaliacao">
 							<tr>
 								<td><c:out value="${estabelecimento.nome}" /></td>
+								<td><c:out value="${estabelecimento.categoria.nomeCategoria}"/></td>
 								<button id="favoritar">.</button>
 							</tr>
 						</div>
@@ -115,11 +116,6 @@
 						<div class="avaliacao-cm">
 							<c:out value="${comentario.quantidadeGostei}" />
 							<c:out value="${comentario.quantidadeNaoGostei}" />
-							<a
-								href="adicionar-quantidade-gostei?id=<c:out value='${comentario.idComentario}'/>">Gostei</a>
-							<a
-								href="adicionar-quantidade-nao-gostei?id=<c:out value='${comentario.idComentario}'/>">Não
-								Gostei</a>
 						</div>
 
 						<div class="comentario-cm">

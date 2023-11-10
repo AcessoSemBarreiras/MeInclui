@@ -19,7 +19,7 @@
 			<img alt="foto do estabelecimento" src="">
 		</div>
 		
-			<c:if test="${usuario == null}">
+			<c:if test="${usuario != null}">
 				<a href="editar-perfil-estabelecimento">editar</a>
 			</c:if>
 	
@@ -168,14 +168,15 @@
 		</div>
 	</div>
 
-	<form action="inserir-comentario" method="post">
+	<form action="inserir-comentario" method="get">
 		<div id="cadastro-comentario">
 			<div id="conteudo-comentario">
+				<input type="hidden" value='<c:out value= "${estabelecimento.idEstabelecimento}"/>'>
 				<input type="text" placeholder="Deixe aqui seu comentário..."
 					maxlength="280" name="comentario">
 			</div>
 			<div class="cancelar">
-				<a href="http://localhost:8080/MeInclui/perfil-estabelecimento">Cancel</a>
+				<a href="perfil-estabelecimento">Cancel</a>
 			</div>
 
 			<div class="enviar">

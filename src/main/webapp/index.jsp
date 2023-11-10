@@ -46,7 +46,7 @@
     </div>
 
     <div class="home-botao">
-      <button type="button"> Encontre lugares </button>
+  	  <a href="encontrar-estabelecimentos">Encontre Lugares</a>
     </div>
 
     <div id="home-minicards">
