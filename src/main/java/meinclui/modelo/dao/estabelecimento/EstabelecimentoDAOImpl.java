@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
+
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -173,6 +174,9 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
 
+			raizEstabelecimento.fetch(Estabelecimento_.endereco, JoinType.LEFT);
+			raizEstabelecimento.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			
 			criteria.select(raizEstabelecimento);
 			criteria.where(
 					construtor.equal(raizEstabelecimento.get(Estabelecimento_.idEstabelecimento), idEstabelecimento));
@@ -213,6 +217,9 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
 
+			raizEstabelecimento.fetch(Estabelecimento_.endereco, JoinType.LEFT);
+			raizEstabelecimento.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			
 			criteria.select(raizEstabelecimento);
 			criteria.orderBy(construtor.desc(raizEstabelecimento.get(Estabelecimento_.pontoAcessibilidade)));
 
@@ -297,6 +304,9 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
 
+			raizEstabelecimento.fetch(Estabelecimento_.endereco, JoinType.LEFT);
+			raizEstabelecimento.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			
 			criteria.select(raizEstabelecimento);
 			criteria.where(
 					construtor.like(raizEstabelecimento.get(Estabelecimento_.nome), "%" + nomeEstabelecimento + "%"));
@@ -340,6 +350,9 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
 			Join<Estabelecimento, Endereco> endereco = raizEstabelecimento.join(Estabelecimento_.endereco);
 
+			raizEstabelecimento.fetch(Estabelecimento_.endereco, JoinType.LEFT);
+			raizEstabelecimento.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			
 			criteria.select(raizEstabelecimento);
 			criteria.where(construtor.like(endereco.get(Endereco_.estado), localidade));
 
@@ -383,6 +396,9 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
 			Join<Estabelecimento, Endereco> endereco = raizEstabelecimento.join(Estabelecimento_.endereco);
 
+			raizEstabelecimento.fetch(Estabelecimento_.endereco, JoinType.LEFT);
+			raizEstabelecimento.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			
 			criteria.select(raizEstabelecimento);
 			criteria.where(construtor.like(endereco.get(Endereco_.cidade), "%" + localidade + "%"));
 
@@ -426,6 +442,9 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
 			Join<Estabelecimento, Endereco> endereco = raizEstabelecimento.join(Estabelecimento_.endereco);
 
+			raizEstabelecimento.fetch(Estabelecimento_.endereco, JoinType.LEFT);
+			raizEstabelecimento.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			
 			criteria.select(raizEstabelecimento);
 			criteria.where(construtor.like(endereco.get(Endereco_.bairro), localidade));
 
@@ -469,6 +488,9 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
 			Join<Estabelecimento, Endereco> endereco = raizEstabelecimento.join(Estabelecimento_.endereco);
 
+			raizEstabelecimento.fetch(Estabelecimento_.endereco, JoinType.LEFT);
+			raizEstabelecimento.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			
 			criteria.select(raizEstabelecimento);
 			criteria.where(construtor.like(endereco.get(Endereco_.logradouro), localidade));
 
@@ -512,6 +534,9 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
 			Join<Estabelecimento, Categoria> categoria = raizEstabelecimento.join(Estabelecimento_.categoria);
 
+			raizEstabelecimento.fetch(Estabelecimento_.endereco, JoinType.LEFT);
+			raizEstabelecimento.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			
 			criteria.select(raizEstabelecimento);
 			criteria.where(construtor.like(categoria.get(Categoria_.nomeCategoria), nomeCategoria));
 
@@ -552,9 +577,14 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
 			Root<Avaliacao> raizAvaliacao = criteria.from(Avaliacao.class);
-			Join<Avaliacao, Estabelecimento> avaliacaoJoin = raizAvaliacao.join(Avaliacao_.estabelecimento);
 
-			criteria.select(avaliacaoJoin);
+			Join<Avaliacao, Estabelecimento> estabelecimentoJoin = raizAvaliacao.join(Avaliacao_.estabelecimento);
+			
+			estabelecimentoJoin.fetch(Estabelecimento_.endereco, JoinType.LEFT);
+			estabelecimentoJoin.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			
+			criteria.select(estabelecimentoJoin);
+
 			criteria.where(construtor.equal(raizAvaliacao.get(Avaliacao_.usuario), idUsuario));
 
 			estabelecimentos = sessao.createQuery(criteria).getResultList();
