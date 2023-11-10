@@ -9,7 +9,7 @@
        </head>
 <body>
 	<header>
-		<a href="index.jsp" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
+		<a href="tela-inicial" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
 	</header>
 
 	<div>
@@ -78,7 +78,7 @@
 			</div>
 		</div>
 		<div class="cancelar">
-				<button onclick="location.href='http://localhost:8080/MeInclui/perfil-estabelecimento'">Cancelar</button>
+			<a href="perfil-estabelecimento">Cancelar</a>
 			</div>
 			<div class="enviar">
 					<input type="submit" value="FINALIZAR"> 

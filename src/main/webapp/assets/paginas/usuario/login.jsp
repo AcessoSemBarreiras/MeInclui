@@ -10,7 +10,7 @@
 
 <body>
 	<header>
-		<a href="index.jsp" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
+		<a href="tela-inicial" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
 	</header>
 
   <form action="entrar" method="get">

@@ -9,13 +9,8 @@
 <title>Pesquisa</title>
 </head>
 <body>
-	<c:if test="${usuario != null}">
-		<%@ include file="menuLogado.jsp"%>
-	</c:if>
-
-	<c:if test="${usuario == null}">
-		<%@ include file="menuNaoLogado.jsp"%>
-	</c:if>
+		<%@ include file="menu.jsp"%>
+	
 
 	<div class="barraPesquisa">
 		

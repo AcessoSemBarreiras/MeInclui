@@ -13,16 +13,17 @@
   <header>
 	<c:if test="${usuario == null}">  
       <div id="home-cabecalho">
-      	<a href="index.jsp">..<img></a>
+		<a href="tela-inicial" class="menu-logo"><img src="" alt="logo Meinclui"></a>
+      	<a href="tela-inicial">Home</a>
       	<a href="ranking" id="ranking-link">Ranking</a>
-      	<a href="fale_conosco" id="fale-conosco-link">Fale Conosco</a>
-      	<a href="login-usuario" id="login-link">Acesse Sua Conta</a>
+      	<a href="fale_conosco" id="fale-conosco-link">Fale conosco</a>
+      	<a href="login-usuario" id="login-link">Acesse sua Conta</a>
       </div>
     </c:if>
     
     <c:if test="${usuario != null}">  
       <div id="home-cabecalho">
-      	<a href="index.jsp">..<img></a>
+      	<a href="tela-inicial">Meinclui<img></a>
       	<a href="ranking" id="ranking-link">Ranking</a>
       	<a href="fale_conosco" id="fale-conosco-link">Fale Conosco</a>
       	<a href="encontrar-estabelecimentos" id="continue">Continue Navegando</a>
