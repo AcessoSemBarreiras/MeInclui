@@ -1,14 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style><%@include file="../estilos/padrao.css"%></style>
+<style><%@include file="../estilos/tela-inicial.css"%></style>
 <title>Pesquisa</title>
 </head>
+
 <body>
+	
+	<header class="template-grid">
+		<nav class="cabecalho-geral">
+			<img src="../imagens/logo-meinclui.svg">
+		</nav>
+	</header>
+
 		<%@ include file="menu.jsp"%>
 	
 
@@ -71,7 +81,7 @@
 	</div>
 
 	<div id="conteudo">
-		<h1>O Que Deseja Ver Hoje?</h1>
+		<h1>O Que Deseja Ver Hoje?</h 1>
 		<p>
 			<b>Navegue</b> pelos <b>estabelecimentos</b> presentes no <i>MeInclui!</i>
 			e ajude a tornar os locais mais <b>acessíveis</b> com suas <b>avaliações.</b>
@@ -86,8 +96,10 @@
 
 	<c:forEach var="es" items="${estabelecimentos}">
 		<table>
-			<tr>
+
+			<tr class="cards-estabelecimento">
 				<td><a href="perfil-estabelecimento?id=<c:out value="${es.idEstabelecimento}" />"><c:out value="${es.nome}"/></a>
+				<td><c:out value="${es.nome}"/></td>
 				<td><c:out value="${es.pontoAcessibilidade}"/></td>
 				<td><c:out value="${es.endereco.logradouro}"/></td>
 				<td><c:out value="${es.endereco.numero}"/></td>

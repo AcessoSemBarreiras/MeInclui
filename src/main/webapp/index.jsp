@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -6,73 +7,162 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style><%@include file="assets/estilos/padrao.css"%></style>
+  <style><%@include file="assets/estilos/tela-inicial.css"%></style>
   <title>Home</title>
 </head>
 
 <body>
-  <header>
-	<c:if test="${usuario == null}">  
-      <div id="home-cabecalho">
-		<a href="tela-inicial" class="menu-logo"><img src="" alt="logo Meinclui"></a>
-      	<a href="tela-inicial">Home</a>
-      	<a href="ranking" id="ranking-link">Ranking</a>
-      	<a href="fale_conosco" id="fale-conosco-link">Fale conosco</a>
-      	<a href="login-usuario" id="login-link">Acesse sua Conta</a>
-      </div>
-    </c:if>
-    
-    <c:if test="${usuario != null}">  
-      <div id="home-cabecalho">
-      	<a href="tela-inicial">Meinclui<img></a>
-      	<a href="ranking" id="ranking-link">Ranking</a>
-      	<a href="fale_conosco" id="fale-conosco-link">Fale Conosco</a>
-      	<a href="encontrar-estabelecimentos" id="continue">Continue Navegando</a>
-      </div>
-    </c:if>
-    
-    
-    
+  <header class="template-grid"> 
+    <div class="cabecalho-geral">
+      <nav>
+          <img src="./assets/imagens/logo-meinclui.svg" alt="MeInclui">
+      </nav>       
+      <nav>
+        <button class="botao-sem-borda texto-pequeno">Home</button>
+        <button class="botao-sem-borda texto-pequeno">Ranking</button>
+        <button class="botao-sem-borda texto-pequeno">Fale Conosco</button>
+        <button class="botao-medio texto-pequeno">Acesse sua Conta</button>
+      </nav>
+    </div> 
   </header>
 
+<div class="template-grid">
+
+  <div class="grid-home-esquerda">
+    <div class="texto-grande">
+      <h1> Buscar estabelecimentos acessíveis é mais fácil com o <b style="color: var(--laranja);">MeInclui!</b> </h1>
+    </div>
+
+    <div class="texto-medio">
+      <p> 
+        Com uma plataforma simples e intuitiva é possível localizar estabelecimentos próximos a sua residência
+        rapidamente. 
+      </p>
+      <p> 
+        Que tal conhecer agora mesmo? 
+      </p>
+    </div>
+
+    <div>
+      <button class="botao-grande texto-pequeno "> 
+        Encontre lugares 
+      </button>
+    </div>
+
+    <div class="texto-grande">
+      <h1>
+        No <b style="color: var(--laranja);">MeInclui</b> você pode:
+      </h1>
+    </div>
+
+    <div class="texto-medio">
+      <p> 
+        Conheça nossos <b style="color: var(--laranja);">usuários</b> e <b style="color: var(--azul);">estabelecimentos</b> destaques 
+      </p>
+    </div>
+
+    <div class="texto-grande">
+      <h1 style="color: var(--laranja);">
+          Fale conosco!
+      </h1>
+    </div>
+
+    <div class="texto-grande">
+      <h1>
+        Somos a <b style="color: var(--azul);">porta aberta da comunicação,</b> conectando-se através do seu <b style="color: var(--laranja);">Feedback.</b> Preencha o formulário ao lado ou
+        nos envie um e-mail!
+      </h1>
+    </div>
+
+  </div>
+
+
+
+  <div class="grid-home-direita">
+
+    <div>
+      <nav>
+        <img src="./assets/imagens/imagem-pcd-home-1.svg" alt="">
+      </nav>
+    </div>
+
+
+
+
+
+
+
+    <div>
+      <form class="">
+        <div>
+          <label for="pnome">Nome</label>
+          <input type="text" id="pnome" name="pnome">
+        </div>
+
+        <div>
+          <label for="snome">Sobrenome</label>
+          <input type="text" id="snome" name="snome">
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email">
+        </div>
+
+        <div>
+          <label for="mensagem">Informe a Sua Mensagem</label>
+          <input type="text" id="mensagem" name="mensagem">
+        </div>
+
+        <div id="button_fc">
+          <input type="submit" value="ENVIAR">
+        </div>
+      </form>
+    </div>
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <div id="home-corpo">
-    <div class="home-titulo">
-      <h1> Buscar estabelecimentos acessíveis é mais fácil com o <b>MeInclui!</b> </h1>
-    </div>
-
-    <div class="home-subtitulo">
-      <p> Com uma plataforma simples e intuitiva é possível localizar estabelecimentos próximos a sua residência
-        rapidamente. </p>
-      <p> Que tal conhecer agora mesmo? </p>
-    </div>
-
-    <div class="home-botao">
-      <button type="button"> Encontre lugares </button>
-    </div>
-
-    <div id="home-minicards">
-      <h2>No MeInclui você pode:</h2>
-
-      <div class="home-minicard">
-        <p>Cadastrar estabelecimentos</p>
-      </div>
-
-      <div class="home-minicard">
-        <p>Favoritar lugares</p>
-      </div>
-
-      <div class="home-minicard">
-        <p>Comentar sobre estabelecimentos</p>
-      </div>
-
-      <div class="home-minicard">
-        <p>Curtir comentários</p>
-      </div>
-
-      <div class="home-minicard">
-        <p>Descobrir novos lugares</p>
-      </div>
-    </div>
-
 
     <div id="ranking">
       <div class="home-ranking-titulo">
