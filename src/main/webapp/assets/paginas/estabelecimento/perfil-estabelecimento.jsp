@@ -10,11 +10,14 @@
 </head>
 <body>
 
-		<%@ include file="../menu.jsp" %>
+	<%@ include file="../menu.jsp" %>
 
 
 	<div id="dados-estabelecimento">
 
+		<div id="id-estabelecimento">
+			<input type="hidden" name="id" value='<c:out value="${estabelecimento.idEstabelecimento }"></c:out>'>
+		</div>
 		<div id="foto-estabelecimento">
 			<img alt="foto do estabelecimento" src="">
 		</div>
@@ -29,27 +32,30 @@
 				<c:out value='${estabelecimento.nome}' />
 			</h1>
 			<p id="categoria-perfil">
-				<c:out value="${categoria.nomeCategoria}"></c:out>
+				<c:out value="${estabelecimento.categoria.nomeCategoria}"></c:out>
 			</p>
 			<div id="endereco-perfil">
 				<p>
-					<c:out value="${endereco.tipoLogradouro}."></c:out>
-					<c:out value="${endereco.logradouro}"></c:out>
-					<c:out value="n°${endereco.numero}"></c:out>
+					<c:out value="${estabelecimento.endereco.tipoLogradouro}."></c:out>
+					<c:out value="${estabelecimento.endereco.logradouro}"></c:out>
+					<c:out value="n°${estabelecimento.endereco.numero}"></c:out>
 					<br>
-					<c:out value="${endereco.bairro}"></c:out>
-					<c:out value="${endereco.cidade}"></c:out>
-					<c:out value="/${endereco.estado}"></c:out>
+					<c:out value="${estabelecimento.endereco.bairro}"></c:out>
+					<c:out value="${estabelecimento.endereco.cidade}"></c:out>
+					<c:out value="/${estabelecimento.endereco.estado}"></c:out>
 				</p>
 			</div>
 		</div>
 
 		<div id="favoritar-estabelecimento">
-			<a href="favoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Favoritar</a>
+	
+		
+		<p><c:out value='${estabelecimento.idEstabelecimento}'/></p>
+			<a href="favoritar-estabelecimento?id=<c:out value="${estabelecimento.idEstabelecimento}"/>">Favoritar</a>
 		</div>
 		
 		<div id="desfavoritar-estabelecimento">
-			<a href="desfavoritar-estabelecimento?id=<c:out value='${estabelecimento.idEstabelecimento}'/>">Desfavoritar</a>
+			<a href="desfavoritar-estabelecimento?id=<c:out value="${estabelecimento.idEstabelecimento}"/>">Desfavoritar</a>
 		</div>
 
 		<div id="nota=estabelecimento">
@@ -61,7 +67,7 @@
 		</div>
 
 		<div class="botao-padrao">
-			<a href="avaliacao-estabelecimento">Avaliar</a>
+			<a href="avaliacao-estabelecimento?id=<c:out value="${estabelecimento.idEstabelecimento}"/>">Avaliar</a>
 		</div>
 	</div>
 
@@ -91,10 +97,10 @@
 							Gostei</a></td>
 					<td>
 						<form action="responder-comentario">
-							<input type="hidden" name="id"
-								value="<c:out value='${cm.idComentario}'/>"> <input
-								type="text" name="resposta-comentario"> <input
-								type="submit" value="Responder">
+							<input type="hidden" name="id-comentario" value="<c:out value='${cm.idComentario}'/>">
+							<input type="hidden" name="id" value="<c:out value='${estabelecimento.idEstabelecimento}'/>">
+							<input type="text" name="resposta-comentario">
+							<input type="submit" value="Responder">
 						</form>
 					</td>
 					<td><c:if test="${respostas == null}">
@@ -171,7 +177,8 @@
 	<form action="inserir-comentario" method="get">
 		<div id="cadastro-comentario">
 			<div id="conteudo-comentario">
-				<input type="hidden" value='<c:out value= "${estabelecimento.idEstabelecimento}"/>'>
+			<input type="hidden" name="id" value='<c:out value="${estabelecimento.idEstabelecimento }"/>'>
+
 				<input type="text" placeholder="Deixe aqui seu comentário..."
 					maxlength="280" name="comentario">
 			</div>

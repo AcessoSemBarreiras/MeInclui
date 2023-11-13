@@ -274,8 +274,9 @@ public class Servlet extends HttpServlet {
         double mediaEstabelecimento = soma / avaliacoes.size();
         estabelecimento.setPontoAcessibilidade(mediaEstabelecimento);
         estabelecimentoDAO.atualizarEstabelecimento(estabelecimento);
-       
-        RequestDispatcher dispatcher = request.getRequestDispatcher("tela-inicial");
+
+        request.setAttribute("id", estabelecimento.getIdEstabelecimento());
+        RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento");
         dispatcher.forward(request, response);
 	}
 
@@ -366,29 +367,31 @@ public class Servlet extends HttpServlet {
 	private void inserirComentario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String comentario = request.getParameter("comentario");
-		Comentario comentarioRespondido = Comentario.class.cast(request.getParameter("comentario-respondido"));
+		Comentario comentarioRespondido = null;
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
 		ZonedDateTime data = ZonedDateTime.now();
 		comentarioDAO
 				.inserirComentario(new Comentario(comentario, comentarioRespondido, usuario, estabelecimento, data));
-		response.sendRedirect("perfil-estabelecimento");
+		request.setAttribute("id", estabelecimento.getIdEstabelecimento());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento");
+		dispatcher.forward(request, response);
 
 	}
 
 	private void responderComentario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Comentario comentarioRespondido = comentarioDAO
-				.recuperarComentarioId(Integer.parseInt(request.getParameter("id")));
+		Comentario comentarioRespondido = comentarioDAO.recuperarComentarioId(Integer.parseInt(request.getParameter("id-comentario")));
 		String comentario = request.getParameter("resposta-comentario");
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
 		ZonedDateTime data = ZonedDateTime.now();
-		comentarioDAO
-				.inserirComentario(new Comentario(comentario, comentarioRespondido, usuario, estabelecimento, data));
-		response.sendRedirect("perfil-estabelecimento");
+		comentarioDAO.inserirComentario(new Comentario(comentario, comentarioRespondido, usuario, estabelecimento, data));
+		request.setAttribute("id", estabelecimento.getIdEstabelecimento());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento");
+		dispatcher.forward(request, response);
 	}
 
 	/* ESTABELECIMENTO */
@@ -399,7 +402,6 @@ public class Servlet extends HttpServlet {
 		
 		request.setAttribute("usuario", usuario);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/cadastro-estabelecimento.jsp");
-
 		dispatcher.forward(request, response);
 	}
 
@@ -467,18 +469,15 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-		
+
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
-        Endereco endereco = enderecoDAO.recuperarEnderecos(estabelecimento);
-        Categoria categoria = categoriaDAO.recuperarCategoriaEstabelecimento(estabelecimento);
+
         
         List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
         List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
         
         request.setAttribute("estabelecimento", estabelecimento);
         request.setAttribute("usuario", usuario);
-        request.setAttribute("endereco", endereco);
-        request.setAttribute("categoria", categoria);
         request.setAttribute("comentarios", comentarios);
         request.setAttribute("respostas", respostas);
         RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/perfil-estabelecimento.jsp");
@@ -549,25 +548,30 @@ public class Servlet extends HttpServlet {
 	}
 
 	private void favoritarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+			throws SQLException, IOException, ServletException {
 		Long id = Long.parseLong(request.getParameter("id"));
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		usuario.setEstabelecimentoFavorito(estabelecimento);
 		usuarioDAO.atualizarUsuario(usuario);
-		response.sendRedirect("perfil-estabelecimento");
+		request.setAttribute("id", id);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento");
+		dispatcher.forward(request, response);
+		
 	}
 
 	private void desfavoritarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+			throws SQLException, IOException, ServletException {
 		Long id = Long.parseLong(request.getParameter("id"));
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		usuario.getEstabelecimentoFavorito().remove(estabelecimento);
 		usuarioDAO.atualizarUsuario(usuario);
-		response.sendRedirect("perfil-estabelecimento");
+		request.setAttribute("id", id);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento");
+		dispatcher.forward(request, response);
 	}
 
 	/* USUÁRIO */
@@ -641,29 +645,10 @@ public class Servlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	
-	private void mostrarMeuPerfil(HttpServletRequest request, HttpServletResponse response)
+	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		HttpSession sessao = request.getSession();
-		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-		int pontuacao = usuarioDAO.recuperarPontuacaoUsuario(usuario.getIdUsuario());
 		
-		List<Conquista> conquistas = conquistaDAO.recuperarConquistasMaisRecentes(usuario.getIdUsuario());
-		List<Comentario> comentarios = comentarioDAO.recuperarComentariosOrdenadoMaisRecente(usuario.getIdUsuario());
-		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.recuperarEstabelecimentoAvaliado(usuario.getIdUsuario());
-
-		
-		Foto foto = fotoDAO.recuperarFotoUsuario(usuario.getIdUsuario());
-		String url = ConversorImagem.urlFoto(foto.getBinario(), foto.getExtensao());
-		
-
-		request.setAttribute("usuario", usuario);
-		request.setAttribute("pontuacao", pontuacao);
-		request.setAttribute("conquistas", conquistas);
-		request.setAttribute("comentarios", comentarios);
-		request.setAttribute("estabelecimentos", estabelecimentos);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/perfil-usuario.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/login.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -689,12 +674,6 @@ public class Servlet extends HttpServlet {
 		}
 	}
 
-	private void mostrarFormularioLogin(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/login.jsp");
-		dispatcher.forward(request, response);
-	}
 
 	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
