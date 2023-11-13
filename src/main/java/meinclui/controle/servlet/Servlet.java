@@ -635,12 +635,18 @@ public class Servlet extends HttpServlet {
 		List<Conquista> conquistas = conquistaDAO.recuperarConquistasMaisRecentes(usuario.getIdUsuario());
 		List<Comentario> comentarios = comentarioDAO.recuperarComentariosOrdenadoMaisRecente(usuario.getIdUsuario());
 		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.recuperarEstabelecimentoAvaliado(usuario.getIdUsuario());
+		List<Estabelecimento> estabelecimentosFavoritos = usuarioDAO.recuperarEstabeecimentosFavoritos(usuario.getIdUsuario());
+		
+		for(Estabelecimento e : estabelecimentosFavoritos) {
+			System.out.println(e.getNome());
+		}
 		
 		request.setAttribute("usuario", usuario);
 		request.setAttribute("pontuacao", pontuacao);
 		request.setAttribute("conquistas", conquistas);
 		request.setAttribute("comentarios", comentarios);
 		request.setAttribute("estabelecimentos", estabelecimentos);
+		//request.setAttribute("estabelecimentos-favoritos", estabelecimentosFavoritos);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 	}
