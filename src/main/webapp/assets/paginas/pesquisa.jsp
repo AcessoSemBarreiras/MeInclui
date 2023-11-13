@@ -1,10 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="padrao.css">
-<link rel="stylesheet" href="pesquisa.css">
+<style><%@include file="../estilos/padrao.css"%></style>
+<style><%@include file="../estilos/tela-inicial.css"%></style>
 <title>Pesquisa</title>
 </head>
 
@@ -16,13 +19,8 @@
 		</nav>
 	</header>
 
-	<c:if test="${usuario != null}">
-		<%@ include file="menuLogado.jsp"%>
-	</c:if>
-
-	<c:if test="${usuario == null}">
-		<%@ include file="menuNaoLogado.jsp"%>
-	</c:if>
+		<%@ include file="menu.jsp"%>
+	
 
 	<div class="barraPesquisa">
 		
@@ -83,7 +81,7 @@
 	</div>
 
 	<div id="conteudo">
-		<h1>O Que Deseja Ver Hoje?</h1>
+		<h1>O Que Deseja Ver Hoje?</h 1>
 		<p>
 			<b>Navegue</b> pelos <b>estabelecimentos</b> presentes no <i>MeInclui!</i>
 			e ajude a tornar os locais mais <b>acessíveis</b> com suas <b>avaliações.</b>
@@ -96,9 +94,9 @@
 
 
 
-	<c:forEach var="es" items="${estabelecimentos}" class="cards-estabelecimento">
+	<c:forEach var="es" items="${estabelecimentos}">
 		<table>
-			<tr>
+			<tr class="cards-estabelecimento">
 				
 				<td><c:out value="${es.nome}"/></td>
 				<td><c:out value="${es.pontoAcessibilidade}"/></td>
