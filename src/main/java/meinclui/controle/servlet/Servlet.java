@@ -369,7 +369,7 @@ public class Servlet extends HttpServlet {
 		Comentario comentarioRespondido = Comentario.class.cast(request.getParameter("comentario-respondido"));
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(1L);
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
 		ZonedDateTime data = ZonedDateTime.now();
 		comentarioDAO
 				.inserirComentario(new Comentario(comentario, comentarioRespondido, usuario, estabelecimento, data));
@@ -468,7 +468,7 @@ public class Servlet extends HttpServlet {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		
-		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("estabelecimento")));
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
         Endereco endereco = enderecoDAO.recuperarEnderecos(estabelecimento);
         Categoria categoria = categoriaDAO.recuperarCategoriaEstabelecimento(estabelecimento);
         
@@ -535,7 +535,7 @@ public class Servlet extends HttpServlet {
 		Endereco endereco = new Endereco(logradouro, tipoLogradouro, numero, complemento, bairro, cidade, estado);
 		enderecoDAO.inserirEndereco(endereco);
 
-		Categoria categoria = categoriaDAO.recuperarCategoriaNome(request.getParameter("categoria"));
+		Categoria categoria = categoriaDAO.recuperarCategoriaNome(request.getParameter("categoria-estabelecimento"));
 
 		Part partEstabelecimento = request.getPart("foto-estabelecimento");
 		String extensao = partEstabelecimento.getContentType();
