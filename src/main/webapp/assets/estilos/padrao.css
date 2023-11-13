@@ -58,7 +58,10 @@
 [class*="botao-"]{
     transition: height 500ms, width 500ms ease;
     background-color: var(--laranja);
-    color: var(--branco);
+}
+
+[class*="botao-"] a{
+	color: var(--branco);
 }
 
 [class*="botao-"]:hover{
@@ -85,7 +88,7 @@
 
 .botao-medio{
     width: 127px; 
-    height: 40px;
+    height: 60px;
     border-radius: 10px;
     border: #E76D1B;
 }
@@ -135,7 +138,7 @@
 
 
 .cabecalho-geral{
-    grid-column: 3 / 10;
+    grid-column: 3 / 11;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -172,11 +175,11 @@ footer{
 }
 
 .rodape-contato{
-    column: 2 / 4;
+    columns: 2 / 4;
 }
 
 .rodape-social{
-    column: 6 / 9;
+    columns: 6 / 9;
 }
 
 /*Cards*/

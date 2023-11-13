@@ -43,3 +43,12 @@ form input[type="text"], input[type="email"], select{
     width: 320px;
     height: 47px;
 }
+
+
+/*cabecalho*/
+
+.cabecalho-geral nav:last-child{
+	display: flex;
+	gap: 80px;
+	align-items: center;
+}

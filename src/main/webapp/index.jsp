@@ -16,13 +16,13 @@
   <header class="template-grid"> 
     <div class="cabecalho-geral">
       <nav>
-          <img src="./assets/imagens/logo-meinclui.svg" alt="MeInclui">
+          <a href="tela-inicial"><img src="./assets/imagens/logo-meinclui.svg" alt="MeInclui"></a>
       </nav>       
       <nav>
-        <button class="botao-sem-borda texto-pequeno">Home</button>
-        <button class="botao-sem-borda texto-pequeno">Ranking</button>
-        <button class="botao-sem-borda texto-pequeno">Fale Conosco</button>
-        <button class="botao-medio texto-pequeno">Acesse sua Conta</button>
+        <a href="tela-inicial" class="botao-sem-borda texto-pequeno">Home</a>
+        <a class="botao-sem-borda texto-pequeno" href="ranking">Ranking</a>
+        <a class="botao-sem-borda texto-pequeno" href="">Fale Conosco</a>
+        <button class="botao-medio "><a href="login-usuario" class="texto-pequeno">Acesse sua Conta</a></button>
       </nav>
     </div> 
   </header>
@@ -86,42 +86,6 @@
         <img src="./assets/imagens/imagem-pcd-home-1.svg" alt="">
       </nav>
     </div>
-
-
-
-
-
-
-
-    <div>
-      <form class="">
-        <div>
-          <label for="pnome">Nome</label>
-          <input type="text" id="pnome" name="pnome">
-        </div>
-
-        <div>
-          <label for="snome">Sobrenome</label>
-          <input type="text" id="snome" name="snome">
-        </div>
-
-        <div>
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email">
-        </div>
-
-        <div>
-          <label for="mensagem">Informe a Sua Mensagem</label>
-          <input type="text" id="mensagem" name="mensagem">
-        </div>
-
-        <div id="button_fc">
-          <input type="submit" value="ENVIAR">
-        </div>
-      </form>
-    </div>
-
-
 
   </div>
 </div>

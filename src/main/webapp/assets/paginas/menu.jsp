@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+  <style><%@include file="assets/estilos/menu.css"%></style>
+
 <header>
 	<a href="tela-inicial" class="menu-logo"><img src="" alt="logo Meinclui"></a>
 	<a href="encontrar-estabelecimentos" class="menu-pesquisa">0-</a>
@@ -14,6 +16,5 @@
 	<c:if test="${usuario == null}">
 		<a href="login-usuario" class="menu-login">Entrar</a> 
 	</c:if>
-	
 	<hr>
 </header>
