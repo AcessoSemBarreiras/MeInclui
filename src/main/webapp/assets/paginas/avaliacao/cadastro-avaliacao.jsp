@@ -19,6 +19,7 @@
 	<form action="inserir-avaliacao" method="post">
 		<div id="respostas-avaliacao">
 			<hr>
+			<input type="hidden" name="id" value="<c:out value="${estabelecimento.idEstabelecimento }"/>">
 			<div id="pergunta-1">
 				<label>1. Os corredores asseguram uma faixa livre de barreiras ou obstáculos, e é seguido de acordo com o fluxo de pessoas?</label> <br>
 				<div class="respostas">

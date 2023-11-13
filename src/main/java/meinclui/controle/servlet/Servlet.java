@@ -244,8 +244,10 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		Estabelecimento estabelecimento =  estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
 		
 		request.setAttribute("usuario", usuario);
+		request.setAttribute("estabelecimento", estabelecimento);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/avaliacao/cadastro-avaliacao.jsp");
 		dispatcher.forward(request, response);
 	}
