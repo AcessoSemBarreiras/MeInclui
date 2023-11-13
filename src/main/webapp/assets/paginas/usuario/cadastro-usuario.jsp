@@ -16,7 +16,7 @@
 
 	<header class="template-grid">
 		<nav class="cabecalho-geral">
-			<img src="../../imagens/logo-meinclui.svg">
+			<a href="tela-inicial" class="menu-logo"><%@include file="../../imagens/logo-meinclui.svg"%></a>
 		</nav>
 	</header>
 

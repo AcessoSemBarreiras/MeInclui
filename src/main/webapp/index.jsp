@@ -16,13 +16,13 @@
   <header class="template-grid"> 
     <div class="cabecalho-geral">
       <nav>
-          <a href="tela-inicial"><img src="./assets/imagens/logo-meinclui.svg" alt="MeInclui"></a>
+         	<a href="tela-inicial" class="menu-logo"><%@include file="../assets/imagens/logo-meinclui.svg"%></a>
       </nav>       
       <nav>
         <a href="tela-inicial" class="botao-sem-borda texto-pequeno">Home</a>
         <a class="botao-sem-borda texto-pequeno" href="ranking">Ranking</a>
         <a class="botao-sem-borda texto-pequeno" href="">Fale Conosco</a>
-        <button class="botao-medio "><a href="login-usuario" class="texto-pequeno">Acesse sua Conta</a></button>
+        <button class="botao-medio"><a href="login-usuario" class="texto-pequeno">Acesse sua Conta</a></button>
       </nav>
     </div> 
   </header>

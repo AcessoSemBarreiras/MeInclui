@@ -1,5 +1,18 @@
 .menu-logo{
 	height: 30px;
 	width: 30px;
-	background-color: red;
+}
+
+.menu-caminhos{
+	margin-top: -4.25%;
+	margin-left: 75%;
+	grid-column: 6  / 10; 
+    align-items: flex-end;
+    display: flex;
+    gap: 10px;
+}
+
+img{
+	width: 2%;
+	height: auto;
 }

@@ -11,7 +11,7 @@
 <body>
 
 	<header>
-		<a href="tela-inicial" class="menu-logo"><img src="" alt="logo Meinclui"></a> 
+			<a href="tela-inicial" class="menu-logo"><%@include file="../../imagens/logo-meinclui.svg"%></a>
 	</header>
 
 	<div class="titulo-principal">
