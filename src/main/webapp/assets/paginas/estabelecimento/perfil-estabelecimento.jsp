@@ -67,7 +67,7 @@
 		</div>
 
 		<div class="botao-padrao">
-			<a href="avaliacao-estabelecimento">Avaliar</a>
+			<a href="avaliacao-estabelecimento?id=<c:out value="${estabelecimento.idEstabelecimento}"/>">Avaliar</a>
 		</div>
 	</div>
 
@@ -97,10 +97,10 @@
 							Gostei</a></td>
 					<td>
 						<form action="responder-comentario">
-							<input type="hidden" name="id"
-								value="<c:out value='${cm.idComentario}'/>"> <input
-								type="text" name="resposta-comentario"> <input
-								type="submit" value="Responder">
+							<input type="hidden" name="id-comentario" value="<c:out value='${cm.idComentario}'/>">
+							<input type="hidden" name="id" value="<c:out value='${estabelecimento.idEstabelecimento}'/>">
+							<input type="text" name="resposta-comentario">
+							<input type="submit" value="Responder">
 						</form>
 					</td>
 					<td><c:if test="${respostas == null}">
@@ -177,6 +177,7 @@
 	<form action="inserir-comentario" method="post">
 		<div id="cadastro-comentario">
 			<div id="conteudo-comentario">
+			<input type="hidden" name="id" value='<c:out value="${estabelecimento.idEstabelecimento }"/>'>
 				<input type="text" placeholder="Deixe aqui seu comentário..."
 					maxlength="280" name="comentario">
 			</div>
