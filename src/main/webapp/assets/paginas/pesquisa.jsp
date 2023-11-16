@@ -12,12 +12,6 @@
 </head>
 
 <body>
-	
-	<header class="template-grid">
-		<nav class="cabecalho-geral">
-			<img src="../imagens/logo-meinclui.svg">
-		</nav>
-	</header>
 
 		<%@ include file="menu.jsp"%>
 	

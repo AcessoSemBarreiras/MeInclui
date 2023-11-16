@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Editar perfil Usuario</title>
+<title>Editar perfil Usuario!</title>
+<style><%@include file="../../estilos/estilo.css"%></style>
 </head>
 <body>
 	<main>
@@ -18,8 +19,9 @@
 		</div>
 		<form action="atualizar-usuario" method="post" enctype="multipart/form-data">
 			<div class="att-foto">
-					<input type="file" name="foto-usuario">
-				</div>
+				<img alt="foto do usuario" class="foto-usuario" src="<c:out value='${usuario.fotoUsuario.urlFoto()}' />">
+				<input type="file" id="imagem" name="foto-usuario" accept="image/*">
+			</div>
 
 			<div class="editar-dados">
 					<input type="hidden" value='<c:out value="${usuario.idUsuario}"/>' name="id-usuario">
