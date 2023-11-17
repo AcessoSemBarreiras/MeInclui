@@ -9,20 +9,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style><%@include file="assets/estilos/padrao.css"%></style>
   <style><%@include file="assets/estilos/tela-inicial.css"%></style>
+  <style><%@include file="assets/estilos/menu.css"%></style>
   <title>Home</title>
 </head>
 
 <body>
   <header class="template-grid"> 
-    <div class="cabecalho-geral">
+  	<div id="menu-logo">
+		<a href="tela-inicial"><img  width="30" height="30" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEiIGhlaWdodD0iNDYiIHZpZXdCb3g9IjAgMCA1MSA0NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0wIDIzVjQ2SDcuMzUzNTRIMTQuNzA3MUwxNC42ODcxIDM0LjY4MDFDMTQuNjY3MSAyOC40NTQxIDE0LjY3NzEgMjMuMzYwMiAxNC43MDcxIDIzLjM2MDJDMTQuNzM3MSAyMy4zNjAyIDE3LjA1ODIgMjcuMDIzNyAxOS44NTk1IDMxLjQ4OTlDMjIuOTYxIDM2LjQzOTggMjUuMDEyIDM5LjYwOTQgMjUuMTAyMSAzOS41ODg4QzI1LjE3MjEgMzkuNTc4NSAyNy41MDMyIDM1Ljk1NjIgMzAuMjg0NiAzMS41NDE0QzMzLjA1NTkgMjcuMTI2NiAzNS4zNjcgMjMuNDczNCAzNS40MjcgMjMuNDIxOUMzNS40NzcxIDIzLjM2MDIgMzUuNTE3MSAyNy41MjggMzUuNTE3MSAzNC42NTk1VjQ2SDQyLjk3MDdINTAuNDI0MlYyM1YwTDQxLjI5OTkgMC4wMjA1ODAzTDMyLjE2NTUgMC4wNTE0NTI2TDMxLjg5NTMgMC41NjU5OTRDMzEuNDg1MSAxLjM0ODEgMzEuMDI0OSAyLjg3MTE0IDMwLjg1NDggNC4wNDQyOUMzMC4zNTQ2IDcuNDA5MzkgMzEuNTI1MiAxMC45OTA2IDM0LjAwNjQgMTMuNjc2NUwzNC43MTY3IDE0LjQyNzdMMzQuMDI2NCAxNS4zMjNDMzMuMDA1OSAxNi42NTA2IDMxLjgyNTMgMTguNDEwMyAzMC45MTQ5IDE5Ljk2NDJDMjkuMjU0MSAyMi43OTQyIDI3LjE5MzEgMjcuNTE3NyAyNi4wNjI1IDMxLjA3ODNDMjUuOTEyNSAzMS41NjIgMjUuNzUyNCAzMS45OTQyIDI1LjcwMjQgMzIuMDQ1NkMyNS41OTIzIDMyLjE2OTEgMjUuNjAyMyAxOC41MjM1IDI1LjcxMjQgMTguMjM1M0MyNS43NjI0IDE4LjExMTkgMjUuODgyNCAxOC4wMDg5IDI1Ljk4MjUgMTguMDA4OUMyNi4zMTI3IDE3Ljk5ODcgMjYuOTkzIDE3LjYxNzkgMjcuNDYzMiAxNy4xNzU0QzI5LjIyNDEgMTUuNDk4IDI4Ljc4MzggMTIuNjA2MyAyNi42MTI4IDExLjUzNkMyNi4xNTI2IDExLjMwOTYgMjUuOTIyNSAxMS4yNjg1IDI1LjIxMjEgMTEuMjY4NUMyNC4yMDE2IDExLjI2ODUgMjMuNjcxNCAxMS40NzQzIDIyLjk1MSAxMi4xNjM4QzIyLjI0MDcgMTIuODMyNyAyMS45MTA1IDEzLjYyNTEgMjEuOTEwNSAxNC42NjQ0QzIxLjkxMDUgMTUuMzUzOSAyMS45NjA2IDE1LjU5MDYgMjIuMjAwNyAxNi4xMDUxQzIyLjYzMDkgMTcuMDQxNiAyMy40MzEzIDE3Ljc0MTQgMjQuMzkxNyAxNy45OTg3TDI0LjgxMTkgMTguMTIyMVYyNS4xMzAyQzI0LjgxMTkgMjguOTg5MyAyNC43ODE5IDMyLjExNzcgMjQuNzUxOSAzMi4wODY4QzI0LjcyMTkgMzIuMDU1OSAyNC41MTE4IDMxLjQ1OTEgMjQuMjcxNyAzMC43NTkzQzIzLjQxMTMgMjguMjE3NCAyMi4wODA2IDI0LjkyNDQgMjEuMDIwMSAyMi43NjMzQzE5Ljg3OTYgMjAuNDI3MyAxOC4xODg3IDE3LjY4OTkgMTYuNjE4IDE1LjYxMTJMMTUuNzI3NiAxNC40MzhMMTYuNDE3OSAxMy42NzY1QzE5Ljc1OTUgMTAuMDMzNiAyMC41ODk5IDUuMTk2ODcgMTguNjM5IDAuODEyOTczTDE4LjI3ODggMEg5LjE0NDRIMFYyM1oiIGZpbGw9IiMwMzMyNkMiLz4NCjwvc3ZnPg0K"></a>
+	</div>	 
+    <div class="cabecalho-geral">  
       <nav>
-          <img src="./assets/imagens/logo-meinclui.svg" alt="MeInclui">
-      </nav>       
-      <nav>
-        <button class="botao-sem-borda texto-pequeno">Home</button>
-        <button class="botao-sem-borda texto-pequeno">Ranking</button>
-        <button class="botao-sem-borda texto-pequeno">Fale Conosco</button>
-        <button class="botao-medio texto-pequeno">Acesse sua Conta</button>
+        <a href="tela-inicial" class="botao-sem-borda texto-pequeno">Home</a>
+        <a class="botao-sem-borda texto-pequeno" href="ranking">Ranking</a>
+        <a class="botao-sem-borda texto-pequeno" href="">Fale Conosco</a>
+        <button class="botao-medio"><a href="login-usuario" class="texto-pequeno">Acesse sua Conta</a></button>
       </nav>
     </div> 
   </header>
@@ -86,42 +87,6 @@
         <img src="./assets/imagens/imagem-pcd-home-1.svg" alt="">
       </nav>
     </div>
-
-
-
-
-
-
-
-    <div>
-      <form class="">
-        <div>
-          <label for="pnome">Nome</label>
-          <input type="text" id="pnome" name="pnome">
-        </div>
-
-        <div>
-          <label for="snome">Sobrenome</label>
-          <input type="text" id="snome" name="snome">
-        </div>
-
-        <div>
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email">
-        </div>
-
-        <div>
-          <label for="mensagem">Informe a Sua Mensagem</label>
-          <input type="text" id="mensagem" name="mensagem">
-        </div>
-
-        <div id="button_fc">
-          <input type="submit" value="ENVIAR">
-        </div>
-      </form>
-    </div>
-
-
 
   </div>
 </div>

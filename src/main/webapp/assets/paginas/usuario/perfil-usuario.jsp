@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Perfil Usuário</title>
+<style><%@include file="../../estilos/estilo.css"%></style>
 </head>
 <body>
 	<main>
@@ -15,7 +16,7 @@
 	
 
 		<div class="informacoes-usuario">
-			<img alt="foto do usuario" src="<c:out value='${usuario.fotoUsuario.urlFoto()}' />">
+			<img alt="foto do usuario" class="foto-usuario" src="<c:out value='${usuario.fotoUsuario.urlFoto()}' />">
 			<c:if test="${usuario != null}">
 				<a href="editar-perfil-usuario">editar</a>
 			</c:if>

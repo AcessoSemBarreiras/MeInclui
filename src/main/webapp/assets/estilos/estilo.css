@@ -177,3 +177,9 @@ input[type="number"]:focus{
 #es, #vs, #rs{
     display: none;
 }
+
+.foto-usuario{
+	border-radius: 50%;
+	height: 110px;
+	width: 110px;
+}
