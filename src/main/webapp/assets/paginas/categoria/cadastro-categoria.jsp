@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Cadastro categoria</title>
+<title>Insert title here</title>
 </head>
 <body>
 <form action="inserir-categoria" method="post">
