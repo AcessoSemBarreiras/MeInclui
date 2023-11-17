@@ -9,3 +9,18 @@
 	font-weight: 450;
 	color:var(--azul);
 }
+
+.nome-usuario{
+	font-size: 1.3em;
+	font-weight: 600;
+	color:var(--azul);
+}
+
+a{
+	text-decoration: none;
+}
+
+b{
+	text-decoration: none;
+	color:var(--laranja)
+}
