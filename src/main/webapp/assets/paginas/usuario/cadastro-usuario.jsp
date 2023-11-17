@@ -1,20 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="pt">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="../../estilos/padrao.css">
-	<link rel="stylesheet" href="../../estilos/cadastro-usuario.css">
+	<style><%@include file="../../estilos/cadastro-usuario.css"%></style>
+	<style><%@include file="../../estilos/padrao.css"%></style>
+	<style><%@include file="../../estilos/menu.css"%></style>
 	<title>Cadastre-se!</title>
 </head>
 
 <body>
-
 	<header class="template-grid">
-		<nav class="cabecalho-geral">
-			<img src="../../imagens/logo-meinclui.svg">
-		</nav>
+		 <div id="menu-logo">
+			<a href="tela-inicial"><img  width="30" height="30" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEiIGhlaWdodD0iNDYiIHZpZXdCb3g9IjAgMCA1MSA0NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0wIDIzVjQ2SDcuMzUzNTRIMTQuNzA3MUwxNC42ODcxIDM0LjY4MDFDMTQuNjY3MSAyOC40NTQxIDE0LjY3NzEgMjMuMzYwMiAxNC43MDcxIDIzLjM2MDJDMTQuNzM3MSAyMy4zNjAyIDE3LjA1ODIgMjcuMDIzNyAxOS44NTk1IDMxLjQ4OTlDMjIuOTYxIDM2LjQzOTggMjUuMDEyIDM5LjYwOTQgMjUuMTAyMSAzOS41ODg4QzI1LjE3MjEgMzkuNTc4NSAyNy41MDMyIDM1Ljk1NjIgMzAuMjg0NiAzMS41NDE0QzMzLjA1NTkgMjcuMTI2NiAzNS4zNjcgMjMuNDczNCAzNS40MjcgMjMuNDIxOUMzNS40NzcxIDIzLjM2MDIgMzUuNTE3MSAyNy41MjggMzUuNTE3MSAzNC42NTk1VjQ2SDQyLjk3MDdINTAuNDI0MlYyM1YwTDQxLjI5OTkgMC4wMjA1ODAzTDMyLjE2NTUgMC4wNTE0NTI2TDMxLjg5NTMgMC41NjU5OTRDMzEuNDg1MSAxLjM0ODEgMzEuMDI0OSAyLjg3MTE0IDMwLjg1NDggNC4wNDQyOUMzMC4zNTQ2IDcuNDA5MzkgMzEuNTI1MiAxMC45OTA2IDM0LjAwNjQgMTMuNjc2NUwzNC43MTY3IDE0LjQyNzdMMzQuMDI2NCAxNS4zMjNDMzMuMDA1OSAxNi42NTA2IDMxLjgyNTMgMTguNDEwMyAzMC45MTQ5IDE5Ljk2NDJDMjkuMjU0MSAyMi43OTQyIDI3LjE5MzEgMjcuNTE3NyAyNi4wNjI1IDMxLjA3ODNDMjUuOTEyNSAzMS41NjIgMjUuNzUyNCAzMS45OTQyIDI1LjcwMjQgMzIuMDQ1NkMyNS41OTIzIDMyLjE2OTEgMjUuNjAyMyAxOC41MjM1IDI1LjcxMjQgMTguMjM1M0MyNS43NjI0IDE4LjExMTkgMjUuODgyNCAxOC4wMDg5IDI1Ljk4MjUgMTguMDA4OUMyNi4zMTI3IDE3Ljk5ODcgMjYuOTkzIDE3LjYxNzkgMjcuNDYzMiAxNy4xNzU0QzI5LjIyNDEgMTUuNDk4IDI4Ljc4MzggMTIuNjA2MyAyNi42MTI4IDExLjUzNkMyNi4xNTI2IDExLjMwOTYgMjUuOTIyNSAxMS4yNjg1IDI1LjIxMjEgMTEuMjY4NUMyNC4yMDE2IDExLjI2ODUgMjMuNjcxNCAxMS40NzQzIDIyLjk1MSAxMi4xNjM4QzIyLjI0MDcgMTIuODMyNyAyMS45MTA1IDEzLjYyNTEgMjEuOTEwNSAxNC42NjQ0QzIxLjkxMDUgMTUuMzUzOSAyMS45NjA2IDE1LjU5MDYgMjIuMjAwNyAxNi4xMDUxQzIyLjYzMDkgMTcuMDQxNiAyMy40MzEzIDE3Ljc0MTQgMjQuMzkxNyAxNy45OTg3TDI0LjgxMTkgMTguMTIyMVYyNS4xMzAyQzI0LjgxMTkgMjguOTg5MyAyNC43ODE5IDMyLjExNzcgMjQuNzUxOSAzMi4wODY4QzI0LjcyMTkgMzIuMDU1OSAyNC41MTE4IDMxLjQ1OTEgMjQuMjcxNyAzMC43NTkzQzIzLjQxMTMgMjguMjE3NCAyMi4wODA2IDI0LjkyNDQgMjEuMDIwMSAyMi43NjMzQzE5Ljg3OTYgMjAuNDI3MyAxOC4xODg3IDE3LjY4OTkgMTYuNjE4IDE1LjYxMTJMMTUuNzI3NiAxNC40MzhMMTYuNDE3OSAxMy42NzY1QzE5Ljc1OTUgMTAuMDMzNiAyMC41ODk5IDUuMTk2ODcgMTguNjM5IDAuODEyOTczTDE4LjI3ODggMEg5LjE0NDRIMFYyM1oiIGZpbGw9IiMwMzMyNkMiLz4NCjwvc3ZnPg0K"></a>
+		</div>	 
 	</header>
 
 	<div class=" template-grid">
@@ -24,7 +27,7 @@
 		</div>
 	</div>
 
-	<form class="template-grid" id="formulario">
+	<form class="template-grid" id="formulario" action="inserir-usuario" method="post" enctype="multipart/form-data">
 
 		<div class="formulario-esquerda">
 
@@ -51,14 +54,12 @@
 				<input type="password" id="senha" name="senha-usuario" placeholder="Digite uma senha" required>
 			</div>
 
-			<div class="termos-uso alinhamento-checkbox">
-				<input type="checkbox" id="termos-uso" value="termos"> Li
-				e Aceito os <a href="">Termos</a>
+			<div class="termos-uso">
+				<input type="checkbox" id="termos-uso" value="termos"> Li e Aceito os <a href="">Termos</a>				
 			</div>
-
 		</div>
 
-		<div class="formulario-centro">
+		<div class="formulario-direita">
 
 			<div class="conteudo-nome-usuario">
 				<input type="text" id="nusuario" name="nome-de-usuario" placeholder="Nome de Usuário" required>
@@ -81,16 +82,12 @@
 				<input type="submit" id="confirmar" value="CONFIRMAR" class="botao-grande texto-grande">
 			</div>
 
-		</div>
-
-		<div class="formulario-direita">
-			<div id="foto-usuario" class="alinhamento-foto">
-				<nav>
-					<img src="../../imagens/foto-perfil-cadastro.svg" alt="Foto de Perfil">
-				</nav>
-				<p class="texto-grande texto-foto" >Selecione Uma Foto De Perfil</p>
+			<div id="foto-usuario">
+				<input type="file" id="imagem" name="foto-usuario" accept="image/*">
+				<p>Selecione Uma Foto De Perfil</p>
 			</div>
 		</div>
+
 
 	</form>
 

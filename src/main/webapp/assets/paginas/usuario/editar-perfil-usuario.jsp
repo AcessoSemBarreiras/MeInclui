@@ -5,52 +5,52 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Editar perfil Usuario</title>
+<title>Editar perfil Usuario!</title>
+<style><%@include file="../../estilos/estilo.css"%></style>
 </head>
 <body>
 	<main>
 		<c:if test="${usuario != null}">
-		<%@ include file="menuLogado.jsp" %>
+		<%@ include file="../menu.jsp" %>
 	</c:if>
 
 		<div class="titulo">
 			<h1>Editar perfil</h1>
 		</div>
-		<form action="atualizar-usuario" method="get" enctype="multipart/form-data">
-			<div class="insira-foto">
-					<input type="file" name="foto-usuario">
-				</div>
+		<form action="atualizar-usuario" method="post" enctype="multipart/form-data">
+			<div class="att-foto">
+				<img alt="foto do usuario" class="foto-usuario" src="<c:out value='${usuario.fotoUsuario.urlFoto()}' />">
+				<input type="file" id="imagem" name="foto-usuario" accept="image/*">
+			</div>
 
-			<div class="dados-usuario">
-				<div id="email-nome-completo">
-
+			<div class="editar-dados">
 					<input type="hidden" value='<c:out value="${usuario.idUsuario}"/>' name="id-usuario">
 					<input type="hidden" value='<c:out value="${usuario.cpf}"/>' name="cpf-usuario">
 			
-					<label>Nome Completo:</label> <input type="text"
-						name="nome-usuario" value="<c:out value='${usuario.nome}'/>">
+				<div class="editar-1">
+					<label>Nome Completo:</label> 
+					<input type="text" name="nome-usuario" value="<c:out value='${usuario.nome}'/>">
 				</div>
-				<div id="editar-email">
-					<label>Email:</label> <input type="text" name="email-usuario"
-						value="<c:out value='${usuario.email}'/>">
+				<div class="editar-2">
+					<label>Email:</label> 
+					<input type="text" name="email-usuario" value="<c:out value='${usuario.email}'/>">
 				</div>
-				<div id="editar-nome-de-usuario">
-					<label>Nome de usuário:</label> <input type="text"
-						name="nome-de-usuario"
-						value="<c:out value='${usuario.nomeDeUsuario}'/>">
+				<div class="editar-3">
+					<label>Nome de usuário:</label> 
+					<input type="text" name="nome-de-usuario" value="<c:out value='${usuario.nomeDeUsuario}'/>">
 				</div>
-				<div id="editar-senha-usuario">
-					<label>Senha:</label> <input type="text" name="senha-usuario"
-						value="<c:out value='${usuario.senha}'/>">
+				<div class="editar-4">
+					<label>Senha:</label> 
+					<input type="text" name="senha-usuario" value="<c:out value='${usuario.senha}'/>">
 				</div>
-				<div id="editar-pronome">
+				<div class="editar-5">
 					<label>Pronomes:</label> <select name="pronome-usuario">
-						<option value="ele"
-							<c:if test="${usuario.pronome == 'ele'}"><c:out value="selected" /></c:if>>Ele</option>
-						<option value="ela"
-							<c:if test="${usuario.pronome == 'ela'}"><c:out value="selected" /></c:if>>Ela</option>
-						<option value="elu"
-							<c:if test="${usuario.pronome == 'elu'}"><c:out value="selected" /></c:if>>Elu</option>
+						<option value="Ele/Dele"
+							<c:if test="${usuario.pronome == 'Ele/Dele'}"><c:out value="selected" /></c:if>>Ele</option>
+						<option value="Ela/Dela"
+							<c:if test="${usuario.pronome == 'Ela/Dela'}"><c:out value="selected" /></c:if>>Ela</option>
+						<option value="Elu/Delu"
+							<c:if test="${usuario.pronome == 'Elu/Delu'}"><c:out value="selected" /></c:if>>Elu</option>
 						<option value="qualquer"
 							<c:if test="${usuario.pronome == 'qualquer'}"><c:out value="selected" /></c:if>>Qualquer
 							pronome</option>
@@ -59,14 +59,13 @@
 							informar</option>
 					</select>
 				</div>
-				<div id="editar-data-nascimento">
-					<label>Data de nascimento:</label> <input type="date"
-						name="data-nascimento-usuario"
-						value="<c:out value='${usuario.dataNascimento}'/>">
+				<div class="editar-6">
+					<label>Data de nascimento:</label> 
+					<input type="date" name="data-nascimento-usuario" value="<c:out value='${usuario.dataNascimento}'/>">
 				</div>
 			</div>
 			<div id="button-cancelar">
-				<button>Cancelar</button>
+				<a href="perfil-usuario">Cancelar</a>
 			</div>
 			<div id="button-atualizar">
 				<button type="submit">Atualizar</button>
