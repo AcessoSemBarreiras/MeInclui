@@ -8,7 +8,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Perfil Usuário</title>
-<style><%@include file="../../estilos/estilo.css"%></style>
+<style><%@include file="../../estilos/padrao.css"%></style>
+<style><%@include file="../../estilos/perfil-usuario.css"%></style>
 </head>
 <body>
 	<main>
@@ -21,21 +22,21 @@
 				<a href="editar-perfil-usuario">editar</a>
 			</c:if>
 
-			<h3 id="nome-de-usuario">
+			<h3 class="texto-principal">
 				<c:out value='${usuario.nomeDeUsuario}' />
 			</h3>
-			<p class="titulo-principal">
+			<p class="texto-secundario">
 				<c:out value='${usuario.nome}' />
 			</p>
-			<p id="pronome-usuario">
+			<p class="pronome">
 				<c:out value='${usuario.pronome}' />
 			</p>
 
 			<table>
 				<tr>
-					<td class="texto-secundario">Pontos</td>
+					<td class="texto-adicionais">Pontos</td>
 					<td id="pontos-usuario"></td>
-					<td class="texto-secundario">Nasceu em</td>
+					<td class="texto-adicionais">Nasceu em</td>
 					<td><fmt:parseDate value="${usuario.dataNascimento}"
 							type="date" pattern="yyyy-MM-dd" var="nascimento" /> <fmt:formatDate
 							value="${nascimento}" type="date" pattern="dd/MM/yyyy" var="data" />
@@ -48,10 +49,10 @@
 
 
 		<div class="conquistas-usuario">
-			<h3 class="titulo-principal">Conquistas</h3>
-			<c:if test="${conquistas == null}">
+			<h3 class="texto-principal">Conquistas</h3>
+			<c:if test="${conquistas != null}">
 				<img alt="" src="Imagem usuario não possui conquista">
-				<p>
+				<p class="texto-adicionais">
 					Este usuário ainda não possui <b>conquistas.</b>
 				</p>
 			</c:if>
@@ -61,9 +62,9 @@
 
 
 		<div class="avaliacoes-usuario">
-			<h3 class="titulo-principal">Avaliações Recentes</h3>
+			<h3 class="texto-principal">Avaliações Recentes</h3>
 			<c:if test="${fn:length(estabelecimentos) == 0}">
-				<p class="texto-aviso">
+				<p class="texto-adicionais">
 					Parece que você ainda não possui avaliações... <br> <a
 						href="encontrar-estabelecimentos">Encontre estabelecimentos</a> e
 					avalie
