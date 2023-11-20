@@ -76,6 +76,7 @@
 						<div class="card-avaliacao">
 							<table>
 								<tr>
+									<td><c:out value="${estabelecimento.fotoestabelecimento.urlFoto()}" /></td>
 									<td><c:out value="${estabelecimento.nome}" /></td>
 									<td><c:out value="${estabelecimento.categoria.nomeCategoria}"/></td>
 								</tr>
@@ -95,19 +96,23 @@
 			<c:if test="${fn:length(comentarios) == 0}">
 				<p class="texto-secundario">
 					Parece que você ainda não possui comentários ... <br> <a
-						href="encontrar-estabelecimentos" name="tela-pesquisa">Encontre
+						href="encontrar-estabelecimentos" style="color: var(--laranja)"> Encontre
 						estabelecimentos</a> e comente
 				</p>
 			</c:if>
 
 			<c:if test="${fn:length(comentarios) != 0}">
 				<c:forEach var="comentario" items="${comentarios}">
-					<div class="cmts-usuario">
+					<div class="cmts-usuario"> 
+						<div id="foto-comentario-usuario">
+							<c:out value="${usuario.fotoUsuario.urlFoto()}"></c:out>
+						</div>
 						<div class="nome-usuario">
 							<c:out value="${usuario.nomeDeUsuario}" />
 						</div>
 						<p class="pronome">comentou em</p>
-
+						<c:out value="${estabelecimento.nome}"></c:out>
+							
 						<div class="texto-secundario">
 							<fmt:parseDate value="${comentario.data}" type="date"
 								pattern="yyyy-MM-dd" var="parsedDate" />
