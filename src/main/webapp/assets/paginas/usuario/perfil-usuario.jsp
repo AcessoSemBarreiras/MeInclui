@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
 <!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -130,6 +131,34 @@
 				</c:forEach>
 			</c:if>
 		</div>
+		
+		<div class="estabelecimentos-favoritos">
+			<h3 class="titulo-principal">Estabelecimentos Favoritos</h3>
+			
+			<c:if test="${fn:length(estabelecimentosfavoritos) == 0}">
+				<p class="texto-aviso">
+					Parece que você ainda não possui estabelecimentos favoritados ... <br> <a
+						href="encontrar-estabelecimentos" name="tela-pesquisa">Encontre
+						estabelecimentos</a> e favorite
+				</p>
+			</c:if>
+			
+			<c:if test="${fn:length(estabelecimentosfavoritos) != 0}">
+				<c:forEach var="estabFav" items="${estabelecimentosfavoritos}">
+					<div class="estbfav-usuario">
+						<div class="estab-fav">
+						<table>
+						<tr>
+							<td><c:out value="${estabFav.nome}" /></td>
+							<td><c:out value="${estabFav.categoria.nomeCategoria}"/></td>
+						</tr>
+						</table>
+						</div>
+					</div>
+				</c:forEach>
+			</c:if>
+		</div>
+		
 	</main>
 </body>
 </html>

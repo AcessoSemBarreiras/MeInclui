@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Tuple;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Fetch;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
@@ -15,8 +14,6 @@ import org.hibernate.Session;
 
 import meinclui.modelo.entidade.conquista.Conquista;
 import meinclui.modelo.entidade.conquista.Conquista_;
-import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
-import meinclui.modelo.entidade.estabelecimento.Estabelecimento_;
 import meinclui.modelo.entidade.usuario.Usuario;
 import meinclui.modelo.entidade.usuario.Usuario_;
 import meinclui.modelo.entidade.usuariotemconquista.UsuarioTemConquista;
@@ -160,7 +157,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
 
 			raizUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
-			raizUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			raizUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
 			raizUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
 			
 			criteria.select(raizUsuario);
@@ -201,7 +198,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
 			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
 			
-			raizUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			raizUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
 			raizUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
 			
 			criteria.select(raizUsuario);
@@ -250,7 +247,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			Join<UsuarioTemConquista, Usuario> joinUsuario = raizUsuarioTemConquista.join(UsuarioTemConquista_.usuario);
 
 			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
-			joinUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
 			joinUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
 			
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
@@ -304,7 +301,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			Join<UsuarioTemConquista, Usuario> joinUsuario = raizUsuarioTemConquista.join(UsuarioTemConquista_.usuario);
 
 			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
-			joinUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
 			joinUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
 			
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
@@ -361,7 +358,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			Join<UsuarioTemConquista, Usuario> joinUsuario = raizUsuarioTemConquista.join(UsuarioTemConquista_.usuario);
 
 			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
-			joinUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
 			joinUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
 			
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
@@ -419,7 +416,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			Join<UsuarioTemConquista, Usuario> joinUsuario = raizUsuarioTemConquista.join(UsuarioTemConquista_.usuario);
 
 			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
-			joinUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
 			joinUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
 			
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
@@ -538,51 +535,5 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			}
 		}
 		return false;
-	}
-	
-	public List<Estabelecimento> recuperarEstabelecimentosFavoritos(Long id){
-		// ver se vai ficar aqui ou no estabelecimento
-		Session sessao = null;
-		List<Estabelecimento> estabelecimentosFavoritos = null;
-		Usuario usuario = recuperarUsuarioId(id);
-		try {
-
-			sessao = fabrica.getConexao().openSession();
-			sessao.beginTransaction();
-
-			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
-			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
-			Join<Usuario, Estabelecimento> joinEstabelecimento = raizUsuario.join(Usuario_.estabelecimentos_favoritos);
-
-			estabelecimentosFavoritos = usuario.getEstabelecimentoFavorito();
-			
-			joinEstabelecimento
-				.on(construtor.equal(raizUsuario.get(Usuario_.estabelecimentos_favoritos), id));
-			
-			criteria.select(joinEstabelecimento);
-			criteria.where(construtor.equal(raizUsuario.get(Usuario_.estabelecimentos_favoritos), id));
-			
-			estabelecimentosFavoritos = sessao.createQuery(criteria).getResultList();
-			
-			sessao.getTransaction().commit();
-
-		} catch (Exception sqlException) {
-
-			sqlException.printStackTrace();
-
-			if (sessao.getTransaction() != null) {
-				sessao.getTransaction().rollback();
-			}
-
-		} finally {
-
-			if (sessao != null) {
-
-				sessao.close();
-
-			}
-		}
-		return estabelecimentosFavoritos;
 	}
 }

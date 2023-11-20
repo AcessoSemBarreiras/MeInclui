@@ -612,53 +612,6 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 		return estabelecimentos;
 	}
 	
-	public List<Estabelecimento> recuperarEstabelecimentosFavoritos(Long idUsuario) {
-		// ver se vai ficar aqui ou no usuario
-		Session sessao = null;
-		List<Estabelecimento> estabelecimentos = null;
-
-		try {
-
-			sessao = fabrica.getConexao().openSession();
-			sessao.beginTransaction();
-
-			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-
-			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
-			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
-
-			Join<Usuario, Estabelecimento> estabelecimentoJoin = raizEstabelecimento.join(Usuario_.estabelecimentos_favoritos);
-			estabelecimentoJoin.fetch(Estabelecimento_.endereco, JoinType.LEFT);
-			estabelecimentoJoin.fetch(Estabelecimento_.categoria, JoinType.LEFT);
-			
-			criteria.select(estabelecimentoJoin);
-
-			criteria.where(construtor.equal(estabelecimentoJoin.get(Usuario_.estabelecimentos_favoritos), idUsuario));
-
-			estabelecimentos = sessao.createQuery(criteria).getResultList();
-
-			sessao.getTransaction().commit();
-
-		} catch (Exception sqlException) {
-
-			sqlException.printStackTrace();
-
-			if (sessao.getTransaction() != null) {
-
-				sessao.getTransaction().rollback();
-
-			}
-		} finally {
-
-			if (sessao != null) {
-				sessao.close();
-			}
-
-		}
-
-		return estabelecimentos;
-	}
-
 	public List<Estabelecimento> filtrarEstabelecimentos(Optional<String> nomeEstabelecimento,
 			Optional<Categoria> categoriaEstabelecimento, Optional<Double> mediaAcessibilidade,
 			Optional<String> nomeEstado, Optional<String> nomeCidade, Optional<String> nomeBairro) {
