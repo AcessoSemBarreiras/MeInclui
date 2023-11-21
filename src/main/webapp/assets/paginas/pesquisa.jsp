@@ -104,6 +104,9 @@
 			</tr>
 		</table>
 	</c:forEach>
-
+	
 </body>
+
+		<%@ include file="rodape.jsp"%>
+
 </html>
