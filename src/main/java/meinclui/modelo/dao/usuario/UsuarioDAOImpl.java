@@ -6,16 +6,15 @@ import java.util.List;
 import javax.persistence.Tuple;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Fetch;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 
 import org.hibernate.Session;
 
 import meinclui.modelo.entidade.conquista.Conquista;
 import meinclui.modelo.entidade.conquista.Conquista_;
-import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 import meinclui.modelo.entidade.usuario.Usuario;
 import meinclui.modelo.entidade.usuario.Usuario_;
 import meinclui.modelo.entidade.usuariotemconquista.UsuarioTemConquista;
@@ -537,5 +536,54 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			}
 		}
 		return false;
+	}
+	
+	public List<Tuple> recuperarComunidadeGeral() {
+	    Session sessao = null;
+	    List<Tuple> comunidade = null;
+
+	    try {
+	    	sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+			
+	        CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+	        CriteriaQuery<Tuple> criteria = construtor.createTupleQuery();
+
+	        Root<UsuarioTemConquista> usuarioConquistaRoot = criteria.from(UsuarioTemConquista.class);
+	        Join<UsuarioTemConquista, Usuario> usuarioJoin = usuarioConquistaRoot.join(UsuarioTemConquista_.usuario, JoinType.LEFT);
+	        Join<UsuarioTemConquista, Conquista> conquistaJoin = usuarioConquistaRoot.join(UsuarioTemConquista_.conquista);
+
+	        Subquery<Conquista> subquery = criteria.subquery(Conquista.class);
+	        Root<UsuarioTemConquista> subUsuarioConquistaRoot = subquery.from(UsuarioTemConquista.class);
+	        Join<UsuarioTemConquista, Usuario> subUsuarioJoin = subUsuarioConquistaRoot.join(UsuarioTemConquista_.usuario);
+	        Join<UsuarioTemConquista, Conquista> subConquistaJoin = subUsuarioConquistaRoot.join(UsuarioTemConquista_.conquista, JoinType.LEFT);
+	        subquery.select(subConquistaJoin);
+	        subquery.where(construtor.equal(subUsuarioConquistaRoot.get(UsuarioTemConquista_.usuario), subUsuarioJoin.get(Usuario_.idUsuario)));
+
+	        criteria.multiselect(
+	            usuarioJoin.alias("usuario"),
+	            construtor.sum(conquistaJoin.get(Conquista_.reputacao)).alias("reputacaoTotal"),
+	            subquery.alias("conquistasDoUsuario")
+	        );
+
+	        criteria.groupBy(usuarioConquistaRoot.get(UsuarioTemConquista_.usuario));
+	        criteria.orderBy(construtor.desc(construtor.sum(conquistaJoin.get(Conquista_.reputacao))));
+
+	        comunidade = sessao.createQuery(criteria).setMaxResults(10).getResultList();
+
+	        sessao.getTransaction().commit();
+	    } catch (Exception sqlException) {
+	        sqlException.printStackTrace();
+
+	        if (sessao.getTransaction() != null) {
+	            sessao.getTransaction().rollback();
+	        }
+	    } finally {
+	        if (sessao != null) {
+	            sessao.close();
+	        }
+	    }
+
+	    return comunidade;
 	}
 }

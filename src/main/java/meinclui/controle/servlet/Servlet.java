@@ -7,6 +7,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.Tuple;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -549,10 +550,10 @@ public class Servlet extends HttpServlet {
 
 	private void favoritarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		Long id = Long.parseLong(request.getParameter("id"));
-		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		Long id = Long.parseLong(request.getParameter("id"));
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
 		usuario.setEstabelecimentoFavorito(estabelecimento);
 		usuarioDAO.atualizarUsuario(usuario);
 		request.setAttribute("id", id);
@@ -706,6 +707,31 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		
+		List<Tuple> comunidade = usuarioDAO.recuperarComunidadeGeral();
+		if (comunidade != null && !comunidade.isEmpty()) {
+		for (Tuple resultado : comunidade) {
+            Usuario usuarioa = resultado.get("usuario", Usuario.class);
+            Long pontuacaoTotal = resultado.get("reputacaoTotal", Long.class);
+            List<Conquista> conquistasDoUsuario = resultado.get("conquistasDoUsuario", Conquista.class);
+
+            System.out.println("Usuário: " + usuarioa);
+            System.out.println("Pontuação Total: " + pontuacaoTotal);
+
+            if (conquistasDoUsuario != null) {
+                System.out.println("Conquistas do Usuário:");
+                for (Conquista conquista : conquistasDoUsuario) {
+                    System.out.println("  - " + conquista);
+                }
+            }
+
+            System.out.println("------------------------");
+        }
+		}
+		else {
+			System.out.println("AA");
+		}
+		
 		
 		request.setAttribute("usuario", usuario);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");

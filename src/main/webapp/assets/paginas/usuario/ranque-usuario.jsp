@@ -17,52 +17,49 @@
 	
 	
 	<div id="filtros-ranque">
-		<p>geral</p>
-		<p>anual</p>
-		<p>mensal</p>
-		<p>semanal</p>
-		<p>diário</p>
+		<a href="">geral</a>
+		<a href="">anual</a>
+		<a href="">mensal</a>
+		<a href="">semanal</a>
+		<a href="">diário</a>
 	</div>
 
 	
-<!--  <div class="cards-ranque">
-	<c:forEach var="usuario" items="${usuarios}">
+ <div class="cards-ranque">
+	
 		<div class="card-segundo">
-			<c:out value="${usuario.fotoUsuario.urlFoto()}"></c:out>
+			
 			<div class="card-inf">
-				<c:out value="${usuario.pontosGerais}"> pontos no geral</c:out>
-				<c:out value="${usuario.nomeDeUsuario }"></c:out>
+				
 				<p>#2</p>
-				<c:out value="${usuario.pontosFiltrado}"> pontos essa semana</c:out>
+				
 				<p>Conquistas</p>
-				<c:out value="${conquista.foto}"></c:out>
+				
 			</div>
 		</div>
 
 		<div class="card-primeiro">
-			<c:out value="${usuario.fotoUsuario.urlFoto()}"></c:out>
+			
 			<div class="card-inf">
-				<c:out value="${usuario.pontosGerais}"> pontos no geral</c:out>
-				<c:out value="${usuario.nomeDeUsuario }"></c:out>
+				
 				<p>#1</p>
-				<c:out value="${usuario.pontosFiltrado}"> pontos essa semana</c:out>
+				
 				<p>Conquistas</p>
-				<c:out value="${conquista.foto}"></c:out>
+				
 			</div>
 		</div>
 		
 		<div class="card-terceiro">
-			<c:out value="${usuario.fotoUsuario.urlFoto()}"></c:out>
+			
 			<div class="card-inf">
-				<c:out value="${usuario.pontosGerais}"> pontos no geral</c:out>
-				<c:out value="${usuario.nomeDeUsuario }"></c:out>
+				
 				<p>#3</p>
-				<c:out value="${usuario.pontosFiltrado}"> pontos essa semana</c:out>
+				
 				<p>Conquistas</p>
-				<c:out value="${conquista.foto}"></c:out>
+				
 			</div>
 		</div>
-		</c:forEach
+		
 	</div>
 
 	<div id="outros-destaques">
@@ -76,15 +73,11 @@
 			</div>
 			
 			
-			<c:forEach var="us" items="${usuarios}">
+			
 				<p>#</p>
-				<c:out value="${us.fotoUsuario.urlFoto()}"></c:out>
-				<c:out value="${us.pontosFiltrados}"> pontos</c:out>
-				<c:out value="${conquista.foto}"></c:out>		
-			</c:forEach>
+				
 		</div>
 	</div>
-	-->
 	
 	<div class="aside">
 		<img alt="Estrela" height="40" width="40" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDEiIGhlaWdodD0iNTIiIHZpZXdCb3g9IjAgMCA0MSA1MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuODk1ODggMTguNTY4OFYxTTM2LjEwNDEgMTguNTY4OFYxTTIwLjUgNi4wMTk2NlYxTTIzLjg4MDkgMTYuMzM1MUwyNy4zMTM4IDIyLjk2MUMyNy43ODE5IDIzLjg2NDYgMjkuMDMwMyAyNC43NjgxIDMwLjA3MDUgMjQuOTE4N0wzNi4yODYyIDI1LjkyMjZDNDAuMjY1MiAyNi41NzUyIDQxLjIwMTUgMjkuMzM2IDM4LjM0MDcgMzIuMDk2OEwzMy41MDM0IDM2Ljc2NTFDMzIuNjk3MiAzNy41NDMxIDMyLjIyOTEgMzkuMDc0MSAzMi40ODkyIDQwLjE3ODVMMzMuODY3NSA0NS45NzYyQzM0Ljk1OTggNTAuNTQ0MSAzMi40MzcxIDUyLjMyNjEgMjguMjUgNDkuOTQxN0wyMi40MjQ1IDQ2LjYwMzZDMjEuMzU4MiA0Ni4wMDEzIDE5LjY0MTggNDYuMDAxMyAxOC41NzU1IDQ2LjYwMzZMMTIuNzUgNDkuOTQxN0M4LjU2Mjg1IDUyLjMyNjEgNi4wNDAxOCA1MC41NDQxIDcuMTMyNDcgNDUuOTc2Mkw4LjUxMDgzIDQwLjE3ODVDOC43NzA5IDM5LjA5OTIgOC4zMDI3OCAzNy41NjgyIDcuNDk2NTcgMzYuNzY1MUwyLjY1OTI5IDMyLjA5NjhDLTAuMjAxNDY1IDI5LjMzNiAwLjczNDc4MyAyNi41NTAxIDQuNzEzODMgMjUuOTIyNkwxMC45Mjk1IDI0LjkxODdDMTEuOTY5NyAyNC43NDMgMTMuMjE4MSAyMy44NjQ2IDEzLjY4NjIgMjIuOTYxTDE3LjExOTEgMTYuMzM1MUMxOC45NjU2IDEyLjc0NiAyMi4wMzQ0IDEyLjc0NiAyMy44ODA5IDE2LjMzNTFaIiBzdHJva2U9IiNGRjc4MUMiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==">
