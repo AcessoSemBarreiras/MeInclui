@@ -3,7 +3,7 @@ package meinclui.modelo.entidade.usuario;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Base64;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,55 +21,58 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import meinclui.modelo.entidade.avaliacao.Avaliacao;
+import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
 import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 import meinclui.modelo.entidade.foto.Foto;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario implements Serializable{
-	
+public class Usuario implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
-	@Id 
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_usuario", nullable = false)
 	private Long idUsuario;
 
 	@Column(name = "nome_usuario", length = 50, nullable = false)
 	private String nome;
-	
+
 	@Column(name = "pronome_usuario", length = 12, nullable = false)
 	private String pronome;
-	
+
 	@Column(name = "nome_de_usuario", length = 60, nullable = false, unique = true)
 	private String nomeDeUsuario;
-	
+
 	@Column(name = "email_usuario", length = 70, nullable = false, unique = true)
 	private String email;
-	
+
 	@Column(name = "cpf_usuario", length = 14, nullable = false, unique = true)
 	private String cpf;
-	
+
 	@Column(name = "senha_usuario", length = 50, nullable = false)
 	private String senha;
-	
+
 	@Column(name = "data_nascimento_usuario", nullable = false)
 	private LocalDate dataNascimento;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Column(name="avaliacao")
+	@Column(name = "avaliacao")
 	private List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
-	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "estabelecimentos_favoritos", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_estabelecimento"))
 	private List<Estabelecimento> estabelecimentos_favoritos = new ArrayList<Estabelecimento>();
-	
+
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Foto fotoUsuario;
 
-	public Usuario() {}
-	
-	public Usuario(Long idUsuario, String nome,String pronome, String nomeDeUsuario, String email, String cpf, String senha, LocalDate dataNascimento, Foto fotoUsuario) {
+	public Usuario() {
+	}
+
+	public Usuario(Long idUsuario, String nome, String pronome, String nomeDeUsuario, String email, String cpf,
+			String senha, LocalDate dataNascimento, Foto fotoUsuario) {
 		setIdUsuario(idUsuario);
 		setNome(nome);
 		setPronome(pronome);
@@ -80,8 +83,9 @@ public class Usuario implements Serializable{
 		setDataNascimento(dataNascimento);
 		setFotoUsuario(fotoUsuario);
 	}
-	
-	public Usuario(String nome,String pronome, String nomeDeUsuario, String email, String cpf, String senha, LocalDate dataNascimento, Foto fotoUsuario) {
+
+	public Usuario(String nome, String pronome, String nomeDeUsuario, String email, String cpf, String senha,
+			LocalDate dataNascimento, Foto fotoUsuario) {
 		setNome(nome);
 		setPronome(pronome);
 		setNomeDeUsuario(nomeDeUsuario);
@@ -91,7 +95,7 @@ public class Usuario implements Serializable{
 		setDataNascimento(dataNascimento);
 		setFotoUsuario(fotoUsuario);
 	}
-	
+
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
@@ -107,7 +111,7 @@ public class Usuario implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public String getPronome() {
 		return pronome;
 	}
@@ -155,19 +159,19 @@ public class Usuario implements Serializable{
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
-	public List<Estabelecimento> getEstabelecimentoFavorito(){
+
+	public List<Estabelecimento> getEstabelecimentoFavorito() {
 		return estabelecimentos_favoritos;
 	}
-	
+
 	public void setEstabelecimentoFavorito(Estabelecimento estabelecimento) {
 		this.estabelecimentos_favoritos.add(estabelecimento);
 	}
-	
-	public List<Avaliacao> getAvaliacoes(){
+
+	public List<Avaliacao> getAvaliacoes() {
 		return avaliacoes;
 	}
-	
+
 	public void setAvaliacao(Avaliacao avaliacao) {
 		this.avaliacoes.add(avaliacao);
 	}
@@ -179,5 +183,17 @@ public class Usuario implements Serializable{
 	public void setFotoUsuario(Foto fotoUsuario) {
 		this.fotoUsuario = fotoUsuario;
 	}
-	
+
+	public boolean estabelecimentoAvaliado(Estabelecimento estabelecimento) {
+
+		for (int i = 0; i <= avaliacoes.size(); i++) {
+
+			if (avaliacoes.get(i).getEstabelecimento().equals(estabelecimento)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 }

@@ -471,11 +471,14 @@ public class Servlet extends HttpServlet {
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
-
-        
+		
+		
         List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
         List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
         
+        boolean avaliado = usuario.estabelecimentoAvaliado(estabelecimento);
+        
+        request.setAttribute("avaliado", avaliado);
         request.setAttribute("estabelecimento", estabelecimento);
         request.setAttribute("usuario", usuario);
         request.setAttribute("comentarios", comentarios);
