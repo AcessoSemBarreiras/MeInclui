@@ -472,14 +472,17 @@ public class Servlet extends HttpServlet {
 
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
 
+		boolean favorito = usuario.estabelecimentoFavoritos(estabelecimento);
         
         List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
         List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
         
+        request.setAttribute("favorito", favorito);
         request.setAttribute("estabelecimento", estabelecimento);
         request.setAttribute("usuario", usuario);
         request.setAttribute("comentarios", comentarios);
         request.setAttribute("respostas", respostas);
+      
         RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/perfil-estabelecimento.jsp");
         dispatcher.forward(request, response);
     }
@@ -553,11 +556,18 @@ public class Servlet extends HttpServlet {
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-		usuario.setEstabelecimentoFavorito(estabelecimento);
-		usuarioDAO.atualizarUsuario(usuario);
-		request.setAttribute("id", id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento");
-		dispatcher.forward(request, response);
+		if(usuario.estabelecimentoFavoritos(estabelecimento)) {
+			System.out.println("Estabelecimento ja favoritado");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("tela-inicial");
+			dispatcher.forward(request, response);
+		}else {
+			usuario.setEstabelecimentoFavorito(estabelecimento);
+			usuarioDAO.atualizarUsuario(usuario);
+			request.setAttribute("id", id);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento");
+			dispatcher.forward(request, response);
+		}
+		
 		
 	}
 
