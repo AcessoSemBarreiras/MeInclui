@@ -30,6 +30,4 @@ public interface UsuarioDAO {
 	int recuperarPontuacaoUsuario(Long idUsuario);
 
 	Boolean verificarUsuario(String emailUsuario, String senhaUsuario);
-	
-	List<Tuple> recuperarComunidadeGeral();
 }

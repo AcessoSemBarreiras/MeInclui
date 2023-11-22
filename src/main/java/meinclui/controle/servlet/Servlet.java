@@ -708,32 +708,9 @@ public class Servlet extends HttpServlet {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		
-		List<Tuple> comunidade = usuarioDAO.recuperarComunidadeGeral();
-		if (comunidade != null && !comunidade.isEmpty()) {
-		for (Tuple resultado : comunidade) {
-            Usuario usuarioa = resultado.get("usuario", Usuario.class);
-            Long pontuacaoTotal = resultado.get("reputacaoTotal", Long.class);
-            List<Conquista> conquistasDoUsuario = resultado.get("conquistasDoUsuario", Conquista.class);
-
-            System.out.println("Usuário: " + usuarioa);
-            System.out.println("Pontuação Total: " + pontuacaoTotal);
-
-            if (conquistasDoUsuario != null) {
-                System.out.println("Conquistas do Usuário:");
-                for (Conquista conquista : conquistasDoUsuario) {
-                    System.out.println("  - " + conquista);
-                }
-            }
-
-            System.out.println("------------------------");
-        }
-		}
-		else {
-			System.out.println("AA");
-		}
-		
-		
+		List<Tuple> comunidade = usuarioDAO.recuperarUsuariosMaiorRanque();		
 		request.setAttribute("usuario", usuario);
+		request.setAttribute("comunidade", comunidade);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
 		dispatcher.forward(request, response);
 	}

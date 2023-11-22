@@ -67,9 +67,23 @@
 		
 		<div id="outros">
 			<div id="titulos-outros">
-				<p>Nome</p>
-				<p>Pontos</p>
-				<p>Conquistas</p>
+				<table>
+				<tr>
+					<th></th>
+					<th colspan="2">Nome</th>
+					<th>Pontos</th>
+					
+				</tr>
+				<c:forEach var="cm" items="${comunidade}" varStatus="contador">
+					<tr>
+						<td>#<c:out value="${contador.count}"/></td>
+						
+						<td><c:out value="${cm.get('usuario').getNome() }" /></td>
+						<td><c:out value="${cm.get('soma')}"/></td>
+					</tr>
+				</c:forEach>
+				</table>
+			
 			</div>
 			
 			
