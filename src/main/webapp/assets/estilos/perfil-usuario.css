@@ -16,7 +16,15 @@
 	color:var(--azul);
 }
 
+.texto-aviso{
+	font-size: 1em;
+	font-weight: 600;
+	color:var(--azul);
+}
+
+
 a{
+	color: var(--preto);
 	text-decoration: none;
 }
 
