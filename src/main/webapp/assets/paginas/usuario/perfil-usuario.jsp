@@ -45,17 +45,27 @@
 				</tr>
 			</table>
 		</div>
-
-
-
-
+		
 		<div class="conquistas-usuario">
 			<h3 class="texto-principal">Conquistas</h3>
-			<c:if test="${conquistas != null}">
+			<c:if test="${fn:length(conquistas) == 0}">
 				<img alt="" src="Imagem usuario não possui conquista">
 				<p class="texto-adicionais">
 					Este usuário ainda não possui <b>conquistas.</b>
 				</p>
+			</c:if>
+
+			<c:if test="${fn:length(conquistas) != 0}">
+				<c:forEach var="conquista" items="${conquistas}">
+					<div class="card-conquista">
+					<table>
+						<tr>
+							<td><c:out value="${conquista.nomeConquista}" /></td>
+							<td><c:out value="${conquista.reputacao}" /></td>
+						</tr>
+					</table>
+					</div>
+				</c:forEach>
 			</c:if>
 		</div>
 
