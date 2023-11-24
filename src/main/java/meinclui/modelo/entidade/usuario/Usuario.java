@@ -184,16 +184,4 @@ public class Usuario implements Serializable {
 		this.fotoUsuario = fotoUsuario;
 	}
 
-	public boolean estabelecimentoAvaliado(Estabelecimento estabelecimento) {
-
-		for (int i = 0; i <= avaliacoes.size(); i++) {
-
-			if (avaliacoes.get(i).getEstabelecimento().equals(estabelecimento)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
 }
