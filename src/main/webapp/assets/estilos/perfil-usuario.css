@@ -16,6 +16,64 @@
 	color:var(--azul);
 }
 
+.texto-nome{
+	font-size: 1.1em;
+	font-weight: 550;
+	color:var(--azul);
+}
+
+
+.foto-usuario{
+	height: 150px;
+	width: 150px;
+	border-radius: 50%;
+}
+
+.card-usuario{
+	width: 14%;
+	border: 1px solid var(--cinza);
+	border-radius: 2.5%;
+}
+
+.conquistas-usuario{
+	height: 250px;
+	width: 35%;
+	border: 1px solid var(--cinza);
+	border-radius: 2.5%;
+}
+
+.avaliacoes-usuario{
+	height: 250px;
+	width: 50%;
+	border: 1px solid var(--cinza);
+	border-radius: 2.5%;
+}
+
+.comentarios-usuario{
+	width: 50%;
+	border: 1px solid var(--cinza);
+	border-radius: 2.5%;
+}
+
+.favoritos-usuario{
+	height: 250px;
+	width: 50%;
+	border: 1px solid var(--cinza);
+	border-radius: 2.5%;
+}
+
+#conquista{
+	width: 21%;
+	border-bottom: 1px solid var(--cinza);
+}
+
+#testo-respostas{
+	text-decoration: none;
+    border-style: none;
+    box-sizing: border-box;
+    color: var(--azul);
+}
+
 a{
 	text-decoration: none;
 }
@@ -24,3 +82,10 @@ b{
 	text-decoration: none;
 	color:var(--laranja)
 }
+
+
+
+
+
+
+
