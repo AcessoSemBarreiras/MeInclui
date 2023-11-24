@@ -244,8 +244,10 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		Estabelecimento estabelecimento =  estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
 		
 		request.setAttribute("usuario", usuario);
+		request.setAttribute("estabelecimento", estabelecimento);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/avaliacao/cadastro-avaliacao.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -645,12 +647,18 @@ public class Servlet extends HttpServlet {
 		List<Conquista> conquistas = conquistaDAO.recuperarConquistasMaisRecentes(usuario.getIdUsuario());
 		List<Comentario> comentarios = comentarioDAO.recuperarComentariosOrdenadoMaisRecente(usuario.getIdUsuario());
 		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.recuperarEstabelecimentoAvaliado(usuario.getIdUsuario());
+		List<Estabelecimento> estabelecimentosFavoritos = usuario.getEstabelecimentoFavorito();
+		
+		for(Estabelecimento e : usuario.getEstabelecimentoFavorito()) {
+			System.out.println(e.getNome());
+		}
 		
 		request.setAttribute("usuario", usuario);
 		request.setAttribute("pontuacao", pontuacao);
 		request.setAttribute("conquistas", conquistas);
 		request.setAttribute("comentarios", comentarios);
 		request.setAttribute("estabelecimentos", estabelecimentos);
+		request.setAttribute("estabelecimentosfavoritos", estabelecimentosFavoritos);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 	}

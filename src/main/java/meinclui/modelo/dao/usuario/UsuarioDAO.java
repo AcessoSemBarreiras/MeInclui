@@ -2,7 +2,9 @@ package meinclui.modelo.dao.usuario;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import javax.persistence.Tuple;
+
 import meinclui.modelo.entidade.usuario.Usuario;
 
 public interface UsuarioDAO {
@@ -30,4 +32,5 @@ public interface UsuarioDAO {
 	int recuperarPontuacaoUsuario(Long idUsuario);
 
 	Boolean verificarUsuario(String emailUsuario, String senhaUsuario);
+
 }

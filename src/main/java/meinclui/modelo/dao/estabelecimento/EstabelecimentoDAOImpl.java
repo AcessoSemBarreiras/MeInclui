@@ -21,6 +21,8 @@ import meinclui.modelo.entidade.endereco.Endereco;
 import meinclui.modelo.entidade.endereco.Endereco_;
 import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 import meinclui.modelo.entidade.estabelecimento.Estabelecimento_;
+import meinclui.modelo.entidade.usuario.Usuario;
+import meinclui.modelo.entidade.usuario.Usuario_;
 import meinclui.modelo.factory.conexao.ConexaoFactory;
 
 public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
@@ -609,7 +611,7 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 		return estabelecimentos;
 	}
-
+	
 	public List<Estabelecimento> filtrarEstabelecimentos(Optional<String> nomeEstabelecimento,
 			Optional<Categoria> categoriaEstabelecimento, Optional<Double> mediaAcessibilidade,
 			Optional<String> nomeEstado, Optional<String> nomeCidade, Optional<String> nomeBairro) {

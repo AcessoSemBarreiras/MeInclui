@@ -93,7 +93,6 @@
 
 			<tr class="cards-estabelecimento">
 				<td><a href="perfil-estabelecimento?id=<c:out value="${es.idEstabelecimento}" />"><c:out value="${es.nome}"/></a>
-				<td><c:out value="${es.nome}"/></td>
 				<td><c:out value="${es.pontoAcessibilidade}"/></td>
 				<td><c:out value="${es.endereco.logradouro}"/></td>
 				<td><c:out value="${es.endereco.numero}"/></td>
