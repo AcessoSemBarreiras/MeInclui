@@ -7,7 +7,6 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.Tuple;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -38,6 +37,7 @@ import meinclui.modelo.dao.estabelecimento.EstabelecimentoDAO;
 import meinclui.modelo.dao.estabelecimento.EstabelecimentoDAOImpl;
 import meinclui.modelo.dao.usuario.UsuarioDAO;
 import meinclui.modelo.dao.usuario.UsuarioDAOImpl;
+import meinclui.modelo.dto.usuario.UsuarioComunidadeDTO;
 import meinclui.modelo.entidade.avaliacao.Avaliacao;
 import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
 import meinclui.modelo.entidade.avaliacaoComentario.AvaliacaoComentario;
@@ -708,7 +708,11 @@ public class Servlet extends HttpServlet {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		
-		List<Tuple> comunidade = usuarioDAO.recuperarUsuariosMaiorRanque();		
+		List<UsuarioComunidadeDTO> comunidade = usuarioDAO.recuperarUsuarioRanque();
+		
+		for (UsuarioComunidadeDTO usuarioComunidadeDTO : comunidade) {
+			System.out.println(usuarioComunidadeDTO.getNomeDeUsuario());
+		}
 		request.setAttribute("usuario", usuario);
 		request.setAttribute("comunidade", comunidade);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");

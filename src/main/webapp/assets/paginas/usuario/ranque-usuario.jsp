@@ -17,11 +17,11 @@
 	
 	
 	<div id="filtros-ranque">
-		<a href="">geral</a>
-		<a href="">anual</a>
-		<a href="">mensal</a>
-		<a href="">semanal</a>
-		<a href="">diário</a>
+		<a href="">Geral</a>
+		<a href="">Anual</a>
+		<a href="">Mensal</a>
+		<a href="">Semanal</a>
+		<a href="">Diário</a>
 	</div>
 
 	
