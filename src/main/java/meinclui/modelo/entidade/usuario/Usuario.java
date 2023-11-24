@@ -62,7 +62,7 @@ public class Usuario implements Serializable{
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "estabelecimentos_favoritos", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_estabelecimento"))
-	private List<Estabelecimento> estabelecimentos_favoritos = new ArrayList<Estabelecimento>();
+	private List<Estabelecimento> estabelecimentosFavoritos = new ArrayList<Estabelecimento>();
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Foto fotoUsuario;
@@ -157,11 +157,11 @@ public class Usuario implements Serializable{
 	}
 	
 	public List<Estabelecimento> getEstabelecimentoFavorito(){
-		return estabelecimentos_favoritos;
+		return estabelecimentosFavoritos;
 	}
 	
 	public void setEstabelecimentoFavorito(Estabelecimento estabelecimento) {
-		this.estabelecimentos_favoritos.add(estabelecimento);
+		this.estabelecimentosFavoritos.add(estabelecimento);
 	}
 	
 	public List<Avaliacao> getAvaliacoes(){
