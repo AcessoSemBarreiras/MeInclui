@@ -184,9 +184,9 @@ public class Usuario implements Serializable {
 		this.fotoUsuario = fotoUsuario;
 	}
 
-	public boolean estabelecimentoFavoritos(Estabelecimento estabelecimento) {
+	public Boolean estabelecimentoFavoritos(Estabelecimento estabelecimento) {
 
-		if (estabelecimentos_favoritos.contains(estabelecimento)) {
+		if (estabelecimentosFavoritos.contains(estabelecimento)) {
 			return true;
 		}
 		return false;

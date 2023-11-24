@@ -479,10 +479,7 @@ public class Servlet extends HttpServlet {
         List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
         List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
 
-		boolean favorito = usuario.estabelecimentoFavoritos(estabelecimento);
-        
-        List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
-        List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
+		Boolean favorito = usuario.estabelecimentoFavoritos(estabelecimento);
         
         request.setAttribute("avaliado", avaliado);
         request.setAttribute("favorito", favorito);
