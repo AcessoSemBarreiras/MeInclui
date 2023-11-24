@@ -113,6 +113,13 @@
     border: #E76D1B;
 }
 
+.botao-secundario{
+	border: none;
+	height: 23px;
+	color: white;
+	border-radius: 5px;
+}
+
 /*Título Cadastro*/
 .aaa{
     display: flex;

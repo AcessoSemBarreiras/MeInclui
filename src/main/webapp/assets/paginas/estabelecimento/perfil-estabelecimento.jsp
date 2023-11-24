@@ -15,8 +15,9 @@
 
 	<%@ include file="../menu.jsp" %>
 
-
-	<div id="dados-estabelecimento">
+	
+	<div id="container" class="template-grid">
+	<div id="card-est" class="template-grid">
 			<input type="hidden" name="id" value='<c:out value="${estabelecimento.idEstabelecimento }"></c:out>'>
 	
 		<div id="foto-estabelecimento">
@@ -69,7 +70,12 @@
 		</div>
 	</div>
 
-	<div id="comentario-estabelecimento">
+
+
+
+
+
+	<div id="comentario">
 		<h3 class="texto-principal">Comentários</h3>
 		
 		<c:if test="${fn:length(comentarios) == 0}">
@@ -91,15 +97,12 @@
 					</div>
 					<c:out value="${cm.comentario}" />
 					<div>
-						<img alt="Botao like" height="20" width="20" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE4LjkgNi42MzE1OEgxMy4wMDc0TDE0LjE4NjUgMi45MTAxNkMxNC4zOTg2IDIuMjM4MTYgMTQuMjkxNSAxLjQ5MzIxIDEzLjg5NzggMC45MTg0NzRDMTMuNTA0IDAuMzQzNzM3IDEyLjg2NTcgMCAxMi4xOTI2IDBIMTAuNUMxMC4xODgxIDAgOS44OTMxIDAuMTQ1ODk1IDkuNjkyNTUgMC4zOTc4OTVMNC43NTc1NSA2LjYzMTU4SDIuMUMwLjk0MTg1IDYuNjMxNTggMCA3LjYyMyAwIDguODQyMVYxOC43ODk1QzAgMjAuMDA4NiAwLjk0MTg1IDIxIDIuMSAyMUg1LjI1SDE2LjA3MjNDMTYuOTQyOCAyMSAxNy43MzI0IDIwLjQyNDIgMTguMDM5IDE5LjU2NTRMMjAuOTMzOCAxMS40NDA2QzIwLjk3NzkgMTEuMzE2OCAyMSAxMS4xODUzIDIxIDExLjA1MjZWOC44NDIxQzIxIDcuNjIzIDIwLjA1ODEgNi42MzE1OCAxOC45IDYuNjMxNThaTTIuMSA4Ljg0MjFINC4yVjE4Ljc4OTVIMi4xVjguODQyMVpNMTguOSAxMC44NTI2TDE2LjA3MjMgMTguNzg5NUg2LjNWOC4xMzY5NUwxMC45OTE0IDIuMjEwNTNIMTIuMTk0N0wxMC41NTQ2IDcuMzg2NDdDMTAuNDQ2NCA3LjcyMzU4IDEwLjUwMSA4LjA5Mzg0IDEwLjY5ODUgOC4zODIzMUMxMC44OTU4IDguNjcxODkgMTEuMjEyOSA4Ljg0MjEgMTEuNTUgOC44NDIxSDE4LjlWMTAuODUyNloiIGZpbGw9IiMyNTEyMTIiLz4KPC9zdmc+Cg==">
+						<a href="adicionar-quantidade-gostei?id=<c:out value='${cm.idComentario}'/>"><img alt="Botao like" height="20" width="20" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE4LjkgNi42MzE1OEgxMy4wMDc0TDE0LjE4NjUgMi45MTAxNkMxNC4zOTg2IDIuMjM4MTYgMTQuMjkxNSAxLjQ5MzIxIDEzLjg5NzggMC45MTg0NzRDMTMuNTA0IDAuMzQzNzM3IDEyLjg2NTcgMCAxMi4xOTI2IDBIMTAuNUMxMC4xODgxIDAgOS44OTMxIDAuMTQ1ODk1IDkuNjkyNTUgMC4zOTc4OTVMNC43NTc1NSA2LjYzMTU4SDIuMUMwLjk0MTg1IDYuNjMxNTggMCA3LjYyMyAwIDguODQyMVYxOC43ODk1QzAgMjAuMDA4NiAwLjk0MTg1IDIxIDIuMSAyMUg1LjI1SDE2LjA3MjNDMTYuOTQyOCAyMSAxNy43MzI0IDIwLjQyNDIgMTguMDM5IDE5LjU2NTRMMjAuOTMzOCAxMS40NDA2QzIwLjk3NzkgMTEuMzE2OCAyMSAxMS4xODUzIDIxIDExLjA1MjZWOC44NDIxQzIxIDcuNjIzIDIwLjA1ODEgNi42MzE1OCAxOC45IDYuNjMxNThaTTIuMSA4Ljg0MjFINC4yVjE4Ljc4OTVIMi4xVjguODQyMVpNMTguOSAxMC44NTI2TDE2LjA3MjMgMTguNzg5NUg2LjNWOC4xMzY5NUwxMC45OTE0IDIuMjEwNTNIMTIuMTk0N0wxMC41NTQ2IDcuMzg2NDdDMTAuNDQ2NCA3LjcyMzU4IDEwLjUwMSA4LjA5Mzg0IDEwLjY5ODUgOC4zODIzMUMxMC44OTU4IDguNjcxODkgMTEuMjEyOSA4Ljg0MjEgMTEuNTUgOC44NDIxSDE4LjlWMTAuODUyNloiIGZpbGw9IiMyNTEyMTIiLz4KPC9zdmc+Cg=="></a>
 						<c:out value="${cm.quantidadeGostei}" />
 						
-						<img alt="Botao Deslike" height="20" width="20" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMiAyMSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIuODQzMTYgMTQuMzY4NEw4LjczNTc3IDE0LjM2ODRMNy41NTY2MSAxOC4wODk4QzcuMzQ0NTEgMTguNzYxOCA3LjQ1MTYxIDE5LjUwNjggNy44NDUzNiAyMC4wODE1QzguMjM5MTEgMjAuNjU2MyA4Ljg3NzUxIDIxIDkuNTUwNTYgMjFMMTEuMjQzMiAyMUMxMS41NTUgMjEgMTEuODUwMSAyMC44NTQxIDEyLjA1MDYgMjAuNjAyMUwxNi45ODU2IDE0LjM2ODRIMTkuNjQzMkMyMC44MDEzIDE0LjM2ODQgMjEuNzQzMiAxMy4zNzcgMjEuNzQzMiAxMi4xNTc5VjIuMjEwNTNDMjEuNzQzMiAwLjk5MTQyMyAyMC44MDEzIDAgMTkuNjQzMiAwSDE2LjQ5MzJMNS42NzA4MiAwQzQuODAwMzcgMCA0LjAxMDc3IDAuNTc1ODQ0IDMuNzA0MTYgMS40MzQ2M0wwLjgwOTMxNSA5LjU1OTQyQzAuNzY1MjE1IDkuNjgzMjEgMC43NDMxNjQgOS44MTQ3NCAwLjc0MzE2NCA5Ljk0NzM3VjEyLjE1NzlDMC43NDMxNjQgMTMuMzc3IDEuNjg1MDEgMTQuMzY4NCAyLjg0MzE2IDE0LjM2ODRaTTE5LjY0MzIgMTIuMTU3OUgxNy41NDMyVjIuMjEwNTNIMTkuNjQzMlYxMi4xNTc5Wk0yLjg0MzE2IDEwLjE0NzRMNS42NzA4MiAyLjIxMDUzTDE1LjQ0MzIgMi4yMTA1M0wxNS40NDMyIDEyLjg2MzFMMTAuNzUxOCAxOC43ODk1TDkuNTQ4NDYgMTguNzg5NUwxMS4xODg2IDEzLjYxMzVDMTEuMjk2NyAxMy4yNzY0IDExLjI0MjEgMTIuOTA2MiAxMS4wNDQ3IDEyLjYxNzdDMTAuODQ3MyAxMi4zMjgxIDEwLjUzMDIgMTIuMTU3OSAxMC4xOTMyIDEyLjE1NzlMMi44NDMxNiAxMi4xNTc5VjEwLjE0NzRaIiBmaWxsPSIjMjUxMjEyIi8+Cjwvc3ZnPgo=">
+						<a href="adicionar-quantidade-nao-gostei?id=<c:out value='${cm.idComentario}'/>"><img alt="Botao Deslike" height="20" width="20" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMiAyMSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIuODQzMTYgMTQuMzY4NEw4LjczNTc3IDE0LjM2ODRMNy41NTY2MSAxOC4wODk4QzcuMzQ0NTEgMTguNzYxOCA3LjQ1MTYxIDE5LjUwNjggNy44NDUzNiAyMC4wODE1QzguMjM5MTEgMjAuNjU2MyA4Ljg3NzUxIDIxIDkuNTUwNTYgMjFMMTEuMjQzMiAyMUMxMS41NTUgMjEgMTEuODUwMSAyMC44NTQxIDEyLjA1MDYgMjAuNjAyMUwxNi45ODU2IDE0LjM2ODRIMTkuNjQzMkMyMC44MDEzIDE0LjM2ODQgMjEuNzQzMiAxMy4zNzcgMjEuNzQzMiAxMi4xNTc5VjIuMjEwNTNDMjEuNzQzMiAwLjk5MTQyMyAyMC44MDEzIDAgMTkuNjQzMiAwSDE2LjQ5MzJMNS42NzA4MiAwQzQuODAwMzcgMCA0LjAxMDc3IDAuNTc1ODQ0IDMuNzA0MTYgMS40MzQ2M0wwLjgwOTMxNSA5LjU1OTQyQzAuNzY1MjE1IDkuNjgzMjEgMC43NDMxNjQgOS44MTQ3NCAwLjc0MzE2NCA5Ljk0NzM3VjEyLjE1NzlDMC43NDMxNjQgMTMuMzc3IDEuNjg1MDEgMTQuMzY4NCAyLjg0MzE2IDE0LjM2ODRaTTE5LjY0MzIgMTIuMTU3OUgxNy41NDMyVjIuMjEwNTNIMTkuNjQzMlYxMi4xNTc5Wk0yLjg0MzE2IDEwLjE0NzRMNS42NzA4MiAyLjIxMDUzTDE1LjQ0MzIgMi4yMTA1M0wxNS40NDMyIDEyLjg2MzFMMTAuNzUxOCAxOC43ODk1TDkuNTQ4NDYgMTguNzg5NUwxMS4xODg2IDEzLjYxMzVDMTEuMjk2NyAxMy4yNzY0IDExLjI0MjEgMTIuOTA2MiAxMS4wNDQ3IDEyLjYxNzdDMTAuODQ3MyAxMi4zMjgxIDEwLjUzMDIgMTIuMTU3OSAxMC4xOTMyIDEyLjE1NzlMMi44NDMxNiAxMi4xNTc5VjEwLjE0NzRaIiBmaWxsPSIjMjUxMjEyIi8+Cjwvc3ZnPgo="></a>
 						<c:out value="${cm.quantidadeNaoGostei}" />
 					</div>
-					<a href="adicionar-quantidade-gostei?id=<c:out value='${cm.idComentario}'/>">Gostei</a>
-					<a href="adicionar-quantidade-nao-gostei?id=<c:out value='${cm.idComentario}'/>">Não
-							Gostei</a>
 				
 						<form action="responder-comentario">
 							<input type="hidden" name="id-comentario" value="<c:out value='${cm.idComentario}'/>">
@@ -113,9 +116,14 @@
 						</c:if> <c:if test="${respostas != null}">
 							<c:forEach var="res" items="${respostas}">
 								<c:if test="${res.comentarioRespondido.idComentario == cm.idComentario}">
-									
+									<div class="texto-secundario">
+										<c:out value="${usuario.nome}"></c:out>
+									</div>
 									<c:out value="${res.comentario}" />
-									<c:out value="${res.data}"></c:out>
+									<fmt:parseDate value="${cm.data}" type="date"
+										pattern="yyyy-MM-dd" var="datee" /> <fmt:formatDate
+										value="${datee}" type="date" pattern="dd/MM/yyyy" var="dataRes" />
+									<c:out value="${dataRes}"></c:out>
 									<c:out value="${res.quantidadeGostei}" />
 									<c:out value="${res.quantidadeNaoGostei}" />
 									<br>
@@ -126,59 +134,74 @@
 			</c:forEach>
 		</c:if>
 
-		<button class="botao-padrao">Comentar</button>
+		<button class="botao-secundario">COMENTAR</button>
 	</div>
 
-	<div id="avaliacao-estabelecimento">
-		<h3 class="titulo-principal">Avaliações</h3>
+
+
+
+
+	<div id="avaliacao">
+	<div class="texto-principal">
+		<h3 id="h3">Avaliações</h3>
 
 		<div class="topico-avaliacao">
-			<h2>Obstáculos</h2>
+			<h4>Obstáculos</h4>
+			<div>
 			<input type="radio" name="obstaculos" value="1" disabled> <input
 				type="radio" name="obstaculos" value="2" disabled> <input
 				type="radio" name="obstaculos" value="3" disabled> <input
 				type="radio" name="obstaculos" value="4" disabled> <input
 				type="radio" name="obstaculos" value="5" disabled>
 		</div>
-
+	</div>
+	
 		<div class="topico-avaliacao">
-			<h2>Portas</h2>
+			<h4>Portas</h4>
+			<div>
 			<input type="radio" name="portas" value="1" disabled> <input
 				type="radio" name="portas" value="2" disabled> <input
 				type="radio" name="portas" value="3" disabled> <input
 				type="radio" name="portas" value="4" disabled> <input
 				type="radio" name="portas" value="5" disabled>
 		</div>
-
+		</div>
 
 		<div class="topico-avaliacao">
-			<h2>Banheiros</h2>
+			<h4>Banheiros</h4>
+			<div>
 			<input type="radio" name="banheiros" value="1" disabled> <input
 				type="radio" name="banheiros" value="2" disabled> <input
 				type="radio" name="banheiros" value="3" disabled> <input
 				type="radio" name="banheiros" value="4" disabled> <input
 				type="radio" name="banheiros" value="5" disabled>
+			</div>
 		</div>
 
 		<div class="topico-avaliacao">
-			<h2>Rampas</h2>
+			<h4>Rampas</h4>
+			<div>
 			<input type="radio" name="rampas" value="1" disabled> <input
 				type="radio" name="rampas" value="2" disabled> <input
 				type="radio" name="rampas" value="3" disabled> <input
 				type="radio" name="rampas" value="4" disabled> <input
 				type="radio" name="rampas" value="5" disabled>
 		</div>
+		</div>
 
 		<div class="topico-avaliacao">
-			<h2>Proteção</h2>
+			<h4>Proteção</h4>
+			<div>
 			<input type="radio" name="protecao" value="1" disabled> <input
 				type="radio" name="protecao" value="2" disabled> <input
 				type="radio" name="protecao" value="3" disabled> <input
 				type="radio" name="protecao" value="4" disabled> <input
 				type="radio" name="protecao" value="5" disabled>
+			</div>
+		</div>
 		</div>
 	</div>
-
+	
 	<form action="inserir-comentario" method="get">
 		<div id="cadastro-comentario">
 			<div id="conteudo-comentario">
