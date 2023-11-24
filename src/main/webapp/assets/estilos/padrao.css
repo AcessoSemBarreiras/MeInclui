@@ -159,6 +159,7 @@
     position: sticky;
     top: 0;
     background-color: var(--branco);
+    border-bottom: var(--cinza-escuro);
 }
 
 .cabecalho-geral img {

@@ -1,3 +1,11 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    border-style: none;
+    box-sizing: border-box;
+}
+
 .pronome{
 	font-size: 1.1em;
 	font-weight: 400;
@@ -30,34 +38,34 @@
 }
 
 .card-usuario{
-	width: 14%;
+	width: 100%;
 	border: 1px solid var(--cinza);
 	border-radius: 2.5%;
 }
 
 .conquistas-usuario{
 	height: 250px;
-	width: 35%;
+	width: 100%;
 	border: 1px solid var(--cinza);
 	border-radius: 2.5%;
 }
 
 .avaliacoes-usuario{
 	height: 250px;
-	width: 50%;
+	width: 100%;
 	border: 1px solid var(--cinza);
 	border-radius: 2.5%;
 }
 
 .comentarios-usuario{
-	width: 50%;
+	width: 100%;
 	border: 1px solid var(--cinza);
 	border-radius: 2.5%;
 }
 
 .favoritos-usuario{
 	height: 250px;
-	width: 50%;
+	width: 100%;
 	border: 1px solid var(--cinza);
 	border-radius: 2.5%;
 }
@@ -83,9 +91,17 @@ b{
 	color:var(--laranja)
 }
 
+[class*="campo"]{
+margin-top: 50px;
+}
 
+.campo-usuario{
+	grid-column: 3 / 5;
+}
+.campo-conquistas{
+	grid-column: 6 / 11;
+}
 
-
-
-
-
+.campo-generico{
+	grid-column: 3 / 11;
+}
