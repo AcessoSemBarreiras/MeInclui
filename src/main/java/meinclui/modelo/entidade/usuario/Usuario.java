@@ -3,7 +3,7 @@ package meinclui.modelo.entidade.usuario;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Base64;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,6 +21,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import meinclui.modelo.entidade.avaliacao.Avaliacao;
+import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
 import meinclui.modelo.entidade.estabelecimento.Estabelecimento;
 import meinclui.modelo.entidade.foto.Foto;
 
@@ -62,7 +63,6 @@ public class Usuario implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "estabelecimentos_favoritos", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_estabelecimento"))
-
 	private List<Estabelecimento> estabelecimentosFavoritos = new ArrayList<Estabelecimento>();
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
@@ -192,5 +192,4 @@ public class Usuario implements Serializable {
 		return false;
 
 	}
-
 }

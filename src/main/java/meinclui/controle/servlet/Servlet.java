@@ -258,7 +258,7 @@ public class Servlet extends HttpServlet {
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		
         Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
-
+        
         byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
         byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
         byte resposta3 = Byte.parseByte(request.getParameter("resposta-3"));
@@ -474,11 +474,17 @@ public class Servlet extends HttpServlet {
 
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
 
+		Boolean avaliado = avaliacaoDAO.verificarAvaliacaoEstabelecimentoUsuario(estabelecimento.getIdEstabelecimento(), usuario.getIdUsuario());
+		
+        List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
+        List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
+
 		boolean favorito = usuario.estabelecimentoFavoritos(estabelecimento);
         
         List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
         List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
         
+        request.setAttribute("avaliado", avaliado);
         request.setAttribute("favorito", favorito);
         request.setAttribute("estabelecimento", estabelecimento);
         request.setAttribute("usuario", usuario);
