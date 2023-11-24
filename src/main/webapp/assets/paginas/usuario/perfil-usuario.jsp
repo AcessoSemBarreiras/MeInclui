@@ -172,5 +172,6 @@
 		</div>
 		
 	</main>
+	 <%@ include file="../rodape.jsp"%>
 </body>
 </html>
