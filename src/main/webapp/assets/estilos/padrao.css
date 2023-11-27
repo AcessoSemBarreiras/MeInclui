@@ -113,6 +113,16 @@
     border: #E76D1B;
 }
 
+.botao-pequeno-cabecalho{
+
+    width: 97.59px;
+    height: 34.38px;
+    border-radius: 10px;
+    border: var(--azul);
+    background-color: var(--azul);
+
+}
+
 /*Título Cadastro*/
 .aaa{
     display: flex;
