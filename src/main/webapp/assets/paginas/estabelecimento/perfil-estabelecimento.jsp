@@ -66,6 +66,7 @@
 			</c:if>
 		</div>
 
+		
 		<div class="botao-padrao">
 			<a href="avaliacao-estabelecimento?id=<c:out value="${estabelecimento.idEstabelecimento}"/>">Avaliar</a>
 		</div>

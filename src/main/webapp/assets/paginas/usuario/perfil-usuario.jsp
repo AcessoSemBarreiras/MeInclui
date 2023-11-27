@@ -1,4 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
 <!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,14 +67,28 @@
 						</tr>	
 			</table>
 		</div>
+		
+		<div class="conquistas-usuario">
+			<h3 class="texto-principal">Conquistas</h3>
+			<c:if test="${fn:length(conquistas) == 0}">
+				<img alt="" src="Imagem usuario não possui conquista">
+				<p class="texto-adicionais">
+					Este usuário ainda não possui <b>conquistas.</b>
+				</p>
 
+			</c:if>
 
-
-
-		<div class="campo-conquistas conquistas-usuario">
-			<h3 class="texto-principal" id="conquista">Conquistas</h3>
-			<c:if test="${conquistas != null}" class="conteudo-centro">
-				<p class="texto-adicionais">Este usuário ainda não possui <b>conquistas.</b></p>
+			<c:if test="${fn:length(conquistas) != 0}">
+				<c:forEach var="conquista" items="${conquistas}">
+					<div class="card-conquista">
+					<table>
+						<tr>
+							<td><c:out value="${conquista.nomeConquista}" /></td>
+							<td><c:out value="${conquista.reputacao}" /></td>
+						</tr>
+					</table>
+					</div>
+				</c:forEach>
 			</c:if>
 		</div>
 
@@ -154,6 +174,36 @@
 				</c:forEach>
 			</c:if>
 		</div>
-	</div>
+
+		
+		<div class="estabelecimentos-favoritos">
+			<h3 class="titulo-principal">Estabelecimentos Favoritos</h3>
+			
+			<c:if test="${fn:length(estabelecimentosfavoritos) == 0}">
+				<p class="texto-aviso">
+					Parece que você ainda não possui estabelecimentos favoritados ... <br> <a
+						href="encontrar-estabelecimentos" name="tela-pesquisa">Encontre
+						estabelecimentos</a> e favorite
+				</p>
+			</c:if>
+			
+			<c:if test="${fn:length(estabelecimentosfavoritos) != 0}">
+				<c:forEach var="estabFav" items="${estabelecimentosfavoritos}">
+					<div class="estbfav-usuario">
+						<div class="estab-fav">
+						<table>
+						<tr>
+							<td><c:out value="${estabFav.nome}" /></td>
+							<td><c:out value="${estabFav.categoria.nomeCategoria}"/></td>
+						</tr>
+						</table>
+						</div>
+					</div>
+				</c:forEach>
+			</c:if>
+		</div>
+		
+	</main>
+	 <%@ include file="../rodape.jsp"%>
 </body>
 </html>

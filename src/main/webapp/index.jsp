@@ -11,6 +11,7 @@
   <style><%@include file="assets/estilos/tela-inicial.css"%></style>
   <style><%@include file="assets/estilos/menu.css"%></style>
   <title>Home</title>
+  
 </head>
 
 <body>
@@ -194,23 +195,8 @@
       </div>
     </div>
 
-    <div id="home-contato">
-      <h2>NOSSO E-MAIL</h2>
-      <p>acessosembarreira@gmail.com</p>
 
-      <h2>NOS VISITE</h2>
-      <p>Av. Brasil, 610 - Ponta Aguda, Blumenau - SC, 89050-000</p>
-    </div>
-  </div>
-
-  <footer>
-    <p>MeInclui!© 2023 - Todos os direitos reservados.</p>
-    <div id="home-fotter-links">
-      <a href="" name="home-email">.</a>
-      <a href="" name="home-github">.</a>
-      <a href="" name="home-insta">.</a>
-    </div>
-  </footer>
+   <%@ include file="./assets/paginas/rodape.jsp"%>
 
 </body>
 </html>

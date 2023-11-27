@@ -22,5 +22,7 @@ public interface AvaliacaoDAO {
 	Avaliacao recuperarAvaliacaoEstabelecimentoUsuario(Long idEstabelecimento, Long idUsuario);
 	
 	Avaliacao recuperarAvaliacaoPorId(AvaliacaoId id);
+	
+	Boolean verificarAvaliacaoEstabelecimentoUsuario(Long idEstabelecimento, Long idUsuario);
 
 }
