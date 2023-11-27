@@ -20,7 +20,7 @@
 }
 
 .grid-home-direita{
-    grid-column: 6  / 10; 
+    grid-column: 7  / 11; 
     align-items: flex-end;
     display: flex;
     flex-direction: column;
@@ -51,4 +51,45 @@ form input[type="text"], input[type="email"], select{
 	display: flex;
 	gap: 80px;
 	align-items: center;
+}
+
+/*cards*/
+
+.cards{
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.card1{
+    grid-column: 3/8;
+    margin-left: 2%;
+	width: 150px;
+	height: 200px;  
+	border-radius: 5%;
+	border: 2px solid var(--cinza);
+    margin-left: 35px;
+    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  
+}
+
+.icone{
+    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: center;
+    gap: 20px;
+}
+
+.texto-pequeno-tela-inicial{
+    font-size: 0.8em;
+    font-weight: 800;
+    color: var(--laranja);
+    font-family: var(--fontes-geral);
+  
 }
