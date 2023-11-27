@@ -15,20 +15,22 @@
 
 	<%@ include file="../menu.jsp" %>
 
+
 	
 	<div id="container" class="template-grid">
 	<div id="card-est" class="template-grid">
 			<input type="hidden" name="id" value='<c:out value="${estabelecimento.idEstabelecimento }"></c:out>'>
 	
-		<div id="foto-estabelecimento">
-			<img alt="foto do estabelecimento" src="">
+		<div id="aside">
+			<img alt="foto do estabelecimento" id="foto" src="<c:out value='${url}'/>">
+			<div class="texto-secundario" id="nota">
+				<h3>Nota Geral</h3>
+				<c:if test="${nota == null}">
+					<p style="color:var(--laranja)">N/A</p>
+				</c:if>
+			</div>
 		</div>
 		
-			<c:if test="${usuario != null}">
-				<a href="editar-perfil-estabelecimento">editar</a>
-			</c:if>
-	
-	
 		<div id="inf-estabelecimento">
 			<h1 class="texto-principal">
 				<c:out value='${estabelecimento.nome}' />
@@ -47,10 +49,12 @@
 					<c:out value="/${estabelecimento.endereco.estado}"></c:out>
 				</p>
 			</div>
-		</div>
+			</div>
 
+		<div id="favorita">
+		
+		
 		<div id="favoritar-estabelecimento">
-			<c:out value='${estabelecimento.idEstabelecimento}'/>
 			<a style="color: var(--laranja)" href="favoritar-estabelecimento?id=<c:out value="${estabelecimento.idEstabelecimento}"/>">Favoritar</a>
 		</div>
 		
@@ -58,19 +62,13 @@
 			<a href="desfavoritar-estabelecimento?id=<c:out value="${estabelecimento.idEstabelecimento}"/>">Desfavoritar</a>
 		</div>
 
-		<div class="texto-secundario">
-			<h3>Nota Geral</h3>
-			<c:if test="${nota == null}">
-				<p style="color:var(--laranja)">N/A</p>
-			</c:if>
-		</div>
 
-		<div class="avaliar-link">
+		<div class="botao-secundario texto-pequeno">
 			<a href="avaliacao-estabelecimento?id=<c:out value="${estabelecimento.idEstabelecimento}"/>">Avaliar</a>
 		</div>
 	</div>
 
-
+</div>
 
 
 
@@ -200,6 +198,7 @@
 			</div>
 		</div>
 		</div>
+	</div>
 	</div>
 	
 	<form action="inserir-comentario" method="get">

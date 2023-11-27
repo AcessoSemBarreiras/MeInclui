@@ -17,7 +17,7 @@
 
 		<div class="informacoes-usuario">
 			<img alt="foto do usuario" class="foto-usuario"
-				src="<c:out value='${usuario.fotoUsuario.urlFoto()}' />">
+				src="<c:out value='${usuario.fotoUsuario.urlFoto()}'/>">
 			<c:if test="${usuario != null}">
 				<a href="editar-perfil-usuario">editar</a>
 			</c:if>

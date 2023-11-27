@@ -3,6 +3,7 @@ package meinclui.modelo.dao.Foto;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -160,10 +161,9 @@ public class FotoDAOImpl implements FotoDAO{
 			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
 			CriteriaQuery<Foto> criteria = construtor.createQuery(Foto.class);
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
-			//Join<Estabelecimento, Foto> fotoJoin = raizEstabelecimento.join(Estabelecimento_.fotoEstabelecimento);
-			//fotoJoin.on(construtor.equal(raizEstabelecimento.get(Estabelecimento_.fotoEstabelecimento), fotoJoin.get(Foto_.idFoto)));
-			
-			//criteria.select(fotoJoin);
+			Join<Estabelecimento, Foto> fotoJoin = raizEstabelecimento.join(Estabelecimento_.fotoEstabelecimento);
+			fotoJoin.on(construtor.equal(raizEstabelecimento.get(Estabelecimento_.idEstabelecimento), id));
+			criteria.select(fotoJoin);
 
 			foto = sessao.createQuery(criteria).getSingleResult();
 			sessao.getTransaction().commit();
@@ -183,8 +183,7 @@ public class FotoDAOImpl implements FotoDAO{
 			}
 
 		}
-		return null;
-		//return foto;
+		return foto;
 	}
 
 }
