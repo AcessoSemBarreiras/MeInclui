@@ -172,4 +172,5 @@ public class Avaliacao implements Serializable {
 	public void setDataEdicaoAvaliacao(ZonedDateTime dataEdicaoAvaliacao) {
 		this.dataEdicaoAvaliacao = dataEdicaoAvaliacao;
 	}
+	
 }

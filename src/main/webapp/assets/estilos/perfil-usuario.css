@@ -1,0 +1,11 @@
+.pronome{
+	font-size: 1.1em;
+	font-weight: 400;
+	color:var(--cinza-escuro);
+}
+
+.texto-adicionais{
+	font-size: 1em;
+	font-weight: 450;
+	color:var(--azul);
+}

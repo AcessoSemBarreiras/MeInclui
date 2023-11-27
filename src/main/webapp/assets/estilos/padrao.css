@@ -34,7 +34,21 @@
 .texto-grande{
     font-size: 1.56em;
     font-weight: 700;
+
+
+.texto-principal{
+	font-size: 1.25em;
+	font-weight: 600;
+	color: var(--laranja);
+
 }
+
+.texto-secundario{
+	font-size: 1em;
+	font-weight: 500;
+	color: var(--azul);
+}
+
 /*imagens*/
 
 

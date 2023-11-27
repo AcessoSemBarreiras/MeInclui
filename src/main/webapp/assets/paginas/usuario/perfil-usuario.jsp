@@ -4,11 +4,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
 <!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Perfil Usuário</title>
-<style><%@include file="../../estilos/estilo.css"%></style>
+<style><%@include file="../../estilos/padrao.css"%></style>
+<style><%@include file="../../estilos/perfil-usuario.css"%></style>
 </head>
 <body>
 	<main>
@@ -21,21 +23,21 @@
 				<a href="editar-perfil-usuario">editar</a>
 			</c:if>
 
-			<h3 id="nome-de-usuario">
+			<h3 class="texto-principal">
 				<c:out value='${usuario.nomeDeUsuario}' />
 			</h3>
-			<p class="titulo-principal">
+			<p class="texto-secundario">
 				<c:out value='${usuario.nome}' />
 			</p>
-			<p id="pronome-usuario">
+			<p class="pronome">
 				<c:out value='${usuario.pronome}' />
 			</p>
 
 			<table>
 				<tr>
-					<td class="texto-secundario">Pontos</td>
+					<td class="texto-adicionais">Pontos</td>
 					<td id="pontos-usuario"></td>
-					<td class="texto-secundario">Nasceu em</td>
+					<td class="texto-adicionais">Nasceu em</td>
 					<td><fmt:parseDate value="${usuario.dataNascimento}"
 							type="date" pattern="yyyy-MM-dd" var="nascimento" /> <fmt:formatDate
 							value="${nascimento}" type="date" pattern="dd/MM/yyyy" var="data" />
@@ -43,17 +45,27 @@
 				</tr>
 			</table>
 		</div>
-
-
-
-
+		
 		<div class="conquistas-usuario">
-			<h3 class="titulo-principal">Conquistas</h3>
-			<c:if test="${conquistas == null}">
+			<h3 class="texto-principal">Conquistas</h3>
+			<c:if test="${fn:length(conquistas) == 0}">
 				<img alt="" src="Imagem usuario não possui conquista">
-				<p>
+				<p class="texto-adicionais">
 					Este usuário ainda não possui <b>conquistas.</b>
 				</p>
+			</c:if>
+
+			<c:if test="${fn:length(conquistas) != 0}">
+				<c:forEach var="conquista" items="${conquistas}">
+					<div class="card-conquista">
+					<table>
+						<tr>
+							<td><c:out value="${conquista.nomeConquista}" /></td>
+							<td><c:out value="${conquista.reputacao}" /></td>
+						</tr>
+					</table>
+					</div>
+				</c:forEach>
 			</c:if>
 		</div>
 
@@ -61,9 +73,9 @@
 
 
 		<div class="avaliacoes-usuario">
-			<h3 class="titulo-principal">Avaliações Recentes</h3>
+			<h3 class="texto-principal">Avaliações Recentes</h3>
 			<c:if test="${fn:length(estabelecimentos) == 0}">
-				<p class="texto-aviso">
+				<p class="texto-adicionais">
 					Parece que você ainda não possui avaliações... <br> <a
 						href="encontrar-estabelecimentos">Encontre estabelecimentos</a> e
 					avalie
@@ -131,6 +143,35 @@
 				</c:forEach>
 			</c:if>
 		</div>
+		
+		<div class="estabelecimentos-favoritos">
+			<h3 class="titulo-principal">Estabelecimentos Favoritos</h3>
+			
+			<c:if test="${fn:length(estabelecimentosfavoritos) == 0}">
+				<p class="texto-aviso">
+					Parece que você ainda não possui estabelecimentos favoritados ... <br> <a
+						href="encontrar-estabelecimentos" name="tela-pesquisa">Encontre
+						estabelecimentos</a> e favorite
+				</p>
+			</c:if>
+			
+			<c:if test="${fn:length(estabelecimentosfavoritos) != 0}">
+				<c:forEach var="estabFav" items="${estabelecimentosfavoritos}">
+					<div class="estbfav-usuario">
+						<div class="estab-fav">
+						<table>
+						<tr>
+							<td><c:out value="${estabFav.nome}" /></td>
+							<td><c:out value="${estabFav.categoria.nomeCategoria}"/></td>
+						</tr>
+						</table>
+						</div>
+					</div>
+				</c:forEach>
+			</c:if>
+		</div>
+		
 	</main>
+	 <%@ include file="../rodape.jsp"%>
 </body>
 </html>
