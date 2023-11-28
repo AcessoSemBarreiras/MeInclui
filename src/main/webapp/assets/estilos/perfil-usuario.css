@@ -66,6 +66,12 @@
 	margin-top: 50px;
 }
 
+#cm-foto{
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+}
+
 /*-----Avaliacao-----*/
 
 #avaliacao{
