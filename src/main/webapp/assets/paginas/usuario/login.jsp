@@ -29,7 +29,7 @@
       </div>
 
       <div class="l-voltar">
-        <a rel="stylesheet" href=""> Voltar -> </a>
+        <a rel="stylesheet" href="tela-inicial"> Voltar -> </a>
       </div>
 
       <div class="l-email">
