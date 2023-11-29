@@ -97,7 +97,7 @@
 
 		<div class="campo-generico avaliacoes-usuario">
 			<h3 class="texto-principal">Avaliações Recentes</h3>
-			<c:if test="${fn:length(estabelecimentos) == 0}" class="conteudo-centro">
+			<c:if test="${fn:length(estabelecimentos) == 0}">
 				<p class="texto-adicionais">
 					Parece que você ainda não possui avaliações... <br> <a
 						href="encontrar-estabelecimentos" style="color: var(--laranja)">Encontre estabelecimentos</a> e
