@@ -37,7 +37,7 @@
       </div>
 
       <div class="l-senha">
-        <a href="">Esqueceu sua senha?<br> </a>
+        <a href="recuperar-senha">Esqueceu sua senha?<br> </a>
         <input type="password" id="senha" name="senha" placeholder="Senha" required> 
       </div>
 	

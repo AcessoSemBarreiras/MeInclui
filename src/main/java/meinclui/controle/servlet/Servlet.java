@@ -108,6 +108,9 @@ public class Servlet extends HttpServlet {
 			case "/cadastro-usuario":
 				mostrarFormularioCadastroUsuario(request, response);
 				break;
+			case "/recuperar-senha":
+				mostrarRecuperarSenha(request, response);
+				break;
 			case "/inserir-usuario":
 				inserirUsuario(request, response);
 				break;
@@ -695,7 +698,12 @@ public class Servlet extends HttpServlet {
 		}
 	}
 
-
+	private void mostrarRecuperarSenha(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/recuperar-senha.jsp");
+		dispatcher.forward(request, response);
+	}
+	
 	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
