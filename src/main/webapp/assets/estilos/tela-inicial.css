@@ -19,6 +19,14 @@
     gap: 50px;
 }
 
+.grid-home-centro{
+    grid-column: 5 / 5;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
 .grid-home-direita{
     grid-column: 7  / 11; 
     align-items: flex-end;
@@ -44,6 +52,9 @@ form input[type="text"], input[type="email"], select{
     height: 47px;
 }
 
+.texto-inicial{
+    grid-row: 3;
+}
 
 /*cabecalho*/
 
@@ -55,14 +66,19 @@ form input[type="text"], input[type="email"], select{
 
 /*cards*/
 
-.cards{
+.cards-pequenos{
     display: flex;
     flex-direction: row;
-    
+    padding-top: 20%;
+}
+
+.cards-maiores{
+    display: flex;
+    flex-direction: row;
 }
 
 .card1{
-    grid-column: 3/8;
+    grid-column: 3 / 8;
     margin-left: 2%;
 	width: 150px;
 	height: 200px;  
@@ -70,20 +86,31 @@ form input[type="text"], input[type="email"], select{
 	border: 2px solid var(--cinza);
     margin-left: 35px;
     justify-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    display: grid;
+    place-items: center;
     align-items: center;
-  
+}
+
+.card-laranja{
+    
+    display: grid;
+    margin-left: 2%;
+	width: 320px;
+	height: 315px;  
+	border-radius: 5%;
+	border: 2px solid var(--cinza);
+    background-color: var(--laranja);
+    margin-left: 65px;
+    
+    
 }
 
 .icone{
     justify-items: center;
     display: flex;
-    flex-direction: column;
-    justify-content: baseline;
+    flex-direction: column; 
     align-items: center;
-    gap: 20px;
+ 
 }
 
 .texto-pequeno-tela-inicial{
@@ -91,5 +118,63 @@ form input[type="text"], input[type="email"], select{
     font-weight: 800;
     color: var(--laranja);
     font-family: var(--fontes-geral);
-  
+    text-align: center;
+}
+
+/* comunidade */
+
+.foto-familia{
+    grid-column: 5 / 5;
+    padding-top: 22%;
+}
+
+.texto-comunidade{
+    grid-column: 2;
+    display: flex;
+    margin-right: 300%;
+}   
+
+.foto-comunidade{
+    grid-row: 2;
+    grid-column: 1;
+    display: flex;
+    align-items: left;
+    padding-left: 20%;
+}
+
+.aliados-da-comunidade{
+    grid-row: 2;
+    grid-column: 3 / 7;
+    color: var(--branco);
+    font-size: 1.56em;
+    font-weight: 300;
+    justify-content: left;
+    text-align: left;
+    padding-top: 4%;
+}
+
+.texto-aliados-da-comunidade{
+    grid-row: 3 / 5;
+    grid-column: 1 / 7;
+    color: var(--branco);
+    font-size: 1em;
+    font-weight: 300;
+    justify-content: left;
+    text-align: left;
+    padding: 2%;
+    padding-top: 5%;
+}
+
+.texto-ir-para-pagina-da-comunidade{
+    grid-row: 6 / 7;
+    grid-column: 1 / 5;
+    color: var(--branco);
+    font-size: 1em;
+    font-weight: 300;
+}
+
+.icone-ir-pagina{
+    grid-row: 6;
+    grid-column: 1 / 5;
+    padding-left: 7%;
 }
