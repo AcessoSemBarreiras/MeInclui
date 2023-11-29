@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Perfil Usuário</title>
 <style><%@include file="../../estilos/padrao.css"%></style>
-<style><%@include file="../../estilos/perfil-usuario.css"%></style>
+<style><%@include file="../../estilos/perfils.css"%></style>
 </head>
 <body>
 	<main>
