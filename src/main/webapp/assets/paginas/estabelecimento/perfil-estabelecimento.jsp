@@ -15,7 +15,7 @@
 
 	<%@ include file="../menu.jsp" %>
 
-
+	<a href="editar-perfil-estabelecimento">Editar</a>
 	
 	<div id="container" class="template-grid">
 	<div id="card-est">

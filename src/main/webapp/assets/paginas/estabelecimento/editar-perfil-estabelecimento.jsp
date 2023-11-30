@@ -4,34 +4,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Editar perfil estabelecimento</title>
+<style><%@include file="../../estilos/padrao.css"%></style>
+<style><%@include file="../../estilos/editar-perfils.css"%></style>
 </head>
 <body>
-	<main>
 		<c:if test="${estabelecimento != null}">
-		<%@ include file="../menu.jsp" %>
-	</c:if>
+			<%@ include file="../menu.jsp" %>
+		</c:if>
 
-		<div class="titulo">
-			<h1>Editar estabelecimento</h1>
-		</div>
+		
 		<form action="atualizar-estabelecimento" method="post" enctype="multipart/form-data">
-			<div class="att-foto">
+			<div id="att">
+			<div class="titulo">
+				<h1 class="texto-grande">Editar estabelecimento</h1>
+			</div>
+			<div class="foto">
 					<input type="file" name="foto-estabelecimento">
+					<input type="file" id="imagem" name="foto-estabelecimento" accept="image/*">
 				</div>
 
 			<div class="editar-dados">
 					<input type="hidden" value='<c:out value="${estabelecimento.idEstabelecimento}"/>' name="id-estabelecimento">
 					<input type="hidden" value='<c:out value="${endereco.idEndereco}"/>' name="id-endereco">
-				<div class="editar-1">
-					<label>Nome do Estabelecimento:</label> 
+				<div id="linha1">
+				<div class="editar">
+					<label class="texto-pequeno">Nome do Estabelecimento:</label> 
 					<input type="text" name="nome-estabelecimento" value="<c:out value='${estabelecimento.nome}'/>">
 				</div>
 			
-				<div class="editar-2">
-					<label>Categoria:</label> 
-					<select name="categoria-estabelecimento" id="categoria">
+				<div class="editar">
+					<label class="texto-pequeno">Categoria:</label> 
+					<select name="categoria-estabelecimento">
 						<option value="Bar"
 							<c:if test="${estabelecimento.categoria == 'Bar'}"><c:out value="selected" /></c:if>>Bar</option>
 						<option value="Comercial"
@@ -44,8 +49,10 @@
 						<c:if test="${estabelecimento.categoria == 'Restaurante'}"><c:out value="selected" /></c:if>>Restaurante</option>
 					</select>
 				</div>
-				<div class="editar-3">
-					<label>Estado:</label> 
+				</div>
+				<div id="linha2">
+				<div class="editar">
+					<label class="texto-pequeno">Estado:</label> 
 					<select id="estado" name="estado" required>
     					<option value="AC" <c:if test="${endereco.estado == 'AC'}"><c:out value="selected" /></c:if>>Acre</option>
     					<option value="AL" <c:if test="${endereco.estado == 'AL'}"><c:out value="selected" /></c:if>>Alagoas</option>
@@ -76,26 +83,30 @@
     					<option value="TO" <c:if test="${endereco.estado == 'TO'}"><c:out value="selected" /></c:if>>Tocantins</option>
 				</select>
 				</div>
-				<div id="editar-4">
-					<label>Cidade:</label> 
+				<div id="editar">
+					<label class="texto-pequeno">Cidade:</label> 
 					<input type="text" name="cidade" value="<c:out value='${endereco.cidade}'/>">
 				</div>
-				<div id="editar-5">
-					<label>Bairro:</label> 
+				</div>
+				<div id="linha3">
+				<div id="editar">
+					<label class="texto-pequeno">Bairro:</label> 
 					<input type="text" name="bairro" value="<c:out value='${endereco.bairro}'/>">
 				</div>
-				<div id="editar-6">
-					<label>Logradouro:</label> 
+				<div id="editar">
+					<label class="texto-pequeno">Logradouro:</label> 
 					<input type="text" name="logradouro" value="<c:out value='${endereco.logradouro}'/>">
 				</div>
 			</div>
-			<div class="cancelar">
+			</div>
+			<div id="cancelar">
 				<a href="perfil-estabelecimento">Cancelar</a>
 			</div>
-			<div class="button-atualizar">
+			<div id="atualizar">
 				<button type="submit">Atualizar</button>
 			</div>
+		</div>
 		</form>
-	</main>
+		
 </body>
 </html>
