@@ -57,13 +57,13 @@
 <!--Verificação-->
     <div id="vr">
       <div class="paginacao">
-        <p >1</p><span></span>
+        <p id="passada">1</p><span></span>
         <p class="atual">2</p><span></span>
 		<p>3</p>
       </div>
 
       <div class="voltar">
-        <a rel="stylesheet" href=""> voltar -> </a>
+        <a rel="stylesheet" href="login-usuario"> Voltar -> </a>
       </div>
 
       <div class="texto-medio" id="titulo">
@@ -75,10 +75,11 @@
           seu <u>e-mail.</u></p>
       </div>
 
-      <div class="vs-digitos">
-        <input type="number" id="numero1" name="numero1" max="9" min="1" required> <input type="number" id="numero1"
-        name="numero1" max="9" min="1" required> <input type="number" id="numero1" name="numero1" max="9" min="1"
-        required> <input type="number" id="numero1" name="numero1" max="9" min="1" required>
+      <div class="vr-digitos">
+        <input type="number" name="numero1" max="9" min="1" required pattern="[0-9]+\s?[0-9]*"> 
+        <input type="number" name="numero2" max="9" min="1" required> 
+        <input type="number" name="numero3" max="9" min="1" required> 
+        <input type="number" name="numero4" max="9" min="1" required>
       </div>
 
       <div class="botao">
