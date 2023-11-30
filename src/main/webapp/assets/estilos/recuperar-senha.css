@@ -96,7 +96,7 @@
 }
 
 .botao input{
-	height: 70%;
+	height: 80%;
 	width: 50%;
 	border-style: none;
 	border-color: var(--laranja);
@@ -217,4 +217,34 @@ h1{
 	padding-left: 4.7%;
 }
 
+
+/*----------Redefina Senha----------*/
+
+/*-----Posição-----*/
+#rs{
+	display: grid;
+	grid-template-columns: repeat(11, 1fr);
+	grid-template-rows: repeat(11,1fr);
+}
+
+.rs-redefinir{
+	grid-column: 3/6;
+	grid-row: 5/7;
+}
+
+/*-------Estilos-----*/
+
+.rs-redefinir{
+	border-style: none;
+}
+
+.rs-redefinir input{
+	height: 24%;
+	width: 83%;
+	margin-top: 7%;
+	border-radius: 7px;
+	padding-left: 2%;
+	border: 1px solid var(--azul);
+	outline: none;
+}
 
