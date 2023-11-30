@@ -47,8 +47,8 @@
      
 	
       <div class="l-cadastro">
-        <p>Não possui uma conta?</p>
-        <a href="cadastro-usuario" id="cadastro">Cadastrar-se</a>
+        <p>Não possui uma conta? </p>
+        <a href="cadastro-usuario" id="cadastro"> Cadastrar-se</a>
        </div>
 
       <div class="l-logo">
