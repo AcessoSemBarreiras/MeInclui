@@ -1,0 +1,166 @@
+/*------------------ESTABELECIMENTO--------------------------*/
+
+
+
+.texto-adicionais{
+	font-size: 1em;
+	font-weight: 450;
+	color:var(--azul);
+}
+
+
+
+.texto-aviso{
+	font-size: 1em;
+	font-weight: 600;
+	color:var(--azul);
+}
+
+
+
+/*-----Usuario-----*/
+
+.nome-usuario{
+	font-size: 1.3em;
+	font-weight: 600;
+	color:var(--azul);
+}
+
+.pronome{
+	font-size: 1.1em;
+	font-weight: 400;
+	color:var(--cinza-escuro);
+}
+
+.texto-secundario{
+	font-size: 0.9em;
+}
+
+
+
+.botao-secundario{
+	text-align: center;
+}
+
+#h3{
+	display: flex;
+	justify-content: center;
+}
+
+
+
+
+a{
+	color: var(--preto);
+	text-decoration: none;
+}
+
+b{
+	text-decoration: none;
+	color:var(--laranja)
+}
+
+/*------------------ESTABELECIMENTO--------------------------*/
+
+#container{
+	margin-top: 2%;
+	grid-gap: 50px;
+}
+
+
+/*-----Estabelecimento-----*/
+
+#card-est{
+	grid-column: 3/6;
+	grid-row: 1/5;
+	height: 220px;
+	width: 100%;
+	gap: 10px;
+	border: 1px solid var(--cinza);
+	border-radius: 10px;
+	padding: 20px;
+	display: flex;
+}
+
+
+
+#inf-estabelecimento{
+	width: 167px;
+}
+
+#foto{
+	height: 140px;
+	width: 120px;
+	border-radius: 10px;
+}
+
+#nota{	 
+	 text-align: center;
+ }
+
+#nota h3{
+	border-bottom: 1px solid var(--azul);
+}
+
+#interacoes{
+	margin-left: 70px;
+	margin-top: 50px;
+	width: 50%;
+	display: flexbox;
+	justify-content: center;
+}
+
+/*-----Comentario-----*/
+
+#comentario{
+	grid-column: 6/11;
+	grid-row: 1/12;
+	height: 100%;
+	width: 100%;
+	padding-left: 2%;
+	border: 1px solid var(--cinza);
+	border-radius: 10px;
+
+}
+
+#sem-comentarios{
+	margin-left: 100px;
+	margin-top: 50px;
+}
+
+#cm-foto{
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+}
+
+/*-----Avaliacao-----*/
+
+#avaliacao{
+	display: flex;
+	grid-column: 3/6;
+	grid-row: 6/11;
+	height: 100%;
+	width: 100%;
+	justify-content: center;
+	margin-top: -20%;
+}
+
+.topico-avaliacao{
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	margin-top: 20px;
+	gap: 20px;
+	height: 10%;
+	width: 100%;
+	border: 1px solid var(--cinza);
+	border-radius: 5px;
+	padding-right: 10px;
+	}
+
+
+h4{
+	font-size: 0.9em;
+
+}
