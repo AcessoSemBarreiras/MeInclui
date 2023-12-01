@@ -89,10 +89,14 @@ form input[type="text"], input[type="email"], select{
     display: grid;
     place-items: center;
     align-items: center;
+    transition-duration: 0.5s;
+}
+
+.card1:hover{
+    transform: scale(1.1);
 }
 
 .card-laranja{
-    
     display: grid;
     margin-left: 2%;
 	width: 320px;
@@ -101,6 +105,11 @@ form input[type="text"], input[type="email"], select{
 	border: 2px solid var(--cinza);
     background-color: var(--laranja);
     margin-left: 65px;
+    transition-duration: 0.5s;
+}
+
+.card-laranja:hover{
+    transform: scale(1.05);
 }
 
 .icone{
@@ -129,7 +138,9 @@ form input[type="text"], input[type="email"], select{
 .texto-comunidade{
     grid-column: 2;
     display: flex;
-    margin-right: 300%;
+    justify-content: center;
+    padding-top: 90%;
+    padding-left: 20%;
 }   
 
 .foto-comunidade{
@@ -175,4 +186,10 @@ form input[type="text"], input[type="email"], select{
     grid-row: 6;
     grid-column: 1 / 5;
     padding-left: 7%;
+}
+
+#div-comunidade{
+    display: flex;
+    flex-direction: row;
+    
 }

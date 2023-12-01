@@ -1,3 +1,6 @@
+<style><%@include file="assets/estilos/padrao.css"%></style>
+<style><%@include file="assets/estilos/tela-inicial.css"%></style>
+<style><%@include file="assets/estilos/menu.css"%></style>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +47,7 @@
     </div>
 
     <div>
-      <a href="pesquisa"> <button class="botao-grande texto-pequeno " style="color: var(--branco)">Encontre lugares</button></a>
+      <a href="encontrar-estabelecimentos"> <button class="botao-grande texto-pequeno " style="color: var(--branco)">Encontre lugares</button></a>
     </div>
 
     <div class="texto-grande">
@@ -53,33 +56,18 @@
       </h1>
     </div>
 
-    <div>
+    <div id="div-comunidade">
       <nav>
         <img class="foto-familia" src="./assets/imagens/familia.svg" alt="">
       </nav>
-    </div>
-
-    <div class="texto-medio">
-      <div class="texto-comunidade" >
-        <p> 
-          O <b style="color: var(--laranja);">MeInclui!</b> é feito para a <b style="color: var(--azul);">comunidade</b> e mantido pela <b style="color: var(--azul);">comunidade</b>.
-        </p>
+      <div class="texto-medio">
+        <div class="texto-comunidade" >
+          <p> 
+            O <b style="color: var(--laranja);">MeInclui!</b> é feito para a <b style="color: var(--azul);">comunidade</b> e mantido pela <b style="color: var(--azul);">comunidade</b>.
+          </p>
+        </div>
       </div>
     </div>
-
-    <div>
-      <p class="texto-comunidade"> 
-        Conheça nossos <b style="color: var(--laranja);">usuários</b> e <b style="color: var(--azul);">estabelecimentos</b> destaques 
-      </p>
-    </div>
-
-    <div class="texto-medio">
-      <p> 
-        Conheça nossos <b style="color: var(--laranja);">usuários</b> e <b style="color: var(--azul);">estabelecimentos</b> destaques 
-      </p>
-    </div>
-
-   
 
   </div>
 
@@ -124,104 +112,17 @@
       </div>
       <div class="card-laranja">
         <div class="foto-comunidade">
-        <img src="./assets/imagens/icone-circulo-branco.svg" alt="">
         <img src="./assets/imagens/icone-lupa.svg" alt="">
       </div>
         <p class="aliados-da-comunidade">Estabelecimentos <br>destaques</p>
         <p class="texto-aliados-da-comunidade">Consideramos estabelecimento destaque, o lugar com mais avaliações positivas. Com essa iniciativa, facilitamos muito mais á sua busca!</p>
-        <a class="icone-ir-pagina" href="pesquisa"> <img src="./assets/imagens/icone-ir-para-a-página.svg" alt=""> </a>
+        <a class="icone-ir-pagina" href="encontrar-estabelecimentos"> <img src="./assets/imagens/icone-ir-para-a-página.svg" alt=""> </a>
       </div>  
     </div>
    
   
   </div>
-
- 
-
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div id="home-corpo">
-
-    <div id="ranking">
-      <div class="home-ranking-titulo">
-        <h3> Conheça nossos <b>usuários</b> e <i>estabelecimentos</i> destaques </h3>
-      </div>
-
-      <div id="home-ranking-cards">
-        <div class="home-ranking-card">
-          <h3> Usuários Destaque </h3>
-          <p>O ranking de Usuário destaque é uma forma de incentivo. Quanto mais ativo ficar, mais chance de aparecer na
-            nossa telinha!</p>
-          <a href="">Ir para a página -></a>
-        </div>
-
-        <div class="home-ranking-card">
-          <h3> Estabelecimentos Destaques </h3>
-          <p>Consideramos estabelecimento destaque, o lugar com mais avaliações positivas. Com essa iniciativa,
-            facilitamos muito mais á sua busca! </p>
-          <a href="">Ir para a página -></a>
-        </div>
-      </div>
-
-      <div id="home-frase-d-efeito">
-        <h2>O <b>MeInclui!</b> é feito para a <i>comunidade</i> e mantido pela <i>comunidade</i>.</h2>
-      </div>
-    </div>
-
-
-    <div id="home-contato">
-      <h2>NOSSO E-MAIL</h2>
-      <p>acessosembarreira@gmail.com</p>
-
-      <h2>NOS VISITE</h2>
-      <p>Av. Brasil, 610 - Ponta Aguda, Blumenau - SC, 89050-000</p>
-    </div>
-  </div>
-
-  <footer>
-    <p>MeInclui!© 2023 - Todos os direitos reservados.</p>
-    <div id="home-fotter-links">
-      <a href="" name="home-email">.</a>
-      <a href="" name="home-github">.</a>
-      <a href="" name="home-insta">.</a>
-    </div>
-  </footer>
 
 </body>
 </html>
