@@ -105,3 +105,8 @@ margin-top: 50px;
 .campo-generico{
 	grid-column: 3 / 11;
 }
+
+.conteudo-centro{
+	display: flex;
+	justify-content: center;
+}
