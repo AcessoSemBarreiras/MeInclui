@@ -12,7 +12,6 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 
-import meinclui.modelo.dto.conquista.ConquistaDTO;
 import meinclui.modelo.dto.usuario.UsuarioComunidadeDTO;
 import meinclui.modelo.entidade.conquista.Conquista;
 import meinclui.modelo.entidade.conquista.Conquista_;
@@ -300,15 +299,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	                construtor.sum(conquistaJoin.get(Conquista_.reputacao)).alias("soma"),
 	                conquistaJoin.alias("conquistas")
 	        );
-
-			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
-			joinUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
-			joinUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
-			
-			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
-					joinUsuario.get(Usuario_.idUsuario)));
-			criteria.multiselect(joinUsuario.get(Usuario_.idUsuario), joinUsuario.get(Usuario_.nome),
-					construtor.sum(joinConquista.get(Conquista_.reputacao)));
 
 			criteria.groupBy(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario));
 			criteria.orderBy(construtor.desc(conquistaJoin.get(Conquista_.reputacao)));
