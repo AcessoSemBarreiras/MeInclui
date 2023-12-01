@@ -159,7 +159,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
 
 			raizUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
-			raizUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			raizUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
 			raizUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
 			
 			criteria.select(raizUsuario);
@@ -200,7 +200,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
 			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
 			
-			raizUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			raizUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
 			raizUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
 			
 			criteria.select(raizUsuario);
@@ -262,6 +262,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 		} catch (Exception sqlException) {
 
+
 			sqlException.printStackTrace();
 
 			if (sessao.getTransaction() != null) {
@@ -299,6 +300,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	                construtor.sum(conquistaJoin.get(Conquista_.reputacao)).alias("soma"),
 	                conquistaJoin.alias("conquistas")
 	        );
+
+			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
+			
+			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
+					joinUsuario.get(Usuario_.idUsuario)));
+			criteria.multiselect(joinUsuario.get(Usuario_.idUsuario), joinUsuario.get(Usuario_.nome),
+					construtor.sum(joinConquista.get(Conquista_.reputacao)));
 
 			criteria.groupBy(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario));
 			criteria.orderBy(construtor.desc(conquistaJoin.get(Conquista_.reputacao)));
@@ -346,7 +356,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			Join<UsuarioTemConquista, Usuario> joinUsuario = raizUsuarioTemConquista.join(UsuarioTemConquista_.usuario);
 
 			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
-			joinUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
 			joinUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
 			
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
@@ -403,7 +413,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			Join<UsuarioTemConquista, Usuario> joinUsuario = raizUsuarioTemConquista.join(UsuarioTemConquista_.usuario);
 
 			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
-			joinUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
 			joinUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
 			
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),
@@ -461,7 +471,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			Join<UsuarioTemConquista, Usuario> joinUsuario = raizUsuarioTemConquista.join(UsuarioTemConquista_.usuario);
 
 			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
-			joinUsuario.fetch(Usuario_.estabelecimentos_favoritos, JoinType.LEFT);
+			joinUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
 			joinUsuario.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
 			
 			joinUsuario.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario),

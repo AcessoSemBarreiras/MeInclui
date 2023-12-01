@@ -4,47 +4,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Editar perfil Usuario!</title>
-<style><%@include file="../../estilos/estilo.css"%></style>
+<style><%@include file="../../estilos/padrao.css"%></style>
+<style><%@include file="../../estilos/editar-perfils.css"%></style>
 </head>
 <body>
-	<main>
-		<c:if test="${usuario != null}">
-		<%@ include file="../menu.jsp" %>
-	</c:if>
 
-		<div class="titulo">
-			<h1>Editar perfil</h1>
-		</div>
+		<c:if test="${usuario != null}">
+			<%@ include file="../menu.jsp" %>
+		</c:if>
 		<form action="atualizar-usuario" method="post" enctype="multipart/form-data">
-			<div class="att-foto">
-				<img alt="foto do usuario" class="foto-usuario" src="<c:out value='${usuario.fotoUsuario.urlFoto()}' />">
+		<div id="att">
+		<div class="titulo">
+			<h1 class="texto-grande">Editar perfil</h1>
+		</div>
+		
+			<div class="foto">
+				<img alt="foto do usuario" src="<c:out value='${usuario.fotoUsuario.urlFoto()}' />">
 				<input type="file" id="imagem" name="foto-usuario" accept="image/*">
 			</div>
 
 			<div class="editar-dados">
 					<input type="hidden" value='<c:out value="${usuario.idUsuario}"/>' name="id-usuario">
 					<input type="hidden" value='<c:out value="${usuario.cpf}"/>' name="cpf-usuario">
-			
-				<div class="editar-1">
-					<label>Nome Completo:</label> 
+				<div id="linha1">
+				<div class="editar">
+					<label class="texto-pequeno">Nome Completo:</label> 
 					<input type="text" name="nome-usuario" value="<c:out value='${usuario.nome}'/>">
 				</div>
-				<div class="editar-2">
-					<label>Email:</label> 
+				<div class="editar">
+					<label class="texto-pequeno">Email:</label> 
 					<input type="text" name="email-usuario" value="<c:out value='${usuario.email}'/>">
 				</div>
-				<div class="editar-3">
-					<label>Nome de usuário:</label> 
+				</div>
+				<div id="linha2">				
+				<div class="editar">
+					<label class="texto-pequeno">Nome de usuário:</label> 
 					<input type="text" name="nome-de-usuario" value="<c:out value='${usuario.nomeDeUsuario}'/>">
 				</div>
-				<div class="editar-4">
-					<label>Senha:</label> 
-					<input type="text" name="senha-usuario" value="<c:out value='${usuario.senha}'/>">
+				<div class="editar">
+					<label class="texto-pequeno">Senha:</label> 
+					<input type="password" name="senha-usuario" value="<c:out value='${usuario.senha}'/>">
 				</div>
-				<div class="editar-5">
-					<label>Pronomes:</label> <select name="pronome-usuario">
+				</div>
+				<div id="linha3">				
+				<div class="editar">
+					<label class="texto-pequeno">Pronomes:</label> <select name="pronome-usuario">
 						<option value="Ele/Dele"
 							<c:if test="${usuario.pronome == 'Ele/Dele'}"><c:out value="selected" /></c:if>>Ele</option>
 						<option value="Ela/Dela"
@@ -59,18 +65,20 @@
 							informar</option>
 					</select>
 				</div>
-				<div class="editar-6">
-					<label>Data de nascimento:</label> 
+				<div class="editar">
+					<label class="texto-pequeno">Data de nascimento:</label> 
 					<input type="date" name="data-nascimento-usuario" value="<c:out value='${usuario.dataNascimento}'/>">
 				</div>
 			</div>
-			<div id="button-cancelar">
-				<a href="perfil-usuario">Cancelar</a>
 			</div>
-			<div id="button-atualizar">
-				<button type="submit">Atualizar</button>
+			<div id="cancelar">
+				<a href="perfil-usuario" class="texto-pequeno">CANCELAR</a>
 			</div>
-		</form>
-	</main>
+			<div id="atualizar">
+				<button type="submit" class="texto-pequeno">ATUALIZAR</button>
+			</div>
+	</div>
+</form>
 </body>
+
 </html>

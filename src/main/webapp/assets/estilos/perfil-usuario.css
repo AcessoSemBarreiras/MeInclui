@@ -1,3 +1,11 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    border-style: none;
+    box-sizing: border-box;
+}
+
 .pronome{
 	font-size: 1.1em;
 	font-weight: 400;
@@ -8,4 +16,97 @@
 	font-size: 1em;
 	font-weight: 450;
 	color:var(--azul);
+}
+
+.nome-usuario{
+	font-size: 1.3em;
+	font-weight: 600;
+	color:var(--azul);
+}
+
+.texto-nome{
+	font-size: 1.1em;
+	font-weight: 550;
+	color:var(--azul);
+}
+
+
+.foto-usuario{
+	height: 150px;
+	width: 150px;
+	border-radius: 50%;
+}
+
+.card-usuario{
+	width: 100%;
+	border: 1px solid var(--cinza);
+	border-radius: 2.5%;
+}
+
+.conquistas-usuario{
+	height: 250px;
+	width: 100%;
+	border: 1px solid var(--cinza);
+	border-radius: 2.5%;
+}
+
+.avaliacoes-usuario{
+	height: 250px;
+	width: 100%;
+	border: 1px solid var(--cinza);
+	border-radius: 2.5%;
+}
+
+.comentarios-usuario{
+	width: 100%;
+	border: 1px solid var(--cinza);
+	border-radius: 2.5%;
+}
+
+.favoritos-usuario{
+	height: 250px;
+	width: 100%;
+	border: 1px solid var(--cinza);
+	border-radius: 2.5%;
+}
+
+#conquista{
+	width: 21%;
+	border-bottom: 1px solid var(--cinza);
+}
+
+#testo-respostas{
+	text-decoration: none;
+    border-style: none;
+    box-sizing: border-box;
+    color: var(--azul);
+}
+
+a{
+	text-decoration: none;
+}
+
+b{
+	text-decoration: none;
+	color:var(--laranja)
+}
+
+[class*="campo"]{
+margin-top: 50px;
+}
+
+.campo-usuario{
+	grid-column: 3 / 5;
+}
+.campo-conquistas{
+	grid-column: 6 / 11;
+}
+
+.campo-generico{
+	grid-column: 3 / 11;
+}
+
+.conteudo-centro{
+	display: flex;
+	justify-content: center;
 }

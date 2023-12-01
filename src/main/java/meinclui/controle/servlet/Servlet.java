@@ -109,6 +109,9 @@ public class Servlet extends HttpServlet {
 			case "/cadastro-usuario":
 				mostrarFormularioCadastroUsuario(request, response);
 				break;
+			case "/recuperar-senha":
+				mostrarRecuperarSenha(request, response);
+				break;
 			case "/inserir-usuario":
 				inserirUsuario(request, response);
 				break;
@@ -472,11 +475,12 @@ public class Servlet extends HttpServlet {
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
-
+		Foto foto = fotoDAO.recuperarFotoEstabelecimento(estabelecimento.getIdEstabelecimento());
         
         List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
         List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
         
+        request.setAttribute("url", foto.urlFoto());
         request.setAttribute("estabelecimento", estabelecimento);
         request.setAttribute("usuario", usuario);
         request.setAttribute("comentarios", comentarios);
@@ -675,7 +679,12 @@ public class Servlet extends HttpServlet {
 		}
 	}
 
-
+	private void mostrarRecuperarSenha(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/recuperar-senha.jsp");
+		dispatcher.forward(request, response);
+	}
+	
 	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
