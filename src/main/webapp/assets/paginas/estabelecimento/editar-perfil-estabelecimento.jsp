@@ -21,7 +21,7 @@
 				<h1 class="texto-grande">Editar estabelecimento</h1>
 			</div>
 			<div class="foto">
-					<input type="file" name="foto-estabelecimento">
+					<img alt="Imagem estabelecimento" src="<c:out value='${estabelecimento.fotoEstabelecimento.urlFoto()}' />">
 					<input type="file" id="imagem" name="foto-estabelecimento" accept="image/*">
 				</div>
 
@@ -83,17 +83,17 @@
     					<option value="TO" <c:if test="${endereco.estado == 'TO'}"><c:out value="selected" /></c:if>>Tocantins</option>
 				</select>
 				</div>
-				<div id="editar">
+				<div class="editar">
 					<label class="texto-pequeno">Cidade:</label> 
 					<input type="text" name="cidade" value="<c:out value='${endereco.cidade}'/>">
 				</div>
 				</div>
 				<div id="linha3">
-				<div id="editar">
+				<div class="editar">
 					<label class="texto-pequeno">Bairro:</label> 
 					<input type="text" name="bairro" value="<c:out value='${endereco.bairro}'/>">
 				</div>
-				<div id="editar">
+				<div class="editar">
 					<label class="texto-pequeno">Logradouro:</label> 
 					<input type="text" name="logradouro" value="<c:out value='${endereco.logradouro}'/>">
 				</div>
