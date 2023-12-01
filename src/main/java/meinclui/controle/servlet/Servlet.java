@@ -244,10 +244,8 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-		Estabelecimento estabelecimento =  estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
 		
 		request.setAttribute("usuario", usuario);
-		request.setAttribute("estabelecimento", estabelecimento);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/avaliacao/cadastro-avaliacao.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -258,7 +256,7 @@ public class Servlet extends HttpServlet {
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		
         Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
-        
+
         byte resposta1 = Byte.parseByte(request.getParameter("resposta-1"));
         byte resposta2 = Byte.parseByte(request.getParameter("resposta-2"));
         byte resposta3 = Byte.parseByte(request.getParameter("resposta-3"));
@@ -473,21 +471,16 @@ public class Servlet extends HttpServlet {
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
-
-		Boolean avaliado = avaliacaoDAO.verificarAvaliacaoEstabelecimentoUsuario(estabelecimento.getIdEstabelecimento(), usuario.getIdUsuario());
-		
+		Foto foto = fotoDAO.recuperarFotoEstabelecimento(estabelecimento.getIdEstabelecimento());
+        
         List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
         List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
-
-		Boolean favorito = usuario.estabelecimentoFavoritos(estabelecimento);
         
-        request.setAttribute("avaliado", avaliado);
-        request.setAttribute("favorito", favorito);
+        request.setAttribute("url", foto.urlFoto());
         request.setAttribute("estabelecimento", estabelecimento);
         request.setAttribute("usuario", usuario);
         request.setAttribute("comentarios", comentarios);
         request.setAttribute("respostas", respostas);
-      
         RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/estabelecimento/perfil-estabelecimento.jsp");
         dispatcher.forward(request, response);
     }
@@ -561,18 +554,11 @@ public class Servlet extends HttpServlet {
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-		if(usuario.estabelecimentoFavoritos(estabelecimento)) {
-			System.out.println("Estabelecimento ja favoritado");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("tela-inicial");
-			dispatcher.forward(request, response);
-		}else {
-			usuario.setEstabelecimentoFavorito(estabelecimento);
-			usuarioDAO.atualizarUsuario(usuario);
-			request.setAttribute("id", id);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento");
-			dispatcher.forward(request, response);
-		}
-		
+		usuario.setEstabelecimentoFavorito(estabelecimento);
+		usuarioDAO.atualizarUsuario(usuario);
+		request.setAttribute("id", id);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("perfil-estabelecimento");
+		dispatcher.forward(request, response);
 		
 	}
 
@@ -650,18 +636,12 @@ public class Servlet extends HttpServlet {
 		List<Conquista> conquistas = conquistaDAO.recuperarConquistasMaisRecentes(usuario.getIdUsuario());
 		List<Comentario> comentarios = comentarioDAO.recuperarComentariosOrdenadoMaisRecente(usuario.getIdUsuario());
 		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.recuperarEstabelecimentoAvaliado(usuario.getIdUsuario());
-		List<Estabelecimento> estabelecimentosFavoritos = usuario.getEstabelecimentoFavorito();
-		
-		for(Estabelecimento e : usuario.getEstabelecimentoFavorito()) {
-			System.out.println(e.getNome());
-		}
 		
 		request.setAttribute("usuario", usuario);
 		request.setAttribute("pontuacao", pontuacao);
 		request.setAttribute("conquistas", conquistas);
 		request.setAttribute("comentarios", comentarios);
 		request.setAttribute("estabelecimentos", estabelecimentos);
-		request.setAttribute("estabelecimentosfavoritos", estabelecimentosFavoritos);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 	}
