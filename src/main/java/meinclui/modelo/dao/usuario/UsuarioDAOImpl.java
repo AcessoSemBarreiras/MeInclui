@@ -12,6 +12,8 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 
+import meinclui.modelo.dto.conquista.ConquistaDTO;
+import meinclui.modelo.dto.usuario.UsuarioComunidadeDTO;
 import meinclui.modelo.entidade.conquista.Conquista;
 import meinclui.modelo.entidade.conquista.Conquista_;
 import meinclui.modelo.entidade.usuario.Usuario;
@@ -225,26 +227,79 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		return usuario;
 	}
 
+	public List<UsuarioComunidadeDTO> recuperarUsuarioRanque() {
+
+		Session sessao = null;
+	    List<UsuarioComunidadeDTO> comunidade = null;
+	    
+	    try {
+	        sessao = fabrica.getConexao().openSession();
+	        sessao.beginTransaction();
+
+	        CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+	        CriteriaQuery<UsuarioComunidadeDTO> criteria = construtor.createQuery(UsuarioComunidadeDTO.class);
+	        Root<UsuarioTemConquista> raizUsuarioTemConquista = criteria.from(UsuarioTemConquista.class);
+
+	        Join<UsuarioTemConquista, Usuario> usuarioJoin = raizUsuarioTemConquista.join("usuario", JoinType.INNER);
+	        usuarioJoin.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
+	        Join<UsuarioTemConquista, Conquista> conquistaJoin = raizUsuarioTemConquista.join("conquista", JoinType.INNER);
+	        conquistaJoin.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario), usuarioJoin.get(Usuario_.idUsuario)));
+	        
+	        criteria.multiselect(
+	                usuarioJoin.get(Usuario_.idUsuario).alias("idUsuario"),
+	                usuarioJoin.get(Usuario_.fotoUsuario).alias("fotoUsuario"),
+	                usuarioJoin.get(Usuario_.nomeDeUsuario).alias("nomeUsuario"),
+	                construtor.sum(conquistaJoin.get(Conquista_.reputacao)).alias("pontuacaoTotal"),
+	                conquistaJoin.alias("conquistas")
+	        );
+
+			criteria.groupBy(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario));
+			criteria.orderBy(construtor.desc(conquistaJoin.get(Conquista_.reputacao)));
+
+			comunidade = sessao.createQuery(criteria).getResultList();
+
+			sessao.getTransaction().commit();
+
+		} catch (Exception sqlException) {
+
+
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+				sessao.getTransaction().rollback();
+			}
+
+		} finally {
+			if (sessao != null) {
+				sessao.close();
+			}
+		}
+
+		return comunidade;
+	}
+	
 	public List<Tuple> recuperarUsuariosMaiorRanque() {
 
 		Session sessao = null;
-		List<Tuple> usuarios = null;
+	    List<Tuple> comunidade = null;
 
-		try {
+	    try {
+	        sessao = fabrica.getConexao().openSession();
+	        sessao.beginTransaction();
 
-			sessao = fabrica.getConexao().openSession();
-			sessao.beginTransaction();
+	        CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+	        CriteriaQuery<Tuple> criteria = construtor.createTupleQuery();
+	        Root<UsuarioTemConquista> raizUsuarioTemConquista = criteria.from(UsuarioTemConquista.class);
 
-			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-			CriteriaQuery<Tuple> criteria = construtor.createTupleQuery();
-			Root<UsuarioTemConquista> raizUsuarioTemConquista = criteria.from(UsuarioTemConquista.class);
-			Join<UsuarioTemConquista, Conquista> joinConquista = raizUsuarioTemConquista.join(UsuarioTemConquista_.conquista);
-			
-			
-			joinConquista.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.conquista),
-					joinConquista.get(Conquista_.idConquista)));
-
-			Join<UsuarioTemConquista, Usuario> joinUsuario = raizUsuarioTemConquista.join(UsuarioTemConquista_.usuario);
+	        Join<UsuarioTemConquista, Usuario> usuarioJoin = raizUsuarioTemConquista.join("usuario", JoinType.INNER);
+	        usuarioJoin.fetch(Usuario_.fotoUsuario, JoinType.LEFT);
+	        Join<UsuarioTemConquista, Conquista> conquistaJoin = raizUsuarioTemConquista.join("conquista", JoinType.INNER);
+	        conquistaJoin.on(construtor.equal(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario), usuarioJoin.get(Usuario_.idUsuario)));
+	        criteria.multiselect(
+	                usuarioJoin.alias("usuario"),
+	                construtor.sum(conquistaJoin.get(Conquista_.reputacao)).alias("soma"),
+	                conquistaJoin.alias("conquistas")
+	        );
 
 			joinUsuario.fetch(Usuario_.avaliacoes, JoinType.LEFT);
 			joinUsuario.fetch(Usuario_.estabelecimentosFavoritos, JoinType.LEFT);
@@ -256,9 +311,9 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 					construtor.sum(joinConquista.get(Conquista_.reputacao)));
 
 			criteria.groupBy(raizUsuarioTemConquista.get(UsuarioTemConquista_.usuario));
-			criteria.orderBy(construtor.desc(joinConquista.get(Conquista_.reputacao)));
+			criteria.orderBy(construtor.desc(conquistaJoin.get(Conquista_.reputacao)));
 
-			usuarios = sessao.createQuery(criteria).getResultList();
+			comunidade = sessao.createQuery(criteria).getResultList();
 
 			sessao.getTransaction().commit();
 
@@ -276,7 +331,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			}
 		}
 
-		return usuarios;
+		return comunidade;
 	}
 
 	public List<Tuple> recuperarUsuariosMaiorRanqueDia(LocalDate data) {
