@@ -37,6 +37,7 @@ import meinclui.modelo.dao.estabelecimento.EstabelecimentoDAO;
 import meinclui.modelo.dao.estabelecimento.EstabelecimentoDAOImpl;
 import meinclui.modelo.dao.usuario.UsuarioDAO;
 import meinclui.modelo.dao.usuario.UsuarioDAOImpl;
+import meinclui.modelo.dto.usuario.UsuarioComunidadeDTO;
 import meinclui.modelo.entidade.avaliacao.Avaliacao;
 import meinclui.modelo.entidade.avaliacao.AvaliacaoId;
 import meinclui.modelo.entidade.avaliacaoComentario.AvaliacaoComentario;
@@ -107,6 +108,9 @@ public class Servlet extends HttpServlet {
 
 			case "/cadastro-usuario":
 				mostrarFormularioCadastroUsuario(request, response);
+				break;
+			case "/recuperar-senha":
+				mostrarRecuperarSenha(request, response);
 				break;
 			case "/inserir-usuario":
 				inserirUsuario(request, response);
@@ -471,11 +475,12 @@ public class Servlet extends HttpServlet {
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
-
+		Foto foto = fotoDAO.recuperarFotoEstabelecimento(estabelecimento.getIdEstabelecimento());
         
         List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
         List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
         
+        request.setAttribute("url", foto.urlFoto());
         request.setAttribute("estabelecimento", estabelecimento);
         request.setAttribute("usuario", usuario);
         request.setAttribute("comentarios", comentarios);
@@ -549,10 +554,10 @@ public class Servlet extends HttpServlet {
 
 	private void favoritarEstabelecimento(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		Long id = Long.parseLong(request.getParameter("id"));
-		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		Long id = Long.parseLong(request.getParameter("id"));
+		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(id);
 		usuario.setEstabelecimentoFavorito(estabelecimento);
 		usuarioDAO.atualizarUsuario(usuario);
 		request.setAttribute("id", id);
@@ -674,7 +679,12 @@ public class Servlet extends HttpServlet {
 		}
 	}
 
-
+	private void mostrarRecuperarSenha(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/recuperar-senha.jsp");
+		dispatcher.forward(request, response);
+	}
+	
 	private void mostrarFormularioEditarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -707,7 +717,13 @@ public class Servlet extends HttpServlet {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		
+		List<UsuarioComunidadeDTO> comunidade = usuarioDAO.recuperarUsuarioRanque();
+		
+		for (UsuarioComunidadeDTO usuarioComunidadeDTO : comunidade) {
+			System.out.println(usuarioComunidadeDTO.getNomeDeUsuario());
+		}
 		request.setAttribute("usuario", usuario);
+		request.setAttribute("comunidade", comunidade);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
 		dispatcher.forward(request, response);
 	}

@@ -2,7 +2,9 @@ package meinclui.modelo.dao.usuario;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import javax.persistence.Tuple;
+import meinclui.modelo.dto.usuario.UsuarioComunidadeDTO;
 import meinclui.modelo.entidade.usuario.Usuario;
 
 public interface UsuarioDAO {
@@ -19,6 +21,8 @@ public interface UsuarioDAO {
   
 	Usuario recuperarUsuarioEmail(String emailUsuario);
 
+	List<UsuarioComunidadeDTO> recuperarUsuarioRanque();
+	
 	List<Tuple> recuperarUsuariosMaiorRanque();
 
 	List<Tuple> recuperarUsuariosMaiorRanqueDia(LocalDate data);
@@ -30,4 +34,5 @@ public interface UsuarioDAO {
 	int recuperarPontuacaoUsuario(Long idUsuario);
 
 	Boolean verificarUsuario(String emailUsuario, String senhaUsuario);
+
 }

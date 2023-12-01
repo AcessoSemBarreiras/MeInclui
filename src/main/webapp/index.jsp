@@ -9,6 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
   <title>Home</title>
+  
 </head>
 
 <link rel="stylesheet" href="./assets/estilos/padrao.css">
@@ -119,10 +120,6 @@
         <a class="icone-ir-pagina" href="encontrar-estabelecimentos"> <img src="./assets/imagens/icone-ir-para-a-página.svg" alt=""> </a>
       </div>  
     </div>
-   
-  
   </div>
-</div>
-
 </body>
 </html>

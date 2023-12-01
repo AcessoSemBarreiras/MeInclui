@@ -328,4 +328,49 @@ public class AvaliacaoDAOImpl implements AvaliacaoDAO {
 		return avaliacao;
 
 	}
+	
+	public Boolean verificarAvaliacaoEstabelecimentoUsuario(Long idEstabelecimento, Long idUsuario) {
+		Session sessao = null;
+		Avaliacao avaliacao = null;
+
+		try {
+			sessao = fabrica.getConexao().openSession();
+
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+
+			CriteriaQuery<Avaliacao> criteria = construtor.createQuery(Avaliacao.class);
+
+			Root<Avaliacao> raizAvaliacao = criteria.from(Avaliacao.class);
+			
+			criteria.select(raizAvaliacao);
+			Predicate estabelecimento = construtor.equal(raizAvaliacao.get(Avaliacao_.estabelecimento), idEstabelecimento);
+			Predicate usuario = construtor.equal(raizAvaliacao.get(Avaliacao_.usuario), idUsuario);
+			criteria.where(construtor.and(estabelecimento, usuario));
+			
+			avaliacao = sessao.createQuery(criteria).getSingleResult();
+			
+			if(avaliacao != null)
+				return true;
+			
+			sessao.getTransaction().commit();
+			
+		} catch (Exception sqlException) {
+
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+				sessao.getTransaction().rollback();
+			}
+
+		} finally {
+
+			if (sessao != null) {
+				sessao.close();
+			}
+		}
+		return false;
+	}
+	
 }

@@ -53,7 +53,7 @@
 
 .template-grid{
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(11, 1fr);
     width: 100vw;
 }
 
@@ -110,6 +110,13 @@
     height: 50px;
     border-radius: 10px;
     border: #E76D1B;
+}
+
+.botao-secundario{
+	border: none;
+	height: 23px;
+	color: white;
+	border-radius: 5px;
 }
 
 /*Título Cadastro*/
