@@ -108,7 +108,7 @@
 				<c:forEach var="comentario" items="${comentarios}">
 					<div class="cmts-usuario">
 						<div id="foto-comentario-usuario">
-							<c:out value="${usuario.fotoUsuario.urlFoto()}"></c:out>
+							<img alt="" src="<c:out value="${usuario.fotoUsuario.urlFoto()}"></c:out>">
 						</div>
 						<div class="nome-usuario">
 							<c:out value="${usuario.nomeDeUsuario}" />
