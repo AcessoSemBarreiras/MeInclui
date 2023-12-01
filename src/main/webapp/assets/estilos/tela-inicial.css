@@ -101,8 +101,6 @@ form input[type="text"], input[type="email"], select{
 	border: 2px solid var(--cinza);
     background-color: var(--laranja);
     margin-left: 65px;
-    
-    
 }
 
 .icone{
