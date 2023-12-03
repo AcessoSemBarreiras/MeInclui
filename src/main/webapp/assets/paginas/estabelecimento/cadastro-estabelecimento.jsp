@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="pt">
@@ -26,7 +26,7 @@
 		</div>
 	</div>
 
-	<form id="formulario">
+	<form id="formulario"  action="inserir-estabelecimento" method="get" enctype="multipart/form-data">
 
 		<div class="template-grid" id="formulario-primeiro">
 			<div class="formulario-esquerda">
@@ -72,19 +72,12 @@
 		<div class="template-grid" id="formulario-cadastro">  
 
 			<div class="formulario-esquerda">
-
-			<input type="text" class="texto-grande" placeholder="Tipo Logradouro" required>
-	
-			<input type="text" class="texto-grande" placeholder="Tipo Logradouro" required>
-	
-			<input type="text" class="texto-grande" placeholder="Cidade" required>
-	
-			<input type="text" class="texto-grande" placeholder="Complemento">
-			</div>
+				<input type="text" id="tipo-logradouro" name="tipo-logradouro" placeholder="Tipo Logradouro" required> 
+				<input type="text" id="logradouro" name="logradouro" placeholder="Logradouro" required> 
+				<input type="text" id="cidade" name="cidade" placeholder="Cidade" required> 
+				<input type="text" id="numero" name="numero" placeholder="Número" required> 	</div>
 	
 			<div class="formulario-centro">
-
-				<input type="text" class="texto-grande" placeholder="Número">
 	
 			<select id="estado" name="estado" required>
 				<option selected disabled>Estado</option>

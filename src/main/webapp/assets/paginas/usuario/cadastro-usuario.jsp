@@ -26,7 +26,7 @@
 		</div>
 	</div>
 
-	<form class="template-grid" id="formulario">
+	<form class="template-grid" id="formulario" action="inserir-usuario" method="post" enctype="multipart/form-data">
 
 		<div class="formulario-esquerda">
 

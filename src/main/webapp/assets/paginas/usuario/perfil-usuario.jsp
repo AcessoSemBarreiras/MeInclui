@@ -17,10 +17,11 @@
 		<div id="perfil-usuario">
 		
 		<div class="inf-usuario">
-			<img alt="foto do usuario" class="foto-usuario"
-				src="<c:out value='${usuario.fotoUsuario.urlFoto()}'/>">
+			
 	
 		<div id="pessoal">
+			<img alt="foto do usuario" class="foto-usuario"
+				src="<c:out value='${usuario.fotoUsuario.urlFoto()}'/>">
 			<c:if test="${usuario != null}">
 				<a href="editar-perfil-usuario">editar</a>
 			</c:if>
