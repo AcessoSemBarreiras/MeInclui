@@ -105,11 +105,20 @@
 						<div class="conteudo-estabelecimento">
 						<div class="primeira-linha">
 							<a class="texto-medio nome-estabelecimento conteudo-card" href="perfil-estabelecimento?id=<c:out value="${es.idEstabelecimento}" />"><c:out value="${es.nome}" /></a>
-							<p class="texto-medio nota-estabelecimento conteudo-card"><img alt="Estrela" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAWCAYAAADafVyIAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGtSURBVHgBtVVBUsIwFP1JhpHpxkAd12UUxyXsXNYb4NIVeAKGE4A30BN4BTyBcALHHY6M9gKU7OhMbeIPoAMl0HSQt2mS5ufnv//fD4McuCiXu2XH6Z04DkxmszcbGwKWqLpuC5R6+p0rKa/HQgyy7CjYo7lmyFjbxsgqgkvOvYTSr9SyiKWsBEKIXbZWESSM+YZlXmCskWFqSZFS2+hoQgb+KPI45/pW6Q0FvUbp69YTpKzHSJfhj9D0zR3o8lMAPfhnID0dom9eoHQKh4FY5EApAYeBYCKKolKx+E4IuQJDDvZAgPm5YXo0jaLR6dHRsyKkhNMa7AkJ8Pgt5e2nEMGG0Kqct7Bqujj0ID8CbCF3qy3EqOSlcl9yOVFqGCvVSCvbKLQRhgZ5QcixqW0YHZxz7kN+impLu2wHhLHMFmAEpb6VAyyvXU1sq2Ywoe1MB2eu20A+TXoQ2E46H2FYwu89mMHTNG04IEpt6oCQIfb++jgMH/QUvz2GbwFoMaW3MubtdiBlf6V1LG49mfhBqrJ0pWE0lVQ0QZwkg7XzwIC5DvCRwc39rBcra/8PKliu5gm/DFkAAAAASUVORK5CYII="><c:out value="${es.pontoAcessibilidade}" /></p>
+							<p class="texto-medio nota-estabelecimento conteudo-card"><img alt="Estrela" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAWCAYAAADafVyIAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGfSURBVHgBtVVLTgJBEH01iJJAIu5MwDhHgBMIJwBOAJxANoo7cSXowuEG3EA9gXgCOcIkQOJOTPyQgJQ1MwGD8+vR8BbTPdVV701XV/UQFMGNdBqJ1K1MCwD1qD2sq8RpUEUiWXbIbbkan2YaKmHqAkzH65FUUgkjFSc+yeQQoyfXwvRtj4zJJChWbQca1Tzt28kawkKhAuKSj3BomlYp4ma2IES6h8uhPFq+DBoaWPCry85kUmfUJ4f84EbIlaoiEpgModWlvucv2AQYE40MU6qATGwCGkznkHlW3IBIH4t5Za0P5KBbcuzn+A8kLWC+oKuxYb26Go2b+zoo/iAzHdHRB8/r1Hk2lwbfTuazrIgs7x4FMO6lLMu/zZ6NZldWFHIHR15G705OzMqICkLablYlAVAVfwFxeIrsQw5KD9NdwFrV/jEFCYBiBc9gwgBfnKfOsGKNnn0jacJOKhcigLSbnbt0OcrT9Xhgu1jjNJaXyum6XLcWu8ECn/Hez9fJyChSe+y6CK0rRsqyYa2v/K1dvn88QgXc1HVEgJ//N7o4gY1CzW8ZAAAAAElFTkSuQmCC"><c:out value="${es.pontoAcessibilidade}" /></p>
 						</div>
 						<div class="segunda-linha">
 							<p class="texto-pequeno categoria-estabelecimento conteudo-card"><img alt="Bandeira" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAASCAYAAABrXO8xAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACnSURBVHgB7ZOxDcJADEW/naMPG2QDTlmIAVJwbJBsgATUwARkBOiBFWAE6C9nfIgGBAogyjzJsr71v7tPsC5LEr8QkQxtEJ0hqMNhVhlO/FqFJVBrTn0R28uLC5OG8CUBPGD8SBfsgn8N0rIJpi+Qsc7plcM86S0xSr+bbqIIwERrVxv2TosxenjNeXHUlRKJa/bzFd4Re0u+1PYN9UkVD+ltPuXuvQKPxzFy6zpUpAAAAABJRU5ErkJggg=="><c:out value="${es.categoria.nomeCategoria}" /></p>
-							<a class="favoritar-estabelecimento conteudo-card" href="favoritar-estabelecimento?id=<c:out value="${es.idEstabelecimento}"/>">Favoritar</a>
+							<c:if test="${usuario.estabelecimentoFavoritos(es) == true}">
+								<a class="favoritar-estabelecimento conteudo-card" href="favoritar-estabelecimento?id=<c:out value="${es.idEstabelecimento}"/>"><img height="20" width="20" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAbCAYAAABr/T8RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHeSURBVHgBxZZNTsJAFMf/b8AYE0xYmqAJR4ATCDeAExhPQFkY3AkrARdyA+oN5ATEEwg3aAIk7mRDIBE6vhnkUwodhPrb0NKZ+XU++t4jrCELlyn+yYFkAqA4JPogtPjehjt5o8qHgw1s7TccNKjW7y+3p3lHKxrF6XmdG2bgiXS4R5Eeey8L4UUcFK7zZWprvwmy9NRrrYi19CzS5LdMwB9FKndLU2moqWe4C7UCrkzP5FNx4eqZZ2rBBJI1HizjS7qwOxgNkmrZxfStDaV6DLLMpApufxrRLgGEzaV/I/cjxjWChBCVd7GE4Au/B+pwhJAQ+CeEPuZBE5KfQkeXoBm7bRbLBoKEJ6rCrsDwxOY7B4HBgYcRVHM4lCGPQJD2LM7rU03VzisfshKOiTpLo8F8gvPPiSrd4vHkvJXuOLucGmm9CefVIv/7gIPBUvmVXs/jtKmpvI/Z/OgGR5J6ig8j95YqvEPm6MTiPd8vuKhoOHGzXlL9Wlv7W3Euh8ZN40QykcnlMmcTW5OE/sYxzpoFGLrdJd0p1sOo5eK98iV3ZZ7KHRs+8JUWfck5BlC1V4NPCAbo+gzhd1VF/JKqAGSAUSGgZ84l6koO30Oqx8IeqJoJIZGD67ZNlneZbwto0UUuMKH0AAAAAElFTkSuQmCC"></a>
+							</c:if>
+							<c:if test="${usuario.estabelecimentoFavoritos(es) == false}">
+								<a class="favoritar-estabelecimento conteudo-card" href="favoritar-estabelecimento?id=<c:out value="${es.idEstabelecimento}"/>"><img height="20" width="20" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAdCAYAAAC9pNwMAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALNSURBVHgB1VZRchJBEO0e1qpYahWfVoEWnkA8gewJNCcAThD4UKI/gT+MH2xOIJyA3IDkBIk3wEoo/dyPWIYibNvTs7thYYFBwoevKkVmdt686Z6e7kaYAzWeFwCdMv9XAcCCTCJcAiH/TVr45dcQUkCNfAkQmReUkjw4B7rz5nmYIH/OH0AAHqwCIW9yVY+HtWwW9p50eKvKcg74QNTC45G3IEyNFx1AqoXTQ17YEyuRfMjAawiQv1EhXH6G7WtXRB8/HfDGxWgeFJzCFL6H49ALMa/JvFYsnLSUTrA9qqUe/GOuBgo74eG6fKiiiGqLEOvYvuqm8hp5j5UOZBBM9/H45ymaO80M5F4I+A6vm7ACdJir8NpvyVmsLhNdENeHHN+8UixaMsGAw3WiItEedfUBNxEVjJ2m8QzomHivmFiWD0FwApaQA2px7SEbUc3xhj7/9MxIvXXkjvRNIwfSBrDxziKJLk1YBSUlpgucIewaxK8lhBK/awSTLOwahEYD0VeSXWTAb27XQCrJbwA/lKQ0DYXvYNdAMhqK+orDPEpjJUkQOwId5o+iZ8tJ5FxJmEfvkrMSfXpZhgeGEYWmDPjZ6oKBMx85e4X3TODyczmDB8CydKziFbfOPgtGb7lPH3JF2BLivXvR3mwNiIXF5WPHlTvQb1vhYBtx4VLQNZuzQbe/E/GjZgfmvif34hm2XBeRfxHlg8eif25c9Hw/oZVKlIr1aGDqKHFtnrrLOo9ULjgXJiPquj5J5ao0siyMLAeUsmljeVxi14iKxtqN4tOvtjxR19eIaqhVwkIMyDX5nDdUTl/anS1FZW+wgARLBi9CRiJY5joYnrt7YxMPCiyAX0f8vqlqTsH1e++Z9F1iPXshFmXv2AahlcURkv3WTLOnETZxtnttJCzijXyTWUdz21RtW6AIVq5OSET9VoSA6puKbgVtuVj/v+Ev1n5qyLerzzAAAAAASUVORK5CYII="></a>
+							</c:if>
+							<c:if test="${usuario == null}">
+								<a class="favoritar-estabelecimento conteudo-card" href="favoritar-estabelecimento?id=<c:out value="${es.idEstabelecimento}"/>"><img height="20" width="20" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAdCAYAAAC9pNwMAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALNSURBVHgB1VZRchJBEO0e1qpYahWfVoEWnkA8gewJNCcAThD4UKI/gT+MH2xOIJyA3IDkBIk3wEoo/dyPWIYibNvTs7thYYFBwoevKkVmdt686Z6e7kaYAzWeFwCdMv9XAcCCTCJcAiH/TVr45dcQUkCNfAkQmReUkjw4B7rz5nmYIH/OH0AAHqwCIW9yVY+HtWwW9p50eKvKcg74QNTC45G3IEyNFx1AqoXTQ17YEyuRfMjAawiQv1EhXH6G7WtXRB8/HfDGxWgeFJzCFL6H49ALMa/JvFYsnLSUTrA9qqUe/GOuBgo74eG6fKiiiGqLEOvYvuqm8hp5j5UOZBBM9/H45ymaO80M5F4I+A6vm7ACdJir8NpvyVmsLhNdENeHHN+8UixaMsGAw3WiItEedfUBNxEVjJ2m8QzomHivmFiWD0FwApaQA2px7SEbUc3xhj7/9MxIvXXkjvRNIwfSBrDxziKJLk1YBSUlpgucIewaxK8lhBK/awSTLOwahEYD0VeSXWTAb27XQCrJbwA/lKQ0DYXvYNdAMhqK+orDPEpjJUkQOwId5o+iZ8tJ5FxJmEfvkrMSfXpZhgeGEYWmDPjZ6oKBMx85e4X3TODyczmDB8CydKziFbfOPgtGb7lPH3JF2BLivXvR3mwNiIXF5WPHlTvQb1vhYBtx4VLQNZuzQbe/E/GjZgfmvif34hm2XBeRfxHlg8eif25c9Hw/oZVKlIr1aGDqKHFtnrrLOo9ULjgXJiPquj5J5ao0siyMLAeUsmljeVxi14iKxtqN4tOvtjxR19eIaqhVwkIMyDX5nDdUTl/anS1FZW+wgARLBi9CRiJY5joYnrt7YxMPCiyAX0f8vqlqTsH1e++Z9F1iPXshFmXv2AahlcURkv3WTLOnETZxtnttJCzijXyTWUdz21RtW6AIVq5OSET9VoSA6puKbgVtuVj/v+Ev1n5qyLerzzAAAAAASUVORK5CYII="></a>
+							</c:if>
+							
 						</div>
 							<p class="texto-pequeno endereco-estabelecimento conteudo-card"><c:out value="${es.endereco.tipoLogradouro}"/> <c:out value="${es.endereco.logradouro}" />, nº<c:out value="${es.endereco.numero}" />, <c:out value="${es.endereco.bairro}" />-<c:out value="${es.endereco.cidade}" />/<c:out value="${es.endereco.estado}" /> </p>
 						</div>
@@ -118,21 +127,6 @@
 		</c:if>
 	</div>
 	</div>
-	<c:forEach var="es" items="${estabelecimentos}">
-		<table>
-
-			<tr class="cards-estabelecimento">
-				<td><a href="perfil-estabelecimento?id=<c:out value="${es.idEstabelecimento}" />"><c:out value="${es.nome}"/></a>
-				<td><c:out value="${es.pontoAcessibilidade}"/></td>
-				<td><c:out value="${es.endereco.logradouro}"/></td>
-				<td><c:out value="${es.endereco.numero}"/></td>
-				<td><c:out value="${es.endereco.bairro}"/></td>
-				<td><c:out value="${es.endereco.cidade}"/></td>
-				<td><c:out value="${es.endereco.estado}"/></td>
-				<td><c:out value="${es.categoria.nomeCategoria}"/></td>
-			</tr>
-		</table>
-	</c:forEach>
 </body>
 
 		<%@ include file="rodape.jsp"%>

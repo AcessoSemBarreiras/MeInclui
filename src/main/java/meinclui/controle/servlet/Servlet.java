@@ -442,6 +442,8 @@ public class Servlet extends HttpServlet {
 
 	private void filtrarEstabelecimentos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		
 		String nomeEstabelecimento = request.getParameter("nome");
 		Optional<String> nomeOp = (nomeEstabelecimento == "") ? Optional.empty() : Optional.of(nomeEstabelecimento);
@@ -462,7 +464,8 @@ public class Servlet extends HttpServlet {
 		Optional<Double> mediaOp = (mediaAcessibilidade == "") ? Optional.empty() : Optional.of(Double.parseDouble(mediaAcessibilidade));
 		
 		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.filtrarEstabelecimentos(nomeOp, categoriaOp, mediaOp, estadoOp, cidadeOp, bairroOp);
-
+		
+		request.setAttribute("usuario", usuario);
 		request.setAttribute("estabelecimentos", estabelecimentos);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/pesquisa.jsp");
 		dispatcher.forward(request, response);
