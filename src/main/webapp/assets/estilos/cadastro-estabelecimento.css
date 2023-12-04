@@ -33,11 +33,80 @@ form input::placeholder{
     letter-spacing: 1px;
 }
 
-#formulario-cadastro{
 
-    margin-top: 150px;
+
+
+
+.cont-cad{
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	grid-template-rows: repeat(12,1fr);
 }
 
-.formulario-centro{
-    align-items: center;
+.paginacao {
+	display: flex;
+	height: 50%;
+	width: 100%;
+	gap: 10px;
 }
+
+.paginacao p{
+	display: grid;
+	place-items: center;
+	font-family: var(--fontes-geral);
+	font-size: 1.1em;
+	height: 35px;
+	width: 35px;
+	border: 1px solid var(--cinza);
+	color: var(--cinza);
+	border-radius: 7px;
+}
+
+.paginacao span{
+	display: flex;
+	align-items: center;
+	width: 10%;
+	border-bottom: 3px solid var(--cinza);
+	margin-bottom: 6%;
+	border-radius: 1px;
+}
+
+.atual{
+	border: 1px solid var(--laranja) !important;
+	color: var(--branco) !important;
+	background-color: var(--laranja);
+
+}
+
+#passada{
+	color: var(--laranja) !important;
+	border: 2px solid var(--laranja);
+	font-weight: 600;
+}
+
+h1{
+	color: var(--laranja);
+}
+
+/*Posições*/
+
+#titulo{
+	grid-column: 3/7;
+	grid-template-rows: 3;
+}
+
+#voltar{
+	grid-column: 9;
+	grid-template-rows: 3;	
+}
+
+.paginacao{
+	grid-column: 3/5;
+	grid-row: 2;
+}
+
+#nome-est{
+	grid-column: 5/8;
+}
+
+
