@@ -17,7 +17,7 @@
 <body>
 
 	<%@ include file="menu.jsp"%>
-	<div class="temp-grid">
+	<div class="template-grid">
 	<div class="filtro">
 		<form id="form" action="filtrar-estabelecimentos" method="post">
 			<div class="barra-pesquisa">
@@ -99,12 +99,20 @@
 		<c:if test="${estabelecimentos != null}">
 			<c:forEach var="es" items="${estabelecimentos}">
 					<div class="card-estabelecimento">
-						<img id="foto-estabelecimento" alt="" src='<c:out value="${es.fotoEstabelecimento.urlFoto() }"/>'>
-						<a class="texto-medio nome-estabelecimento" href="perfil-estabelecimento?id=<c:out value="${es.idEstabelecimento}" />"><c:out value="${es.nome}" /></a>
-						<p class="texto-medio nota-estabelecimento"><img alt="Estrela" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAWCAYAAADafVyIAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGtSURBVHgBtVVBUsIwFP1JhpHpxkAd12UUxyXsXNYb4NIVeAKGE4A30BN4BTyBcALHHY6M9gKU7OhMbeIPoAMl0HSQt2mS5ufnv//fD4McuCiXu2XH6Z04DkxmszcbGwKWqLpuC5R6+p0rKa/HQgyy7CjYo7lmyFjbxsgqgkvOvYTSr9SyiKWsBEKIXbZWESSM+YZlXmCskWFqSZFS2+hoQgb+KPI45/pW6Q0FvUbp69YTpKzHSJfhj9D0zR3o8lMAPfhnID0dom9eoHQKh4FY5EApAYeBYCKKolKx+E4IuQJDDvZAgPm5YXo0jaLR6dHRsyKkhNMa7AkJ8Pgt5e2nEMGG0Kqct7Bqujj0ID8CbCF3qy3EqOSlcl9yOVFqGCvVSCvbKLQRhgZ5QcixqW0YHZxz7kN+impLu2wHhLHMFmAEpb6VAyyvXU1sq2Ywoe1MB2eu20A+TXoQ2E46H2FYwu89mMHTNG04IEpt6oCQIfb++jgMH/QUvz2GbwFoMaW3MubtdiBlf6V1LG49mfhBqrJ0pWE0lVQ0QZwkg7XzwIC5DvCRwc39rBcra/8PKliu5gm/DFkAAAAASUVORK5CYII="><c:out value="${es.pontoAcessibilidade}" /></p>
-						<a class="btn-favoritar" href="favoritar-estabelecimento?id=<c:out value="${es.idEstabelecimento}"/>">Favoritar</a>
-						<p class="texto-pequeno categoria-estabelecimento"><img alt="Estrela" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAASCAYAAABrXO8xAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACnSURBVHgB7ZOxDcJADEW/naMPG2QDTlmIAVJwbJBsgATUwARkBOiBFWAE6C9nfIgGBAogyjzJsr71v7tPsC5LEr8QkQxtEJ0hqMNhVhlO/FqFJVBrTn0R28uLC5OG8CUBPGD8SBfsgn8N0rIJpi+Qsc7plcM86S0xSr+bbqIIwERrVxv2TosxenjNeXHUlRKJa/bzFd4Re0u+1PYN9UkVD+ltPuXuvQKPxzFy6zpUpAAAAABJRU5ErkJggg=="><c:out value="${es.categoria.nomeCategoria}" /></p>
-						<p class="texto-pequeno endereco-estabelecimento"><c:out value="${es.endereco.tipoLogradouro}"/> <c:out value="${es.endereco.logradouro}" />, nº<c:out value="${es.endereco.numero}" />, <c:out value="${es.endereco.bairro}" />-<c:out value="${es.endereco.cidade}" />/<c:out value="${es.endereco.estado}" /> </p>
+						<div class="foto-estabelecimento">
+							<img class="img-foto-estabelecimento" alt="foto-estabelecimento" src='<c:out value="${es.fotoEstabelecimento.urlFoto() }"/>'>
+						</div>
+						<div class="conteudo-estabelecimento">
+						<div class="primeira-linha">
+							<a class="texto-medio nome-estabelecimento conteudo-card" href="perfil-estabelecimento?id=<c:out value="${es.idEstabelecimento}" />"><c:out value="${es.nome}" /></a>
+							<p class="texto-medio nota-estabelecimento conteudo-card"><img alt="Estrela" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAWCAYAAADafVyIAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGtSURBVHgBtVVBUsIwFP1JhpHpxkAd12UUxyXsXNYb4NIVeAKGE4A30BN4BTyBcALHHY6M9gKU7OhMbeIPoAMl0HSQt2mS5ufnv//fD4McuCiXu2XH6Z04DkxmszcbGwKWqLpuC5R6+p0rKa/HQgyy7CjYo7lmyFjbxsgqgkvOvYTSr9SyiKWsBEKIXbZWESSM+YZlXmCskWFqSZFS2+hoQgb+KPI45/pW6Q0FvUbp69YTpKzHSJfhj9D0zR3o8lMAPfhnID0dom9eoHQKh4FY5EApAYeBYCKKolKx+E4IuQJDDvZAgPm5YXo0jaLR6dHRsyKkhNMa7AkJ8Pgt5e2nEMGG0Kqct7Bqujj0ID8CbCF3qy3EqOSlcl9yOVFqGCvVSCvbKLQRhgZ5QcixqW0YHZxz7kN+impLu2wHhLHMFmAEpb6VAyyvXU1sq2Ywoe1MB2eu20A+TXoQ2E46H2FYwu89mMHTNG04IEpt6oCQIfb++jgMH/QUvz2GbwFoMaW3MubtdiBlf6V1LG49mfhBqrJ0pWE0lVQ0QZwkg7XzwIC5DvCRwc39rBcra/8PKliu5gm/DFkAAAAASUVORK5CYII="><c:out value="${es.pontoAcessibilidade}" /></p>
+						</div>
+						<div class="segunda-linha">
+							<p class="texto-pequeno categoria-estabelecimento conteudo-card"><img alt="Bandeira" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAASCAYAAABrXO8xAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACnSURBVHgB7ZOxDcJADEW/naMPG2QDTlmIAVJwbJBsgATUwARkBOiBFWAE6C9nfIgGBAogyjzJsr71v7tPsC5LEr8QkQxtEJ0hqMNhVhlO/FqFJVBrTn0R28uLC5OG8CUBPGD8SBfsgn8N0rIJpi+Qsc7plcM86S0xSr+bbqIIwERrVxv2TosxenjNeXHUlRKJa/bzFd4Re0u+1PYN9UkVD+ltPuXuvQKPxzFy6zpUpAAAAABJRU5ErkJggg=="><c:out value="${es.categoria.nomeCategoria}" /></p>
+							<a class="favoritar-estabelecimento conteudo-card" href="favoritar-estabelecimento?id=<c:out value="${es.idEstabelecimento}"/>">Favoritar</a>
+						</div>
+							<p class="texto-pequeno endereco-estabelecimento conteudo-card"><c:out value="${es.endereco.tipoLogradouro}"/> <c:out value="${es.endereco.logradouro}" />, nº<c:out value="${es.endereco.numero}" />, <c:out value="${es.endereco.bairro}" />-<c:out value="${es.endereco.cidade}" />/<c:out value="${es.endereco.estado}" /> </p>
+						</div>
 					</div>
 			</c:forEach>
 		</c:if>
