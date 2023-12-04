@@ -7,6 +7,12 @@
 }
 
 
+.titulo-principal {
+    color: var(--laranja);
+    font-family: var(--fontes-geral);
+
+}
+
 form input[type="text"], input[type="email"], input[type="date"], input[type="password"], select{
     text-indent: 10px;
     font-size: 20px;
@@ -18,6 +24,7 @@ form input[type="text"], input[type="email"], input[type="date"], input[type="pa
     height: 47px;
 }
 
+ 
 form input:focus-visible{
     outline: 2px solid var(--azul);
     outline-offset: -1px;
@@ -33,11 +40,68 @@ form input::placeholder{
     letter-spacing: 1px;
 }
 
-#formulario-cadastro{
-
-    margin-top: 150px;
+.texto-foto{        
+    color: var(--azul);
 }
 
-.formulario-centro{
-    align-items: center;
+
+.alinhamento-foto{
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/*Checkbox*/
+
+input[type=checkbox]{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font: inherit;
+    color: inherit;
+    width: 40px;
+    height: 40px;
+    border: 0.15em solid var(--azul);
+    border-radius: 0.65em;
+    display: grid;
+    place-content: center;
+}
+
+
+input[type=checkbox]::before{
+    content: "";
+    width: 1.5em;
+    height: 1.5em;
+    -webkit-clip-path: polygon(24% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    clip-path: polygon(24% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    background-color: CanvasText;
+    background-color: var(--azul);
+}
+
+.alinhamento-checkbox{
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+
+.titulo{
+	margin-left: 17%;
+	margin-top: 5%;
+	width: 65%;
+	display: flex;
+}
+
+.titulo-principal{
+	width: 100%;
+}
+
+.titulo a{
+	width: 100%;
+	display: flex;
+	justify-content: end;
 }
