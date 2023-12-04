@@ -2,19 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<<<<<<< HEAD
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
-=======
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
->>>>>>> d8c210b0d36030a8bb75d70058aa3b5f16ba46a2
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>	
 <!DOCTYPE html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-<title>Perfil UsuÃ¡rio</title>
-<link rel="stylesheet" href="../../estilos/padrao.css">
-<link rel="stylesheet" href="../../estilos/perfil-usuario.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Perfil Usuário</title>
+	
+	<style><%@include file="../../estilos/padrao.css"%></style>
+	<style><%@include file="../../estilos/perfis.css"%></style>
 </head>
 
 <body>
