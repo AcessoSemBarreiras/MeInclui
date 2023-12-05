@@ -75,22 +75,44 @@
 				</div>
 			</c:if>
 			<c:if test="${fn:length(estabelecimentosAval) != 0}">
-					<c:forEach items="${estabelecimentoAval}" var="estabelecimentoAval">
-						<div class="card-avaliacao">
-							<c:out value="${estabelecimentoAval.fotoestabelecimento.urlFoto()}" />
-									<c:out value="${estabelecimentoAval.nome}" />
-									<c:out value="${estabelecimentoAval.categoria.nomeCategoria}" />
+					<c:forEach var="es" items="${estabelecimentosAval}">
+					<div class="card-estabelecimento">
+						<div class="foto-estabelecimento">
+							<img class="img-foto-estabelecimento" alt="foto-estabelecimento" src='<c:out value="${es.fotoEstabelecimento.urlFoto() }"/>'>
 						</div>
-					</c:forEach>
-				</tbody>
+						<div class="conteudo-estabelecimento">
+						<div class="primeira-linha">
+							<a class="texto-medio nome-estabelecimento conteudo-card" href="perfil-estabelecimento?id=<c:out value="${es.idEstabelecimento}" />"><c:out value="${es.nome}" /></a>
+						</div>
+						<div class="segunda-linha">
+							<p class="texto-pequeno categoria-estabelecimento conteudo-card"><img alt="Bandeira" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAASCAYAAABrXO8xAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACnSURBVHgB7ZOxDcJADEW/naMPG2QDTlmIAVJwbJBsgATUwARkBOiBFWAE6C9nfIgGBAogyjzJsr71v7tPsC5LEr8QkQxtEJ0hqMNhVhlO/FqFJVBrTn0R28uLC5OG8CUBPGD8SBfsgn8N0rIJpi+Qsc7plcM86S0xSr+bbqIIwERrVxv2TosxenjNeXHUlRKJa/bzFd4Re0u+1PYN9UkVD+ltPuXuvQKPxzFy6zpUpAAAAABJRU5ErkJggg=="><c:out value="${es.categoria.nomeCategoria}" /></p>
+							
+						</div>
+						<div class="terceira-linha">
+							<p class="texto-medio nota-estabelecimento conteudo-card"><img alt="Estrela" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAWCAYAAADafVyIAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGfSURBVHgBtVVLTgJBEH01iJJAIu5MwDhHgBMIJwBOAJxANoo7cSXowuEG3EA9gXgCOcIkQOJOTPyQgJQ1MwGD8+vR8BbTPdVV701XV/UQFMGNdBqJ1K1MCwD1qD2sq8RpUEUiWXbIbbkan2YaKmHqAkzH65FUUgkjFSc+yeQQoyfXwvRtj4zJJChWbQca1Tzt28kawkKhAuKSj3BomlYp4ma2IES6h8uhPFq+DBoaWPCry85kUmfUJ4f84EbIlaoiEpgModWlvucv2AQYE40MU6qATGwCGkznkHlW3IBIH4t5Za0P5KBbcuzn+A8kLWC+oKuxYb26Go2b+zoo/iAzHdHRB8/r1Hk2lwbfTuazrIgs7x4FMO6lLMu/zZ6NZldWFHIHR15G705OzMqICkLablYlAVAVfwFxeIrsQw5KD9NdwFrV/jEFCYBiBc9gwgBfnKfOsGKNnn0jacJOKhcigLSbnbt0OcrT9Xhgu1jjNJaXyum6XLcWu8ECn/Hez9fJyChSe+y6CK0rRsqyYa2v/K1dvn88QgXc1HVEgJ//N7o4gY1CzW8ZAAAAAElFTkSuQmCC"><c:out value="${es.pontoAcessibilidade}" /></p>
+							
+							<c:if test="${usuario.estabelecimentoFavoritos(es) == true}">
+								<a class="favoritar-estabelecimento conteudo-card" href="favoritar-estabelecimento?id=<c:out value="${es.idEstabelecimento}"/>"><img height="15" width="15" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAbCAYAAABr/T8RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHeSURBVHgBxZZNTsJAFMf/b8AYE0xYmqAJR4ATCDeAExhPQFkY3AkrARdyA+oN5ATEEwg3aAIk7mRDIBE6vhnkUwodhPrb0NKZ+XU++t4jrCELlyn+yYFkAqA4JPogtPjehjt5o8qHgw1s7TccNKjW7y+3p3lHKxrF6XmdG2bgiXS4R5Eeey8L4UUcFK7zZWprvwmy9NRrrYi19CzS5LdMwB9FKndLU2moqWe4C7UCrkzP5FNx4eqZZ2rBBJI1HizjS7qwOxgNkmrZxfStDaV6DLLMpApufxrRLgGEzaV/I/cjxjWChBCVd7GE4Au/B+pwhJAQ+CeEPuZBE5KfQkeXoBm7bRbLBoKEJ6rCrsDwxOY7B4HBgYcRVHM4lCGPQJD2LM7rU03VzisfshKOiTpLo8F8gvPPiSrd4vHkvJXuOLucGmm9CefVIv/7gIPBUvmVXs/jtKmpvI/Z/OgGR5J6ig8j95YqvEPm6MTiPd8vuKhoOHGzXlL9Wlv7W3Euh8ZN40QykcnlMmcTW5OE/sYxzpoFGLrdJd0p1sOo5eK98iV3ZZ7KHRs+8JUWfck5BlC1V4NPCAbo+gzhd1VF/JKqAGSAUSGgZ84l6koO30Oqx8IeqJoJIZGD67ZNlneZbwto0UUuMKH0AAAAAElFTkSuQmCC"></a>
+							</c:if>
+							<c:if test="${usuario.estabelecimentoFavoritos(es) == false}">
+								<a class="favoritar-estabelecimento conteudo-card" href="favoritar-estabelecimento?id=<c:out value="${es.idEstabelecimento}"/>"><img height="15" width="15" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAdCAYAAAC9pNwMAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALNSURBVHgB1VZRchJBEO0e1qpYahWfVoEWnkA8gewJNCcAThD4UKI/gT+MH2xOIJyA3IDkBIk3wEoo/dyPWIYibNvTs7thYYFBwoevKkVmdt686Z6e7kaYAzWeFwCdMv9XAcCCTCJcAiH/TVr45dcQUkCNfAkQmReUkjw4B7rz5nmYIH/OH0AAHqwCIW9yVY+HtWwW9p50eKvKcg74QNTC45G3IEyNFx1AqoXTQ17YEyuRfMjAawiQv1EhXH6G7WtXRB8/HfDGxWgeFJzCFL6H49ALMa/JvFYsnLSUTrA9qqUe/GOuBgo74eG6fKiiiGqLEOvYvuqm8hp5j5UOZBBM9/H45ymaO80M5F4I+A6vm7ACdJir8NpvyVmsLhNdENeHHN+8UixaMsGAw3WiItEedfUBNxEVjJ2m8QzomHivmFiWD0FwApaQA2px7SEbUc3xhj7/9MxIvXXkjvRNIwfSBrDxziKJLk1YBSUlpgucIewaxK8lhBK/awSTLOwahEYD0VeSXWTAb27XQCrJbwA/lKQ0DYXvYNdAMhqK+orDPEpjJUkQOwId5o+iZ8tJ5FxJmEfvkrMSfXpZhgeGEYWmDPjZ6oKBMx85e4X3TODyczmDB8CydKziFbfOPgtGb7lPH3JF2BLivXvR3mwNiIXF5WPHlTvQb1vhYBtx4VLQNZuzQbe/E/GjZgfmvif34hm2XBeRfxHlg8eif25c9Hw/oZVKlIr1aGDqKHFtnrrLOo9ULjgXJiPquj5J5ao0siyMLAeUsmljeVxi14iKxtqN4tOvtjxR19eIaqhVwkIMyDX5nDdUTl/anS1FZW+wgARLBi9CRiJY5joYnrt7YxMPCiyAX0f8vqlqTsH1e++Z9F1iPXshFmXv2AahlcURkv3WTLOnETZxtnttJCzijXyTWUdz21RtW6AIVq5OSET9VoSA6puKbgVtuVj/v+Ev1n5qyLerzzAAAAAASUVORK5CYII="></a>
+							</c:if>
+							<c:if test="${usuario == null}">
+								<a class="favoritar-estabelecimento conteudo-card" href="favoritar-estabelecimento?id=<c:out value="${es.idEstabelecimento}"/>"><img height="15" width="15" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAdCAYAAAC9pNwMAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALNSURBVHgB1VZRchJBEO0e1qpYahWfVoEWnkA8gewJNCcAThD4UKI/gT+MH2xOIJyA3IDkBIk3wEoo/dyPWIYibNvTs7thYYFBwoevKkVmdt686Z6e7kaYAzWeFwCdMv9XAcCCTCJcAiH/TVr45dcQUkCNfAkQmReUkjw4B7rz5nmYIH/OH0AAHqwCIW9yVY+HtWwW9p50eKvKcg74QNTC45G3IEyNFx1AqoXTQ17YEyuRfMjAawiQv1EhXH6G7WtXRB8/HfDGxWgeFJzCFL6H49ALMa/JvFYsnLSUTrA9qqUe/GOuBgo74eG6fKiiiGqLEOvYvuqm8hp5j5UOZBBM9/H45ymaO80M5F4I+A6vm7ACdJir8NpvyVmsLhNdENeHHN+8UixaMsGAw3WiItEedfUBNxEVjJ2m8QzomHivmFiWD0FwApaQA2px7SEbUc3xhj7/9MxIvXXkjvRNIwfSBrDxziKJLk1YBSUlpgucIewaxK8lhBK/awSTLOwahEYD0VeSXWTAb27XQCrJbwA/lKQ0DYXvYNdAMhqK+orDPEpjJUkQOwId5o+iZ8tJ5FxJmEfvkrMSfXpZhgeGEYWmDPjZ6oKBMx85e4X3TODyczmDB8CydKziFbfOPgtGb7lPH3JF2BLivXvR3mwNiIXF5WPHlTvQb1vhYBtx4VLQNZuzQbe/E/GjZgfmvif34hm2XBeRfxHlg8eif25c9Hw/oZVKlIr1aGDqKHFtnrrLOo9ULjgXJiPquj5J5ao0siyMLAeUsmljeVxi14iKxtqN4tOvtjxR19eIaqhVwkIMyDX5nDdUTl/anS1FZW+wgARLBi9CRiJY5joYnrt7YxMPCiyAX0f8vqlqTsH1e++Z9F1iPXshFmXv2AahlcURkv3WTLOnETZxtnttJCzijXyTWUdz21RtW6AIVq5OSET9VoSA6puKbgVtuVj/v+Ev1n5qyLerzzAAAAAASUVORK5CYII="></a>
+							</c:if>
+						
+						</div>					
+						</div>
+					</div>
+			</c:forEach>
 			</c:if>
 		</div>
 		
 		<div class="fav-usuario">
 			<div class="titulo">
-				<h3 class="texto-principal">Favoritos</h3>
+				<h3 class="texto-principal">Estabelecimentos Favoritos</h3>
 			</div>
-			<c:if test="${fn:length(usuario.getEstabelecimentoFavorito()) == 0}">
+			<c:if test="${fn:length(estabelecimentoFav) == 0}">
 				<div class="aviso-sem">
 					<p class="texto-adicionais">
 						Parece que você ainda não favoritou nenhum estabelecimento... <br> <a
@@ -99,15 +121,28 @@
 					</p>
 				</div>
 			</c:if>
-			<c:if test="${fn:length(usuario.getEstabelecimentoFavorito()) != 0}">
-					<c:forEach var="estabelecimento" items="${usuario.getEstabelecimentoFavorito()}">
-						<div class="card-estabelecimentos">
-							<c:out value="${estabelecimento.fotoestabelecimento.urlFoto()}" />
-									<c:out value="${estabelecimento.nome}" />
-									<c:out value="${estabelecimento.categoria.nomeCategoria}" />
+			<c:if test="${fn:length(estabelecimentoFav) != 0}">
+					<c:forEach var="es" items="${estabelecimentoFav}">
+					<div class="card-estabelecimento">
+						<div class="foto-estabelecimento">
+							<img class="img-foto-estabelecimento" alt="foto-estabelecimento" src='<c:out value="${es.fotoEstabelecimento.urlFoto() }"/>'>
 						</div>
-					</c:forEach>
-				</tbody>
+						<div class="conteudo-estabelecimento">
+						<div class="primeira-linha">
+							<a class="texto-medio nome-estabelecimento conteudo-card" href="perfil-estabelecimento?id=<c:out value="${es.idEstabelecimento}" />"><c:out value="${es.nome}" /></a>
+						</div>
+						<div class="segunda-linha">
+							<p class="texto-pequeno categoria-estabelecimento conteudo-card"><img alt="Bandeira" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAASCAYAAABrXO8xAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACnSURBVHgB7ZOxDcJADEW/naMPG2QDTlmIAVJwbJBsgATUwARkBOiBFWAE6C9nfIgGBAogyjzJsr71v7tPsC5LEr8QkQxtEJ0hqMNhVhlO/FqFJVBrTn0R28uLC5OG8CUBPGD8SBfsgn8N0rIJpi+Qsc7plcM86S0xSr+bbqIIwERrVxv2TosxenjNeXHUlRKJa/bzFd4Re0u+1PYN9UkVD+ltPuXuvQKPxzFy6zpUpAAAAABJRU5ErkJggg=="><c:out value="${es.categoria.nomeCategoria}" /></p>
+							
+						</div>
+						<div class="terceira-linha">
+							<p class="texto-medio nota-estabelecimento conteudo-card"><img alt="Estrela" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAWCAYAAADafVyIAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGfSURBVHgBtVVLTgJBEH01iJJAIu5MwDhHgBMIJwBOAJxANoo7cSXowuEG3EA9gXgCOcIkQOJOTPyQgJQ1MwGD8+vR8BbTPdVV701XV/UQFMGNdBqJ1K1MCwD1qD2sq8RpUEUiWXbIbbkan2YaKmHqAkzH65FUUgkjFSc+yeQQoyfXwvRtj4zJJChWbQca1Tzt28kawkKhAuKSj3BomlYp4ma2IES6h8uhPFq+DBoaWPCry85kUmfUJ4f84EbIlaoiEpgModWlvucv2AQYE40MU6qATGwCGkznkHlW3IBIH4t5Za0P5KBbcuzn+A8kLWC+oKuxYb26Go2b+zoo/iAzHdHRB8/r1Hk2lwbfTuazrIgs7x4FMO6lLMu/zZ6NZldWFHIHR15G705OzMqICkLablYlAVAVfwFxeIrsQw5KD9NdwFrV/jEFCYBiBc9gwgBfnKfOsGKNnn0jacJOKhcigLSbnbt0OcrT9Xhgu1jjNJaXyum6XLcWu8ECn/Hez9fJyChSe+y6CK0rRsqyYa2v/K1dvn88QgXc1HVEgJ//N7o4gY1CzW8ZAAAAAElFTkSuQmCC"><c:out value="${es.pontoAcessibilidade}" /></p>
+							<a class="favoritar-estabelecimento conteudo-card" href="favoritar-estabelecimento?id=<c:out value="${es.idEstabelecimento}"/>"><img height="15" width="15" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAbCAYAAABr/T8RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHeSURBVHgBxZZNTsJAFMf/b8AYE0xYmqAJR4ATCDeAExhPQFkY3AkrARdyA+oN5ATEEwg3aAIk7mRDIBE6vhnkUwodhPrb0NKZ+XU++t4jrCELlyn+yYFkAqA4JPogtPjehjt5o8qHgw1s7TccNKjW7y+3p3lHKxrF6XmdG2bgiXS4R5Eeey8L4UUcFK7zZWprvwmy9NRrrYi19CzS5LdMwB9FKndLU2moqWe4C7UCrkzP5FNx4eqZZ2rBBJI1HizjS7qwOxgNkmrZxfStDaV6DLLMpApufxrRLgGEzaV/I/cjxjWChBCVd7GE4Au/B+pwhJAQ+CeEPuZBE5KfQkeXoBm7bRbLBoKEJ6rCrsDwxOY7B4HBgYcRVHM4lCGPQJD2LM7rU03VzisfshKOiTpLo8F8gvPPiSrd4vHkvJXuOLucGmm9CefVIv/7gIPBUvmVXs/jtKmpvI/Z/OgGR5J6ig8j95YqvEPm6MTiPd8vuKhoOHGzXlL9Wlv7W3Euh8ZN40QykcnlMmcTW5OE/sYxzpoFGLrdJd0p1sOo5eK98iV3ZZ7KHRs+8JUWfck5BlC1V4NPCAbo+gzhd1VF/JKqAGSAUSGgZ84l6koO30Oqx8IeqJoJIZGD67ZNlneZbwto0UUuMKH0AAAAAElFTkSuQmCC"></a>
+
+						</div>					
+						</div>
+					</div>
+			</c:forEach>
 			</c:if>
 		</div>
 		

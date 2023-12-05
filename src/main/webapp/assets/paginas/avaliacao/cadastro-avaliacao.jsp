@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="pt">
 	<head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<link rel="stylesheet" href="../../estilos/padrao.css">
-			<link rel="stylesheet" href="../../estilos/cadastro-avaliacao.css">
+			<style> <%@include file="../../estilos/padrao.css"%></style>
+			<style> <%@include file="../../estilos/cadastro-avaliacao.css"%></style>
             <title>Avaliacao</title>
 			
 	</head>
@@ -24,7 +24,9 @@
 		</div>
 	</div>
 
-	<form action="inserir-avaliacao" method="post" class="template-grid-avaliacao">
+	<form action="inserir-avaliacao" method="post" class="template-grid-avaliacao">		
+		<input type="hidden" name="id" value="<c:out value="${estabelecimento.idEstabelecimento}"/>">
+		
 		<div id="respostas-avaliacao" class="grid-centro texto-pergunta">
 			<hr>
 			<div id="pergunta-1">
@@ -87,7 +89,7 @@
 		</div>
 	<div class="grid-centro">
 		<div class="cancelar">
-				<button onclick="location.href='http://localhost:8080/MeInclui/perfil-estabelecimento'" class="botao-sem-cor-pequeno texto-pequeno">Cancelar</button>
+				<a href="perfil-estabelecimento" class="botao-sem-cor-pequeno texto-pequeno">Cancelar</a>
 	    </div>
 		<div class="enviar">
 				<input type="submit" value="FINALIZAR" class="botao-pequeno texto-pequeno" > 

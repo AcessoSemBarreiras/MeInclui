@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Editar perfil Usuario!</title>
 <style><%@include file="../../estilos/padrao.css"%></style>
-<style><%@include file="../../estilos/editar-perfils.css"%></style>
+<style><%@include file="../../estilos/editar-perfis.css"%></style>
 </head>
 <body>
 

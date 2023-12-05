@@ -16,7 +16,7 @@
 
 	<div id="container" class="template-grid">
 	<div id="card-est">
-			<input type="hidden" name="id" value='<c:out value="${estabelecimento.idEstabelecimento }"></c:out>'>
+			<input type="hidden" name="id" value="<c:out value="${estabelecimento.idEstabelecimento }"/>">
 	
 		<div id="aside">
 			<img alt="foto do estabelecimento" id="foto" src="<c:out value='${estabelecimento.fotoEstabelecimento.urlFoto()}'/>">
