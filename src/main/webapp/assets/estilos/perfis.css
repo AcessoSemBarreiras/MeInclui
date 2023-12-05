@@ -1,78 +1,227 @@
-/*------------------ESTABELECIMENTO--------------------------*/
-
-
-
-.texto-adicionais{
-	font-size: 1em;
-	font-weight: 450;
-	color:var(--azul);
+{
+	margin: 0;
+	padding: 0;
 }
-
-
-
-.texto-aviso{
-	font-size: 1em;
-	font-weight: 600;
-	color:var(--azul);
-}
-
-
-
+ 
+ 
 /*-----Usuario-----*/
-
-.nome-usuario{
-	font-size: 1.3em;
-	font-weight: 600;
-	color:var(--azul);
+ 
+#perfil-usuario{
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	gap: 100px;
+}
+ 
+/*-----Posição-----*/
+ 
+.inf-usuario{
+	grid-column: 3/5;
+}
+ 
+.conq-usuario{
+	grid-column: 5/11;
+}
+ 
+ 
+.aval-usuario{
+	grid-column: 3/11;
 }
 
+.fav-usuario{
+	grid-column: 3/11;
+}
+.cm-usuario{
+	grid-column: 3/11;
+}
+ 
+ 
+/*-----Estilos-----*/
+
+.inf-usuario{
+	display: grid;
+	place-items: center;
+	padding-top: 10%;
+}
+ 
+#pessoal{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;		
+	align-items: center;
+	width: 85%;
+	border-bottom: 1px solid var(--cinza);
+	padding-bottom: 1%;
+}
+ 
+#pessoal img{
+	justify-content: center;
+	align-items: center;
+	height: 170px;
+	width: 170px;
+	border-radius: 50%;
+}
+ 
+ 
+#pessoal-baixo{
+	padding-left: 10%;
+	font-size: 0.8em;
+	font-family: var(--fontes-geral);
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10%;
+	padding-top: 3%;
+}
+ 
+#fmt{
+	font-size: 0.8em;
+	font-family: var(--fontes-geral);
+	padding-left: 50%;
+	flex: 2;
+}
+ 
+.conq-usuario{
+	padding-top: 1%;
+	padding-left: 5%;
+	display: grid;
+	place-items: center;
+}
+ 
+.titulo{
+	width: 100%;
+}
+ 
+.conq-usuario h3{
+	width: 18%;
+	justify-content: start;
+	border-bottom: 1px solid var(--cinza);
+	
+}
+ 
+#aviso{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	font-size: 0.8em;
+	font-family: var(--fontes-geral);
+	gap: 15%;
+}
+ 
+#aviso img{
+	height: 50%;
+	width: 10%;
+}
+ 
+#aviso p{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 100%;
+}
+ 
+.aviso-sem{
+	display: grid;
+	place-items: center;
+	padding-left: 1%;
+	width: 100%;
+	height: 100%;
+ 
+}
+ 
+.aviso-sem p{
+	font-weight: 800;
+}
+
+.cm-usuario{
+	border: 1px solid var(--azul);
+	border-radius: 10px;
+	padding: 20px;
+	margin: 20px;
+}
+
+.caixa-comentario{
+	border-bottom: 1px solid var(--azul);
+	position: relative;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	}
+ 
+.nome-usuario{
+}
+ 
 .pronome{
-	font-size: 1.1em;
-	font-weight: 400;
-	color:var(--cinza-escuro);
+	font-size: 0.7em;
+	font-family: var(--fontes-geral);
+	color: var(--cinza-escuro);
+}
+
+#foto{
+     height: 90%;
+     width: 65%;
+     border-radius: 50%;
 }
 
 .texto-secundario{
 	font-size: 0.9em;
 }
-
-
-
+ 
 .botao-secundario{
 	text-align: center;
 }
-
+ 
 #h3{
 	display: flex;
 	justify-content: center;
 }
-
-
-
-
+ 
+ 
+ 
+ 
 a{
 	color: var(--preto);
 	text-decoration: none;
 }
-
+ 
 b{
 	text-decoration: none;
-	color:var(--laranja)
+	color:var(--laranja);
 }
 
-/*------------------ESTABELECIMENTO--------------------------*/
+.titulo-comentario{
+	color: var(--blue);
+	float: left;
+	display: inline-block;
+	margin: 5px;
+}
 
+.cabecalho-comentario{
+	overflow: hidden;
+	width: 80%;
+	display: flex;
+	align-items: center;
+}
+
+.avaliar-comentario{
+	top: 0;
+	right: 0;
+	margin: 2%;
+	position: absolute;
+}
+/*------------------ESTABELECIMENTO--------------------------*/
+ 
 #container{
 	margin-top: 2%;
 	grid-gap: 50px;
 }
-
-
+ 
+ 
 /*-----Estabelecimento-----*/
-
+ 
 #card-est{
 	grid-column: 3/6;
-	grid-row: 1/5;
 	height: 220px;
 	width: 100%;
 	gap: 10px;
@@ -81,27 +230,21 @@ b{
 	padding: 20px;
 	display: flex;
 }
-
-
-
+ 
+ 
+ 
 #inf-estabelecimento{
 	width: 167px;
 }
-
-#foto{
-	height: 140px;
-	width: 120px;
-	border-radius: 10px;
-}
-
-#nota{	 
+ 
+#nota{	
 	 text-align: center;
- }
-
+}
+ 
 #nota h3{
 	border-bottom: 1px solid var(--azul);
 }
-
+ 
 #interacoes{
 	margin-left: 70px;
 	margin-top: 50px;
@@ -109,43 +252,41 @@ b{
 	display: flexbox;
 	justify-content: center;
 }
-
+ 
 /*-----Comentario-----*/
-
+ 
 #comentario{
 	grid-column: 6/11;
-	grid-row: 1/12;
 	height: 100%;
 	width: 100%;
 	padding-left: 2%;
 	border: 1px solid var(--cinza);
 	border-radius: 10px;
-
+ 
 }
-
+ 
 #sem-comentarios{
 	margin-left: 100px;
 	margin-top: 50px;
 }
-
+ 
 #cm-foto{
 	height: 50px;
 	width: 50px;
 	border-radius: 50%;
 }
-
+ 
 /*-----Avaliacao-----*/
-
+ 
 #avaliacao{
 	display: flex;
 	grid-column: 3/6;
-	grid-row: 6/11;
 	height: 100%;
 	width: 100%;
 	justify-content: center;
 	margin-top: -20%;
 }
-
+ 
 .topico-avaliacao{
 	display: flex;
 	align-items: center;
@@ -158,9 +299,24 @@ b{
 	border-radius: 5px;
 	padding-right: 10px;
 	}
-
-
+ 
+ 
 h4{
 	font-size: 0.9em;
-
+ 
+}
+ 
+ 
+.texto-adicionais{
+	font-size: 1em;
+	font-weight: 450;
+	color:var(--azul);
+}
+ 
+ 
+ 
+.texto-aviso{
+	font-size: 1em;
+	font-weight: 600;
+	color:var(--azul);
 }

@@ -177,6 +177,7 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 			raizEstabelecimento.fetch(Estabelecimento_.endereco, JoinType.LEFT);
 			raizEstabelecimento.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			raizEstabelecimento.fetch(Estabelecimento_.fotoEstabelecimento, JoinType.LEFT);
 			
 			criteria.select(raizEstabelecimento);
 			criteria.where(

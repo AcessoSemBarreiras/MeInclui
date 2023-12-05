@@ -6,23 +6,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Perfil Estabelecimento</title>
 <style><%@include file="../../estilos/padrao.css"%></style>
-<style><%@include file="../../estilos/perfils.css"%></style>
+<style><%@include file="../../estilos/perfis.css"%></style>
 </head>
 <body>
 
 	<%@ include file="../menu.jsp" %>
 
-
-	
 	<div id="container" class="template-grid">
 	<div id="card-est">
 			<input type="hidden" name="id" value='<c:out value="${estabelecimento.idEstabelecimento }"></c:out>'>
 	
 		<div id="aside">
-			<img alt="foto do estabelecimento" id="foto" src="<c:out value='${url}'/>">
+			<img alt="foto do estabelecimento" id="foto" src="<c:out value='${estabelecimento.fotoEstabelecimento.urlFoto()}'/>">
 			<div class="texto-secundario" id="nota">
 				<h3>Nota Geral</h3>
 				<c:if test="${nota == null}">

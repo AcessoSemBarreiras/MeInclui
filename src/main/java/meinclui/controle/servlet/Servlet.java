@@ -442,6 +442,8 @@ public class Servlet extends HttpServlet {
 
 	private void filtrarEstabelecimentos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		
 		String nomeEstabelecimento = request.getParameter("nome");
 		Optional<String> nomeOp = (nomeEstabelecimento == "") ? Optional.empty() : Optional.of(nomeEstabelecimento);
@@ -464,6 +466,7 @@ public class Servlet extends HttpServlet {
 		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.filtrarEstabelecimentos(nomeOp, categoriaOp, mediaOp, estadoOp, cidadeOp, bairroOp);
 
 		request.setAttribute("estabelecimentos", estabelecimentos);
+		request.setAttribute("usuario", usuario);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/pesquisa.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -475,12 +478,10 @@ public class Servlet extends HttpServlet {
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 
 		Estabelecimento estabelecimento = estabelecimentoDAO.recuperarEstabelecimentoId(Long.parseLong(request.getParameter("id")));
-		Foto foto = fotoDAO.recuperarFotoEstabelecimento(estabelecimento.getIdEstabelecimento());
         
         List<Comentario> comentarios = comentarioDAO.recuperarComentariosPeloEstabelecimento(estabelecimento.getIdEstabelecimento());
         List<Comentario> respostas = comentarioDAO.recuperarComentariosRespostas(estabelecimento);
-        
-        request.setAttribute("url", foto.urlFoto());
+
         request.setAttribute("estabelecimento", estabelecimento);
         request.setAttribute("usuario", usuario);
         request.setAttribute("comentarios", comentarios);
@@ -639,13 +640,13 @@ public class Servlet extends HttpServlet {
 		int pontuacao = usuarioDAO.recuperarPontuacaoUsuario(usuario.getIdUsuario());
 		List<Conquista> conquistas = conquistaDAO.recuperarConquistasMaisRecentes(usuario.getIdUsuario());
 		List<Comentario> comentarios = comentarioDAO.recuperarComentariosOrdenadoMaisRecente(usuario.getIdUsuario());
-		List<Estabelecimento> estabelecimentos = estabelecimentoDAO.recuperarEstabelecimentoAvaliado(usuario.getIdUsuario());
-		
+		List<Estabelecimento> estabelecimentosAvaliados = estabelecimentoDAO.recuperarEstabelecimentoAvaliado(usuario.getIdUsuario());
+
 		request.setAttribute("usuario", usuario);
 		request.setAttribute("pontuacao", pontuacao);
 		request.setAttribute("conquistas", conquistas);
 		request.setAttribute("comentarios", comentarios);
-		request.setAttribute("estabelecimentos", estabelecimentos);
+		request.setAttribute("estabelecimentosAval", estabelecimentosAvaliados);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/perfil-usuario.jsp");
 		dispatcher.forward(request, response);
 	}

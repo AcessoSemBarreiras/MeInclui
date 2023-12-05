@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -339,7 +340,8 @@ public class ComentarioDAOImpl implements ComentarioDAO {
 
 			CriteriaQuery<Comentario> criteria = construtor.createQuery(Comentario.class);
 			Root<Comentario> raizComentario = criteria.from(Comentario.class);
-
+			raizComentario.fetch(Comentario_.estabelecimento, JoinType.LEFT);
+			
 			criteria.select(raizComentario);
 			criteria.where(construtor.equal(raizComentario.get(Comentario_.estabelecimento),
 					idEstabelecimento));
