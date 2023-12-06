@@ -20,8 +20,6 @@ public interface UsuarioDAO {
 	Usuario recuperarUsuarioId(Long id);
   
 	Usuario recuperarUsuarioEmail(String emailUsuario);
-
-	List<UsuarioComunidadeDTO> recuperarUsuarioRanque();
 	
 	List<Tuple> recuperarUsuariosMaiorRanque();
 
@@ -31,6 +29,8 @@ public interface UsuarioDAO {
 
 	List<Tuple> recuperarUsuariosMaiorRanqueMes(LocalDate primeiroDia, LocalDate ultimoDia);
 
+	List<Tuple> recuperarUsuarioMaiorRanqueAno(LocalDate primeiroDia, LocalDate ultimoDia);
+	
 	int recuperarPontuacaoUsuario(Long idUsuario);
 
 	Boolean verificarUsuario(String emailUsuario, String senhaUsuario);

@@ -9,7 +9,7 @@
 <meta charset="ISO-8859-1">
 <title>Perfil Estabelecimento</title>
 <style><%@include file="../../estilos/padrao.css"%></style>
-<style><%@include file="../../estilos/perfils.css"%></style>
+<style><%@include file="../../estilos/perfis.css"%></style>
 </head>
 <body>
 
@@ -22,7 +22,7 @@
 			<input type="hidden" name="id" value='<c:out value="${estabelecimento.idEstabelecimento }"></c:out>'>
 	
 		<div id="aside">
-			<img alt="foto do estabelecimento" id="foto" src="<c:out value='${url}'/>">
+			<img alt="foto do estabelecimento" id="foto" src="<c:out value='${estabelecimento.fotoEstabelecimento.urlFoto()}'/>">
 			<div class="texto-secundario" id="nota">
 				<h3>Nota Geral</h3>
 				<c:if test="${nota == null}">
@@ -67,6 +67,67 @@
 </div>
 
 
+	<div id="avaliacao">
+	<div class="texto-principal">
+		<h3 id="h3">Avaliações</h3>
+
+		<div class="topico-avaliacao">
+			<h4>Obstáculos</h4>
+			<div>
+			<input type="radio" name="obstaculos" value="1" disabled> <input
+				type="radio" name="obstaculos" value="2" disabled> <input
+				type="radio" name="obstaculos" value="3" disabled> <input
+				type="radio" name="obstaculos" value="4" disabled> <input
+				type="radio" name="obstaculos" value="5" disabled>
+			</div>
+		</div>
+	
+		<div class="topico-avaliacao">
+			<h4>Portas</h4>
+			<div>
+			<input type="radio" name="portas" value="1" disabled> <input
+				type="radio" name="portas" value="2" disabled> <input
+				type="radio" name="portas" value="3" disabled> <input
+				type="radio" name="portas" value="4" disabled> <input
+				type="radio" name="portas" value="5" disabled>
+		</div>
+		</div>
+
+		<div class="topico-avaliacao">
+			<h4>Banheiros</h4>
+			<div>
+			<input type="radio" name="banheiros" value="1" disabled> <input
+				type="radio" name="banheiros" value="2" disabled> <input
+				type="radio" name="banheiros" value="3" disabled> <input
+				type="radio" name="banheiros" value="4" disabled> <input
+				type="radio" name="banheiros" value="5" disabled>
+			</div>
+		</div>
+
+		<div class="topico-avaliacao">
+			<h4>Rampas</h4>
+			<div>
+			<input type="radio" name="rampas" value="1" disabled> <input
+				type="radio" name="rampas" value="2" disabled> <input
+				type="radio" name="rampas" value="3" disabled> <input
+				type="radio" name="rampas" value="4" disabled> <input
+				type="radio" name="rampas" value="5" disabled>
+		</div>
+		</div>
+
+		<div class="topico-avaliacao">
+			<h4>Proteção</h4>
+			<div>
+			<input type="radio" name="protecao" value="1" disabled> <input
+				type="radio" name="protecao" value="2" disabled> <input
+				type="radio" name="protecao" value="3" disabled> <input
+				type="radio" name="protecao" value="4" disabled> <input
+				type="radio" name="protecao" value="5" disabled>
+			</div>
+		</div>
+		</div>
+	</div>
+	 
 
 
 	<div id="comentario">
@@ -154,71 +215,7 @@
 		<button class="botao-secundario">COMENTAR</button>
 	</div>
 
-
-
-
-
-	<div id="avaliacao">
-	<div class="texto-principal">
-		<h3 id="h3">Avaliações</h3>
-
-		<div class="topico-avaliacao">
-			<h4>Obstáculos</h4>
-			<div>
-			<input type="radio" name="obstaculos" value="1" disabled> <input
-				type="radio" name="obstaculos" value="2" disabled> <input
-				type="radio" name="obstaculos" value="3" disabled> <input
-				type="radio" name="obstaculos" value="4" disabled> <input
-				type="radio" name="obstaculos" value="5" disabled>
-		</div>
 	</div>
-	
-		<div class="topico-avaliacao">
-			<h4>Portas</h4>
-			<div>
-			<input type="radio" name="portas" value="1" disabled> <input
-				type="radio" name="portas" value="2" disabled> <input
-				type="radio" name="portas" value="3" disabled> <input
-				type="radio" name="portas" value="4" disabled> <input
-				type="radio" name="portas" value="5" disabled>
-		</div>
-		</div>
 
-		<div class="topico-avaliacao">
-			<h4>Banheiros</h4>
-			<div>
-			<input type="radio" name="banheiros" value="1" disabled> <input
-				type="radio" name="banheiros" value="2" disabled> <input
-				type="radio" name="banheiros" value="3" disabled> <input
-				type="radio" name="banheiros" value="4" disabled> <input
-				type="radio" name="banheiros" value="5" disabled>
-			</div>
-		</div>
-
-		<div class="topico-avaliacao">
-			<h4>Rampas</h4>
-			<div>
-			<input type="radio" name="rampas" value="1" disabled> <input
-				type="radio" name="rampas" value="2" disabled> <input
-				type="radio" name="rampas" value="3" disabled> <input
-				type="radio" name="rampas" value="4" disabled> <input
-				type="radio" name="rampas" value="5" disabled>
-		</div>
-		</div>
-
-		<div class="topico-avaliacao">
-			<h4>Proteção</h4>
-			<div>
-			<input type="radio" name="protecao" value="1" disabled> <input
-				type="radio" name="protecao" value="2" disabled> <input
-				type="radio" name="protecao" value="3" disabled> <input
-				type="radio" name="protecao" value="4" disabled> <input
-				type="radio" name="protecao" value="5" disabled>
-			</div>
-		</div>
-		</div>
-	</div>
-	</div>
-	 
 </body>
 </html>

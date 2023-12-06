@@ -1,106 +1,97 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Ranque de usuario!</title>
 <style><%@include file="../../estilos/padrao.css"%></style>
+<style><%@include file="../../estilos/ranque.css"%></style>
 </head>
 <body>
 	<%@ include file="../menu.jsp"%>
-
-	<div class="texto-medio">
-		<h3>Destaques da comunidade</h3>
-	</div>
 	
-	
-	<div id="filtros-ranque">
-		<a href="">Geral</a>
-		<a href="">Anual</a>
-		<a href="">Mensal</a>
-		<a href="">Semanal</a>
-		<a href="">Diário</a>
-	</div>
-
-	
- <div class="cards-ranque">
-	
-		<div class="card-segundo">
-			
-			<div class="card-inf">
-				
-				<p>#2</p>
-				
-				<p>Conquistas</p>
-				
-			</div>
-		</div>
-
-		<div class="card-primeiro">
-			
-			<div class="card-inf">
-				
-				<p>#1</p>
-				
-				<p>Conquistas</p>
-				
-			</div>
+	<div class="temp-grid">
+	<div class="cabecalho conteudo">
+		<div class="texto-grande titulo">
+			<h3>Aliados da Comunidade</h3>
 		</div>
 		
-		<div class="card-terceiro">
-			
-			<div class="card-inf">
-				
-				<p>#3</p>
-				
-				<p>Conquistas</p>
-				
-			</div>
-		</div>
 		
+		<div class="filtros-ranque">
+			<a href="comunidade-geral" class="texto-medio navegacao<c:if test="${pagina == 1}"><c:out value=" atual"></c:out></c:if>">Geral</a>
+			<a href="comunidade-anual" class="texto-medio navegacao<c:if test="${pagina == 2}"><c:out value=" atual"></c:out></c:if>">Anual</a>
+			<a href="comunidade-mensal" class="texto-medio navegacao<c:if test="${pagina == 3}"><c:out value=" atual"></c:out></c:if>">Mensal</a>
+			<a href="comunidade-semanal" class="texto-medio navegacao<c:if test="${pagina == 4}"><c:out value=" atual"></c:out></c:if>">Semanal</a>
+			<a href="comunidade-diaria" class="texto-medio 	navegacao<c:if test="${pagina == 5}"><c:out value=" atual"></c:out></c:if>">Diário</a>
+		</div>
 	</div>
 
-	<div id="outros-destaques">
-		<h4>Outros Destaques</h4>
+	<div class="conteudo informativo">
+		<p class="texto-medio" style="color: var(--laranja)">Seja você também um destaque!</p>
+		<p class="texto-pequeno texto-complementar">Nosso ranking de usuários destaques está a todo vapor. A nossa métrica para definir um destaque é de acordo com as atividades desenvolvidas pelo usuário dentro da nossa plataforma. Cada atividade listada abaixo gera uma pontuação que a somatória pode te levar ao top 10. São elas: </p>
+		<p class="texto-pequeno texto-complementar">Fazer comentários;</p>
+		<p class="texto-pequeno texto-complementar">Avaliar estabelecimentos;</p>
+		<p class="texto-pequeno texto-complementar">Cadastrar estabelecimentos;</p>
+		<p class="texto-pequeno texto-complementar">Número de curtidas recebidas</p>
+	<div class="linha">
+		<img class="estrela" alt="Estrela" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTIiIGhlaWdodD0iNDEiIHZpZXdCb3g9IjAgMCA1MiA0MSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMzLjQzMTIgNC44OTU4OEw1MSA0Ljg5NTg4TTMzLjQzMTIgMzYuMTA0MUg1MU00NS45ODAzIDIwLjVINTFNMzUuNjY0OSAyMy44ODA5TDI5LjAzOSAyNy4zMTM4QzI4LjEzNTQgMjcuNzgxOSAyNy4yMzE5IDI5LjAzMDMgMjcuMDgxMyAzMC4wNzA1TDI2LjA3NzQgMzYuMjg2MkMyNS40MjQ4IDQwLjI2NTIgMjIuNjY0IDQxLjIwMTUgMTkuOTAzMiAzOC4zNDA3TDE1LjIzNDkgMzMuNTAzNEMxNC40NTY5IDMyLjY5NzIgMTIuOTI1OSAzMi4yMjkxIDExLjgyMTUgMzIuNDg5Mkw2LjAyMzgyIDMzLjg2NzVDMS40NTU5MiAzNC45NTk4IC0wLjMyNjA1NiAzMi40MzcyIDIuMDU4MjggMjguMjVMNS4zOTYzNiAyMi40MjQ1QzUuOTk4NzIgMjEuMzU4MiA1Ljk5ODcyIDE5LjY0MTggNS4zOTYzNiAxOC41NzU1TDIuMDU4MjggMTIuNzVDLTAuMzI2MDU2IDguNTYyODUgMS40NTU5MiA2LjA0MDE4IDYuMDIzODIgNy4xMzI0N0wxMS44MjE1IDguNTEwODRDMTIuOTAwOCA4Ljc3MDkgMTQuNDMxOCA4LjMwMjc4IDE1LjIzNDkgNy40OTY1N0wxOS45MDMyIDIuNjU5MjlDMjIuNjY0IC0wLjIwMTQ2NSAyNS40NDk5IDAuNzM0NzgzIDI2LjA3NzQgNC43MTM4M0wyNy4wODEzIDEwLjkyOTVDMjcuMjU3IDExLjk2OTcgMjguMTM1NCAxMy4yMTgxIDI5LjAzOSAxMy42ODYyTDM1LjY2NDkgMTcuMTE5MUMzOS4yNTQgMTguOTY1NiAzOS4yNTQgMjIuMDM0NCAzNS42NjQ5IDIzLjg4MDlaIiBzdHJva2U9IiNGRjc4MUMiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==">
+		<hr class="linha-laranja">
+		<img class="estrela" alt="Estrela" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTMiIGhlaWdodD0iNDIiIHZpZXdCb3g9IjAgMCA1MyA0MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE5LjA2NzggMzYuNjA0MUgxLjQ5OTAyTTE5LjA2NzggNS4zOTU4OEgxLjQ5OTAyTTYuNTE4NjkgMjFIMS40OTkwMk0xNi44MzQxIDE3LjYxOTFMMjMuNDYgMTQuMTg2MkMyNC4zNjM2IDEzLjcxODEgMjUuMjY3MSAxMi40Njk3IDI1LjQxNzcgMTEuNDI5NUwyNi40MjE3IDUuMjEzODNDMjcuMDc0MiAxLjIzNDc4IDI5LjgzNSAwLjI5ODUzMSAzMi41OTU4IDMuMTU5MjlMMzcuMjY0MSA3Ljk5NjU3QzM4LjA0MjIgOC44MDI3OCAzOS41NzMyIDkuMjcwOSA0MC42Nzc1IDkuMDEwODNMNDYuNDc1MiA3LjYzMjQ3QzUxLjA0MzEgNi41NDAxOCA1Mi44MjUxIDkuMDYyODUgNTAuNDQwNyAxMy4yNUw0Ny4xMDI3IDE5LjA3NTVDNDYuNTAwMyAyMC4xNDE4IDQ2LjUwMDMgMjEuODU4MiA0Ny4xMDI3IDIyLjkyNDVMNTAuNDQwNyAyOC43NUM1Mi44MjUxIDMyLjkzNzIgNTEuMDQzMSAzNS40NTk4IDQ2LjQ3NTIgMzQuMzY3NUw0MC42Nzc1IDMyLjk4OTJDMzkuNTk4MyAzMi43MjkxIDM4LjA2NzMgMzMuMTk3MiAzNy4yNjQxIDM0LjAwMzRMMzIuNTk1OCAzOC44NDA3QzI5LjgzNSA0MS43MDE1IDI3LjA0OTEgNDAuNzY1MiAyNi40MjE3IDM2Ljc4NjJMMjUuNDE3NyAzMC41NzA1QzI1LjI0MiAyOS41MzAzIDI0LjM2MzYgMjguMjgxOSAyMy40NiAyNy44MTM4TDE2LjgzNDEgMjQuMzgwOUMxMy4yNDUgMjIuNTM0NCAxMy4yNDUgMTkuNDY1NiAxNi44MzQxIDE3LjYxOTFaIiBzdHJva2U9IiNGRjc4MUMiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==">
+	</div>
+	</div>
+				<div class="cards-ranque conteudo">
 		
-		<div id="outros">
-			<div id="titulos-outros">
-				<table>
-				<tr>
-					<th></th>
-					<th colspan="2">Nome</th>
-					<th>Pontos</th>
-					
-				</tr>
-				<c:forEach var="cm" items="${comunidade}" varStatus="contador">
-					<tr>
-						<td>#<c:out value="${contador.count}"/></td>
-						
-						<td><c:out value="${cm.get('usuario').getNome() }" /></td>
-						<td><c:out value="${cm.get('soma')}"/></td>
-					</tr>
-				</c:forEach>
-				</table>
-			
-			</div>
-			
-			
-			
-				<p>#</p>
-				
-		</div>
-	</div>
+		<c:set var="top3Usuarios" value="${comunidade.subList(0, 3)}" />
+<c:set var="outrosUsuarios" value="${comunidade.subList(3, comunidade.size())}" />	
+
+<div class="cards-ranque conteudo">
+    <c:forEach var="cm" items="${top3Usuarios}" varStatus="posicao">
+        <c:if test="${posicao.index <= 2}">
+            <div class="card-usuario">
+                <div class="card-sup">
+                    <img class="foto-usuario" alt="" src='<c:out value="${cm.get('usuario').fotoUsuario.urlFoto() }"/>'>
+                </div>
+                <div class="card-inf">
+                    <div class="linha-um">
+                        <p class="texto-medio nome-usuario"><c:out value="${cm.get('usuario').nomeDeUsuario }"/></p>
+                        <p class="texto-grande posicao-usuario">#<c:out value="${posicao.count}"/></p>
+                    </div>
+                    <p class="texto-pequeno pontuacao-usuario"><c:out value="${cm.get('soma')}"/> pontos</p>
+                    <div class="linha">
+                        <hr class="linha-cinza">
+                    </div>
+                    <p class="texto-secundario">Conquistas</p>
+                </div>
+            </div>
+        </c:if>
+    </c:forEach>
+</div>
+</div>
+<div class="outros-destaques conteudo">
+    <h3 class="titulo-outros">Outros Destaques</h3>
+    <div id="outros">
+        <div class="tabela-outros">
+            <table>
+                <tr>
+                    <th></th>
+                    <th colspan="2">Nome</th>
+                    <th>Pontos</th>                    
+                </tr>
+                <c:forEach var="cm" items="${outrosUsuarios}" varStatus="posicaoOutros">
+                    <tr>
+                        <td>#<c:out value="${posicaoOutros.count + 3}"/></td>
+                        <td><c:out value="${cm.usuario.nomeDeUsuario}" /></td>
+                        <td><c:out value="${cm.soma}"/></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>        
+    </div>
+</div>
 	
-	<div class="aside">
-		<img alt="Estrela" height="40" width="40" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDEiIGhlaWdodD0iNTIiIHZpZXdCb3g9IjAgMCA0MSA1MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuODk1ODggMTguNTY4OFYxTTM2LjEwNDEgMTguNTY4OFYxTTIwLjUgNi4wMTk2NlYxTTIzLjg4MDkgMTYuMzM1MUwyNy4zMTM4IDIyLjk2MUMyNy43ODE5IDIzLjg2NDYgMjkuMDMwMyAyNC43NjgxIDMwLjA3MDUgMjQuOTE4N0wzNi4yODYyIDI1LjkyMjZDNDAuMjY1MiAyNi41NzUyIDQxLjIwMTUgMjkuMzM2IDM4LjM0MDcgMzIuMDk2OEwzMy41MDM0IDM2Ljc2NTFDMzIuNjk3MiAzNy41NDMxIDMyLjIyOTEgMzkuMDc0MSAzMi40ODkyIDQwLjE3ODVMMzMuODY3NSA0NS45NzYyQzM0Ljk1OTggNTAuNTQ0MSAzMi40MzcxIDUyLjMyNjEgMjguMjUgNDkuOTQxN0wyMi40MjQ1IDQ2LjYwMzZDMjEuMzU4MiA0Ni4wMDEzIDE5LjY0MTggNDYuMDAxMyAxOC41NzU1IDQ2LjYwMzZMMTIuNzUgNDkuOTQxN0M4LjU2Mjg1IDUyLjMyNjEgNi4wNDAxOCA1MC41NDQxIDcuMTMyNDcgNDUuOTc2Mkw4LjUxMDgzIDQwLjE3ODVDOC43NzA5IDM5LjA5OTIgOC4zMDI3OCAzNy41NjgyIDcuNDk2NTcgMzYuNzY1MUwyLjY1OTI5IDMyLjA5NjhDLTAuMjAxNDY1IDI5LjMzNiAwLjczNDc4MyAyNi41NTAxIDQuNzEzODMgMjUuOTIyNkwxMC45Mjk1IDI0LjkxODdDMTEuOTY5NyAyNC43NDMgMTMuMjE4MSAyMy44NjQ2IDEzLjY4NjIgMjIuOTYxTDE3LjExOTEgMTYuMzM1MUMxOC45NjU2IDEyLjc0NiAyMi4wMzQ0IDEyLjc0NiAyMy44ODA5IDE2LjMzNTFaIiBzdHJva2U9IiNGRjc4MUMiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==">
-		<h3>Seja você também um destaque!</h3>
-		<p>Nosso ranking de usuários destaques está a todo vapor. A nossa métrica para definir um destaque é de acordo com as atividades desenvolvidas pelo usuário dentro da nossa plataforma. Cada atividade listada abaixo gera uma pontuação que a somatória pode te levar ao top 10. São elas: </p>
-		<p>Fazer comentários;</p>
-		<p>Avaliar estabelecimentos;</p>
-		<p>Cadastrar estabelecimentos;</p>
-		<p>Número de curtidas recebidas</p>
-	</div>
+	
+		</div>
 </body>
 </html>

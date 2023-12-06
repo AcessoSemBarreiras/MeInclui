@@ -160,10 +160,10 @@ public class FotoDAOImpl implements FotoDAO{
 			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
 			CriteriaQuery<Foto> criteria = construtor.createQuery(Foto.class);
 			Root<Estabelecimento> raizEstabelecimento = criteria.from(Estabelecimento.class);
-			//Join<Estabelecimento, Foto> fotoJoin = raizEstabelecimento.join(Estabelecimento_.fotoEstabelecimento);
-			//fotoJoin.on(construtor.equal(raizEstabelecimento.get(Estabelecimento_.fotoEstabelecimento), fotoJoin.get(Foto_.idFoto)));
+			Join<Estabelecimento, Foto> fotoJoin = raizEstabelecimento.join(Estabelecimento_.fotoEstabelecimento);
+			fotoJoin.on(construtor.equal(raizEstabelecimento.get(Estabelecimento_.fotoEstabelecimento), fotoJoin.get(Foto_.idFoto)));
 			
-			//criteria.select(fotoJoin);
+			criteria.select(fotoJoin);
 
 			foto = sessao.createQuery(criteria).getSingleResult();
 			sessao.getTransaction().commit();

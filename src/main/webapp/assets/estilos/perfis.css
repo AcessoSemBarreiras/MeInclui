@@ -56,8 +56,8 @@
 #pessoal img{
 	justify-content: center;
 	align-items: center;
-	height: 170px;
-	width: 170px;
+	height: 50%;
+	width: 50%;
 	border-radius: 50%;
 }
  
@@ -190,7 +190,6 @@ b{
 
 .titulo-comentario{
 	color: var(--blue);
-	float: left;
 	display: inline-block;
 	margin: 5px;
 }
@@ -220,8 +219,8 @@ b{
  
 #card-est{
 	grid-column: 3/6;
-	height: 220px;
-	width: 100%;
+	height: 100%;
+	width: 90%;
 	gap: 10px;
 	border: 1px solid var(--cinza);
 	border-radius: 10px;
@@ -255,6 +254,7 @@ b{
  
 #comentario{
 	grid-column: 6/11;
+	grid-row: 1/3;
 	height: 100%;
 	width: 100%;
 	padding-left: 2%;
@@ -282,7 +282,6 @@ b{
 	height: 100%;
 	width: 100%;
 	justify-content: center;
-	margin-top: -20%;
 }
  
 .topico-avaliacao{
