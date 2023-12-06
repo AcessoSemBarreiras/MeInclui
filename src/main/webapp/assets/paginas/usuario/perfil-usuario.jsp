@@ -2,14 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Perfil Usuário</title>
 <style><%@include file="../../estilos/padrao.css"%></style>
-<style><%@include file="../../estilos/perfils.css"%></style>
+<style><%@include file="../../estilos/perfis.css"%></style>
 </head>
 <body>
 	<main>
@@ -44,17 +44,19 @@
 				<fmt:formatDate value="${nascimento}" type="date" pattern="dd/MM/yyyy" var="data" />
 				<c:out value="${data}"></c:out>
 			</div>
-		</div>		
 		</div>
 
 
 
-
 		<div class="conq-usuario">
-			<div class="titulo">
-				<h3 class="texto-principal">Conquistas</h3>
-			</div>
 			<div id="aviso">
+		<div class="campo-conquistas conquistas-usuario">
+			<h3 class="texto-principal" id="conquista">Conquistas</h3>
+			<c:if test="${conquistas != null}">
+				<img alt="Imagem usuario nÃ£o possui conquista"  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMSIgdmlld0JveD0iMCAwIDEwMSAxMDEiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik00MS4zNDc1IDM4LjM3MzZDNDEuMzQ3NSA0MC45MjU4IDM5LjYzODUgNDIuMjE1OSAzOC40MjU1IDQyLjIxNTlDMzcuMjEyNiA0Mi4yMTU5IDM1LjUwMzUgNDAuOTI1OCAzNS41MDM1IDM4LjM3MzZDMzUuNTAzNSAzNS44MjE1IDM3LjIxMjYgMzQuNTMxNCAzOC40MjU1IDM0LjUzMTRDMzkuNjM4NSAzNC41MzE0IDQxLjM0NzUgMzUuODIxNSA0MS4zNDc1IDM4LjM3MzZaIiBzdHJva2U9IiMwMzMyNkMiIHN0cm9rZS13aWR0aD0iNi4yNDUzNiIvPgo8cGF0aCBkPSJNNjUuNTI2MyAzOC4zNzM2QzY1LjUyNjMgNDAuOTI1OCA2My44MTczIDQyLjIxNTkgNjIuNjA0MyA0Mi4yMTU5QzYxLjM5MTIgNDIuMjE1OSA1OS42ODIzIDQwLjkyNTggNTkuNjgyMyAzOC4zNzM2QzU5LjY4MjMgMzUuODIxNSA2MS4zOTEyIDM0LjUzMTQgNjIuNjA0MyAzNC41MzE0QzYzLjgxNzMgMzQuNTMxNCA2NS41MjYzIDM1LjgyMTUgNjUuNTI2MyAzOC4zNzM2WiIgc3Ryb2tlPSIjMDMzMjZDIiBzdHJva2Utd2lkdGg9IjYuMjQ1MzYiLz4KPHBhdGggZD0iTTM1LjYyODYgNjIuNDk1NEMzMy45OTE4IDYzLjc0MTcgMzIuNzcwOCA2NS4wMDE1IDMxLjk0MjMgNjUuOTc2QzMxLjUyNzkgNjYuNDYyOCAzMS4yMTA2IDY2Ljg4MDIgMzAuOTg3NiA2Ny4xOTAzTTM1LjYyODYgNjIuNDk1NEw2Ni43OTIzIDcxLjgxMjFMNjYuNzg4MSA3MS44NDY0TDY2LjY2NTggNzIuODM3QzY2LjQ4ODEgNzIuNjY1IDY2LjMyMzggNzIuNDYyIDY2LjE3NzcgNzIuMjI4N0w2Ni4xNjE4IDcyLjIwNTNNMzUuNjI4NiA2Mi40OTU0QzM4LjkxNzcgNTkuOTg5MyA0My44NDA3IDU3LjU3MDYgNTAuNTI1NyA1Ny41NzA2QzU3LjIxMDkgNTcuNTcwNiA2Mi4xMjkxIDU5Ljk4OTMgNjUuNDE0MiA2Mi40OTY4QzY2LjI5NTEgNjMuMTY4OCA2Ny4wNTUyIDYzLjg0NDcgNjcuNjk4MSA2NC40Nzc2TDM1LjYyODYgNjIuNDk1NFpNMzAuOTg3NiA2Ny4xOTAzQzMwLjg3NjEgNjcuMzQ1OCAzMC43ODc5IDY3LjQ3NDkgMzAuNzIyOSA2Ny41NzIyTTMwLjk4NzYgNjcuMTkwM0wzMS4xMTA3IDY3LjI3ODhMMzAuNzcwMyA2Ny42MDNMMzAuNzIyOSA2Ny41NzIyTTMwLjk4NzYgNjcuMTkwM0wzMS4xMTA4IDY3LjI3ODdMMzIuMjI1NyA2Ni4yMTcyTDMyLjIyNTkgNjYuMjE3TDMyLjg1NzcgNjUuNjE1NEwzNC43MDc3IDY3LjU1ODNNMzAuNzIyOSA2Ny41NzIyTDMwLjY0MjUgNjcuNjk1N00zMC43MjI5IDY3LjU3MjJMMzAuNzY5NyA2Ny42MDM1TDMwLjY2MDcgNjcuNzA3NEwzMC42NDI1IDY3LjY5NTdNMzAuNjQyNSA2Ny42OTU3TDMwLjYxNTEgNjcuNzM4Mk0zMC42NDI1IDY3LjY5NTdMMzAuNjYwNiA2Ny43MDc1TDMwLjYyMzEgNjcuNzQzMkwzMC42MTUxIDY3LjczODJNMzAuNjE1MSA2Ny43MzgyTDMwLjYwNDYgNjcuNzU1M0wzMC42MDAyIDY3Ljc2MjRNMzAuNjE1MSA2Ny43MzgyTDMwLjYyMyA2Ny43NDMzTDMwLjYwODEgNjcuNzU3NEwzMC42MDgxIDY3Ljc1NzVMMzAuNjAxOCA2Ny43NjM0TDMwLjYwMDIgNjcuNzYyNE0zMC42MDAyIDY3Ljc2MjRMMzAuNTk2MiA2Ny43Njg4TDMwLjYwMTggNjcuNzYzNEwzMC42MDAyIDY3Ljc2MjRaTTM0LjcwNzcgNjcuNTU4M0MzNC43MDY1IDY3LjU1OTcgMzQuNzA1MyA2Ny41NjEgMzQuNzA0MSA2Ny41NjIzQzM0LjcyMTQgNjcuNTgwNCAzNC43Mzg4IDY3LjU5ODcgMzQuNzU2MyA2Ny42MTdDMzQuNzU3NiA2Ny42MTU4IDM0Ljc1ODkgNjcuNjE0NiAzNC43NjAyIDY3LjYxMzRNMzQuNzA3NyA2Ny41NTgzQzM1LjM5NzIgNjYuNzk2NCAzNi4zMzE3IDY1Ljg4NDkgMzcuNTIwMyA2NC45Nzk5TDM3LjUyMTEgNjQuOTc5M0M0MC4zNzMyIDYyLjgwNjIgNDQuNjQ3NiA2MC42OTMyIDUwLjUyNTcgNjAuNjkzMkM1Ni40MDM3IDYwLjY5MzIgNjAuNjcyNSA2Mi44MDU5IDYzLjUxOTYgNjQuOTc5MUw2My41MjAzIDY0Ljk3OTZDNjQuOTQ1NSA2Ni4wNjY4IDY2LjAwNDEgNjcuMTYzMyA2Ni43MTIzIDY3Ljk5ODRMNjYuNzEyOSA2Ny45OTkxQzY2Ljc4NiA2OC4wODUzIDY2Ljg1NTMgNjguMTY4NiA2Ni45MjA5IDY4LjI0ODdDNjYuMjkwOCA2Ny41OTg4IDY1LjQ5NzEgNjYuODY2NCA2NC41MzI2IDY2LjEzMDZNMzQuNzA3NyA2Ny41NTgzTDM0Ljc2MDIgNjcuNjEzNE0zNC43NjAyIDY3LjYxMzRMMzYuMTUzNiA2OS4wNzY4TDM0LjcwNzggNzAuNDU5MUwzNS42MTgyIDcxLjIzMzdNMzQuNzYwMiA2Ny42MTM0QzM1LjI2NDIgNjcuMTM3NyAzNS44NDYxIDY2LjYzNSAzNi41MDgxIDY2LjEzMDdMMzYuNTA4MiA2Ni4xMzA2QzM5LjQ3ODggNjMuODY4IDQ0LjEwMjMgNjEuNTQ1MiA1MC41MjU3IDYxLjU0NTJDNTYuOTQ4NCA2MS41NDUyIDYxLjU2NjggNjMuODY3IDY0LjUzMjYgNjYuMTMwNk0zNS42MTgyIDcxLjIzMzdMMzQuNzA3NiA3MC40NTkyTDMzLjg5MjcgNzEuMjM4NEwzNC45OTAyIDcyLjAyNzVMMzMuODkyNSA3MS4yMzg2TDMzLjY5NjMgNzEuNDI2MkwzMy42ODQgNzEuNDM3OUwzMy42NjI2IDcxLjQ1ODNMMzMuNjQ0MyA3MS40NzU4TDMxLjczNzUgNzMuMjk4OUMzMi44MTQ2IDczLjg0MjYgMzQuMDgyIDczLjQ1NTIgMzQuODQ5OCA3Mi4yMzM3TDM0Ljg2NTYgNzIuMjA5Nk0zNS42MTgyIDcxLjIzMzdDMzUuMzI1MyA3MS41Nzc5IDM1LjExNzIgNzEuODU0IDM0Ljk5MTcgNzIuMDI4NkMzNC45Mjg5IDcyLjExNTkgMzQuODg3IDcyLjE3NzYgMzQuODY1NiA3Mi4yMDk2TTM1LjYxODIgNzEuMjMzN0MzNi4yMDQzIDcwLjU0NDUgMzcuMTI1OCA2OS41ODU3IDM4LjQwMDQgNjguNjE0OEM0MC45MzM5IDY2LjY4NSA0NC45MDkgNjQuNjY3OSA1MC41MjU3IDY0LjY2NzlDNTYuMTQyMiA2NC42Njc5IDYwLjExMTQgNjYuNjg0MyA2Mi42Mzg2IDY4LjYxMzNNMzQuODY1NiA3Mi4yMDk2TDM0Ljg2NTUgNzIuMjA5NUwzNC44NjU2IDcyLjIwOTZaTTYyLjYzODYgNjguNjEzM0M2My45MTA0IDY5LjU4MzUgNjQuODI4NyA3MC41NDE3IDY1LjQxMjYgNzEuMjMwMUM2NS43MDQzIDcxLjU3NDQgNjUuOTExNyA3MS44NDk3IDY2LjAzNjUgNzIuMDI0M0M2Ni4wOTg5IDcyLjExMTYgNjYuMTQwNSA3Mi4xNzM0IDY2LjE2MTggNzIuMjA1M002Mi42Mzg2IDY4LjYxMzNMNjQuNTMyNiA2Ni4xMzA2TTYyLjYzODYgNjguNjEzM0w2NC41MzMzIDY2LjEzMTFDNjQuNTMzIDY2LjEzMSA2NC41MzI4IDY2LjEzMDggNjQuNTMyNiA2Ni4xMzA2TTY2LjE2MTggNzIuMjA1M0w2Ni43OTY5IDcxLjc3NDhMNjYuNzk2MSA3MS43ODE0TDY2LjE2MTggNzIuMjA1M1pNNjcuODg2OSA2OS4zMjA2QzY3Ljg4ODcgNjkuMzIyOCA2Ny44OTA1IDY5LjMyNSA2Ny44OTIzIDY5LjMyNzJMNjcuODg2OSA2OS4zMjA2Wk02Ny44ODY5IDY5LjMyMDZMNjcuOTY5IDY5LjI2NzVDNjcuOTY4OCA2OS4yNjU4IDY3Ljk2ODYgNjkuMjY0IDY3Ljk2ODQgNjkuMjYyM0w2Ny44ODY5IDY5LjMyMDZaTTY3LjcwMDggNjkuMjkxMkw2Ny43NjM5IDY5LjM4ODhMNjcuNzY5MSA2OS4zOTY4TDY3Ljc4MjkgNjkuNDE4M0M2Ny44NTgyIDY5LjU0MzYgNjcuOTM2NSA2OS43OTY1IDY3LjkwOTIgNzAuMTE2M0M2Ny44OTY0IDcwLjI2NTcgNjcuODYzIDcwLjM4OTggNjcuODI1NyA3MC40NzkyQzY3Ljc5MDggNzAuNTYyOSA2Ny43NjE3IDcwLjU5NTIgNjcuNzYxNyA3MC41OTUzQzY3Ljc2MTcgNzAuNTk1MyA2Ny43NjE5IDcwLjU5NTEgNjcuNzYyMSA3MC41OTQ4TDY3Ljg3OTEgNzAuNzA3NUw2Ny43MDA4IDY5LjI5MTJaTTY3Ljg4MSA2OS4zMTM2QzY3Ljg1OTYgNjkuMjg4MSA2Ny44MzggNjkuMjYyMiA2Ny44MTU5IDY5LjIzNjFMNjcuODgxIDY5LjMxMzZaTTMxLjE5MzUgNzIuOTI3OEMzMS4xMzMyIDcyLjg3NDYgMzEuMDczOSA3Mi44MTc4IDMxLjAxNiA3Mi43NTc1QzMwLjk1NjIgNzIuNjk1MiAzMC44OTg5IDcyLjYzMDMgMzAuODQ0MiA3Mi41NjNDMzAuOTAzIDcyLjYyNDQgMzAuOTYyOCA3Mi42ODY5IDMxLjAyMzUgNzIuNzUwM0MzMS4wNzk0IDcyLjgwODYgMzEuMTM2IDcyLjg2NzggMzEuMTkzNSA3Mi45Mjc4WiIgc3Ryb2tlPSIjMDMzMjZDIiBzdHJva2Utd2lkdGg9IjYuMjQ1MzYiLz4KPHBhdGggZD0iTTMuMjY1MjYgNTAuMzEzM0MzLjI2NTI2IDM0LjM4MDkgMTEuMzcyIDIwLjI5MjEgMjMuNzU1MiAxMS44Nzg2QzExLjQxNTggMjAuMjg3IDMuMzE2NDQgMzQuMzUyOSAzLjMxNjQ0IDUwLjMxMzNDMy4zMTY0NCA2Ni4yNzg0IDExLjQyMDQgODAuMzQ3NyAyMy43NjU3IDg4Ljc1NTNDMTEuMzc2NSA4MC4zNDI2IDMuMjY1MjYgNjYuMjUwNCAzLjI2NTI2IDUwLjMxMzNaTTk3LjcxMzQgNTAuMzEzM0M5Ny43MTM0IDM0LjM0ODcgODkuNjA5OSAyMC4yNzk3IDc3LjI2NSAxMS44NzJDODkuNjUzNyAyMC4yODQ4IDk3Ljc2NDYgMzQuMzc2NyA5Ny43NjQ2IDUwLjMxMzNDOTcuNzY0NiA2Ni4yNTQgODkuNjQ5NyA4MC4zNDg5IDc3LjI1NTggODguNzYwOUM4OS42MDU5IDgwLjM1NCA5Ny43MTM0IDY2LjI4MTkgOTcuNzEzNCA1MC4zMTMzWiIgc3Ryb2tlPSIjMDMzMjZDIiBzdHJva2Utd2lkdGg9IjYuMjQ1MzYiLz4KPC9zdmc+Cg==">
+				<p class="texto-adicionais">
+					Este usuÃ¡rio ainda nÃ£o possui <b>conquistas.</b>
+
 			<c:if test="${conquistas != null}">
 				<img alt="Imagem usuario não possui conquista"
 					src="data:image/png+xml;base64,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">
@@ -68,11 +70,16 @@
 
 
 
-		<div class="aval-usuario">
-			<div class="aviso-sem">
-			<div class="titulo">
-				<h3 class="texto-principal">Avaliações Recentes</h3>
-			</div>
+
+		<div class="campo-generico avaliacoes-usuario">
+			<h3 class="texto-principal">AvaliaÃ§Ãµes Recentes</h3>
+			<c:if test="${fn:length(estabelecimentos) == 0}">
+				<p class="texto-adicionais">
+					Parece que vocÃª ainda nÃ£o possui avaliaÃ§Ãµes... <br> <a
+						href="encontrar-estabelecimentos" style="color: var(--laranja)">Encontre estabelecimentos</a> e
+					avalie
+		<div class="avaliacoes-usuario">
+			<h3 class="texto-principal">Avaliações Recentes</h3>
 			<c:if test="${fn:length(estabelecimentos) == 0}">
 				<p class="texto-adicionais">
 					Parece que você ainda não possui avaliações... <br> <a
@@ -87,11 +94,9 @@
 						<div class="card-avaliacao">
 							<table>
 								<tr>
-									<td><c:out
-											value="${estabelecimento.fotoestabelecimento.urlFoto()}" /></td>
+									<td><c:out value="${estabelecimento.fotoestabelecimento.urlFoto()}" /></td>
 									<td><c:out value="${estabelecimento.nome}" /></td>
-									<td><c:out
-											value="${estabelecimento.categoria.nomeCategoria}" /></td>
+									<td><c:out value="${estabelecimento.categoria.nomeCategoria}"/></td>
 								</tr>
 							</table>
 						</div>
@@ -108,6 +113,14 @@
 			<div class="titulo">
 				<h3 class="texto-principal">Comentários</h3>
 			</div>
+		<div class="campo-generico comentarios-usuario">
+			<h3 class="texto-principal">ComentÃ¡rios</h3>
+						
+			<c:if test="${fn:length(comentarios) == 0}">
+				<p class="texto-secundario">
+					Parece que vocÃª ainda nÃ£o possui comentÃ¡rios ... <br> <a
+						href="encontrar-estabelecimentos" style="color: var(--laranja)"> Encontre
+						estabelecimentos</a> e comente
 			<c:if test="${fn:length(comentarios) == 0}">
 				<p class="texto-adicionais">
 					Parece que você ainda não possui comentários ... <br> <a
@@ -118,16 +131,16 @@
 			</div>
 			<c:if test="${fn:length(comentarios) != 0}">
 				<c:forEach var="comentario" items="${comentarios}">
-					<div class="cmts-usuario">
+					<div class="cmts-usuario"> 
+
 						<div id="foto-comentario-usuario">
-							<c:out value="${usuario.fotoUsuario.urlFoto()}"></c:out>
+							<img alt="" src="<c:out value="${usuario.fotoUsuario.urlFoto()}"></c:out>">
 						</div>
 						<div class="nome-usuario">
 							<c:out value="${usuario.nomeDeUsuario}" />
 						</div>
 						<p class="pronome">comentou em</p>
 						<c:out value="${estabelecimento.nome}"></c:out>
-
 						<div class="texto-secundario">
 							<fmt:parseDate value="${comentario.data}" type="date"
 								pattern="yyyy-MM-dd" var="parsedDate" />
@@ -144,9 +157,7 @@
 						<div class="comentario-cm">
 							<c:out value="${comentario.comentario}" />
 						</div>
-
 						<button>Resposta</button>
-
 						<hr>
 
 					</div>
@@ -155,7 +166,6 @@
 		</div>
 		</div>
 	</main>
-	
 	<%@ include file="../rodape.jsp"%>
 </body>
 </html>

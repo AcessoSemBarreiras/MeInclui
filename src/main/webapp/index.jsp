@@ -1,20 +1,15 @@
-<style><%@include file="assets/estilos/padrao.css"%></style>
-<style><%@include file="assets/estilos/tela-inicial.css"%></style>
-<style><%@include file="assets/estilos/menu.css"%></style>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
   <title>Home</title>
-  
+  <style><%@include file="assets/estilos/padrao.css"%></style>
+  <style><%@include file="assets/estilos/tela-inicial.css"%></style>
+  <style><%@include file="assets/estilos/menu.css"%></style>
 </head>
-
-<link rel="stylesheet" href="./assets/estilos/padrao.css">
-<link rel="stylesheet" href="./assets/estilos/tela-inicial.css">
-
 <body>
   <header class="template-grid"> 
     <div class="cabecalho-geral">
@@ -120,6 +115,7 @@
         <a class="icone-ir-pagina" href="encontrar-estabelecimentos"> <img src="./assets/imagens/icone-ir-para-a-página.svg" alt=""> </a>
       </div>  
     </div>
+  </div>
   </div>
 </body>
 </html>
