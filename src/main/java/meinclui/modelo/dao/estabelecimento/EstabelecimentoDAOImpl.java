@@ -177,6 +177,7 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 			raizEstabelecimento.fetch(Estabelecimento_.endereco, JoinType.LEFT);
 			raizEstabelecimento.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			raizEstabelecimento.fetch(Estabelecimento_.fotoEstabelecimento, JoinType.LEFT);
 			
 			criteria.select(raizEstabelecimento);
 			criteria.where(
@@ -581,8 +582,11 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 
 			Join<Avaliacao, Estabelecimento> estabelecimentoJoin = raizAvaliacao.join(Avaliacao_.estabelecimento);
 			
+	
 			estabelecimentoJoin.fetch(Estabelecimento_.endereco, JoinType.LEFT);
 			estabelecimentoJoin.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			estabelecimentoJoin.fetch(Estabelecimento_.fotoEstabelecimento, JoinType.LEFT);
+
 			
 			criteria.select(estabelecimentoJoin);
 
@@ -676,4 +680,56 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO {
 		return estabelecimentos;
 	}
 
+	
+	public List<Estabelecimento> recuperarEstabelecimentoFavoritos(Long idUsuario) {
+		Session sessao = null;
+		List<Estabelecimento> estabelecimentos = null;
+
+		try {
+
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+
+			CriteriaQuery<Estabelecimento> criteria = construtor.createQuery(Estabelecimento.class);
+			Root<Usuario> raizUsuario = criteria.from(Usuario.class);
+
+			Join<Usuario, Estabelecimento> estabelecimentoJoin = raizUsuario.join(Usuario_.estabelecimentosFavoritos);
+			
+	
+			estabelecimentoJoin.fetch(Estabelecimento_.endereco, JoinType.LEFT);
+			estabelecimentoJoin.fetch(Estabelecimento_.categoria, JoinType.LEFT);
+			estabelecimentoJoin.fetch(Estabelecimento_.fotoEstabelecimento, JoinType.LEFT);
+
+			
+			criteria.select(estabelecimentoJoin);
+
+			criteria.where(construtor.equal(raizUsuario.get(Usuario_.idUsuario), idUsuario));
+
+			estabelecimentos = sessao.createQuery(criteria).getResultList();
+
+			sessao.getTransaction().commit();
+
+		} catch (Exception sqlException) {
+
+			sqlException.printStackTrace();
+
+			if (sessao.getTransaction() != null) {
+
+				sessao.getTransaction().rollback();
+
+			}
+		} finally {
+
+			if (sessao != null) {
+				sessao.close();
+			}
+
+		}
+
+		return estabelecimentos;
+	}
+	
+	
 }
