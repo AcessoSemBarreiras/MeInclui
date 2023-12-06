@@ -12,8 +12,7 @@
 <title>Cadastre-se!</title>
 </head>
 <body>
-	<%@ include file="../menu.jsp"%>
-	
+	<%@ include file="../menu.jsp"%>	
 			<div class="titulo">
 				<h1 class="titulo-principal">Cadastrar-se</h1>
 				<a href="#"> voltar -></a>
