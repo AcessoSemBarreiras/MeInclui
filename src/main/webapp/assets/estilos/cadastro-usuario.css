@@ -6,11 +6,10 @@
     box-sizing: border-box;
 }
 
-
 .titulo-principal {
     color: var(--laranja);
     font-family: var(--fontes-geral);
-
+    
 }
 
 form input[type="text"], input[type="email"], input[type="date"], input[type="password"], select{

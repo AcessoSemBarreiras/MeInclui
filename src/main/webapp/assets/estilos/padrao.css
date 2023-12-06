@@ -119,7 +119,7 @@
 }
 
 /*Título Cadastro*/
-.aaa{
+.titulo-cadastro{
     display: flex;
     grid-column: 3 / 12;
     align-items: center;

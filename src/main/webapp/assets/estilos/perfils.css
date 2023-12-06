@@ -1,44 +1,48 @@
-{
+*{
 	margin: 0;
 	padding: 0;
 }
- 
- 
+
+
 /*-----Usuario-----*/
- 
+
 #perfil-usuario{
 	display: grid;
 	grid-template-columns: repeat(12, 1fr);
+	grid-template-rows: repeat(12, 1fr);
 }
- 
+
 /*-----Posição-----*/
- 
+
 .inf-usuario{
 	grid-column: 3/5;
+	grid-row: 1/4;
 }
- 
+
 .conq-usuario{
 	grid-column: 5/11;
+	grid-row: 1/5;
 }
- 
- 
+
+
 .aval-usuario{
 	grid-column: 3/11;
+	grid-row: 5/8;
 }
- 
+
 .cm-usuario{
 	grid-column: 3/11;
+	grid-row: 8/12;
 }
- 
- 
+
+
 /*-----Estilos-----*/
- 
+
 .inf-usuario{
 	display: grid;
 	place-items: center;
 	padding-top: 10%;
 }
- 
 #pessoal{
 	display: flex;
 	flex-direction: column;
@@ -48,16 +52,13 @@
 	border-bottom: 1px solid var(--cinza);
 	padding-bottom: 1%;
 }
- 
 #pessoal img{
 	justify-content: center;
 	align-items: center;
-	height: 170px;
-	width: 170px;
+	height: 100%;
+	width: 60%;
 	border-radius: 50%;
 }
- 
- 
 #pessoal-baixo{
 	padding-left: 10%;
 	font-size: 0.8em;
@@ -67,14 +68,13 @@
 	gap: 10%;
 	padding-top: 3%;
 }
- 
 #fmt{
 	font-size: 0.8em;
 	font-family: var(--fontes-geral);
 	padding-left: 50%;
 	flex: 2;
 }
- 
+
 .conq-usuario{
 	padding-top: 1%;
 	padding-left: 5%;
@@ -85,14 +85,12 @@
 .titulo{
 	width: 100%;
 }
- 
 .conq-usuario h3{
 	width: 18%;
 	justify-content: start;
 	border-bottom: 1px solid var(--cinza);
 	
 }
- 
 #aviso{
 	display: flex;
 	flex-direction: column;
@@ -104,12 +102,10 @@
 	font-family: var(--fontes-geral);
 	gap: 15%;
 }
- 
 #aviso img{
 	height: 50%;
 	width: 10%;
 }
- 
 #aviso p{
 	display: flex;
 	align-items: center;
@@ -117,16 +113,13 @@
 	flex-direction: column;
 	width: 100%;
 }
- 
 .aviso-sem{
 	display: grid;
 	place-items: center;
 	padding-left: 1%;
 	width: 100%;
 	height: 100%;
- 
 }
- 
 .aviso-sem p{
 	font-weight: 800;
 }
@@ -142,7 +135,6 @@
 .caixa-comentario{
 	border-bottom: 1px solid var(--azul);
 }
- 
 .nome-usuario{
 }
  
@@ -156,12 +148,12 @@
      height: 80%;
      width: 40%;
      border-radius: 50%;
+
 }
  
 .texto-secundario{
 	font-size: 0.9em;
 }
- 
 .botao-secundario{
 	text-align: center;
 }
@@ -170,10 +162,6 @@
 	display: flex;
 	justify-content: center;
 }
- 
- 
- 
- 
 a{
 	color: var(--preto);
 	text-decoration: none;
@@ -183,15 +171,13 @@ b{
 	text-decoration: none;
 	color:var(--laranja);
 }
- 
- 
+
 /*------------------ESTABELECIMENTO--------------------------*/
  
 #container{
 	margin-top: 2%;
 	grid-gap: 50px;
 }
- 
  
 /*-----Estabelecimento-----*/
  
@@ -205,8 +191,6 @@ b{
 	padding: 20px;
 	display: flex;
 }
- 
- 
  
 #inf-estabelecimento{
 	width: 167px;
@@ -274,22 +258,16 @@ b{
 	border-radius: 5px;
 	padding-right: 10px;
 	}
- 
- 
+
 h4{
-	font-size: 0.9em;
- 
+	font-size: 0.9em; 
 }
- 
- 
+
 .texto-adicionais{
 	font-size: 1em;
 	font-weight: 450;
 	color:var(--azul);
 }
- 
- 
- 
 .texto-aviso{
 	font-size: 1em;
 	font-weight: 600;
