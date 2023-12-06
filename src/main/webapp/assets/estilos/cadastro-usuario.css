@@ -104,3 +104,10 @@ input[type=checkbox]::before{
 	display: flex;
 	justify-content: end;
 }
+	
+	
+#confirmar{
+	color: var(--branco);
+	font-size: 1.2em;
+	font-weight: 400;
+}	

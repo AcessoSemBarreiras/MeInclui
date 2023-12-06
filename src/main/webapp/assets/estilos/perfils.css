@@ -43,7 +43,6 @@
 	place-items: center;
 	padding-top: 10%;
 }
-
 #pessoal{
 	display: flex;
 	flex-direction: column;
@@ -53,7 +52,6 @@
 	border-bottom: 1px solid var(--cinza);
 	padding-bottom: 1%;
 }
-
 #pessoal img{
 	justify-content: center;
 	align-items: center;
@@ -61,8 +59,6 @@
 	width: 60%;
 	border-radius: 50%;
 }
-
-
 #pessoal-baixo{
 	padding-left: 10%;
 	font-size: 0.8em;
@@ -72,7 +68,6 @@
 	gap: 10%;
 	padding-top: 3%;
 }
-
 #fmt{
 	font-size: 0.8em;
 	font-family: var(--fontes-geral);
@@ -86,18 +81,16 @@
 	display: grid;
 	place-items: center;
 }
-
+ 
 .titulo{
 	width: 100%;
 }
-
 .conq-usuario h3{
 	width: 18%;
 	justify-content: start;
 	border-bottom: 1px solid var(--cinza);
 	
 }
-
 #aviso{
 	display: flex;
 	flex-direction: column;
@@ -109,12 +102,10 @@
 	font-family: var(--fontes-geral);
 	gap: 15%;
 }
-
 #aviso img{
 	height: 50%;
 	width: 10%;
 }
-
 #aviso p{
 	display: flex;
 	align-items: center;
@@ -122,90 +113,76 @@
 	flex-direction: column;
 	width: 100%;
 }
-
 .aviso-sem{
 	display: grid;
 	place-items: center;
 	padding-left: 1%;
 	width: 100%;
 	height: 100%;
-
 }
-
 .aviso-sem p{
 	font-weight: 800;
 }
-
+ 
 .cm-usuario{
+	border: 1px solid var(--azul);
+	border-radius: 10px;
+	padding: 10px;
+	margin: 20px;
+	
 }
-
-
+ 
+.caixa-comentario{
+	border-bottom: 1px solid var(--azul);
+}
 .nome-usuario{
 }
-
+ 
 .pronome{
 	font-size: 0.7em;
 	font-family: var(--fontes-geral);
 	color: var(--cinza-escuro);
 }
+ 
+#foto{
+     height: 80%;
+     width: 40%;
+     border-radius: 50%;
 
+}
+ 
 .texto-secundario{
 	font-size: 0.9em;
 }
-
 .botao-secundario{
 	text-align: center;
 }
-
+ 
 #h3{
 	display: flex;
 	justify-content: center;
 }
-
-
-
-
 a{
 	color: var(--preto);
 	text-decoration: none;
 }
-
+ 
 b{
 	text-decoration: none;
 	color:var(--laranja);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*------------------ESTABELECIMENTO--------------------------*/
-
+ 
 #container{
 	margin-top: 2%;
 	grid-gap: 50px;
 }
-
-
+ 
 /*-----Estabelecimento-----*/
-
+ 
 #card-est{
 	grid-column: 3/6;
-	grid-row: 1/5;
 	height: 220px;
 	width: 100%;
 	gap: 10px;
@@ -214,27 +191,19 @@ b{
 	padding: 20px;
 	display: flex;
 }
-
-
-
+ 
 #inf-estabelecimento{
 	width: 167px;
 }
-
-#foto{
-	height: 140px;
-	width: 120px;
-	border-radius: 10px;
-}
-
-#nota{	 
+ 
+#nota{	
 	 text-align: center;
- }
-
+}
+ 
 #nota h3{
 	border-bottom: 1px solid var(--azul);
 }
-
+ 
 #interacoes{
 	margin-left: 70px;
 	margin-top: 50px;
@@ -242,43 +211,41 @@ b{
 	display: flexbox;
 	justify-content: center;
 }
-
+ 
 /*-----Comentario-----*/
-
+ 
 #comentario{
 	grid-column: 6/11;
-	grid-row: 1/12;
 	height: 100%;
 	width: 100%;
 	padding-left: 2%;
 	border: 1px solid var(--cinza);
 	border-radius: 10px;
-
+ 
 }
-
+ 
 #sem-comentarios{
 	margin-left: 100px;
 	margin-top: 50px;
 }
-
+ 
 #cm-foto{
 	height: 50px;
 	width: 50px;
 	border-radius: 50%;
 }
-
+ 
 /*-----Avaliacao-----*/
-
+ 
 #avaliacao{
 	display: flex;
 	grid-column: 3/6;
-	grid-row: 6/11;
 	height: 100%;
 	width: 100%;
 	justify-content: center;
 	margin-top: -20%;
 }
-
+ 
 .topico-avaliacao{
 	display: flex;
 	align-items: center;
@@ -292,21 +259,15 @@ b{
 	padding-right: 10px;
 	}
 
-
 h4{
-	font-size: 0.9em;
-
+	font-size: 0.9em; 
 }
-
 
 .texto-adicionais{
 	font-size: 1em;
 	font-weight: 450;
 	color:var(--azul);
 }
-
-
-
 .texto-aviso{
 	font-size: 1em;
 	font-weight: 600;
