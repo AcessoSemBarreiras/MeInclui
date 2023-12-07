@@ -5,8 +5,8 @@
 	<head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<link rel="stylesheet" href="../../estilos/padrao.css">
-			<link rel="stylesheet" href="../../estilos/cadastro-avaliacao.css">
+			<style><%@include file="../../estilos/padrao.css"%></style>
+			<style><%@include file="../../estilos/cadastro-avaliacao.css"%></style>
             <title>Avaliacao</title>
 			
 	</head>
