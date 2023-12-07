@@ -127,8 +127,20 @@ public class Servlet extends HttpServlet {
 			case "/perfil-usuario":
 				mostrarPerfilUsuario(request, response);
 				break;
-			case "/ranque-usuario":
-				mostrarRanque(request, response);
+			case "/comunidade-geral":
+				mostrarComunidadeGeral(request, response);
+				break;
+			case "/comunidade-anual":
+				mostrarComunidadeAnual(request, response);
+				break;
+			case "/comunidade-mensal":
+				mostrarComunidadeMensal(request, response);
+				break;
+			case "/comunidade-semanal":
+				mostrarComunidadeSemanal(request, response);
+				break;
+			case "/comunidade-diaria":
+				mostrarComunidadeDiaria(request, response);
 				break;
 			case "/editar-perfil-usuario":
 				mostrarFormularioEditarUsuario(request, response);
@@ -229,23 +241,7 @@ public class Servlet extends HttpServlet {
 				break;
 			case "/adicionar-quantidade-nao-gostei":
 				adicionarNaoGostei(request, response);
-				break;
-			case "/comunidade-geral":
-				mostrarComunidadeGeral(request, response);
-				break;
-			case "/comunidade-anual":
-				mostrarComunidadeAnual(request, response);
-				break;
-			case "/comunidade-mensal":
-				mostrarComunidadeMensal(request, response);
-				break;
-			case "/comunidade-semanal":
-				mostrarComunidadeSemanal(request, response);
-				break;
-			case "/comunidade-diaria":
-				mostrarComunidadeDiaria(request, response);
-				break;
-				
+				break;				
 			}
 		} catch (SQLException ex) {
 			throw new ServletException(ex);
@@ -736,18 +732,99 @@ public class Servlet extends HttpServlet {
 		response.sendRedirect("tela-inicial");
 	}
 
-	private void mostrarRanque(HttpServletRequest request, HttpServletResponse response)
+	private void mostrarComunidadeGeral(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession sessao = request.getSession();
 		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
 		
-		List<UsuarioComunidadeDTO> comunidade = usuarioDAO.recuperarUsuariosMaiorRanque();
+		List<Tuple> comunidade = usuarioDAO.recuperarUsuariosMaiorRanque();
 		
-		for (UsuarioComunidadeDTO usuarioComunidadeDTO : comunidade) {
-			System.out.println(usuarioComunidadeDTO.getNomeDeUsuario());
+		System.out.println(comunidade.get(0).get("usuario", Usuario.class).getNome());
+		
+		request.setAttribute("usuario", usuario);
+		request.setAttribute("comunidade", comunidade);
+		request.setAttribute("pagina", 1);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
+		dispatcher.forward(request, response);
+	}
+	
+	private void mostrarComunidadeAnual(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		LocalDate data = LocalDate.now();
+		LocalDate primeiroDiaAno = data.with(TemporalAdjusters.firstDayOfYear());
+		LocalDate ultimoDiaAno = data.with(TemporalAdjusters.lastDayOfYear());
+ 
+		List<Tuple> comunidade = usuarioDAO.recuperarUsuariosMaiorRanqueMes(primeiroDiaAno, ultimoDiaAno);
+		
+		for (Tuple tupla : comunidade) {
+			Usuario usuarioa = tupla.get("usuario", Usuario.class);
+			System.out.println(usuarioa.getNome());
 		}
 		request.setAttribute("usuario", usuario);
 		request.setAttribute("comunidade", comunidade);
+		request.setAttribute("pagina", 2);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
+		dispatcher.forward(request, response);
+	}
+	
+	private void mostrarComunidadeMensal(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		LocalDate data = LocalDate.now();
+		LocalDate primeiroDiaMes = data.with(TemporalAdjusters.firstDayOfMonth());
+		LocalDate ultimoDiaMes = data.with(TemporalAdjusters.lastDayOfMonth());
+ 
+		List<Tuple> comunidade = usuarioDAO.recuperarUsuariosMaiorRanqueMes(primeiroDiaMes, ultimoDiaMes);
+		
+		for (Tuple tupla : comunidade) {
+			Usuario usuarioa = tupla.get("usuario", Usuario.class);
+			System.out.println(usuarioa.getNome());
+		}
+		request.setAttribute("usuario", usuario);
+		request.setAttribute("comunidade", comunidade);
+		request.setAttribute("pagina", 3);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
+		dispatcher.forward(request, response);
+	}
+	
+	private void mostrarComunidadeSemanal (HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		LocalDate data = LocalDate.now();
+		LocalDate primeiroDiaSemana = data.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+		LocalDate ultimoDiaSemana = data.with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY));
+ 
+		List<Tuple> comunidade = usuarioDAO.recuperarUsuariosMaiorRanqueMes(primeiroDiaSemana, ultimoDiaSemana);
+		
+		for (Tuple tupla : comunidade) {
+			Usuario usuarioa = tupla.get("usuario", Usuario.class);
+			System.out.println(usuarioa.getNome());
+		}
+		request.setAttribute("usuario", usuario);
+		request.setAttribute("comunidade", comunidade);
+		request.setAttribute("pagina", 4);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
+		dispatcher.forward(request, response);
+	}
+	
+	private void mostrarComunidadeDiaria(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession sessao = request.getSession();
+		Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
+		LocalDate hoje = LocalDate.now();
+		List<Tuple> comunidade = usuarioDAO.recuperarUsuariosMaiorRanqueDia(hoje);
+ 
+		for (Tuple tupla : comunidade) {
+			Usuario usuarioa = tupla.get("usuario", Usuario.class);
+			System.out.println(usuarioa.getNome());
+		}
+		request.setAttribute("usuario", usuario);
+		request.setAttribute("comunidade", comunidade);
+		request.setAttribute("pagina", 5);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -846,120 +923,4 @@ public class Servlet extends HttpServlet {
 		response.sendRedirect("perfil-estabelecimento");
 
 	}
-	[08:24] CHRISTIAN ALVES DOS SANTOS
-	/----------------Roteamento-------------------/
-	case "/comunidade-geral":
-					mostrarComunidadeGeral(request, response);
-					break;
-				case "/comunidade-anual":
-					mostrarComunidadeAnual(request, response);
-					break;
-				case "/comunidade-mensal":
-					mostrarComunidadeMensal(request, response);
-					break;
-				case "/comunidade-semanal":
-					mostrarComunidadeSemanal(request, response);
-					break;
-				case "/comunidade-diaria":
-					mostrarComunidadeDiaria(request, response);
-					break;
-	 
-	/-------Implementação-------/
-	 
-	private void mostrarComunidadeGeral(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			HttpSession sessao = request.getSession();
-			Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-	 
-			List<Tuple> comunidade = usuarioDAO.recuperarUsuariosMaiorRanque();
-			
-			System.out.println(comunidade.get(0).get("usuario", Usuario.class).getNome());
-			
-			request.setAttribute("usuario", usuario);
-			request.setAttribute("comunidade", comunidade);
-			request.setAttribute("pagina", 1);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
-			dispatcher.forward(request, response);
-		}
-		
-		private void mostrarComunidadeAnual(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			HttpSession sessao = request.getSession();
-			Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-			LocalDate data = LocalDate.now();
-			LocalDate primeiroDiaAno = data.with(TemporalAdjusters.firstDayOfYear());
-			LocalDate ultimoDiaAno = data.with(TemporalAdjusters.lastDayOfYear());
-	 
-			List<Tuple> comunidade = usuarioDAO.recuperarUsuariosMaiorRanqueMes(primeiroDiaAno, ultimoDiaAno);
-			
-			for (Tuple tupla : comunidade) {
-				Usuario usuarioa = tupla.get("usuario", Usuario.class);
-				System.out.println(usuarioa.getNome());
-			}
-			request.setAttribute("usuario", usuario);
-			request.setAttribute("comunidade", comunidade);
-			request.setAttribute("pagina", 2);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
-			dispatcher.forward(request, response);
-		}
-		
-		private void mostrarComunidadeMensal(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			HttpSession sessao = request.getSession();
-			Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-			LocalDate data = LocalDate.now();
-			LocalDate primeiroDiaMes = data.with(TemporalAdjusters.firstDayOfMonth());
-			LocalDate ultimoDiaMes = data.with(TemporalAdjusters.lastDayOfMonth());
-	 
-			List<Tuple> comunidade = usuarioDAO.recuperarUsuariosMaiorRanqueMes(primeiroDiaMes, ultimoDiaMes);
-			
-			for (Tuple tupla : comunidade) {
-				Usuario usuarioa = tupla.get("usuario", Usuario.class);
-				System.out.println(usuarioa.getNome());
-			}
-			request.setAttribute("usuario", usuario);
-			request.setAttribute("comunidade", comunidade);
-			request.setAttribute("pagina", 3);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
-			dispatcher.forward(request, response);
-		}
-		
-		private void mostrarComunidadeSemanal (HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			HttpSession sessao = request.getSession();
-			Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-			LocalDate data = LocalDate.now();
-			LocalDate primeiroDiaSemana = data.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
-			LocalDate ultimoDiaSemana = data.with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY));
-	 
-			List<Tuple> comunidade = usuarioDAO.recuperarUsuariosMaiorRanqueMes(primeiroDiaSemana, ultimoDiaSemana);
-			
-			for (Tuple tupla : comunidade) {
-				Usuario usuarioa = tupla.get("usuario", Usuario.class);
-				System.out.println(usuarioa.getNome());
-			}
-			request.setAttribute("usuario", usuario);
-			request.setAttribute("comunidade", comunidade);
-			request.setAttribute("pagina", 4);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
-			dispatcher.forward(request, response);
-		}
-		
-		private void mostrarComunidadeDiaria(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			HttpSession sessao = request.getSession();
-			Usuario usuario = (Usuario) sessao.getAttribute("usuario-logado");
-			LocalDate hoje = LocalDate.now();
-			List<Tuple> comunidade = usuarioDAO.recuperarUsuariosMaiorRanqueDia(hoje);
-	 
-			for (Tuple tupla : comunidade) {
-				Usuario usuarioa = tupla.get("usuario", Usuario.class);
-				System.out.println(usuarioa.getNome());
-			}
-			request.setAttribute("usuario", usuario);
-			request.setAttribute("comunidade", comunidade);
-			request.setAttribute("pagina", 5);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("assets/paginas/usuario/ranque-usuario.jsp");
-			dispatcher.forward(request, response);
-		}
 }

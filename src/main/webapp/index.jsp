@@ -19,19 +19,24 @@
 	<header class="template-grid">
 		<div class="cabecalho-geral">
 			<div id="menu-logo">
-				<a href="tela-inicial"><img width="30" height="30"
-					src="./assets/imagens/logo-meinclui.svg"></a>
+				<a class="img-logo" href="tela-inicial"><img class="img-logo" width="30" height="30"
+					src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEiIGhlaWdodD0iNDYiIHZpZXdCb3g9IjAgMCA1MSA0NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAgMjNWNDZINy4zNTM1NEgxNC43MDcxTDE0LjY4NzEgMzQuNjgwMUMxNC42NjcxIDI4LjQ1NDEgMTQuNjc3MSAyMy4zNjAyIDE0LjcwNzEgMjMuMzYwMkMxNC43MzcxIDIzLjM2MDIgMTcuMDU4MiAyNy4wMjM3IDE5Ljg1OTUgMzEuNDg5OUMyMi45NjEgMzYuNDM5OCAyNS4wMTIgMzkuNjA5NCAyNS4xMDIxIDM5LjU4ODhDMjUuMTcyMSAzOS41Nzg1IDI3LjUwMzIgMzUuOTU2MiAzMC4yODQ2IDMxLjU0MTRDMzMuMDU1OSAyNy4xMjY2IDM1LjM2NyAyMy40NzM0IDM1LjQyNyAyMy40MjE5QzM1LjQ3NzEgMjMuMzYwMiAzNS41MTcxIDI3LjUyOCAzNS41MTcxIDM0LjY1OTVWNDZINDIuOTcwN0g1MC40MjQyVjIzVjBMNDEuMjk5OSAwLjAyMDU4MDNMMzIuMTY1NSAwLjA1MTQ1MjZMMzEuODk1MyAwLjU2NTk5NEMzMS40ODUxIDEuMzQ4MSAzMS4wMjQ5IDIuODcxMTQgMzAuODU0OCA0LjA0NDI5QzMwLjM1NDYgNy40MDkzOSAzMS41MjUyIDEwLjk5MDYgMzQuMDA2NCAxMy42NzY1TDM0LjcxNjcgMTQuNDI3N0wzNC4wMjY0IDE1LjMyM0MzMy4wMDU5IDE2LjY1MDYgMzEuODI1MyAxOC40MTAzIDMwLjkxNDkgMTkuOTY0MkMyOS4yNTQxIDIyLjc5NDIgMjcuMTkzMSAyNy41MTc3IDI2LjA2MjUgMzEuMDc4M0MyNS45MTI1IDMxLjU2MiAyNS43NTI0IDMxLjk5NDIgMjUuNzAyNCAzMi4wNDU2QzI1LjU5MjMgMzIuMTY5MSAyNS42MDIzIDE4LjUyMzUgMjUuNzEyNCAxOC4yMzUzQzI1Ljc2MjQgMTguMTExOSAyNS44ODI0IDE4LjAwODkgMjUuOTgyNSAxOC4wMDg5QzI2LjMxMjcgMTcuOTk4NyAyNi45OTMgMTcuNjE3OSAyNy40NjMyIDE3LjE3NTRDMjkuMjI0MSAxNS40OTggMjguNzgzOCAxMi42MDYzIDI2LjYxMjggMTEuNTM2QzI2LjE1MjYgMTEuMzA5NiAyNS45MjI1IDExLjI2ODUgMjUuMjEyMSAxMS4yNjg1QzI0LjIwMTYgMTEuMjY4NSAyMy42NzE0IDExLjQ3NDMgMjIuOTUxIDEyLjE2MzhDMjIuMjQwNyAxMi44MzI3IDIxLjkxMDUgMTMuNjI1MSAyMS45MTA1IDE0LjY2NDRDMjEuOTEwNSAxNS4zNTM5IDIxLjk2MDYgMTUuNTkwNiAyMi4yMDA3IDE2LjEwNTFDMjIuNjMwOSAxNy4wNDE2IDIzLjQzMTMgMTcuNzQxNCAyNC4zOTE3IDE3Ljk5ODdMMjQuODExOSAxOC4xMjIxVjI1LjEzMDJDMjQuODExOSAyOC45ODkzIDI0Ljc4MTkgMzIuMTE3NyAyNC43NTE5IDMyLjA4NjhDMjQuNzIxOSAzMi4wNTU5IDI0LjUxMTggMzEuNDU5MSAyNC4yNzE3IDMwLjc1OTNDMjMuNDExMyAyOC4yMTc0IDIyLjA4MDYgMjQuOTI0NCAyMS4wMjAxIDIyLjc2MzNDMTkuODc5NiAyMC40MjczIDE4LjE4ODcgMTcuNjg5OSAxNi42MTggMTUuNjExMkwxNS43Mjc2IDE0LjQzOEwxNi40MTc5IDEzLjY3NjVDMTkuNzU5NSAxMC4wMzM2IDIwLjU4OTkgNS4xOTY4NyAxOC42MzkgMC44MTI5NzNMMTguMjc4OCAwSDkuMTQ0NEgwVjIzWiIgZmlsbD0iIzAzMzI2QyIvPgo8L3N2Zz4K"></a>
 			</div>
 			<div class="cabecalho-geral">
 				<nav>
-					<a class="botao-sem-borda texto-pequeno">Comunidade e Estabelecimentos</a>
-					<a href="login-usuario" class="texto-pequeno">Acesse sua Conta</a>
+					<a href="#ancora" class="link texto-pequeno">Comunidade e Estabelecimentos</a>
+					<c:if test="${usuario == null }">
+						<a href="login-usuario" class="btn botao-grande texto-pequeno">Acesse sua Conta</a>
+					</c:if>
+					<c:if test="${usuario != null }">
+						<a href="login-usuario" class="btn botao-grande texto-pequeno">Continue navegando</a>
+					</c:if>
 				</nav>
 			</div>
 		</div>
 	</header>
 
-	<div class="template-grid">
+	<div class="template-grid tela">
 
 		<div class="grid-home-esquerda">
 			<div class="texto-grande">
@@ -61,10 +66,10 @@
 			</div>
 
 			<div id="div-comunidade">
-				<div class="texto-medio">
+				<div class="texto-grande">
 					<div class="texto-comunidade">
 						<p>
-							O <b style="color: var(--laranja);">MeInclui!</b> Ã© feito para a
+							O <b style="color: var(--laranja);">MeInclui!</b> é feito para a
 							<b style="color: var(--azul);">comunidade</b> e mantido pela <b
 								style="color: var(--azul);">comunidade</b>.
 						</p>
@@ -114,7 +119,7 @@
 							src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAkCAYAAAAOwvOmAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAANnSURBVHgBzVhdTttAEJ5JrKpVW9WPlUIr9wTNDXBOQDgB4QTAQ6vQF8xLFegD4QSEE0BPQHIC0hPUFUTtW121D6nAns7srk1IHIOTlOST4p/dzfrb+XZmZxdhBqBN24bHzzYAYRMIbCDq8vMhNnotmAAIU4LqLx2A4hl35aRUe9i43IWcKMDUKHqKEEGXXypMggeK64AYCCmqL7mQE1ORonqpxgTWFAG0VplQW8qxcdFiCQ91I5b0oUhp2WBHvYTRLjZ8f6hJW12R59hDkUpkA+jgfq85Uo2Ym0yMiUglsilYtfRGVDb3LuSElfSx/arK+q/wk3PTMQRQoA5QeIqNH74qEvePZQNIky2GIQXj6rNJ8ciPeES1kVoJGIRVlmqD3pVW8VOvC0+e73Bbhyt9ntBeRt8v1LWA+S1lpJCfz/OAPYZ8/migSal5scajrUIRDti9d7nOeFOxktkzYpnbAvT/TCIfajNH0WHahCXPacPf0OUPuFpaFW+zZJP/2NC/tkV+bAYB5IRM9Lf6Kd3M6PkBUPTLvDlatksPstA3YQApNyGBBblxh2wgwdP32XF4MODQ9tLPZDoMQxxJR/42wPVx7Ex5SWXKdpsZk6fwxDhFesy6WXldHmyNA3JFiOUkZbXu2xI/+jId3lDdccY2KrDMEc89hAP2cp7b1hGXViaQLx/uY1l2jAo701dxJg495RlkCdNDO5OJ/EW0F4KUhllJQgoWghR9KJWTcMOrxmJYKpIVRaEtl8UghbCsH+hYrv/d++6CShaJMwpZkvZ05jp/S+Gjqr7jaVw0f1IUrah7BJ/jormSMnm+q6Tbv1gUSxVd89AZLJ0zKZPnD8wnwdxIJdIJ+r8Xg9SgdMPZaT5SdHViRjgDYNXcW8M1TAq/mS864/9f0DsT2QzwYYakFzAFVA4PoEMBFNswQgpNbk6wMfwx2eNxWssJGNl6tyOHGOhwenFO70u5zwgS9K+MlVi6lHwL9c4jPM+0lG66LgcXvM3yIN6MEjVxr7cFOXD76Ej3OfIl3VBS1tDjx+Vb5CSpJ/rCq3hzMLjR9ms+HIsODDE+IMMt2d9lbafUzvrJ0xp3uqMO1pSVLt20thMfmpmBnN1t4VR0oG9VsekHMyWVEMOIzyCiGsT7x3FIrB6y1b+fZjX9B5VgXxqYz6eeAAAAAElFTkSuQmCC"
 							alt="icone-gostei">
 					</div>
-					<p class="texto-pequeno-tela-inicial">Curtir comentÃ¡rios</p>
+					<p class="texto-pequeno-tela-inicial">Curtir comentários</p>
 				</div>
 				<div class="card1">
 					<div class="icone">
@@ -128,13 +133,13 @@
 			</div>
 
 			<div class="cards-maiores">
-				<div class="card-laranja">
+				<div id="ancora" class="card-laranja">
 					<img class="foto-comunidade" src="data:image/png+xml;base64,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" alt="">
 					<p class="aliados-da-comunidade">
 						Aliados da <br>comunidade
 					</p>
 					<p class="texto-aliados-da-comunidade">O ranque de Usuários é uma forma de incentivo. Quanto mais ativo ficar, mais chance de aparecer na nossa telinha!</p>
-					<a class="icone-ir-pagina" href="comunidade-geral">Ir para a página -></a>
+					<a class="icone-ir-pagina texto-pequeno" href="comunidade-geral">Ir para a página -></a>
 				</div>
 				<div class="card-laranja">
 						<img class="foto-comunidade" src="data:image/png+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAYNSURBVHgB7Zw9bBxFFMf/tlIkBcEubWHlTIdd5KsBgsRFIIhEJBwpdkXACFMGxe6oYrdIxIkokyiWoEqQHEsUcYSVK/hqAqawqcgtInJKn2lIN5n/zo5vbry7t3c3s/dh/6TR3q3nfLf/fe/Nm7ez24ccEUKckBvdjkVbUrC6BrJVovZn9L7U19e3jpzog0ekEANyMy3bh1AiDKA1KFRJthUooQJ0E1KQomyPhH+WZZtApyN/5LRsZZE/ZX43Og2hLKQs2k9ZdIJA8kcURD4u0yh3ZCugHcgvviLbtuhc+NumkRfyywZkWxTdwyKaoKHhWijzXEY1/+gWmP9caGR4zyxMJMoj7E3GuoVAtrNZxckkTA+IogmQUZy6wvSQKJoAGcTJIswf6L6YUg/GHIpTSerQn/bpKKL3miiEx3Q1rUOixQiVA9xBbzMrreZ63B9ihYniCl2o1dlwp0NXOhkXb5JcaR69LwrhMcZ6xR5hIhf6BPsHToCL9s49riQ7ldE7Q3NWAulOo+aOGouJrKWA/UdBWBPOGovJxVqe/AqUf1Pb7X9le6r2Hz4KDI8Dg68AY++rli81VrMrjFAlwmX4gkKsLaptFgZHgHdmgdOTyBEmfSW+MIW5D1W0dsvz/4Af5oHH99AUFOjzu8qS/MMC+1m+CIWJ8pYyXENXuTlVdReT0deV6wzIAz5yVPXZ2lBuRjFtJq8Bp3KxnkFOFQ5Fb4pwTZwojCNnPgPemlGvk3h8V7md+dl7c2rrX5xp2a5ri3HvRt+cUxagadQl/pdWsyat5Ofb1X20rMurvt0qdCc9XL8Nl/Bsm6LQZb540NgBUYTz8yoAayjW93PwTDhp7hfqsqm79J8uRFfQ0FI+upXuOmm8O1frPhzVmg3k2WBN+wQtxm1ZIcxPjNjAM55mKfpA4wKuhpZjCvu7V2GIB2HWjKI8rSUtD6FlMUDTPb6dSe53JAraGoqZNR9qjlCY43CFmckSMz7E9n9a+9k0zljCPduARwoUxl182dqsfT88BmfQaobGq++fbcIjx5nHDMIV9lk3D0RDV/vxWsxnpfV8OaJev/oGcCkmYA+NVS1ly6sw4ez6GFxhBtCkgPvTLdRFTzBTv2sHHin0wxdJo8zwOOpCSzn8cp0+df7eIofgEtNKmIxRHNsdmP1urKozvvlQtlW1nzHkg6hwP34uPu+pmNOLl+ATt8LY1vC3dInxmLqK3se4ooWhEKenkIqdTXuErvQPXMFg20giZvat5xrMeUz39FvICtzHGDOhozXElRx2+06pdP+194CLXyMVO3HkyOWPCoVxu0TUPpNpkz7GFdZZPr6d7hqcYZsCn7oIz+xQmAAu4Zk0xdElzWZhXGEFUBNOM6bgmXX3FkPOX62NH0zomhGHot60RKg3KXVD4EcYntVLViJHcb56Mz3maMI68YISxc6HKhk+3zolXcHbho9LsiwnxMUYuhsDbni5ZKS6/8kvquYb5jkpZQjWaOpNUJunIit4g1oYLgwqwgeMEd/NZLOUJCjiXw9r9/kTZ0UKM6GH6xX4glbBbLeZIjavJFx+oEYtW4Rm41Z9WP/evXxCN9qGbzgx5NDLoJpUNggz4Ek1stm5SpwY7i1nlMtCzAtu/twpDsYQulk4p9pRsSZsdUYcv+KEbsQXpjBFqEWInU+cOLwKMdTy/IlrgUNX2p0SRNdsA3QDfgJvoEUh9uxaJg9dsu6O4tDtmBJwtt66tSyYbw4WDinSFw5FfIr9x4K9Y48wUawpYf+wJI95yd55sJy1keWsUccF9D6zSfcUJFbwohXTN9C73IhzIU3qTRbRVIFJX8/dZCFFOZnWIbXmG92dcQHdkvhlI4A6plQObuRK4ODWvwQyXz6J/iGXeub24AmH6Bu3gqwfaOi6UlinUEGrm0Yr/taGRGkJoZ7j0Ok3pF9BOxDqEQZLovMoiXY9wsBEtO8pIDZlEXPvUdsRB49JSUf+yAnZ7gv/0GWK8IDvRzEVoArsLDBz9bmLRzHxmVUsQS6l3TfdKl6FsRFqFXoRKknUK9LZ7HWAes0O848g2q7n+fCuFw1YF+hbIxOrAAAAAElFTkSuQmCC" alt="">
@@ -142,10 +147,12 @@
 						Estabelecimentos <br>destaques
 					</p>
 					<p class="texto-aliados-da-comunidade">Consideramos	estabelecimento destaque, o lugar com mais avaliações positivas. Com essa iniciativa, facilitamos muito mais a sua busca!</p>
-					<a class="icone-ir-pagina" href="encontrar-estabelecimentos">Ir para a página -></a>
+					<a class="icone-ir-pagina texto-pequeno" href="encontrar-estabelecimentos">Ir para a página -></a>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<%@ include file="assets/paginas/rodape.jsp"%>
 </body>
 </html>

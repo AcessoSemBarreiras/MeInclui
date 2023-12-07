@@ -12,7 +12,7 @@
 <body>
 	<%@ include file="../menu.jsp"%>
 	
-	<div class="temp-grid">
+	<div class="temp-grid tela">
 	<div class="cabecalho conteudo">
 		<div class="texto-grande titulo">
 			<h3>Aliados da Comunidade</h3>
@@ -43,7 +43,7 @@
 	</div>
 				<div class="cards-ranque conteudo">
 		
-		<c:set var="top3Usuarios" value="${comunidade.subList(0, 3)}" />
+<c:set var="top3Usuarios" value="${comunidade.subList(0, 3)}" />
 <c:set var="outrosUsuarios" value="${comunidade.subList(3, comunidade.size())}" />	
 
 <div class="cards-ranque conteudo">
@@ -70,28 +70,31 @@
 </div>
 </div>
 <div class="outros-destaques conteudo">
-    <h3 class="titulo-outros">Outros Destaques</h3>
+	<div class="div-titulo-outros">
+	    <p class="texto-grande titulo-outros">Outros Destaques</p>
+	</div>
     <div id="outros">
-        <div class="tabela-outros">
-            <table>
-                <tr>
-                    <th></th>
-                    <th colspan="2">Nome</th>
-                    <th>Pontos</th>                    
+        <div class="div-tabela-outros">
+            <table class="tabela-outros">
+                <tr class="linha-tabela">
+                    <th class="cabecalho-tabela-posicao texto-grande">#</th>
+                    <th class="cabecalho-tabela texto-grande">Nome</th>
+                    <th class="cabecalho-tabela texto-grande">Pontos</th>
+                    <th class="cabecalho-tabela texto-grande">Conquistas</th>                  
                 </tr>
                 <c:forEach var="cm" items="${outrosUsuarios}" varStatus="posicaoOutros">
-                    <tr>
-                        <td>#<c:out value="${posicaoOutros.count + 3}"/></td>
-                        <td><c:out value="${cm.usuario.nomeDeUsuario}" /></td>
-                        <td><c:out value="${cm.soma}"/></td>
+                    <tr class="linha-tabela">
+                        <td class="coluna-tabela-posicao texto-grande">#<c:out value="${posicaoOutros.count + 3}"/></td>
+	                    <td class="coluna-tabela texto-grande"><img class="img-usuario-tabela" src="<c:out value="${cm.get('usuario').fotoUsuario.urlFoto()}"/>"><p><c:out value="${cm.get('usuario').nomeDeUsuario}" /></p></td>
+                        <td class="coluna-tabela texto-grande"><c:out value="${cm.get('soma')}"/></td>
+                        <td class="coluna-tabela texto-grande">.</td>
                     </tr>
                 </c:forEach>
             </table>
         </div>        
     </div>
 </div>
-	
-	
 		</div>
+		<%@ include file="../rodape.jsp"%>
 </body>
 </html>

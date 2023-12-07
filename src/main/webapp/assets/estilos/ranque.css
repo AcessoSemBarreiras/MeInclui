@@ -11,7 +11,9 @@
 	grid-template-columns: repeat(12, 1fr);
 	grid-template-row: repeat(11, 1fr);
 }
-
+.tela{
+	margin-bottom: 5%; 
+}
 .linha {
 	display: flex;
 	align-items: center;
@@ -131,6 +133,63 @@
 	border-top: 1px solid var(--cinza);
 }
 
+.div-titulo-outros{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin: 2%;
+}
+
 .titulo-outros{
+	font-size: 2em;
 	color: var(--laranja);
+	
+}
+
+.div-tabela-outros{
+	border: 1px solid var(--azul);
+	width: 100%;
+	border-radius: 10px;
+}
+
+
+.linha-tabela{
+	height: 25%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+
+.cabecalho-tabela{
+	width: 31%;
+	height: 25%;
+	color: var(--azul);
+}
+
+.cabecalho-tabela-posicao{
+	width: 5%;
+	height: 25%;
+	color: var(--azul);
+	text-align: center;
+}
+
+.coluna-tabela{
+	width: 31%;
+	height: 25%;
+	display: flex;
+	align-items: center;
+	font-weight: 100;
+	justify-content: center;
+}
+
+.coluna-tabela-posicao{
+	width: 5%;
+	height: 25%;
+	display: flex;
+}
+.img-usuario-tabela{
+	width: 25%;
+	height: 25%;
+	border-radius: 50%;
 }
