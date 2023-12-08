@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+:root{
+    --laranja: #FF781C;
+    --branco: #FFFFFF;
+    --azul: #03326C;
+    --cinza: #D1D3D2;
+    --preto: #251212;
+    --cinza-escuro: #6A6A6A;
+    --laranja-escuro: #E76D1B; 
+
+    /*Fontes*/
+
+    --fontes-geral:'Inter', sans-serif;
+}
+
+/*Textos*/
+[class*="texto-"]{
+    font-family: var(--fontes-geral);
+}
+
+.texto-pequeno {
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.texto-grande{
+    font-size: 1.56em;
+    font-weight: 700;
+}
+
+.texto-medio{
+    font-size: 1.25em;
+    font-weight: 500;
+}
+
+.texto-principal{
+	font-size: 1.25em;
+	font-weight: 600;
+	color: var(--laranja);
+}
+
+.texto-secundario{
+	font-size: 1em;
+	font-weight: 500;
+	color: var(--azul);
+}
+
+/*imagens*/
+
+
+/*Grid - Posicionamento*/
+
+.template-grid{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.grid-esquerda{
+    grid-column: 2 / 7;
+}
+
+.grid-direita{
+    grid-column: 7 / 12;
+}
+
+/* Botões */
+
+[class*="botao-"]{
+    transition: height 500ms, width 500ms ease;
+    background-color: var(--laranja);
+}
+
+[class*="botao-"] a{
+	color: var(--branco);
+}
+
+[class*="botao-"]:hover{
+    transform: scale(1.1);
+    background-color: var(--laranja-escuro);     
+}
+
+[class*="botao-"]:active{
+    transform: scale(1.1);
+    background-color: var(--azul);
+}
+
+[class*="botao-"]::before{
+    transform: scale(1.1);
+    background-color: var(--azul);
+}
+
+.botao-pequeno{
+    width: 97.59px;
+    height: 34.38px;
+    border-radius: 10px;
+    border: #E76D1B;
+}
+
+.botao-medio{
+    width: 127px; 
+    height: 60px;
+    border-radius: 10px;
+    border: #E76D1B;
+}
+
+.botao-grande{
+    width: 162px;
+    height: 50px;
+    border-radius: 10px;
+    border: #E76D1B;
+}
+
+.botao-secundario{
+	border: none;
+	height: 23px;
+	color: white;
+	border-radius: 5px;
+}
+
+/*Título Cadastro*/
+.titulo-cadastro{
+    display: flex;
+    grid-column: 3 / 12;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+
+/* Formulários */
+ 
+.formulario-esquerda, .formulario-direita {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 50px;
+
+}
+#formulario{
+    margin-top: 80px;
+}
+.formulario-esquerda {
+    grid-column: 3 / 5;
+    align-items: flex-start;
+}
+ 
+.formulario-direita {
+    grid-column: 6  / 8; 
+    align-items: flex-end;
+}
+
+
+
+/*Cabeçalho*/
+
+
+.cabecalho-geral{
+    grid-column: 3 / 11;    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    position: sticky;
+    top: 0;
+    background-color: var(--branco);
+}
+
+.cabecalho-geral img {
+    width: 50px;
+}
+
+.cabecalho-geral .dive{ /*Mudar esse nome "dive"*/
+    display: flex;
+    gap: 12px;
+}
+
+/* Rodapé */
+/*arrrumar todo o rodapé*/
+footer{
+    width: 1920px;
+    height: 206px;
+    padding-top: 55px;
+    background-color: #03326C;
+}
+
+[class*="rodape-"]{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.rodape-contato{
+    columns: 2 / 4;
+}
+
+.rodape-social{
+    columns: 6 / 9;
+}
+
+/*Cards*/
+
+/*Checkbox*/
+
+input[type=checkbox]{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font: inherit;
+    color: inherit;
+    width: 40px;
+    height: 40px;
+    border: 0.15em solid var(--azul);
+    border-radius: 0.65em;
+    display: grid;
+    place-content: center;
+}
+
+input[type=checkbox]::before{
+    content: "";
+    width: 1.5em;
+    height: 1.5em;
+    -webkit-clip-path: polygon(24% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    clip-path: polygon(24% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    background-color: CanvasText;
+    background-color: var(--azul);
+}

@@ -1,0 +1,192 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    border-style: none;
+    box-sizing: border-box;
+}
+form input[type="text"], input[type="email"], input[type="date"], input[type="password"], select{
+    text-indent: 10px;
+    font-size: 20px;
+    color: var(--azul);
+    border-radius: 10px;
+    border: 2px solid var(--azul);
+    background: var(--branco);
+    width: 90%;
+    height: 50%;
+}
+
+form input:focus-visible{
+    outline: 2px solid var(--azul);
+    outline-offset: -1px;
+}
+ 
+form input::placeholder{
+    color: var(--cinza-escuro);
+    font-family: var(--fontes-geral);
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1px;
+}
+.cont-cad{
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	grid-template-rows: repeat(12,1fr);
+}
+.paginacao {
+	display: flex;
+	height: 50%;
+	width: 100%;
+	gap: 10px;
+}
+.paginacao p{
+	display: grid;
+	place-items: center;
+	font-family: var(--fontes-geral);
+	font-size: 1.1em;
+	height: 35px;
+	width: 35px;
+	border: 1px solid var(--cinza);
+	color: var(--cinza);
+	border-radius: 7px;
+}
+.paginacao span{
+	display: flex;
+	align-items: center;
+	width: 10%;
+	border-bottom: 3px solid var(--cinza);
+	margin-bottom: 6%;
+	border-radius: 1px;
+}
+.atual{
+	border: 1px solid var(--laranja) !important;
+	color: var(--branco) !important;
+	background-color: var(--laranja);
+}
+#passada{
+	color: var(--laranja) !important;
+	border: 2px solid var(--laranja);
+	font-weight: 600;
+}
+h1{
+	color: var(--laranja);
+}
+/*Posições*/
+
+#titulo{
+	grid-column: 3/7;
+	grid-row: 2;
+}
+
+#voltar{
+	grid-column: 11;
+	grid-row: 2;	
+}
+
+.paginacao{
+	grid-column: 3/5;
+	grid-row: 3;
+}
+
+#nome-est{
+	grid-column: 5/8;
+	grid-row: 5;
+}
+
+#categorias{
+	grid-column: 5/8;
+	grid-row: 6;
+}
+
+.foto{
+	grid-column: 8/11;
+	grid-row: 4/10;
+}
+
+.insira-foto{
+	grid-column: 3/5;
+	grid-row: 4/8;
+}
+
+#continuar{
+	grid-column: 6/7;
+	grid-row: 8;
+}
+
+#continuar{
+	height: 100%;
+	width: 80%;
+	display: flex;
+}
+
+#continuar input{
+	text-decoration: none;
+	display: grid;
+	place-items: center;	
+	height: 40%;
+	width: 100%;
+	border: 1px solid var(--laranja);
+	border-radius: 8px;
+	color: var(--branco);
+	background-color: var(--laranja);
+	cursor: pointer;
+}
+
+#voltar a{
+	color: var(--azul);
+	text-decoration: none;
+	font-family: var(--fontes-geral);
+}
+
+
+
+/*-------------------------------------------------*/
+
+#cont-cad2{
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	grid-template-rows: repeat(12,1fr);
+}
+
+#passada{
+	color: var(--laranja) !important;
+	border: 2px solid var(--laranja);
+	font-weight: 600;
+}
+
+#tipo{
+	grid-column: 3/6;
+	grid-row: 5/6;
+}
+
+#logradouro{
+	grid-column: 3/6;
+	grid-row: 6/7;
+}
+
+#cidade{
+	grid-column: 3/6;
+	grid-row: 7/8;
+}
+
+#complemento{
+	grid-column: 3/6;
+	grid-row: 8/9;
+}
+
+#numero{
+	grid-column: 6/9;
+	grid-row: 5/6;
+}
+
+#estado{
+	grid-column: 6/9;
+	grid-row: 6/7;
+}
+
+#bairro{
+	grid-column: 6/9;
+	grid-row: 7/8;
+}

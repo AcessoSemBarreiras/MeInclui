@@ -1,0 +1,197 @@
+* {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	border-style: none;
+	box-sizing: border-box;
+	z-index: 1;
+}
+
+
+/*CARDS*/
+
+.filtro{
+	grid-column: 3/11;
+}
+.barra-pesquisa {
+	border: 1px solid var(--azul);
+	border-radius: 10px;
+	margin: 10px;
+	height: 25%;
+	display: flex;
+}
+
+#campo-texto {
+	border: 0px;
+	width: 90%;
+	outline: none;
+}
+
+
+#lupa-pesquisa {
+	padding: 5px;
+	border-radius: 8px 0 0 8px;
+	width: 5%;
+	height: 5%;
+	background-color: var(--laranja);
+}
+
+#img-lupa-pesquisa{
+	margin: auto;
+	display: block;
+	width: 75%;
+	height: 75%;
+	
+}
+
+#filtro-pesquisa{
+	padding: 5px;
+	width: 5%;
+	height: 5%;
+}
+
+#img-filtro-pesquisa {
+	margin: auto;
+	display: block;
+	width: 75%;
+	height: 75%;
+	
+}
+
+#filtros {
+	grid-column: 3/10;
+	border: 1px solid var(--azul);
+	border-radius: 10px;
+	display: none;
+	background-color: #D1D3D2;
+	height: 100%;
+	width: 100%;
+    justify-content: center;
+    padding: 3% 2% 3% 10px;
+}
+
+.controlador{
+	width: 10%;
+	height: 25%;
+}
+#filtrar {
+	width: 50%;
+	height: 100%;	
+}
+
+[class*="filtrar-"]{
+	width: 100%;
+	height: 20%;
+}
+
+.card-filtros *{
+	display: grid;
+	place-items: center;
+}
+
+.card-filtros p{
+	display: grid;
+	place-items: center;
+	font-weight: 100;
+	color: var(--laranja);
+	border-bottom: 1px solid var(--azul);
+	width: 100%;
+	margin: 2%;
+}
+.card-filtros {
+	height: 80%;
+	width: 25%;
+	margin: 2%;
+	padding: 20px;
+	background-color: var(--branco);
+	border-radius: 10px;
+}
+
+.card-filtros input{
+	width: 100%;
+}
+
+.conteudo-pesquisa{
+	grid-column: 3/11;
+	display: flex;
+    height: 100vh;
+    margin-top: 2%;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 2%;
+    padding-left: 1%;
+}
+
+.card-estabelecimento{
+	width: 23.2%;
+	height: 43%;
+	border: 1px solid var(--azul);
+	border-radius: 10px;
+	box-sizing: border-box;
+}
+
+.conteudo-estabelecimento{
+	width: 100%;
+	height: 50%;
+	padding: 1%;
+}
+
+.conteudo-card{
+	margin: 5px;
+}
+
+.foto-estabelecimento{
+	width: 100%;
+	height: 50%;
+}
+
+.img-foto-estabelecimento{
+	width: 100%;
+	height: 100%;
+	border: 1px solid var(--azul);
+	border-radius: 9px;
+	grid-column: 1/12;
+}
+
+.primeira-linha{
+	display: flex;
+	width: 100%;
+}
+
+.segunda-linha{
+	display: flex;
+	width: 100%;
+}
+.nome-estabelecimento{
+	width: 75%;
+	height: 25%;
+	color: var(--preto);
+}
+
+.nota-estabelecimento{
+	width: 20%;
+	height: 25%;
+	display: flex;
+	justify-content: end;
+}
+
+.categoria-estabelecimento{
+	width: 50%;
+	height: 25%;
+}
+
+.favoritar-estabelecimento{
+	width: 50%;
+	height: 25%;
+	display: flex;
+	justify-content: end;
+}
+
+.endereco-estabelecimento{
+	grid-column: 1/3;
+	font-size: small;
+	color: var(--azul);
+	text-align: center;
+	width: 100%;
+	height: 25%;
+}
